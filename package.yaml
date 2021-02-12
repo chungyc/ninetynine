@@ -11,8 +11,8 @@ extra-source-files:
 - ChangeLog.md
 
 # Metadata used when publishing your package
-# synopsis:            Short description of your package
-# category:            Web
+synopsis:            Solutions to Ninety-Nine Haskell Problems
+category:            Education
 
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
@@ -46,3 +46,5 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - ninetynine
+    - hspec
+    - QuickCheck
