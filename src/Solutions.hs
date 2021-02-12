@@ -58,11 +58,9 @@ myLength (_:xs) = 1 + myLength xs
 
 -- | Reverse a list.
 myReverse :: [a] -> [a]
-myReverse xs = snd $ accumulateReverse (xs, [])
-
-accumulateReverse :: ([a], [a]) -> ([a], [a])
-accumulateReverse ([], xs)   = ([], xs)
-accumulateReverse (x:xs, ys) = accumulateReverse (xs, x:ys)
+myReverse l = snd $ accumulate (l, [])
+  where accumulate ([], xs)   = ([], xs)
+        accumulate (x:xs, ys) = accumulate (xs, x:ys)
 
 -- | Find out whether a list is a palindrome.
 -- A palindrome can be read forward or backward; e.g. (x a m a x).
