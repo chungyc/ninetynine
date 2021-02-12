@@ -1,10 +1,11 @@
+{-# LANGUAGE DeriveGeneric #-}
+
 {- |
 Description : Ninety-Nine Haskell Solutions
 Maintainer  : dev@chungyc.org
 
 Solutions to the [99 Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
 -}
-
 module Solutions (
   -- * Problem 1
   myLast,
@@ -18,7 +19,12 @@ module Solutions (
   myReverse,
   -- * Problem 6
   isPalindrome,
+  -- * Problem 7
+  NestedList (Elem, List),
+  flatten,
   ) where
+
+import           GHC.Generics (Generic)
 
 -- | Find the last element of a list.
 myLast :: [a] -> a
@@ -59,3 +65,15 @@ accumulateReverse (x:xs, ys) = accumulateReverse (xs, x:ys)
 -- A palindrome can be read forward or backward; e.g. (x a m a x).
 isPalindrome :: (Eq a) => [a] -> Bool
 isPalindrome xs = xs == myReverse xs
+
+-- | A list type with arbitrary nesting of lists.
+data NestedList a = Elem a | List [NestedList a]
+  deriving (Show, Generic)
+
+-- | Flatten a nested list structure.
+--
+-- Transform a list, possibly holding lists as elements,
+-- into a `flat' list by replacing each list with its elements (recursively).
+flatten :: NestedList a -> [a]
+flatten (Elem x)  = [x]
+flatten (List xs) = concat $ map flatten xs

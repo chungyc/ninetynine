@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 15ebfec53afd523fb96919acd5fb63d4727785456879db16841df6407b864ee0
+-- hash: 68c2cbb2d3b34d022f3b33c01105ab93e2d5a3359f9b1180b12e82f4d62d1b73
 
 name:           ninetynine
 version:        0.1.0.0
@@ -62,6 +62,7 @@ test-suite ninetynine-test
   build-depends:
       QuickCheck
     , base >=4.7 && <5
+    , generic-random
     , hspec
     , ninetynine
   default-language: Haskell2010

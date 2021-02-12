@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
+
 {- |
 Description : Ninety-Nine Haskell Solutions
 Maintainer  : dev@chungyc.org
@@ -6,10 +8,14 @@ The [99 Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Pro
 -}
 module SolutionsSpec (spec) where
 
+import           Generic.Random
 import           Solutions
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
+
+instance Arbitrary a => Arbitrary (NestedList a) where
+  arbitrary = genericArbitraryRec (9 % 8 % ()) `withBaseCase` (Elem <$> arbitrary)
 
 spec :: Spec
 spec = do
@@ -105,3 +111,21 @@ spec = do
 
       it "isPalindrome [1,2,4,8,16,8,4,2,1]" $ do
         isPalindrome ([1,2,4,8,16,8,4,2,1] :: [Int]) `shouldBe` True
+
+  describe "Problem 7" $ do
+    describe "flatten" $ do
+      prop "returns flattened list" $
+        \xs -> let naiveFlatten (Elem x) = [x]
+                   naiveFlatten (List l) = concat $ map naiveFlatten l
+               in flatten xs `shouldBe` naiveFlatten (xs :: NestedList Int)
+
+    describe "Examples" $ do
+      it "flatten (Elem 5)" $ do
+        flatten (Elem 5) `shouldBe` [5 :: Int]
+
+      it "flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]])" $ do
+        flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]])
+          `shouldBe` ([1,2,3,4,5] :: [Int])
+
+      it "flatten (List [])" $ do
+        flatten (List []) `shouldBe` ([] :: [Int])
