@@ -155,3 +155,25 @@ spec = do
     describe "Examples" $ do
       it "compress \"aaaabccaadeeee\"" $ do
         compress "aaaabccaadeeee" `shouldBe` "abcade"
+
+  describe "Problem 9" $ do
+    describe "pack" $ do
+      prop "places identical elements in a sublist" $
+        \l -> let repeated []           = True
+                  repeated [_]          = True
+                  repeated (x:ys@(y:_)) = x == y && repeated ys
+              in classify (l == compress l) "trivial" $
+                 pack (l :: [Int]) `shouldSatisfy` all repeated
+
+      prop "has expected sublist for each consecutive segment" $
+        \l -> classify (l == compress l) "trivial" $
+              map head (pack l) `shouldBe` compress (l :: [Int])
+
+      prop "has the same elements but in sublists" $
+        \l -> classify (l == compress l) "trivial" $
+              (concat .  pack) (l :: [Int]) `shouldBe` l
+
+    describe "Examples" $ do
+      it "pack ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e']" $ do
+        pack ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e']
+          `shouldBe` ["aaaa","b","cc","aa","d","eeee"]

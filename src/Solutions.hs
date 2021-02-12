@@ -24,6 +24,8 @@ module Solutions (
   flatten,
   -- * Problem 8
   compress,
+  -- * Problem 9
+  pack,
   ) where
 
 import           GHC.Generics (Generic)
@@ -90,3 +92,15 @@ compress [x] = [x]
 compress (x:ys@(y:_))
   | x == y    = compress ys
   | otherwise = x : compress ys
+
+-- | Pack consecutive duplicates of list elements into sublists.
+-- If a list contains repeated elements they should be placed in separate sublists.
+pack :: (Eq a) => [a] -> [[a]]
+pack [] = []
+pack xs =
+  let (duplicates, remainder) = extract xs
+  in duplicates : pack remainder
+  where extract (x : ys@(y : _))
+          | x == y    = let (d, r) = extract ys in (x : d, r)
+          | otherwise = ([x], ys)
+        extract l = (l, [])
