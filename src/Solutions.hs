@@ -10,17 +10,27 @@ module Solutions (
   myLast,
   -- * Problem 2
   myButLast,
+  -- * Problem 3
+  elementAt,
   ) where
 
 -- | Find the last element of a list.
 myLast :: [a] -> a
-myLast [] = undefined
-myLast [x] = x
+myLast []     = undefined
+myLast [x]    = x
 myLast (_:xs) = myLast xs
 
 -- | Find the last but one element of a list.
 myButLast :: [a] -> a
-myButLast [] = undefined
-myButLast [_] = undefined
-myButLast [x,_] = x
+myButLast []     = undefined
+myButLast [_]    = undefined
+myButLast [x,_]  = x
 myButLast (_:xs) = myButLast xs
+
+-- | Find the K'th element of a list. The first element in the list is number 1.
+elementAt :: [a] -> Int -> a
+elementAt [] _ = undefined
+elementAt (x:xs) k
+  | k == 1    = x
+  | k > 1     = elementAt xs (k-1)
+  | otherwise = undefined

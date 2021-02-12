@@ -6,9 +6,9 @@ The [99 Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Pro
 -}
 module SolutionsSpec (spec) where
 
-import Solutions
-import Test.Hspec
-import Test.QuickCheck
+import           Solutions
+import           Test.Hspec
+import           Test.QuickCheck
 
 spec :: Spec
 spec = do
@@ -31,3 +31,15 @@ spec = do
 
     it "has example: myButLast ['a'..'z']" $ do
       myButLast ['a'..'z'] `shouldBe` 'y'
+
+  describe "Problem 3" $ do
+    it "returns the K'th element of a list" $ property $ do
+      \(Positive k) -> \j ->
+        let l = (replicate (k-1) 'x' ++ ['y'] ++ replicate j 'x')
+        in elementAt l k `shouldBe` 'y'
+
+    it "has example: elementAt [1,2,3] 2" $ do
+      elementAt [1,2,3] 2 `shouldBe` (2 :: Int)
+
+    it "has example: elementAt \"haskell\" 5" $ do
+      elementAt "haskell" 5 `shouldBe` 'e'
