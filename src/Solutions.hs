@@ -14,6 +14,8 @@ module Solutions (
   elementAt,
   -- * Problem 4
   myLength,
+  -- * Problem 5
+  myReverse,
   ) where
 
 -- | Find the last element of a list.
@@ -41,3 +43,11 @@ elementAt (x:xs) k
 myLength :: [a] -> Int
 myLength []     = 0
 myLength (_:xs) = 1 + myLength xs
+
+-- | Reverse a list.
+myReverse :: [a] -> [a]
+myReverse xs = snd $ accumulateReverse (xs, [])
+
+accumulateReverse :: ([a], [a]) -> ([a], [a])
+accumulateReverse ([], xs)   = ([], xs)
+accumulateReverse (x:xs, ys) = accumulateReverse (xs, x:ys)
