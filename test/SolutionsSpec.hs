@@ -43,3 +43,16 @@ spec = do
 
     it "has example: elementAt \"haskell\" 5" $ do
       elementAt "haskell" 5 `shouldBe` 'e'
+
+  describe "Problem 4" $ do
+    it "returns zero length for empty list" $ do
+      myLength [] `shouldBe` 0
+
+    it "satisfies induction" $ property $ do
+      \l -> myLength ('x':l) `shouldBe` 1 + myLength l
+
+    it "has example: myLength [123, 456, 789]" $ do
+      myLength ([123, 456, 789] :: [Int]) `shouldBe` 3
+
+    it "has example: myLength \"Hello, world!\"" $ do
+      myLength "Hello, world!" `shouldBe` 13
