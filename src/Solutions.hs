@@ -22,6 +22,8 @@ module Solutions (
   -- * Problem 7
   NestedList (Elem, List),
   flatten,
+  -- * Problem 8
+  compress,
   ) where
 
 import           GHC.Generics (Generic)
@@ -77,3 +79,14 @@ data NestedList a = Elem a | List [NestedList a]
 flatten :: NestedList a -> [a]
 flatten (Elem x)  = [x]
 flatten (List xs) = concat $ map flatten xs
+
+-- | Eliminate consecutive duplicates of list elements.
+--
+-- If a list contains repeated elements, they should be replaced with a single copy of the element.
+-- The order of the elements should not be changed.
+compress :: (Eq a) => [a] -> [a]
+compress [] = []
+compress [x] = [x]
+compress (x:ys@(y:_))
+  | x == y    = compress ys
+  | otherwise = x : compress ys
