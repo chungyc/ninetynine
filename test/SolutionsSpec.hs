@@ -16,21 +16,23 @@ spec = do
     it "returns last element in non-empty list" $ property $ do
       \xs -> \x -> myLast (xs ++ [x]) === (x :: Int)
 
-    it "has example: myLast [1,2,3,4]" $ do
-      myLast [1,2,3,4] `shouldBe` (4 :: Int)
+    describe "Examples" $ do
+      it "myLast [1,2,3,4]" $ do
+        myLast [1,2,3,4] `shouldBe` (4 :: Int)
 
-    it "has example: myLast ['x','y','z']" $ do
-      myLast ['x','y','z'] `shouldBe` 'z'
+      it "myLast ['x','y','z']" $ do
+        myLast ['x','y','z'] `shouldBe` 'z'
 
   describe "Problem 2" $ do
     it "returns the last but one element in non-empty list" $ property $ do
       \xs -> \x -> \y -> myButLast (xs ++ [x,y]) == (x :: Int)
 
-    it "has example: myButLast [1,2,3,4]" $ do
-      myButLast [1,2,3,4] `shouldBe` (3 :: Int)
+    describe "Examples" $ do
+      it "myButLast [1,2,3,4]" $ do
+        myButLast [1,2,3,4] `shouldBe` (3 :: Int)
 
-    it "has example: myButLast ['a'..'z']" $ do
-      myButLast ['a'..'z'] `shouldBe` 'y'
+      it "myButLast ['a'..'z']" $ do
+        myButLast ['a'..'z'] `shouldBe` 'y'
 
   describe "Problem 3" $ do
     it "returns the K'th element of a list" $ property $ do
@@ -38,11 +40,12 @@ spec = do
         let l = (replicate (k-1) 'x' ++ ['y'] ++ replicate j 'x')
         in elementAt l k `shouldBe` 'y'
 
-    it "has example: elementAt [1,2,3] 2" $ do
-      elementAt [1,2,3] 2 `shouldBe` (2 :: Int)
+    describe "Examples" $ do
+      it "elementAt [1,2,3] 2" $ do
+        elementAt [1,2,3] 2 `shouldBe` (2 :: Int)
 
-    it "has example: elementAt \"haskell\" 5" $ do
-      elementAt "haskell" 5 `shouldBe` 'e'
+      it "elementAt \"haskell\" 5" $ do
+        elementAt "haskell" 5 `shouldBe` 'e'
 
   describe "Problem 4" $ do
     it "returns zero length for empty list" $ do
@@ -51,11 +54,12 @@ spec = do
     it "satisfies induction" $ property $ do
       \l -> myLength ('x':l) `shouldBe` 1 + myLength l
 
-    it "has example: myLength [123, 456, 789]" $ do
-      myLength ([123, 456, 789] :: [Int]) `shouldBe` 3
+    describe "Examples" $ do
+      it "myLength [123, 456, 789]" $ do
+        myLength ([123, 456, 789] :: [Int]) `shouldBe` 3
 
-    it "has example: myLength \"Hello, world!\"" $ do
-      myLength "Hello, world!" `shouldBe` 13
+      it "myLength \"Hello, world!\"" $ do
+        myLength "Hello, world!" `shouldBe` 13
 
   describe "Problem 5" $ do
     it "returns reversed list" $ property $ do
@@ -66,11 +70,12 @@ spec = do
     it "returns original from reversed list" $ property $ do
       \l -> myReverse (myReverse l) `shouldBe` (l :: [Int])
 
-    it "has example: myReverse \"A man, a plan, a canal, panama!\"" $ do
-      myReverse "A man, a plan, a canal, panama!" `shouldBe` "!amanap ,lanac a ,nalp a ,nam A"
+    describe "Examples" $ do
+      it "myReverse \"A man, a plan, a canal, panama!\"" $ do
+        myReverse "A man, a plan, a canal, panama!" `shouldBe` "!amanap ,lanac a ,nalp a ,nam A"
 
-    it "has example: myReverse [1,2,3,4]" $ do
-      myReverse [1,2,3,4] `shouldBe` ([4,3,2,1] :: [Int])
+      it "myReverse [1,2,3,4]" $ do
+        myReverse [1,2,3,4] `shouldBe` ([4,3,2,1] :: [Int])
 
   describe "Problem 6" $ do
     it "returns true for even-length palindromes" $ property $ do
@@ -84,11 +89,12 @@ spec = do
     it "returns false for non-palindromes" $ property $ do
       \xs -> (xs :: [Int]) /= myReverse xs ==> isPalindrome xs `shouldBe` False
 
-    it "has example: isPalindrome [1,2,3]" $ do
-      isPalindrome ([1,2,3] :: [Int]) `shouldBe` False
+    describe "Examples" $ do
+      it "isPalindrome [1,2,3]" $ do
+        isPalindrome ([1,2,3] :: [Int]) `shouldBe` False
 
-    it "has example: isPalindrome \"madamimadam\"" $ do
-      isPalindrome "madamimadam" `shouldBe` True
+      it "isPalindrome \"madamimadam\"" $ do
+        isPalindrome "madamimadam" `shouldBe` True
 
-    it "has example: isPalindrome [1,2,4,8,16,8,4,2,1]" $ do
-      isPalindrome ([1,2,4,8,16,8,4,2,1] :: [Int]) `shouldBe` True
+      it "isPalindrome [1,2,4,8,16,8,4,2,1]" $ do
+        isPalindrome ([1,2,4,8,16,8,4,2,1] :: [Int]) `shouldBe` True
