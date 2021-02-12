@@ -71,3 +71,24 @@ spec = do
 
     it "has example: myReverse [1,2,3,4]" $ do
       myReverse [1,2,3,4] `shouldBe` ([4,3,2,1] :: [Int])
+
+  describe "Problem 6" $ do
+    it "returns true for even-length palindromes" $ property $ do
+      \xs -> let palindrome = (xs :: [Int]) ++ myReverse xs
+             in isPalindrome palindrome `shouldBe` True
+
+    it "returns true for odd-length palindromes" $ property $ do
+      \xs -> \x -> let palindrome = xs ++ [x :: Int] ++ myReverse xs
+                   in isPalindrome palindrome `shouldBe` True
+
+    it "returns false for non-palindromes" $ property $ do
+      \xs -> (xs :: [Int]) /= myReverse xs ==> isPalindrome xs `shouldBe` False
+
+    it "has example: isPalindrome [1,2,3]" $ do
+      isPalindrome ([1,2,3] :: [Int]) `shouldBe` False
+
+    it "has example: isPalindrome \"madamimadam\"" $ do
+      isPalindrome "madamimadam" `shouldBe` True
+
+    it "has example: isPalindrome [1,2,4,8,16,8,4,2,1]" $ do
+      isPalindrome ([1,2,4,8,16,8,4,2,1] :: [Int]) `shouldBe` True

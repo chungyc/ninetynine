@@ -16,6 +16,8 @@ module Solutions (
   myLength,
   -- * Problem 5
   myReverse,
+  -- * Problem 6
+  isPalindrome,
   ) where
 
 -- | Find the last element of a list.
@@ -31,7 +33,8 @@ myButLast [_]    = undefined
 myButLast [x,_]  = x
 myButLast (_:xs) = myButLast xs
 
--- | Find the K'th element of a list. The first element in the list is number 1.
+-- | Find the K'th element of a list.
+-- The first element in the list is number 1.
 elementAt :: [a] -> Int -> a
 elementAt [] _ = undefined
 elementAt (x:xs) k
@@ -51,3 +54,8 @@ myReverse xs = snd $ accumulateReverse (xs, [])
 accumulateReverse :: ([a], [a]) -> ([a], [a])
 accumulateReverse ([], xs)   = ([], xs)
 accumulateReverse (x:xs, ys) = accumulateReverse (xs, x:ys)
+
+-- | Find out whether a list is a palindrome.
+-- A palindrome can be read forward or backward; e.g. (x a m a x).
+isPalindrome :: (Eq a) => [a] -> Bool
+isPalindrome xs = xs == myReverse xs
