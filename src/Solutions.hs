@@ -32,16 +32,15 @@ import           GHC.Generics (Generic)
 
 -- | Find the last element of a list.
 myLast :: [a] -> a
-myLast []     = undefined
 myLast [x]    = x
 myLast (_:xs) = myLast xs
+myLast _      = undefined
 
 -- | Find the last but one element of a list.
 myButLast :: [a] -> a
-myButLast []     = undefined
-myButLast [_]    = undefined
 myButLast [x,_]  = x
 myButLast (_:xs) = myButLast xs
+myButLast _      = undefined
 
 -- | Find the K'th element of a list.
 -- The first element in the list is number 1.
@@ -87,11 +86,10 @@ flatten (List xs) = concat $ map flatten xs
 -- If a list contains repeated elements, they should be replaced with a single copy of the element.
 -- The order of the elements should not be changed.
 compress :: (Eq a) => [a] -> [a]
-compress [] = []
-compress [x] = [x]
 compress (x:ys@(y:_))
   | x == y    = compress ys
   | otherwise = x : compress ys
+compress l = l
 
 -- | Pack consecutive duplicates of list elements into sublists.
 -- If a list contains repeated elements they should be placed in separate sublists.
