@@ -8,13 +8,15 @@ module SolutionsSpec (spec) where
 
 import           Solutions
 import           Test.Hspec
+import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 spec :: Spec
 spec = do
   describe "Problem 1" $ do
-    it "returns last element in non-empty list" $ property $ do
-      \xs -> \x -> myLast (xs ++ [x]) === (x :: Int)
+    describe "myLast" $ do
+      prop "returns last element in list" $
+        \xs -> \x -> myLast (xs ++ [x]) === (x :: Int)
 
     describe "Examples" $ do
       it "myLast [1,2,3,4]" $ do
@@ -24,8 +26,9 @@ spec = do
         myLast ['x','y','z'] `shouldBe` 'z'
 
   describe "Problem 2" $ do
-    it "returns the last but one element in non-empty list" $ property $ do
-      \xs -> \x -> \y -> myButLast (xs ++ [x,y]) == (x :: Int)
+    describe "myButLast" $ do
+      prop "returns the last but one element in list" $
+        \xs -> \x -> \y -> myButLast (xs ++ [x,y]) == (x :: Int)
 
     describe "Examples" $ do
       it "myButLast [1,2,3,4]" $ do
@@ -35,10 +38,11 @@ spec = do
         myButLast ['a'..'z'] `shouldBe` 'y'
 
   describe "Problem 3" $ do
-    it "returns the K'th element of a list" $ property $ do
-      \(Positive k) -> \j ->
-        let l = (replicate (k-1) 'x' ++ ['y'] ++ replicate j 'x')
-        in elementAt l k `shouldBe` 'y'
+    describe "elementAt" $ do
+      prop "returns the K'th element of a list" $
+        \(Positive k) -> \j ->
+          let l = (replicate (k-1) 'x' ++ ['y'] ++ replicate j 'x')
+          in elementAt l k `shouldBe` 'y'
 
     describe "Examples" $ do
       it "elementAt [1,2,3] 2" $ do
@@ -48,11 +52,12 @@ spec = do
         elementAt "haskell" 5 `shouldBe` 'e'
 
   describe "Problem 4" $ do
-    it "returns zero length for empty list" $ do
-      myLength [] `shouldBe` 0
+    describe "myLength" $ do
+      it "returns zero length for empty list" $ do
+        myLength [] `shouldBe` 0
 
-    it "satisfies induction" $ property $ do
-      \l -> myLength ('x':l) `shouldBe` 1 + myLength l
+      prop "satisfies induction" $
+        \l -> myLength ('x':l) `shouldBe` 1 + myLength l
 
     describe "Examples" $ do
       it "myLength [123, 456, 789]" $ do
@@ -62,13 +67,14 @@ spec = do
         myLength "Hello, world!" `shouldBe` 13
 
   describe "Problem 5" $ do
-    it "returns reversed list" $ property $ do
-      \l -> let naiveReverse []     = []
-                naiveReverse (x:xs) = (naiveReverse xs) ++ [x]
-            in myReverse l `shouldBe` naiveReverse (l :: [Int])
+    describe "myReverse" $ do
+      prop "returns reversed list" $
+        \l -> let naiveReverse []     = []
+                  naiveReverse (x:xs) = (naiveReverse xs) ++ [x]
+              in myReverse l `shouldBe` naiveReverse (l :: [Int])
 
-    it "returns original from reversed list" $ property $ do
-      \l -> myReverse (myReverse l) `shouldBe` (l :: [Int])
+      prop "returns original from reversed list" $
+        \l -> myReverse (myReverse l) `shouldBe` (l :: [Int])
 
     describe "Examples" $ do
       it "myReverse \"A man, a plan, a canal, panama!\"" $ do
@@ -78,16 +84,17 @@ spec = do
         myReverse [1,2,3,4] `shouldBe` ([4,3,2,1] :: [Int])
 
   describe "Problem 6" $ do
-    it "returns true for even-length palindromes" $ property $ do
-      \xs -> let palindrome = (xs :: [Int]) ++ myReverse xs
-             in isPalindrome palindrome `shouldBe` True
+    describe "isPalindrome" $ do
+      prop "returns true for even-length palindromes" $
+        \xs -> let palindrome = (xs :: [Int]) ++ myReverse xs
+               in isPalindrome palindrome `shouldBe` True
 
-    it "returns true for odd-length palindromes" $ property $ do
-      \xs -> \x -> let palindrome = xs ++ [x :: Int] ++ myReverse xs
-                   in isPalindrome palindrome `shouldBe` True
+      prop "returns true for odd-length palindromes" $
+        \xs -> \x -> let palindrome = xs ++ [x :: Int] ++ myReverse xs
+                     in isPalindrome palindrome `shouldBe` True
 
-    it "returns false for non-palindromes" $ property $ do
-      \xs -> (xs :: [Int]) /= myReverse xs ==> isPalindrome xs `shouldBe` False
+      prop "returns false for non-palindromes" $
+        \xs -> (xs :: [Int]) /= myReverse xs ==> isPalindrome xs `shouldBe` False
 
     describe "Examples" $ do
       it "isPalindrome [1,2,3]" $ do
