@@ -19,29 +19,6 @@ instance Arbitrary a => Arbitrary (NestedList a) where
 
 spec :: Spec
 spec = do
-  describe "Problem 6" $ do
-    describe "isPalindrome" $ do
-      prop "returns true for even-length palindromes" $
-        \xs -> let palindrome = (xs :: [Int]) ++ myReverse xs
-               in isPalindrome palindrome `shouldBe` True
-
-      prop "returns true for odd-length palindromes" $
-        \xs -> \x -> let palindrome = xs ++ [x :: Int] ++ myReverse xs
-                     in isPalindrome palindrome `shouldBe` True
-
-      prop "returns false for non-palindromes" $
-        \xs -> (xs :: [Int]) /= myReverse xs ==> isPalindrome xs `shouldBe` False
-
-    describe "Examples" $ do
-      it "isPalindrome [1,2,3]" $ do
-        isPalindrome ([1,2,3] :: [Int]) `shouldBe` False
-
-      it "isPalindrome \"madamimadam\"" $ do
-        isPalindrome "madamimadam" `shouldBe` True
-
-      it "isPalindrome [1,2,4,8,16,8,4,2,1]" $ do
-        isPalindrome ([1,2,4,8,16,8,4,2,1] :: [Int]) `shouldBe` True
-
   describe "Problem 7" $ do
     describe "flatten" $ do
       prop "returns flattened list" $
