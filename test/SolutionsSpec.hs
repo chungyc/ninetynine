@@ -19,32 +19,6 @@ instance Arbitrary a => Arbitrary (NestedList a) where
 
 spec :: Spec
 spec = do
-  describe "Problem 8" $ do
-    describe "compress" $ do
-      prop "leaves no consecutive duplicates" $
-        \l -> let consecutive []           = False
-                  consecutive [_]          = False
-                  consecutive (x:xs@(y:_)) = x == y || consecutive xs
-              in classify (not . consecutive $ l) "trivial" $
-                 compress (l :: [Int]) `shouldSatisfy` not . consecutive
-
-      prop "leaves elements in same order" $
-        \l -> let consume _ [] = []
-                  consume x (y:ys)
-                    | x == y    = consume x ys
-                    | otherwise = (y:ys)
-                  sameOrder ([], []) = True
-                  sameOrder ([], _)  = False
-                  sameOrder (_, [])  = False
-                  sameOrder (x:xs, y:ys)
-                    | x == y    = sameOrder (consume x xs, consume y ys)
-                    | otherwise = False
-              in (l, compress (l :: [Int])) `shouldSatisfy` sameOrder
-
-    describe "Examples" $ do
-      it "compress \"aaaabccaadeeee\"" $ do
-        compress "aaaabccaadeeee" `shouldBe` "abcade"
-
   describe "Problem 9" $ do
     describe "pack" $ do
       prop "places identical elements in a sublist" $
