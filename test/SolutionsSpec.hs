@@ -19,18 +19,6 @@ instance Arbitrary a => Arbitrary (NestedList a) where
 
 spec :: Spec
 spec = do
-  describe "Problem 2" $ do
-    describe "myButLast" $ do
-      prop "returns the last but one element in list" $
-        \xs -> \x -> \y -> myButLast (xs ++ [x,y]) == (x :: Int)
-
-    describe "Examples" $ do
-      it "myButLast [1,2,3,4]" $ do
-        myButLast [1,2,3,4] `shouldBe` (3 :: Int)
-
-      it "myButLast ['a'..'z']" $ do
-        myButLast ['a'..'z'] `shouldBe` 'y'
-
   describe "Problem 3" $ do
     describe "elementAt" $ do
       prop "returns the K'th element of a list" $
