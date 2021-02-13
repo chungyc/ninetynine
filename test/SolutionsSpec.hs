@@ -19,24 +19,6 @@ instance Arbitrary a => Arbitrary (NestedList a) where
 
 spec :: Spec
 spec = do
-  describe "Problem 7" $ do
-    describe "flatten" $ do
-      prop "returns flattened list" $
-        \xs -> let naiveFlatten (Elem x) = [x]
-                   naiveFlatten (List l) = concat $ map naiveFlatten l
-               in flatten xs `shouldBe` naiveFlatten (xs :: NestedList Int)
-
-    describe "Examples" $ do
-      it "flatten (Elem 5)" $ do
-        flatten (Elem 5) `shouldBe` [5 :: Int]
-
-      it "flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]])" $ do
-        flatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]])
-          `shouldBe` ([1,2,3,4,5] :: [Int])
-
-      it "flatten (List [])" $ do
-        flatten (List []) `shouldBe` ([] :: [Int])
-
   describe "Problem 8" $ do
     describe "compress" $ do
       prop "leaves no consecutive duplicates" $
