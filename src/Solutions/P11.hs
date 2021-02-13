@@ -2,7 +2,7 @@ module Solutions.P11 (encodeModified) where
 
 import           Problems.P04
 import           Problems.P09
-import           Problems.P11Definitions
+import           Problems.P11.Definitions
 
 -- | Modified run-length encoding.
 --

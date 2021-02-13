@@ -1,7 +1,7 @@
 module Problems.P11 (encodeModified) where
 
-import           Problems.P11Definitions
-import qualified Solutions.P11           as Solution
+import           Problems.P11.Definitions
+import qualified Solutions.P11            as Solution
 
 -- | Modified run-length encoding.
 --

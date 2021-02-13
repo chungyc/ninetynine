@@ -2,7 +2,7 @@ module Problems.P11Spec (spec) where
 
 import           Problems.P10
 import           Problems.P11
-import           Problems.P11Definitions
+import           Problems.P11.Definitions
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
