@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7c1a366131001a67a02df841751b32788d2d8010e743d774e190272b10462d84
+-- hash: 646ce885794a92c5a50d9bf84449486d8f7f2f2c4db33d08bd0941370cfd650f
 
 name:           ninetynine
 version:        0.1.0.0
@@ -40,7 +40,6 @@ library
       Problems.P08
       Problems.P09
       Problems.P10
-      Solutions
       Solutions.P01
       Solutions.P02
       Solutions.P03
