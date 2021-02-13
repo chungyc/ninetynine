@@ -26,6 +26,8 @@ module Solutions (
   compress,
   -- * Problem 9
   pack,
+  -- * Problem 10
+  encode,
   ) where
 
 import           GHC.Generics (Generic)
@@ -100,3 +102,9 @@ pack xs =
           | x == y    = let (d, r) = extract ys in (x : d, r)
           | otherwise = ([x], ys)
         extract l = (l, [])
+
+-- | Run-length encoding of a list.
+-- Use the pack function from problem 9 to implement the so-called run-length encoding data compression method.
+-- Consecutive duplicates of elements are encoded as tuples (N, E) where N is the number of duplicates of the element E.
+encode :: (Eq a) => [a] -> [(Int, a)]
+encode xs = map (\x -> (myLength x, head x)) $ pack xs
