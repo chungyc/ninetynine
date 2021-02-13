@@ -19,20 +19,6 @@ instance Arbitrary a => Arbitrary (NestedList a) where
 
 spec :: Spec
 spec = do
-  describe "Problem 3" $ do
-    describe "elementAt" $ do
-      prop "returns the K'th element of a list" $
-        \(Positive k) -> \j ->
-          let l = (replicate (k-1) 'x' ++ ['y'] ++ replicate j 'x')
-          in elementAt l k `shouldBe` 'y'
-
-    describe "Examples" $ do
-      it "elementAt [1,2,3] 2" $ do
-        elementAt [1,2,3] 2 `shouldBe` (2 :: Int)
-
-      it "elementAt \"haskell\" 5" $ do
-        elementAt "haskell" 5 `shouldBe` 'e'
-
   describe "Problem 4" $ do
     describe "myLength" $ do
       it "returns zero length for empty list" $ do
