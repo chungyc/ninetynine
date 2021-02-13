@@ -2,8 +2,8 @@ module Problems.P07Spec (spec) where
 
 import           Problems.P04
 import           Problems.P07
-import           Problems.P07Arbitrary   ()
-import           Problems.P07Definitions
+import           Problems.P07.Arbitrary   ()
+import           Problems.P07.Definitions
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 

@@ -1,7 +1,7 @@
 module Problems.P07 (flatten) where
 
-import           Problems.P07Definitions
-import qualified Solutions.P07           as Solution
+import           Problems.P07.Definitions
+import qualified Solutions.P07            as Solution
 
 -- | Flatten a nested list structure.
 --

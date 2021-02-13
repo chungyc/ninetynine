@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveGeneric #-}
-module Problems.P07Definitions (NestedList (Elem, List)) where
+module Problems.P07.Definitions (NestedList (Elem, List)) where
 
 import           GHC.Generics (Generic)
 

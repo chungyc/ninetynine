@@ -1,6 +1,6 @@
 module Solutions.P07 (flatten) where
 
-import           Problems.P07Definitions
+import           Problems.P07.Definitions
 
 -- | Flatten a nested list structure.
 --
