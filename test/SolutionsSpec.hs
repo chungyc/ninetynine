@@ -19,21 +19,6 @@ instance Arbitrary a => Arbitrary (NestedList a) where
 
 spec :: Spec
 spec = do
-  describe "Problem 4" $ do
-    describe "myLength" $ do
-      it "returns zero length for empty list" $ do
-        myLength [] `shouldBe` 0
-
-      prop "satisfies induction" $
-        \l -> myLength ('x':l) `shouldBe` 1 + myLength l
-
-    describe "Examples" $ do
-      it "myLength [123, 456, 789]" $ do
-        myLength ([123, 456, 789] :: [Int]) `shouldBe` 3
-
-      it "myLength \"Hello, world!\"" $ do
-        myLength "Hello, world!" `shouldBe` 13
-
   describe "Problem 5" $ do
     describe "myReverse" $ do
       prop "returns reversed list" $
