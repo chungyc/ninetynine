@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: fd330d367d6e14aa98244757314cdbd66ef2498d824cc3f64691ac910451ab80
+-- hash: 87a9b49c5bc8c1fc8d4111a5531fc683c739d5deab9caf3b9944a7625fee826a
 
 name:           ninetynine
 version:        0.1.0.0
@@ -108,6 +108,11 @@ benchmark ninetynine-bench
   type: exitcode-stdio-1.0
   main-is: Benchmarks.hs
   other-modules:
+      Problems.P01Bench
+      Problems.P02Bench
+      Problems.P03Bench
+      Problems.P04Bench
+      Problems.P05Bench
       Paths_ninetynine
   hs-source-dirs:
       bench
