@@ -61,3 +61,4 @@ benchmarks:
     dependencies:
     - ninetynine
     - criterion
+    - random
