@@ -4,9 +4,8 @@ module Solutions.P09 (pack) where
 -- If a list contains repeated elements, they should be placed in separate sublists.
 pack :: (Eq a) => [a] -> [[a]]
 pack [] = []
-pack xs =
-  let (duplicates, remainder) = extract xs
-  in duplicates : pack remainder
+pack xs = duplicates : pack remainder
+  where (duplicates, remainder) = extract xs
 
 -- | Extract consecutive duplicates in front of the list into their own list.
 -- Returns the consecutive duplicates in the first element,
