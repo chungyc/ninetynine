@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c49b3882684c970c4245be7284c996b976384b78d4a9d75d2759ca182e81241c
+-- hash: 44b5fec59a261403acb9afea747bc3cb90fb447980b3b7d8323504f4a19597f7
 
 name:           ninetynine
 version:        0.1.0.0
@@ -117,7 +117,7 @@ benchmark ninetynine-bench
       Paths_ninetynine
   hs-source-dirs:
       bench
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N -O2
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
     , criterion
