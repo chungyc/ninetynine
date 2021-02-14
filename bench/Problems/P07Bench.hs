@@ -8,21 +8,21 @@ import           System.Random
 group :: Benchmark
 group = bgroup "P07" [
   bgroup "flatten" [
-      bgroup "Flat" [ bench "0"    $ nf flatten $ get 0 flatLists
-                    , bench "1"    $ nf flatten $ get 1 flatLists
-                    , bench "10"   $ nf flatten $ get 10 flatLists
-                    , bench "100"  $ nf flatten $ get 100 flatLists
+      bgroup "Flat" [ bench "0"    $ nf flatten $ get 0    flatLists
+                    , bench "1"    $ nf flatten $ get 1    flatLists
+                    , bench "10"   $ nf flatten $ get 10   flatLists
+                    , bench "100"  $ nf flatten $ get 100  flatLists
                     , bench "1000" $ nf flatten $ get 1000 flatLists
                     ],
-      bgroup "Nested" [ bench "1"      $ nf flatten $ get 1 nestedLists
-                      , bench "10"     $ nf flatten $ get 10 nestedLists
-                      , bench "100"    $ nf flatten $ get 100 nestedLists
+      bgroup "Nested" [ bench "1"      $ nf flatten $ get 1    nestedLists
+                      , bench "10"     $ nf flatten $ get 10   nestedLists
+                      , bench "100"    $ nf flatten $ get 100  nestedLists
                       , bench "1000"   $ nf flatten $ get 1000 nestedLists
                       ]
       ],
-      bgroup "Random" [ bench "10"   $ nf flatten $ fst $ generate 10 $ mkStdGen 4324
-                      , bench "100"  $ nf flatten $ fst $ generate 100 $ mkStdGen 925
-                      , bench "1000" $ nf flatten $ fst $ generate 1000 $ mkStdGen 443
+      bgroup "Random" [ bench "10"   $ nf flatten $ fst $ generate 10   $ mkStdGen 4324
+                      , bench "100"  $ nf flatten $ fst $ generate 100  $ mkStdGen 9251
+                      , bench "1000" $ nf flatten $ fst $ generate 1000 $ mkStdGen 4430
                       ]
   ]
 
@@ -30,7 +30,7 @@ group = bgroup "P07" [
 get :: Int -> [NestedList Int] -> NestedList Int
 get n xs = head $ drop n xs
 
--- [List [Elem 1], List [Elem 1, Elem 1], List [Elem 1, Elem 1, Elem 1], ...]
+-- [List [], List [Elem 1], List [Elem 1, Elem 1], List [Elem 1, Elem 1, Elem 1], ...]
 flatLists :: [NestedList Int]
 flatLists = map List $ iterate (Elem 1 :) []
 
@@ -38,7 +38,7 @@ flatLists = map List $ iterate (Elem 1 :) []
 nestedLists :: [NestedList Int]
 nestedLists = iterate (\x -> List [x]) $ Elem 1
 
--- | Generates a random "NestedList" with n elements.
+-- | Generates a random 'NestedList' with n elements.
 generate :: RandomGen g => Int -> g -> (NestedList Int, g)
 generate 0 g = (List [], g)
 generate 1 g = singleton nest g'
