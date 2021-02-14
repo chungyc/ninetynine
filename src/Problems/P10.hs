@@ -7,7 +7,7 @@ import qualified Solutions.P10 as Solution
 -- Consecutive duplicates of elements are encoded as tuples @(n, e)@,
 -- where @n@ is the number of duplicates of the element @e@.
 --
--- Use the 'Problems.P09.pack' functionto implement
+-- Use the 'Problems.P09.pack' function to implement
 -- the so-called run-length encoding data compression method.
 encode :: (Eq a) => [a] -> [(Int, a)]
 encode = Solution.encode
