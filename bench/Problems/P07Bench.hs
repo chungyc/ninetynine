@@ -26,33 +26,39 @@ group = bgroup "P07" [
                       ]
   ]
 
+-- | Gets n'th element in list.  Indexing is 0-based.
 get :: Int -> [NestedList Int] -> NestedList Int
 get n xs = head $ drop n xs
 
+-- [List [Elem 1], List [Elem 1, Elem 1], List [Elem 1, Elem 1, Elem 1], ...]
 flatLists :: [NestedList Int]
 flatLists = map List $ iterate (Elem 1 :) []
 
+-- [Elem 1, List [Elem 1], List [List [Elem 1]], List [List [List [Elem 1]]], ...]
 nestedLists :: [NestedList Int]
 nestedLists = iterate (\x -> List [x]) $ Elem 1
 
+-- | Generates a random "NestedList" with n elements.
 generate :: RandomGen g => Int -> g -> (NestedList Int, g)
 generate 0 g = (List [], g)
-generate 1 g = let (x, g') = randomR (-1000 :: Int, 1000 :: Int) g
-                   (nest, g'') = random g'
-               in if nest
-                  then let (xs, g''') = generate 1 g''
-                       in (List [xs], g''')
-                  else (Elem x, g'')
-generate n g = let (m, g') = randomR (0, n) g
-                   (nest, g'') = random g'
-                   (begin, g''') = generate m g''
-                   (end, g'''') = generate (n-m) g'''
-               in (combine nest begin end, g'''')
+generate 1 g = singleton nest g'
+  where (nest, g') = random g
+generate n g = (combine nest (listify l1) (listify l2), g'''')
+  where (m, g') = randomR (0, n) g
+        (nest, g'') = random g'
+        (l1, g''') = generate m g''
+        (l2, g'''') = generate (n-m) g'''
 
-combine :: Bool -> NestedList Int -> NestedList Int -> NestedList Int
-combine _ x@(Elem _) y@(Elem _)   = List [x, y]
-combine _ x@(Elem _) (List xs)    = List $ x : xs
-combine _ (List xs) x@(Elem _)    = List $ xs ++ [x]
-combine False (List []) xs        = xs
-combine False (List xs) (List ys) = List $ xs ++ ys
-combine True xs (List ys)         = List $ (List [xs]) : ys
+singleton :: RandomGen g => Bool -> g -> (NestedList Int, g)
+singleton False g = (Elem x, g')
+  where (x, g') = randomR (-1000, 1000) g
+singleton True g = (List [xs], g')
+  where (xs, g') = generate 1 g
+
+listify :: NestedList Int -> [NestedList Int]
+listify x@(Elem _) = [x]
+listify (List x)   = x
+
+combine :: Bool -> [NestedList Int] -> [NestedList Int] -> NestedList Int
+combine False xs ys = List $ xs ++ ys
+combine True xs ys  = List $ (List xs) : ys
