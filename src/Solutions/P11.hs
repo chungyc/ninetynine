@@ -8,7 +8,7 @@ import           Problems.P11.Definitions
 --
 -- Modify the 'Problems.P10.encode' function in such a way that
 -- if an element has no duplicates it is simply copied into the result list.
--- Only elements with duplicates are transferred as @(n, e)@ tuples.
+-- Only elements with duplicates are transferred as @('Multiple' n x)@ tuples.
 encodeModified :: (Eq a) => [a] -> [Encoding a]
 encodeModified xs = encodePacked $ pack xs
 
