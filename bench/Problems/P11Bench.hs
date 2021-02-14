@@ -5,7 +5,7 @@ import           Problems.P11
 
 group :: Benchmark
 group = bgroup "P11" [
-  bgroup "encodeModified" [ bench "[]" $ whnf encodeModified ([] :: [Int])
+  bgroup "encodeModified" [ bench "[]" $ nf encodeModified ([] :: [Int])
                           , bench "[1]" $ nf encodeModified [1 :: Int]
                           , bench "[1..10]" $ nf encodeModified [1..10 :: Int]
                           , bench "[1..100]" $ nf encodeModified [1..100 :: Int]
