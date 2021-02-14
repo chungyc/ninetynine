@@ -24,6 +24,8 @@ dependencies:
 
 library:
   source-dirs: src
+  dependencies:
+  - deepseq
 
 executables:
   ninetynine-exe:

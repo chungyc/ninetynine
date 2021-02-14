@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c85a4535e2f10fdbea6b9dd55f053e1daf7f41d9d23a16332553a05e175951e4
+-- hash: 7799806085a6f5cd6b829112aac32e3ba9c93510e84c41021ea46590f84dab21
 
 name:           ninetynine
 version:        0.1.0.0
@@ -61,6 +61,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , deepseq
   default-language: Haskell2010
 
 executable ninetynine-exe
@@ -118,6 +119,7 @@ benchmark ninetynine-bench
       Problems.P08Bench
       Problems.P09Bench
       Problems.P10Bench
+      Problems.P11Bench
       Paths_ninetynine
   hs-source-dirs:
       bench
