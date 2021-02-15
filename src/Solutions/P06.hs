@@ -1,3 +1,4 @@
+-- | Solution to one of Ninety-Nine Haskell "Problems".
 module Solutions.P06 (isPalindrome) where
 
 import           Problems.P05

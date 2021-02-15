@@ -1,3 +1,4 @@
+-- | Solution to one of Ninety-Nine Haskell "Problems".
 module Solutions.P13 (encodeDirect) where
 
 import           Problems.P11.Definitions

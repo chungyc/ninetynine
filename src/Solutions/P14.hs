@@ -1,3 +1,4 @@
+-- | Solution to one of Ninety-Nine Haskell "Problems".
 module Solutions.P14 (dupli) where
 
 -- | Duplicate the elements of a list.

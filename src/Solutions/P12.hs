@@ -1,3 +1,4 @@
+-- | Solution to one of Ninety-Nine Haskell "Problems".
 module Solutions.P12 (decodeModified) where
 
 import           Problems.P11.Definitions

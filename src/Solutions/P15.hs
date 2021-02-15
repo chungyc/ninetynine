@@ -1,3 +1,4 @@
+-- | Solution to one of Ninety-Nine Haskell "Problems".
 module Solutions.P15 (repli) where
 
 -- | Replicate the elements of a list a given number of times.

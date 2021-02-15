@@ -1,3 +1,4 @@
+-- | Solution to one of Ninety-Nine Haskell "Problems".
 module Solutions.P07 (flatten) where
 
 import           Problems.P07.Definitions

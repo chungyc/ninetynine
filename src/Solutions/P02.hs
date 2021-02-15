@@ -1,3 +1,4 @@
+-- | Solution to one of Ninety-Nine Haskell "Problems".
 module Solutions.P02 (myButLast) where
 
 -- | Find the last but one element of a list.
