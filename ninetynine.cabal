@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0e2fcdd35c2550dffeee1e8fe1ad8a66a9cd1a54b865ba3990065e65c416055e
+-- hash: 12b313601bf8c6293accd87242130043586dedb07a758aaf1cc834ddaa839767
 
 name:           ninetynine
 version:        0.1.0.0
@@ -29,6 +29,7 @@ source-repository head
 
 library
   exposed-modules:
+      Problems
       Problems.P01
       Problems.P02
       Problems.P03
