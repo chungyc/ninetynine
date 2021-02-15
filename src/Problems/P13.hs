@@ -1,3 +1,4 @@
+-- | Part of Ninety-Nine Haskell "Problems".
 module Problems.P13 (encodeDirect) where
 
 import           Problems.P11.Definitions
@@ -11,5 +12,10 @@ import qualified Solutions.P13            as Solution
 --
 -- As with 'Problems.P11.encodeModified',
 -- simplify the result list by replacing the singletons @('Multiple' 1 x)@ by @x@.
+--
+-- Example:
+--
+-- >>> encodeDirect "aaaabccaadeeee"
+-- [Multiple 4 'a',Single 'b',Multiple 2 'c',Multiple 2 'a',Single 'd',Multiple 4 'e']
 encodeDirect :: Eq a => [a] -> [Encoding a]
 encodeDirect = Solution.encodeDirect
