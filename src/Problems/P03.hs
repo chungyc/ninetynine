@@ -1,4 +1,8 @@
--- | Part of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'elementAt'
+
+Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P03".
+-}
 module Problems.P03 (elementAt) where
 
 import qualified Solutions.P03 as Solution

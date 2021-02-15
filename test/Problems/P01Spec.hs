@@ -27,8 +27,6 @@ examples =
 spec :: Spec
 spec = do
   properties Problem.myLast "myLast"
-
   examples
-
   describe "From solutions" $ do
     properties Solution.myLast "myLast"

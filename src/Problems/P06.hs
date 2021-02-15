@@ -1,4 +1,8 @@
--- | Part of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'isPalindrome'
+
+Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P06".
+-}
 module Problems.P06 (isPalindrome) where
 
 import qualified Solutions.P06 as Solution
@@ -16,5 +20,5 @@ import qualified Solutions.P06 as Solution
 --
 -- >>> isPalindrome [1,2,4,8,16,8,4,2,1]
 -- True
-isPalindrome :: (Eq a) => [a] -> Bool
+isPalindrome :: Eq a => [a] -> Bool
 isPalindrome = Solution.isPalindrome

@@ -1,25 +1,27 @@
 module Problems.P07Spec (spec) where
 
-import           Problems.P04
-import           Problems.P07
+import qualified Problems.P07             as Problem
 import           Problems.P07.Arbitrary   ()
 import           Problems.P07.Definitions
+import qualified Solutions.P07            as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
-spec :: Spec
-spec = do
-  describe "flatten" $ do
+properties :: (NestedList Int -> [Int]) -> String -> Spec
+properties flatten name = do
+  describe name $ do
     prop "flattens a nested list" $
-      \xs -> let naiveFlatten (Elem x) = [x :: Int]
-                 naiveFlatten (List l) = concat $ map naiveFlatten l
-             in flatten xs `shouldBe` naiveFlatten xs
+      let naiveFlatten (Elem x) = [x]
+          naiveFlatten (List l) = concat $ map naiveFlatten l
+      in \xs -> flatten xs `shouldBe` naiveFlatten xs
 
     prop "keeps same number of elements" $
-      \xs -> let count (Elem _) = 1
-                 count (List l) = sum (map count l)
-             in myLength (flatten xs) `shouldBe` count (xs :: NestedList Int)
+      let count (Elem _) = 1
+          count (List l) = sum (map count l)
+      in \xs -> length (flatten xs) `shouldBe` count xs
 
+examples :: Spec
+examples =
   describe "Examples" $ do
     it "flatten (Elem 5)" $ do
       flatten (Elem 5) `shouldBe` [5 :: Int]
@@ -30,3 +32,12 @@ spec = do
 
     it "flatten (List [])" $ do
       flatten (List []) `shouldBe` ([] :: [Int])
+
+  where flatten = Problem.flatten
+
+spec :: Spec
+spec = do
+  properties Problem.flatten "flatten"
+  examples
+  describe "From solutions" $ do
+    properties Solution.flatten "flatten"

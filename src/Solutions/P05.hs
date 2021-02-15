@@ -1,4 +1,8 @@
--- | A solution to "Problems.P05" of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'myReverse'
+
+Some solutions to "Problems.P05" of Ninety-Nine Haskell "Problems".
+-}
 module Solutions.P05 (myReverse) where
 
 -- | Reverse a list.

@@ -51,7 +51,7 @@ tests:
     - hspec
     - QuickCheck
     - generic-random
-  doctest:
+  examples-test:
     main:                Main.hs
     source-dirs:         doctest
     ghc-options:

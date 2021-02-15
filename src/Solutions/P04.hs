@@ -1,4 +1,8 @@
--- | A solution to "Problems.P04" of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'myLength'
+
+Some solutions to "Problems.P04" of Ninety-Nine Haskell "Problems".
+-}
 module Solutions.P04 (myLength, myLength', myLength'') where
 
 -- | Find the number of elements of a list.

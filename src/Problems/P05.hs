@@ -1,4 +1,8 @@
--- | Part of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'myReverse'
+
+Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P05".
+-}
 module Problems.P05 (myReverse) where
 
 import qualified Solutions.P05 as Solution

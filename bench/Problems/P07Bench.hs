@@ -1,29 +1,38 @@
 module Problems.P07Bench (group) where
 
 import           Criterion
-import           Problems.P07
+import qualified Problems.P07             as Problem
 import           Problems.P07.Definitions
+import qualified Solutions.P07            as Solution
 import           System.Random
 
 group :: Benchmark
-group = bgroup "P07" [
-  bgroup "flatten" [
-      bgroup "Flat" [ bench "0"    $ nf flatten $ get 0    flatLists
-                    , bench "1"    $ nf flatten $ get 1    flatLists
-                    , bench "10"   $ nf flatten $ get 10   flatLists
-                    , bench "100"  $ nf flatten $ get 100  flatLists
-                    , bench "1000" $ nf flatten $ get 1000 flatLists
-                    ],
-      bgroup "Nested" [ bench "1"      $ nf flatten $ get 1    nestedLists
-                      , bench "10"     $ nf flatten $ get 10   nestedLists
-                      , bench "100"    $ nf flatten $ get 100  nestedLists
-                      , bench "1000"   $ nf flatten $ get 1000 nestedLists
-                      ]
-      ],
-      bgroup "Random" [ bench "10"   $ nf flatten $ fst $ generate 10   $ mkStdGen 4324
-                      , bench "100"  $ nf flatten $ fst $ generate 100  $ mkStdGen 9251
-                      , bench "1000" $ nf flatten $ fst $ generate 1000 $ mkStdGen 4430
-                      ]
+group = bgroup "P07"
+  [ subgroup "flatten" Problem.flatten
+  , bgroup "Solutions"
+    [ subgroup "flatten" Solution.flatten ]
+  ]
+
+subgroup :: String -> (NestedList Int -> [Int]) -> Benchmark
+subgroup name flatten = bgroup name
+  [ bgroup "Flat"
+    [ bench "0"    $ nf flatten $ get 0    flatLists
+    , bench "1"    $ nf flatten $ get 1    flatLists
+    , bench "10"   $ nf flatten $ get 10   flatLists
+    , bench "100"  $ nf flatten $ get 100  flatLists
+    , bench "1000" $ nf flatten $ get 1000 flatLists
+    ]
+  , bgroup "Nested"
+    [ bench "1"      $ nf flatten $ get 1    nestedLists
+    , bench "10"     $ nf flatten $ get 10   nestedLists
+    , bench "100"    $ nf flatten $ get 100  nestedLists
+    , bench "1000"   $ nf flatten $ get 1000 nestedLists
+    ]
+  , bgroup "Random"
+    [ bench "10"   $ nf flatten $ fst $ generate 10   $ mkStdGen 4324
+    , bench "100"  $ nf flatten $ fst $ generate 100  $ mkStdGen 9251
+    , bench "1000" $ nf flatten $ fst $ generate 1000 $ mkStdGen 4430
+    ]
   ]
 
 -- | Gets n'th element in list.  Indexing is 0-based.

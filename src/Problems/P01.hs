@@ -1,4 +1,8 @@
--- | Part of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'myLast'
+
+Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P01".
+-}
 module Problems.P01 (myLast) where
 
 import qualified Solutions.P01 as Solution

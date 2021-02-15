@@ -1,4 +1,8 @@
--- | Part of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'myButLast'
+
+Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P02".
+-}
 module Problems.P02 (myButLast) where
 
 import qualified Solutions.P02 as Solution

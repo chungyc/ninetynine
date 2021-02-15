@@ -1,14 +1,21 @@
 module Problems.P05Bench (group) where
 
 import           Criterion
-import           Problems.P05
+import qualified Problems.P05  as Problem
+import qualified Solutions.P05 as Solution
 
 group :: Benchmark
-group = bgroup "P05" [
-  bgroup "myReverse" [ bench "[]" $ nf myReverse ([] :: [Int])
-                     , bench "[1]" $ nf myReverse [1 :: Int]
-                     , bench "[1..10]" $ nf myReverse [1..10 :: Int]
-                     , bench "[1..100]" $ nf myReverse [1..100 :: Int]
-                     , bench "[1..1000]" $ nf myReverse [1..1000 :: Int]
-                     ]
+group = bgroup "P05"
+  [ subgroup "myReverse" Problem.myReverse
+  , bgroup "Solutions"
+    [ subgroup "myReverse" Solution.myReverse ]
+  ]
+
+subgroup :: String -> ([Int] -> [Int]) -> Benchmark
+subgroup name myReverse = bgroup name
+  [ bench "[]"        $ nf myReverse []
+  , bench "[1]"       $ nf myReverse [1]
+  , bench "[1..10]"   $ nf myReverse [1..10]
+  , bench "[1..100]"  $ nf myReverse [1..100]
+  , bench "[1..1000]" $ nf myReverse [1..1000]
   ]

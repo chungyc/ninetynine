@@ -1,13 +1,20 @@
 module Problems.P02Bench (group) where
 
 import           Criterion
-import           Problems.P02
+import qualified Problems.P02  as Problem
+import qualified Solutions.P02 as Solution
 
 group :: Benchmark
-group = bgroup "P02" [
-  bgroup "myButLast" [ bench "[1..2]" $ nf myButLast ([1..2] :: [Int])
-                     , bench "[1..10]" $ nf myButLast ([1..10] :: [Int])
-                     , bench "[1..100]" $ nf myButLast ([1..100] :: [Int])
-                     , bench "[1..1000]" $ nf myButLast ([1..1000] :: [Int])
-                     ]
+group = bgroup "P02"
+  [ subgroup "myButLast" Problem.myButLast
+  , bgroup "Solutions"
+    [ subgroup "myButLast" Solution.myButLast ]
+  ]
+
+subgroup :: String -> ([Int] -> Int) -> Benchmark
+subgroup name myButLast = bgroup name
+  [ bench "[1..2]"    $ nf myButLast [1..2]
+  , bench "[1..10]"   $ nf myButLast [1..10]
+  , bench "[1..100]"  $ nf myButLast [1..100]
+  , bench "[1..1000]" $ nf myButLast [1..1000]
   ]

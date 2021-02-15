@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7d4413a11de9e9ad9f8170fd6519e7e3652ef5f53ee400ea0bce0e203ef36292
+-- hash: ff52aabb8167c45bc6a3ab07f006d88319636b535f3d71fee50cc00db4409956
 
 name:           ninetynine
 version:        0.1.0.0
@@ -47,6 +47,7 @@ library
       Problems.P13
       Problems.P14
       Problems.P15
+      Solutions
       Solutions.P01
       Solutions.P02
       Solutions.P03
@@ -83,7 +84,7 @@ executable ninetynine-exe
     , ninetynine
   default-language: Haskell2010
 
-test-suite doctest
+test-suite examples-test
   type: exitcode-stdio-1.0
   main-is: Main.hs
   other-modules:

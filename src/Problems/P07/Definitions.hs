@@ -1,5 +1,9 @@
 {-# LANGUAGE DeriveGeneric #-}
--- | Definitions used by Ninety-Nine Haskell "Problems".
+{- |
+Description: 'NestedList'
+
+Definitions used by "Problems.P07".
+-}
 module Problems.P07.Definitions (NestedList (Elem, List)) where
 
 import           GHC.Generics (Generic)

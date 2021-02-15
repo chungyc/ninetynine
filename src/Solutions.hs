@@ -1,13 +1,13 @@
 {-|
-Description: Ninety-Nine Haskell Problems
+Description: Solutions to Ninety-Nine Haskell Problems
 Copyright: Copyright (C) 2021 Yoo Chung
 License: BSD3
 Maintainer: dev@chungyc.org
 
-This is a list of [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
-Some solutions to these problems are in "Solutions".
+These are some solutions for Ninety-Nine Haskell "Problems".
+A problem may have more than one solution included.
 -}
-module Problems (
+module Solutions (
   -- * List problems
   -- ** Problem 1
   myLast,
@@ -17,6 +17,8 @@ module Problems (
   elementAt,
   -- ** Problem 4
   myLength,
+  myLength',
+  myLength'',
   -- ** Problem 5
   myReverse,
   -- ** Problem 6
@@ -43,20 +45,20 @@ module Problems (
   repli
   ) where
 
-import           Problems.P01
-import           Problems.P02
-import           Problems.P03
-import           Problems.P04
-import           Problems.P05
-import           Problems.P06
-import           Problems.P07
 import           Problems.P07.Definitions
-import           Problems.P08
-import           Problems.P09
-import           Problems.P10
-import           Problems.P11
 import           Problems.P11.Definitions
-import           Problems.P12
-import           Problems.P13
-import           Problems.P14
-import           Problems.P15
+import           Solutions.P01
+import           Solutions.P02
+import           Solutions.P03
+import           Solutions.P04
+import           Solutions.P05
+import           Solutions.P06
+import           Solutions.P07
+import           Solutions.P08
+import           Solutions.P09
+import           Solutions.P10
+import           Solutions.P11
+import           Solutions.P12
+import           Solutions.P13
+import           Solutions.P14
+import           Solutions.P15
