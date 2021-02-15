@@ -14,8 +14,8 @@ properties myLength name = do
     prop "satisfies induction step" $
       \l -> myLength (1:l) `shouldBe` 1 + myLength l
 
-examples :: SpecWith ()
-examples = let myLength = Problem.myLength in
+examples :: Spec
+examples =
   describe "Examples" $ do
     it "myLength [123, 456, 789]" $ do
       myLength ([123, 456, 789] :: [Int]) `shouldBe` 3
@@ -23,9 +23,12 @@ examples = let myLength = Problem.myLength in
     it "myLength \"Hello, world!\"" $ do
       myLength "Hello, world!" `shouldBe` 13
 
+  where myLength = Problem.myLength
+
 spec :: Spec
 spec = do
   properties Problem.myLength "myLength"
+
   examples
 
   describe "From solutions" $ do
