@@ -1,4 +1,4 @@
--- | Solution to one of Ninety-Nine Haskell "Problems".
+-- | A solution to "Problems.P01" of Ninety-Nine Haskell "Problems".
 module Solutions.P01 (myLast) where
 
 -- | Find the last element of a list.

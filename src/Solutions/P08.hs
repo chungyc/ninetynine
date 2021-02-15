@@ -1,4 +1,4 @@
--- | Solution to one of Ninety-Nine Haskell "Problems".
+-- | A solution to "Problems.P08" of Ninety-Nine Haskell "Problems".
 module Solutions.P08 (compress) where
 
 -- | Eliminate consecutive duplicates of list elements.

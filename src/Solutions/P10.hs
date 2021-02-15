@@ -1,4 +1,4 @@
--- | Solution to one of Ninety-Nine Haskell "Problems".
+-- | A solution to "Problems.P10" of Ninety-Nine Haskell "Problems".
 module Solutions.P10 (encode) where
 
 import           Problems.P04

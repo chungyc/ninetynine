@@ -1,4 +1,4 @@
--- | Solution to one of Ninety-Nine Haskell "Problems".
+-- | A solution to "Problems.P03" of Ninety-Nine Haskell "Problems".
 module Solutions.P03 (elementAt) where
 
 -- | Find the K'th element of a list.
