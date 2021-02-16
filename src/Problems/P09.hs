@@ -1,4 +1,8 @@
--- | Part of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'pack'
+
+Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P09".
+-}
 module Problems.P09 (pack) where
 
 import qualified Solutions.P09 as Solution
@@ -10,5 +14,5 @@ import qualified Solutions.P09 as Solution
 --
 -- >>> pack "aaaabccaadeeee"
 -- ["aaaa","b","cc","aa","d","eeee"]
-pack :: (Eq a) => [a] -> [[a]]
+pack :: Eq a => [a] -> [[a]]
 pack = Solution.pack

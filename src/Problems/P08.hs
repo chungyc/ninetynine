@@ -1,4 +1,8 @@
--- | Part of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'compress'
+
+Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P08".
+-}
 module Problems.P08 (compress) where
 
 import qualified Solutions.P08 as Solution
@@ -12,5 +16,5 @@ import qualified Solutions.P08 as Solution
 -- Example:
 -- >>> compress "aaaabccaadeeee"
 -- "abcade"
-compress :: (Eq a) => [a] -> [a]
+compress :: Eq a => [a] -> [a]
 compress = Solution.compress

@@ -1,4 +1,8 @@
--- | A solution to "Problems.P10" of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'encode'
+
+Some solutions to "Problems.P10" of Ninety-Nine Haskell "Problems".
+-}
 module Solutions.P10 (encode) where
 
 import           Problems.P04
@@ -11,5 +15,5 @@ import           Problems.P09
 --
 -- Use the 'Problems.P09.pack' function to implement
 -- the so-called run-length encoding data compression method.
-encode :: (Eq a) => [a] -> [(Int, a)]
+encode :: Eq a => [a] -> [(Int, a)]
 encode xs = map (\x -> (myLength x, head x)) $ pack xs

@@ -1,4 +1,8 @@
--- | Part of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'encode'
+
+Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P10".
+-}
 module Problems.P10 (encode) where
 
 import qualified Solutions.P10 as Solution
@@ -13,5 +17,5 @@ import qualified Solutions.P10 as Solution
 --
 -- >>> encode "aaaabccaadeeee"
 -- [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
-encode :: (Eq a) => [a] -> [(Int, a)]
+encode :: Eq a => [a] -> [(Int, a)]
 encode = Solution.encode
