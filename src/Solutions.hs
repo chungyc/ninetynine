@@ -45,7 +45,10 @@ module Solutions (
   -- ** Problem 14
   dupli,
   -- ** Problem 15
-  repli
+  repli,
+  -- * Arithmetic problems
+  -- ** Problem 31
+  isPrime
   ) where
 
 import           Problems.P07.Definitions
@@ -65,3 +68,4 @@ import           Solutions.P12
 import           Solutions.P13
 import           Solutions.P14
 import           Solutions.P15
+import           Solutions.P31

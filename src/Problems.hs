@@ -40,7 +40,10 @@ module Problems (
   -- ** Problem 14
   dupli,
   -- ** Problem 15
-  repli
+  repli,
+  -- * Arithmetic problems
+  -- ** Problem 31
+  isPrime
   ) where
 
 import           Problems.P01
@@ -60,3 +63,4 @@ import           Problems.P12
 import           Problems.P13
 import           Problems.P14
 import           Problems.P15
+import           Problems.P31
