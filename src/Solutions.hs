@@ -26,10 +26,12 @@ module Solutions (
   -- ** Problem 7
   NestedList (Elem, List),
   flatten,
+  flatten',
   -- ** Problem 8
   compress,
   -- ** Problem 9
   pack,
+  pack',
   -- ** Problem 10
   encode,
   -- ** Problem 11
