@@ -1,4 +1,8 @@
--- | Part of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'repli'
+
+Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P15".
+-}
 module Problems.P15 (repli) where
 
 import qualified Solutions.P15 as Solution

@@ -1,6 +1,10 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric  #-}
--- | Definitions used by Ninety-Nine Haskell "Problems".
+{- |
+Description: 'Encoding'
+
+Definitions used by "Problems.P11".
+-}
 module Problems.P11.Definitions (Encoding (Single, Multiple)) where
 
 import           Control.DeepSeq

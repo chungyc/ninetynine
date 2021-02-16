@@ -1,14 +1,15 @@
 module Problems.P11Spec (spec) where
 
 import           Problems.P10
-import           Problems.P11
+import qualified Problems.P11             as Problem
 import           Problems.P11.Definitions
+import qualified Solutions.P11            as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
-spec :: Spec
-spec = do
-  describe "encodeModified" $ do
+properties :: ([Int] -> [Encoding Int]) -> String -> Spec
+properties encodeModified name = do
+  describe name $ do
     prop "is same as encode, but with single elements not in sublist" $
       \l -> let similar ([], []) = True
                 similar ((n, x) : xs, Single y : ys)
@@ -25,7 +26,18 @@ spec = do
                 multipleone _              = False
             in encodeModified (l :: [Int]) `shouldNotSatisfy` any multipleone
 
+examples :: Spec
+examples = do
   describe "Examples" $ do
     it "encodeModified \"aaaabccaadeeee\"" $ do
       encodeModified "aaaabccaadeeee" `shouldBe`
         [Multiple 4 'a',Single 'b',Multiple 2 'c', Multiple 2 'a',Single 'd',Multiple 4 'e']
+
+  where encodeModified l = Problem.encodeModified l
+
+spec :: Spec
+spec = do
+  properties Problem.encodeModified "encodeModified"
+  examples
+  describe "From solutions" $ do
+    properties Solution.encodeModified "encodeModified"

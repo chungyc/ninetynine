@@ -1,4 +1,8 @@
--- | A solution to "Problems.P13" of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'encodeDirect'
+
+Some solutions to "Problems.P13" of Ninety-Nine Haskell "Problems".
+-}
 module Solutions.P13 (encodeDirect) where
 
 import           Problems.P11.Definitions
@@ -10,7 +14,7 @@ import           Problems.P11.Definitions
 -- as with 'Problems.P09.pack', but only count them.
 --
 -- As with 'Problems.P11.encodeModified',
--- simplify the result list by replacing the singletons @('Multiple' 1 x)@ by @x@.
+-- simplify the result list by replacing the singletons @('Multiple' 1 x)@ by @('Single' x)@.
 encodeDirect :: Eq a => [a] -> [Encoding a]
 encodeDirect [] = []
 encodeDirect (x:xs) = encode (n+1) x : encodeDirect r

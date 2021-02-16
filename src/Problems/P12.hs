@@ -1,4 +1,8 @@
--- | Part of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'decodeModified'
+
+Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P12".
+-}
 module Problems.P12 (decodeModified) where
 
 import           Problems.P11.Definitions

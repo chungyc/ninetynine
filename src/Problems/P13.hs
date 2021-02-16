@@ -1,4 +1,8 @@
--- | Part of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'encodeDirect'
+
+Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P13".
+-}
 module Problems.P13 (encodeDirect) where
 
 import           Problems.P11.Definitions
@@ -11,7 +15,7 @@ import qualified Solutions.P13            as Solution
 -- as with 'Problems.P09.pack', but only count them.
 --
 -- As with 'Problems.P11.encodeModified',
--- simplify the result list by replacing the singletons @('Multiple' 1 x)@ by @x@.
+-- simplify the result list by replacing the singletons @('Multiple' 1 x)@ by @('Single' x)@.
 --
 -- Example:
 --

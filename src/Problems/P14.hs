@@ -1,4 +1,8 @@
--- | Part of Ninety-Nine Haskell "Problems".
+{- |
+Description: 'dupli'
+
+Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P14".
+-}
 module Problems.P14 (dupli) where
 
 import qualified Solutions.P14 as Solution
