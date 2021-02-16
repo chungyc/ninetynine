@@ -10,7 +10,8 @@ group :: Benchmark
 group = bgroup "P07"
   [ subgroup "flatten" Problem.flatten
   , bgroup "Solutions"
-    [ subgroup "flatten" Solution.flatten ]
+    [ subgroup "flatten"  Solution.flatten
+    , subgroup "flatten'" Solution.flatten']
   ]
 
 subgroup :: String -> (NestedList Int -> [Int]) -> Benchmark

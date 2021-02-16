@@ -40,4 +40,5 @@ spec = do
   properties Problem.flatten "flatten"
   examples
   describe "From solutions" $ do
-    properties Solution.flatten "flatten"
+    properties Solution.flatten  "flatten"
+    properties Solution.flatten' "flatten'"
