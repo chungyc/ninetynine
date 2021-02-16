@@ -27,4 +27,5 @@ spec = do
   properties Problem.decodeModified "decodeModified"
   examples
   describe "From solutions" $ do
-    properties Solution.decodeModified "decodeModified"
+    properties Solution.decodeModified  "decodeModified"
+    properties Solution.decodeModified' "decodeModified'"

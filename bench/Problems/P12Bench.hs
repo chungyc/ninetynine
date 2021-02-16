@@ -9,7 +9,9 @@ group :: Benchmark
 group = bgroup "P12"
   [ subgroup "decodeModified" Problem.decodeModified
   , bgroup "Solutions"
-    [ subgroup "decodeModified" Solution.decodeModified ]
+    [ subgroup "decodeModified"  Solution.decodeModified
+    , subgroup "decodeModified'" Solution.decodeModified'
+    ]
   ]
 
 subgroup :: String -> ([Encoding Int] -> [Int]) -> Benchmark
