@@ -43,7 +43,9 @@ module Problems (
   repli,
   -- * Arithmetic problems
   -- ** Problem 31
-  isPrime
+  isPrime,
+  -- ** Problem 32
+  myGCD
   ) where
 
 import           Problems.P01
@@ -64,3 +66,4 @@ import           Problems.P13
 import           Problems.P14
 import           Problems.P15
 import           Problems.P31
+import           Problems.P32

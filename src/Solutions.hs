@@ -51,7 +51,9 @@ module Solutions (
   -- ** Problem 31
   isPrime,
   isPrime',
-  isPrime''
+  isPrime'',
+  -- ** Problem 32
+  myGCD
   ) where
 
 import           Problems.P07.Definitions
@@ -72,3 +74,4 @@ import           Solutions.P13
 import           Solutions.P14
 import           Solutions.P15
 import           Solutions.P31
+import           Solutions.P32
