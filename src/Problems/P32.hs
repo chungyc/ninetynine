@@ -14,5 +14,7 @@ import qualified Solutions.P32 as Solution
 --
 -- >>> [myGCD 36 63, myGCD (-3) (-6), myGCD (-3) 6]
 -- [9,3,3]
+--
+-- &#129335; &#129335;
 myGCD :: Integral a => a -> a -> a
 myGCD = Solution.myGCD

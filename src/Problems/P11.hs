@@ -18,5 +18,7 @@ import qualified Solutions.P11            as Solution
 --
 -- >>> encodeModified "aaaabccaadeeee"
 -- [Multiple 4 'a',Single 'b',Multiple 2 'c',Multiple 2 'a',Single 'd',Multiple 4 'e']
+--
+-- &#129335;
 encodeModified :: Eq a => [a] -> [Encoding a]
 encodeModified = Solution.encodeModified

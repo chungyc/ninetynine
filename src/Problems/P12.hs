@@ -17,5 +17,7 @@ import qualified Solutions.P12            as Solution
 --
 -- >>> decodeModified [Multiple 4 'a',Single 'b',Multiple 2 'c',Multiple 2 'a',Single 'd',Multiple 4 'e']
 -- "aaaabccaadeeee"
+--
+-- &#129335; &#129335;
 decodeModified :: [Encoding a] -> [a]
 decodeModified = Solution.decodeModified

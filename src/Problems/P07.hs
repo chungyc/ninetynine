@@ -23,5 +23,7 @@ import qualified Solutions.P07            as Solution
 --
 -- >>> flatten (List [])
 -- []
+--
+-- &#129335; &#129335;
 flatten :: NestedList a -> [a]
 flatten = Solution.flatten

@@ -16,5 +16,7 @@ import qualified Solutions.P02 as Solution
 --
 -- >>> myButLast ['a'..'z']
 -- 'y'
+--
+-- &#129335;
 myButLast :: [a] -> a
 myButLast = Solution.myButLast

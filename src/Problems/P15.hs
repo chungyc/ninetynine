@@ -13,5 +13,7 @@ import qualified Solutions.P15 as Solution
 --
 -- >>> repli "abc" 3
 -- "aaabbbccc"
+--
+-- &#129335; &#129335;
 repli :: [a] -> Int -> [a]
 repli = Solution.repli

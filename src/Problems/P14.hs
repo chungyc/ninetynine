@@ -13,5 +13,7 @@ import qualified Solutions.P14 as Solution
 --
 -- >>> dupli [1, 2, 3]
 -- [1,1,2,2,3,3]
+--
+-- &#129335;
 dupli :: [a] -> [a]
 dupli = Solution.dupli
