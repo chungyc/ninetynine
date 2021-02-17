@@ -48,7 +48,9 @@ module Solutions (
   repli,
   -- * Arithmetic problems
   -- ** Problem 31
-  isPrime
+  isPrime,
+  isPrime',
+  isPrime''
   ) where
 
 import           Problems.P07.Definitions

@@ -19,7 +19,7 @@ examples = do
       isPrime (7 :: Int) `shouldBe` True
 
     it "isPrime 8" $ do
-      isPrime (8 :: Int) `shouldBe` False
+      isPrime (15 :: Int) `shouldBe` False
 
   where isPrime n = Problem.isPrime n
 
@@ -28,4 +28,6 @@ spec = do
   properties Problem.isPrime "isPrime"
   examples
   describe "From solutions" $ do
-    properties Solution.isPrime "isPrime"
+    properties Solution.isPrime   "isPrime"
+    properties Solution.isPrime'  "isPrime'"
+    properties Solution.isPrime'' "isPrime''"
