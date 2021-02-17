@@ -4,10 +4,10 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ce98b1b88fb84947d15215802d1be4c5357073eceb52567189595a625867c14c
+-- hash: 687faae465e6bacfcd581b197f70a18170e2f1101879e7d4c9bdbf811c11289b
 
 name:           ninetynine
-version:        0.1.0.0
+version:        0.2.0.0
 synopsis:       Ninety-Nine Haskell Problems
 description:    Please see the README on GitHub at <https://github.com/chungyc/ninetynine#readme>
 category:       Education
