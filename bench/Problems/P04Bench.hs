@@ -8,9 +8,11 @@ group :: Benchmark
 group = bgroup "P04" [
   subgroup "myLength" Problem.myLength,
   bgroup "Solutions"
-    [  subgroup "myLength"   Solution.myLength
-      , subgroup "myLength'"  Solution.myLength'
-      , subgroup "myLength''" Solution.myLength'']
+    [ subgroup "myLength"    Solution.myLength
+    , subgroup "myLength'"   Solution.myLength'
+    , subgroup "myLength''"  Solution.myLength''
+    , subgroup "myLength'''" Solution.myLength'''
+    ]
   ]
 
 subgroup :: String -> ([Int] -> Int) -> Benchmark

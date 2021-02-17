@@ -30,6 +30,7 @@ spec = do
   properties Problem.myLength "myLength"
   examples
   describe "From solutions" $ do
-    properties Solution.myLength   "myLength"
-    properties Solution.myLength'  "myLength'"
-    properties Solution.myLength'' "myLength''"
+    properties Solution.myLength    "myLength"
+    properties Solution.myLength'   "myLength'"
+    properties Solution.myLength''  "myLength''"
+    properties Solution.myLength''' "myLength'''"

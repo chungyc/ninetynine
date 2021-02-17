@@ -19,6 +19,7 @@ module Solutions (
   myLength,
   myLength',
   myLength'',
+  myLength''',
   -- ** Problem 5
   myReverse,
   -- ** Problem 6
