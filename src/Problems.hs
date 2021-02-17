@@ -22,8 +22,8 @@ module Problems (
   -- ** Problem 6
   isPalindrome,
   -- ** Problem 7
-  NestedList (Elem, List),
   flatten,
+  NestedList (Elem, List),
   -- ** Problem 8
   compress,
   -- ** Problem 9
@@ -31,8 +31,8 @@ module Problems (
   -- ** Problem 10
   encode,
   -- ** Problem 11
-  Encoding (Single, Multiple),
   encodeModified,
+  Encoding (Single, Multiple),
   -- ** Problem 12
   decodeModified,
   -- ** Problem 13
