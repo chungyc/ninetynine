@@ -6,6 +6,8 @@ Maintainer: dev@chungyc.org
 
 This is a list of [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
 Some solutions to these problems are in "Solutions".
+
+The source for this module is available at https://github.com/chungyc/ninetynine.
 -}
 module Problems (
   -- * List problems
