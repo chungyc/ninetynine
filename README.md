@@ -32,6 +32,17 @@ $ git clone https://github.com/chungyc/ninetynine.git
 $ cd ninetynine
 ```
 
+### Documentation
+
+To generate the documention with [Haddock](https://www.haskell.org/haddock/):
+
+```shell
+$ stack haddock
+```
+
+The documentation for the `Problems` module can serve as a standalone list of the problems
+without having to reference the original list.
+
 ### Tests
 
 To run all tests:
