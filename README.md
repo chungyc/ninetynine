@@ -7,8 +7,8 @@ In a way, this is a buildable version of the list of problems with tests and ben
 
 Each problem is provided a skeleton where you can implement your own solutions.
 For example, the module `Problems.P11` provides a skeleton in which you can
-provide your own implementation.  Once implemented, you can run the existing
-tests that it is indeed a correct solution, or at least one without obvious bugs.
+provide your own implementation.  Once implemented, you can run the existing tests
+to confirm it is indeed a correct solution, or at least one without obvious bugs.
 You can also run existing benchmarks against your solution, e.g.,
 if you are curious how your amazingly clever but complicated solution performs.
 
@@ -43,7 +43,8 @@ $ stack haddock
 ```
 
 The documentation for the `Problems` module can serve as a standalone list of the problems
-without having to reference the original list.
+without having to reference the original list.  Pregenerated documentation is available
+at https://ninetynine.haskell.chungyc.org/.
 
 ### Tests
 
@@ -86,7 +87,7 @@ $ stack bench --benchmark-arguments="--output=$BENCHMARKFILE $PROBLEM"
 
 ### Quick edit cycle
 
-If you would like to build all code, run test, and regenerate documentation
+If you would like to build all code, run tests, and regenerate documentation
 automatically after any change is saved, then the following command will do so.
 
 ```shell
