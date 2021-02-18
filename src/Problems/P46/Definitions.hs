@@ -18,7 +18,7 @@ module Problems.P46.Definitions (
 --
 -- > \a -> \b -> and' (or' a b) (nand' a b)
 --
--- Write a function 'Problems.P46.table' which prints
+-- Write a function 'Problems.P46.table' which returns
 -- the truth table of a given logical expression in two variables.
 --
 -- &#129335; &#129335;
