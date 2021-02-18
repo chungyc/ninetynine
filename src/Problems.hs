@@ -45,7 +45,11 @@ module Problems (
   -- ** Problem 31
   isPrime,
   -- ** Problem 32
-  myGCD
+  myGCD,
+  -- * Logic and codes problems
+  -- ** Problem 46
+  BoolFunc,
+  table,
   ) where
 
 import           Problems.P01
@@ -67,3 +71,4 @@ import           Problems.P14
 import           Problems.P15
 import           Problems.P31
 import           Problems.P32
+import           Problems.P46

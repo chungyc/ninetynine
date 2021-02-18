@@ -53,7 +53,11 @@ module Solutions (
   isPrime',
   isPrime'',
   -- ** Problem 32
-  myGCD
+  myGCD,
+  -- * Logic and codes problems
+  -- ** Problem 46
+  BoolFunc,
+  table,
   ) where
 
 import           Problems.P07.Definitions
@@ -75,3 +79,4 @@ import           Solutions.P14
 import           Solutions.P15
 import           Solutions.P31
 import           Solutions.P32
+import           Solutions.P46
