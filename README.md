@@ -1,7 +1,7 @@
 # Ninety-Nine Haskell Problems
 
 This is an implementation of the [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
-In a way, this is a buildable version of the problems with tests and benchmarks.
+In a way, this is a buildable version of the list of problems with tests and benchmarks.
 
 Each problem is provided a skeleton where you can implement your own solutions.
 For example, the module `Problems.P11` provides a skeleton in which you can
@@ -123,7 +123,7 @@ at [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Has
     *   [x] Problem 13
     *   [x] Problem 14
     *   [x] Problem 15
-    *   [ ] Problem 16
+    *   [x] Problem 16
     *   [ ] Problem 17
     *   [ ] Problem 18
     *   [ ] Problem 19

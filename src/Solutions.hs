@@ -47,6 +47,8 @@ module Solutions (
   dupli,
   -- ** Problem 15
   repli,
+  -- ** Problem 16
+  dropEvery,
   -- * Arithmetic problems
   -- ** Problem 31
   isPrime,
@@ -77,6 +79,7 @@ import           Solutions.P12
 import           Solutions.P13
 import           Solutions.P14
 import           Solutions.P15
+import           Solutions.P16
 import           Solutions.P31
 import           Solutions.P32
 import           Solutions.P46

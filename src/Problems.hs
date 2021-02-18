@@ -5,6 +5,7 @@ License: BSD3
 Maintainer: dev@chungyc.org
 
 This is a list of [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
+The number of shruggies indicate difficulty level, and are based on the original list.
 Some solutions to these problems are in "Solutions".
 
 The source for this module is available at https://github.com/chungyc/ninetynine.
@@ -43,6 +44,8 @@ module Problems (
   dupli,
   -- ** Problem 15
   repli,
+  -- ** Problem 16
+  dropEvery,
   -- * Arithmetic problems
   -- ** Problem 31
   isPrime,
@@ -71,6 +74,7 @@ import           Problems.P12
 import           Problems.P13
 import           Problems.P14
 import           Problems.P15
+import           Problems.P16
 import           Problems.P31
 import           Problems.P32
 import           Problems.P46

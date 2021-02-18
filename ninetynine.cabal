@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e140c0ab769b49b3cbe8f6cbd139d80da934dad9cd2621cae09987de60a8e9be
+-- hash: 3e2eb7ba9bf23198db2bf58b5abbbcdc9d1d57717469e8d9b570287a8bc5ec5d
 
 name:           ninetynine
 version:        0.2.0.0
@@ -161,6 +161,7 @@ benchmark ninetynine-bench
       Problems.P13Bench
       Problems.P14Bench
       Problems.P15Bench
+      Problems.P16Bench
       Problems.P31Bench
       Problems.P32Bench
       Problems.P46Bench
