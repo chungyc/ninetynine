@@ -43,7 +43,7 @@ $ stack haddock
 ```
 
 The documentation for the `Problems` module can serve as a standalone list of the problems
-without having to reference the original list.  Pregenerated documentation is available
+without having to reference the original list.  Pre-generated documentation is available
 at https://ninetynine.haskell.chungyc.org/.
 
 ### Tests

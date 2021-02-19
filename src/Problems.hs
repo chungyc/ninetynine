@@ -55,6 +55,9 @@ module Problems (
   -- ** Problem 46
   BoolFunc,
   table,
+  -- * Miscellaenous problems
+  -- ** Problem 90
+  queens,
   ) where
 
 import           Problems.P01
@@ -78,3 +81,4 @@ import           Problems.P16
 import           Problems.P31
 import           Problems.P32
 import           Problems.P46
+import           Problems.P90

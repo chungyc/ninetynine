@@ -19,4 +19,4 @@ stateless = mapFiles
 
 -- | Deterministic examples with local definitions to reset.
 toReload :: [String]
-toReload = mapFiles [ "P46.hs" ]
+toReload = mapFiles [ "P46.hs", "P90.hs" ]

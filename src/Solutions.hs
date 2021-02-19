@@ -60,6 +60,9 @@ module Solutions (
   -- ** Problem 46
   BoolFunc,
   table,
+  -- * Miscellaenous problems
+  -- ** Problem 90
+  queens,
   ) where
 
 import           Problems.P07.Definitions
@@ -83,3 +86,4 @@ import           Solutions.P16
 import           Solutions.P31
 import           Solutions.P32
 import           Solutions.P46
+import           Solutions.P90
