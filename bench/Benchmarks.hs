@@ -18,6 +18,7 @@ import qualified Problems.P16Bench as P16
 import qualified Problems.P31Bench as P31
 import qualified Problems.P32Bench as P32
 import qualified Problems.P33Bench as P33
+import qualified Problems.P34Bench as P34
 import qualified Problems.P46Bench as P46
 import qualified Problems.P90Bench as P90
 
@@ -41,6 +42,8 @@ main = defaultMain [ P01.group
                    , P31.group
                    , P32.group
                    , P33.group
+                   , P34.group
                    , P46.group
+                   -- P54 benchmark omitted
                    , P90.group
                    ]

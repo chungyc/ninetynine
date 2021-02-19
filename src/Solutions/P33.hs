@@ -1,5 +1,5 @@
 {- |
-Description: 'myGCD'
+Description: 'coprime'
 
 Some solutions to "Problems.P33" of Ninety-Nine Haskell "Problems".
 -}

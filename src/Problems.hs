@@ -53,6 +53,8 @@ module Problems (
   myGCD,
   -- ** Problem 33
   coprime,
+  -- ** Problem 34
+  totient,
   -- * Logic and code problems
   -- ** Problem 46
   BoolFunc,
@@ -91,6 +93,7 @@ import           Problems.P16
 import           Problems.P31
 import           Problems.P32
 import           Problems.P33
+import           Problems.P34
 import           Problems.P46
 import           Problems.P54
 import           Problems.P54.Definitions
