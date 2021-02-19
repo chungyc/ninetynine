@@ -108,4 +108,4 @@ at [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Has
     problem skeletons that fit the framework of this project.
     Such problems will be noted as such.
 
-*   For pending tasks, see the [TODO](doc/TODO.md).
+For pending tasks, see the [TODO](doc/TODO.md).
