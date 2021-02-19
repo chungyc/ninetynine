@@ -14,5 +14,5 @@ group = bgroup "P90"
 subgroup :: String -> (Int -> [[Int]]) -> Benchmark
 subgroup name queens = bgroup name
   [ bench "8"  $ nf queens 8
-  , bench "16" $ nf queens 16
+  , bench "13" $ nf queens 13
   ]

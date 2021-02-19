@@ -26,10 +26,10 @@ properties queens name = do
           classify (n < 4 || (not $ peaceful n s)) "trivial" $
           peaceful n s `shouldBe` elem s (queens n)
 
-    modifyMaxSize (const 8) $ do
-      prop "includes all solutions" $ do
-        \n -> classify (n < 4) "trivial" $
-              queens n `shouldMatchList` filter (peaceful n) (sort $ permutations [1..n])
+    flip mapM_ [1..6] $ do
+      \n -> context ("with size " ++ show n) $ do
+        it "includes all solutions" $ do
+          queens n `shouldMatchList` filter (peaceful n) (sort $ permutations [1..n])
 
   where
     -- confirms that no queens attack each other
