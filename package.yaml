@@ -4,7 +4,7 @@ github:              "chungyc/ninetynine"
 license:             BSD3
 author:              "Yoo Chung"
 maintainer:          "dev@chungyc.org"
-copyright:           "2021 Yoo Chung"
+copyright:           "Copyright (C) 2021 Yoo Chung"
 
 extra-source-files:
 - README.md
@@ -20,7 +20,9 @@ category:            Education
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/chungyc/ninetynine#readme>
+description:         Ninety-Nine Haskell Problems.
+                     They are listed in the "Problems" module.
+                     For more information, please see the README at <https://github.com/chungyc/ninetynine#readme>
 
 dependencies:
 - base >= 4.7 && < 5
