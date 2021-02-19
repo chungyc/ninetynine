@@ -87,7 +87,7 @@
     *   [ ] Problem 99
 *   [ ] Replace problems
     *   [ ] Problem 47
-    *   [ ] Problem 54
+    *   [x] Problem 54
 *   [ ] Add problems so that there are actually 99 problems
     *   [ ] Problem 29
     *   [ ] Problem 30

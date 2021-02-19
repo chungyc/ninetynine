@@ -53,10 +53,18 @@ module Problems (
   myGCD,
   -- ** Problem 33
   coprime,
-  -- * Logic and codes problems
+  -- * Logic and code problems
   -- ** Problem 46
   BoolFunc,
   table,
+  -- * Binary tree problems
+  -- ** Problem 54
+  Tree (Empty, Branch),
+  leaf,
+  tree1,
+  tree2,
+  tree3,
+  tree4,
   -- * Miscellaenous problems
   -- ** Problem 90
   queens,
@@ -84,4 +92,6 @@ import           Problems.P31
 import           Problems.P32
 import           Problems.P33
 import           Problems.P46
+import           Problems.P54
+import           Problems.P54.Definitions
 import           Problems.P90

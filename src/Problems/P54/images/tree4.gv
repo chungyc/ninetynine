@@ -1,0 +1,9 @@
+digraph G {
+  1 -> l2_1
+  1 -> l2_2
+  l2_1 [label="2"]
+  l2_1 -> null0 [style="invis"]
+  l2_1 -> 4
+  null0 [style="invis"]
+  l2_2 [label="2"]
+}

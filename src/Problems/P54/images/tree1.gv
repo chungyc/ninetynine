@@ -1,0 +1,10 @@
+digraph G {
+  a -> { b c }
+  b -> { d e }
+  c -> null0 [style="invis"]
+  c -> f
+  null0 [style="invis"]
+  f -> g
+  f -> null1 [style="invis"]
+  null1 [style="invis"]
+}

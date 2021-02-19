@@ -58,10 +58,18 @@ module Solutions (
   myGCD,
   -- ** Problem 33
   coprime,
-  -- * Logic and codes problems
+  -- * Logic and code problems
   -- ** Problem 46
   BoolFunc,
   table,
+  -- * Binary tree problems
+  -- ** Problem 54
+  Tree (Empty, Branch),
+  leaf,
+  tree1,
+  tree2,
+  tree3,
+  tree4,
   -- * Miscellaenous problems
   -- ** Problem 90
   queens,
@@ -69,6 +77,7 @@ module Solutions (
 
 import           Problems.P07.Definitions
 import           Problems.P11.Definitions
+import           Problems.P54.Definitions
 import           Solutions.P01
 import           Solutions.P02
 import           Solutions.P03
@@ -89,4 +98,5 @@ import           Solutions.P31
 import           Solutions.P32
 import           Solutions.P33
 import           Solutions.P46
+import           Solutions.P54
 import           Solutions.P90

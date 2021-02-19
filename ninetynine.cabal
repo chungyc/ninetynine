@@ -1,10 +1,10 @@
-cabal-version: 1.12
+cabal-version: 1.18
 
 -- This file has been generated from package.yaml by hpack version 0.33.0.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9be75d461e11ceba9bfbe4a268bd0d1357a72b67044c1187e78323150b03f1c2
+-- hash: 14403c2fb51a2160d4f4321b9a8f69c8dee7e6e8a0aadbfcf1ef36a73d7d0147
 
 name:           ninetynine
 version:        0.2.0.0
@@ -22,6 +22,11 @@ build-type:     Simple
 extra-source-files:
     README.md
     ChangeLog.md
+extra-doc-files:
+    src/Problems/P54/images/tree1.gv
+    src/Problems/P54/images/tree1.svg
+    src/Problems/P54/images/tree4.gv
+    src/Problems/P54/images/tree4.svg
 
 source-repository head
   type: git
@@ -53,6 +58,8 @@ library
       Problems.P33
       Problems.P46
       Problems.P46.Definitions
+      Problems.P54
+      Problems.P54.Definitions
       Problems.P90
       Solutions
       Solutions.P01
@@ -75,6 +82,7 @@ library
       Solutions.P32
       Solutions.P33
       Solutions.P46
+      Solutions.P54
       Solutions.P90
   other-modules:
       Paths_ninetynine
@@ -135,6 +143,7 @@ test-suite ninetynine-test
       Problems.P32Spec
       Problems.P33Spec
       Problems.P46Spec
+      Problems.P54Spec
       Problems.P90Spec
       Paths_ninetynine
   hs-source-dirs:
