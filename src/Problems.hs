@@ -46,6 +46,8 @@ module Problems (
   repli,
   -- ** Problem 16
   dropEvery,
+  -- ** Problem 17
+  split,
   -- * Arithmetic problems
   -- ** Problem 31
   isPrime,
@@ -90,6 +92,7 @@ import           Problems.P13
 import           Problems.P14
 import           Problems.P15
 import           Problems.P16
+import           Problems.P17
 import           Problems.P31
 import           Problems.P32
 import           Problems.P33
