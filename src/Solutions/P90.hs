@@ -20,9 +20,10 @@ queens n = enumerate [] 1 [1..n]
 
 enumerate :: [(Int, Int)] -> Int -> [Int] -> [[Int]]
 enumerate assigned _ [] = [map snd assigned]
-enumerate assigned column remainingRows = concat $ map (\r -> enumerate ((column, r) : assigned) (column+1) (rowExcluded r)) possibleRows
-  where possibleRows = filter (not . (attacksPrevious assigned column)) remainingRows
+enumerate assigned column remainingRows = concat $ map expand possibleRows
+  where expand r = enumerate ((column, r) : assigned) (column+1) (rowExcluded r)
         rowExcluded r = filter (r /=) remainingRows
+        possibleRows = filter (not . (attacksPrevious assigned column)) remainingRows
 
 attacksPrevious :: [(Int, Int)] -> Int -> Int -> Bool
 attacksPrevious assigned column row = any attacks assigned

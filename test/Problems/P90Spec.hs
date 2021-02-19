@@ -57,7 +57,7 @@ examples = do
     where queens = Problem.queens
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.queens "queens"
   examples
   describe "From solutions" $ do
