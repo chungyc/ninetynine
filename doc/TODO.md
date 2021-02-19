@@ -33,7 +33,7 @@
     *   [ ] Problem 28
     *   [x] Problem 31
     *   [x] Problem 32
-    *   [ ] Problem 33
+    *   [x] Problem 33
     *   [ ] Problem 34
     *   [ ] Problem 35
     *   [ ] Problem 36

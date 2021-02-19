@@ -51,6 +51,8 @@ module Problems (
   isPrime,
   -- ** Problem 32
   myGCD,
+  -- ** Problem 33
+  coprime,
   -- * Logic and codes problems
   -- ** Problem 46
   BoolFunc,
@@ -80,5 +82,6 @@ import           Problems.P15
 import           Problems.P16
 import           Problems.P31
 import           Problems.P32
+import           Problems.P33
 import           Problems.P46
 import           Problems.P90
