@@ -57,6 +57,8 @@ module Problems (
   coprime,
   -- ** Problem 34
   totient,
+  -- ** Problem 35
+  primeFactors,
   -- * Logic and code problems
   -- ** Problem 46
   BoolFunc,
@@ -97,6 +99,7 @@ import           Problems.P31
 import           Problems.P32
 import           Problems.P33
 import           Problems.P34
+import           Problems.P35
 import           Problems.P46
 import           Problems.P54
 import           Problems.P54.Definitions
