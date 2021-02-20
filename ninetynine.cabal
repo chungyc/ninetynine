@@ -4,19 +4,18 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 6fe1cc3823256697e1ae562170d8ce2d42a27638f53d011b127892cd6259b99f
+-- hash: 34ecff083cf14a14289755618207dad861f29036dd5c22a7e2f6ab56751dd957
 
 name:           ninetynine
 version:        0.2.0.0
 synopsis:       Ninety-Nine Haskell Problems
-description:    A list of Ninety-Nine Haskell Problems are in the "Problems" module.
-                For more information, please see the README at <https://github.com/chungyc/ninetynine#readme>
+description:    Ninety-Nine Haskell Problems. They are listed in the "Problems" module. For more information, please see the README at <https://github.com/chungyc/ninetynine#readme>
 category:       Education
 homepage:       https://github.com/chungyc/ninetynine#readme
 bug-reports:    https://github.com/chungyc/ninetynine/issues
 author:         Yoo Chung
 maintainer:     dev@chungyc.org
-copyright:      2021 Yoo Chung
+copyright:      Copyright (C) 2021 Yoo Chung
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
@@ -83,6 +82,7 @@ library
       Solutions.P16
       Solutions.P17
       Solutions.P31
+      Solutions.P31.Functions
       Solutions.P32
       Solutions.P33
       Solutions.P34
@@ -152,6 +152,7 @@ test-suite ninetynine-test
       Problems.P46Spec
       Problems.P54Spec
       Problems.P90Spec
+      Solutions.P31.FunctionsSpec
       Paths_ninetynine
   hs-source-dirs:
       test

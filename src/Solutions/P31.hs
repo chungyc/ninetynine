@@ -5,6 +5,8 @@ Some solutions to "Problems.P31" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P31 (isPrime, isPrime', isPrime'') where
 
+import           Solutions.P31.Functions
+
 -- | Determine whether a given integer number is prime.
 --
 -- Checks whether the integer is even or if there is a divisor
@@ -15,10 +17,6 @@ isPrime n
   | n > 2          = null $ filter (n `dividesBy`) $ 2 : odds
   | otherwise      = False
   where odds = takeWhile (\k -> k*k <= n) $ iterate (2+) 3
-
--- | Whether the first argument divides by the second argument.
-dividesBy :: Integral a => a -> a -> Bool
-dividesBy a b = a `mod` b == 0
 
 -- | Determine whether a given integer number is prime.
 --
@@ -44,17 +42,3 @@ isPrime'' :: Integral a => a -> Bool
 isPrime'' n
   | n > 1     = not $ any (n `dividesBy`) $ takeWhile (\k -> k*k <= n) primes
   | otherwise = False
-
--- | List of all prime numbers.
---
--- Computed with an Erastothenes sieve.  Unlike the classic sieve,
--- which strikes out multiples of prime numbers from subsequent numbers,
--- checks the primality of each integer against the prime numbers already determined.
--- This also allows the list to be an unbounded list construct lazily.
-primes :: Integral a => [a]
-primes = 2 : odds
-  where odds = iterate (next . (2+)) 3
-        next n
-          | any (n `dividesBy`) (candidates n) = next $ n+2
-          | otherwise                          = n
-        candidates n = takeWhile (\k -> k*k <= n) odds
