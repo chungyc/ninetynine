@@ -26,9 +26,9 @@ properties queens name = do
           classify (n < 4 || (not $ peaceful n s)) "trivial" $
           peaceful n s `shouldBe` elem s (queens n)
 
-    flip mapM_ [1..6] $ do
-      \n -> context ("with size " ++ show n) $ do
-        it "includes all solutions" $ do
+    describe "includes all solutions" $ do
+      flip mapM_ [1..6] $ do
+        \n -> it ("with size " ++ show n) $ do
           queens n `shouldMatchList` filter (peaceful n) (sort $ permutations [1..n])
 
   where

@@ -71,6 +71,8 @@ module Problems (
   tree2,
   tree3,
   tree4,
+  -- ** Problem 55
+  cbalTree,
   -- * Miscellaenous problems
   -- ** Problem 90
   queens,
@@ -103,4 +105,5 @@ import           Problems.P35
 import           Problems.P46
 import           Problems.P54
 import           Problems.P54.Definitions
+import           Problems.P55
 import           Problems.P90
