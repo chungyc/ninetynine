@@ -46,7 +46,7 @@
     *   [ ] Problem 48
     *   [ ] Problem 49
     *   [ ] Problem 50
-    *   [ ] Problem 55
+    *   [x] Problem 55
     *   [ ] Problem 56
     *   [ ] Problem 57
     *   [ ] Problem 58
