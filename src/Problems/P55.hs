@@ -17,5 +17,15 @@ import qualified Solutions.P55            as Solution
 -- Write a function 'cbalTree' to construct completely balanced binary trees for a given number of nodes.
 -- The function should generate all solutions via backtracking.
 -- Put the letter @\'x\'@ as information into all nodes of the tree.
+--
+-- Example:
+--
+-- >>> printTreeList $ cbalTree 4
+-- [ Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty Empty)
+-- , Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' (Branch 'x' Empty Empty) Empty)
+-- , Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty (Branch 'x' Empty Empty))
+-- , Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' Empty Empty)]
+--
+-- &#129335; &#129335;
 cbalTree :: Int -> [Tree Char]
 cbalTree = Solution.cbalTree

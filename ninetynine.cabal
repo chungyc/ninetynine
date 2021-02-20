@@ -4,7 +4,7 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 55891b2ae3f9c80a23185199a4f5515cba99dd3a4af0215f3976d15dafce3fd8
+-- hash: 3cc70940030389768fa6219a0b41ca868961cfc90aeeddb8a905006a7596db21
 
 name:           ninetynine
 version:        0.2.0.0
@@ -156,6 +156,7 @@ test-suite ninetynine-test
       Problems.P35Spec
       Problems.P46Spec
       Problems.P54.Arbitrary
+      Problems.P54.DefinitionsSpec
       Problems.P54Spec
       Problems.P55Spec
       Problems.P90Spec
