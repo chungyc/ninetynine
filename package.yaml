@@ -53,6 +53,7 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - ninetynine
+    - random
     - hspec
     - QuickCheck
     - generic-random
