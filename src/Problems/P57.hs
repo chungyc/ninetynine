@@ -8,6 +8,9 @@ module Problems.P57 (construct, addedTo) where
 import           Problems.P54.Definitions
 import qualified Solutions.P57            as Solution
 
+-- $setup
+-- >>> import Problems.P56
+
 -- | Binary search trees.
 --
 -- Write an 'addedTo' function which adds an element to a binary search tree to obtain another binary search tree.
