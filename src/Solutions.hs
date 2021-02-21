@@ -80,6 +80,9 @@ module Solutions (
   cbalTree,
   -- ** Problem 56
   symmetric,
+  -- ** Problem 57
+  construct,
+  addedTo,
   -- * Miscellaenous problems
   -- ** Problem 90
   queens,
@@ -114,4 +117,5 @@ import           Solutions.P46
 import           Solutions.P54
 import           Solutions.P55
 import           Solutions.P56
+import           Solutions.P57
 import           Solutions.P90

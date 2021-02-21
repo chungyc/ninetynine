@@ -24,6 +24,7 @@ import qualified Problems.P35Bench as P35
 import qualified Problems.P46Bench as P46
 import qualified Problems.P55Bench as P55
 import qualified Problems.P56Bench as P56
+import qualified Problems.P57Bench as P57
 import qualified Problems.P90Bench as P90
 
 main :: IO()
@@ -53,5 +54,6 @@ main = defaultMain [ P01.group
                    -- P54 benchmark omitted
                    , P55.group
                    , P56.group
+                   , P57.group
                    , P90.group
                    ]

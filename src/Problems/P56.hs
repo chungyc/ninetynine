@@ -15,7 +15,7 @@ import qualified Solutions.P56            as Solution
 -- Write a function 'symmetric' to check whether a given binary tree is symmetric.
 -- We are only interested in the structure, not in the contents of the nodes.
 --
--- Hint: Write a function 'mirror' first to check whether one tree is the mirror image of another.
+-- Hint: Write a function @mirror@ first to check whether one tree is the mirror image of another.
 --
 -- Examples:
 --
