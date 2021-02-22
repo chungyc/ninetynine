@@ -32,6 +32,7 @@ dependencies:
 library:
   source-dirs: src
   dependencies:
+  - containers
   - deepseq
 
 executables:

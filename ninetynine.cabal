@@ -4,7 +4,7 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7f8a45982b679ca4004c3ad228510c1034cebad8e19d269cd17c3b4531a738dd
+-- hash: 47acae85544cf7866a1a5cf0d16fba1aaac7ad8d204d5ea6cfc47d51aa991a56
 
 name:           ninetynine
 version:        0.2.0.0
@@ -37,6 +37,7 @@ source-repository head
 library
   exposed-modules:
       Problems
+      Problems.Graphs
       Problems.P01
       Problems.P02
       Problems.P03
@@ -107,6 +108,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , containers
     , deepseq
   default-language: Haskell2010
 
