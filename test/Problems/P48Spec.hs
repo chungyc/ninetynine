@@ -21,7 +21,7 @@ properties tablen name = do
         tablen n f `shouldSatisfy`
         all (\x -> length x == n + 1)
 
-    prop "assigns all values to variables" $ verbose $
+    prop "assigns all values to variables" $
       \(Fn f) -> forAll (chooseInt (0, 10)) $ \n ->
         tablen n f `shouldSatisfy`
         (==) (2^n) . length . nub . map init

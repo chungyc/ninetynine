@@ -14,18 +14,12 @@ module Problems.P46 (
   xor',
   impl',
   equ',
-  -- * Utility values
+  -- * Utility functions
   functions,
   ) where
 
 import           Problems.P46.Definitions
 import qualified Solutions.P46            as Solution
-
--- $setup
--- >>> import Data.List (sort)
--- >>> let showBool a = if a then "True " else "False"
--- >>> let showRow (a, b, c) = showBool a ++ " " ++ showBool b ++ " " ++ showBool c
--- >>> let printTable t = mapM_ (putStrLn . showRow) $ sort t
 
 -- | Truth tables for logical expressions with two operands.
 --

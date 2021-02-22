@@ -8,11 +8,8 @@ module Problems.P48 (tablen) where
 import qualified Solutions.P48 as Solution
 
 -- $setup
--- >>> import Problems.P46
--- >>> import Data.List (intercalate, sort)
--- >>> let showBool a = if a then "True " else "False"
--- >>> let showRow xs = intercalate " " $ map showBool xs
--- >>> let printTable t = mapM_ (putStrLn . showRow) $ sort t
+-- >>> import           Problems.P46
+-- >>> import           Problems.P46.Definitions
 
 -- | Truth tables for logical expressions with an arbitrary number of variables.
 --
@@ -20,7 +17,7 @@ import qualified Solutions.P48 as Solution
 -- Define 'tablen' such that @tablen n f@ prints the truth table for the expression @f@,
 -- which contains @n@ logical variables.
 --
--- >>> printTable $ tablen 3 (\[a,b,c] -> a `and'` (b `or'` c) `equ'` a `and'` b `or'` a `and'` c)
+-- >>> printTablen $ tablen 3 (\[a,b,c] -> a `and'` (b `or'` c) `equ'` a `and'` b `or'` a `and'` c)
 -- False False False False
 -- False False True  False
 -- False True  False False
