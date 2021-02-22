@@ -28,8 +28,6 @@ import qualified Solutions.P57            as Solution
 -- >>> symmetric . construct $ [3, 2, 5, 7, 1]
 -- True
 --
--- &#129335; &#129335;
---
 -- === __Notes__
 --
 -- The original problem refers to a predicate which had not appeared in previous

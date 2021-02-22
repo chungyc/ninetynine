@@ -16,7 +16,5 @@ import qualified Solutions.P04 as Solution
 --
 -- >>> myLength "Hello, world!"
 -- 13
---
--- &#129335;
 myLength :: [a] -> Int
 myLength = Solution.myLength

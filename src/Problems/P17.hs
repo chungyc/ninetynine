@@ -15,7 +15,5 @@ import qualified Solutions.P17 as Solution
 --
 -- >>> split "abcdefghik" 3
 -- ("abc","defghik")
---
--- &#129335;
 split :: [a] -> Int -> ([a], [a])
 split = Solution.split

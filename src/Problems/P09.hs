@@ -14,7 +14,5 @@ import qualified Solutions.P09 as Solution
 --
 -- >>> pack "aaaabccaadeeee"
 -- ["aaaa","b","cc","aa","d","eeee"]
---
--- &#129335; &#129335;
 pack :: Eq a => [a] -> [[a]]
 pack = Solution.pack

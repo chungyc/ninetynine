@@ -24,7 +24,5 @@ import qualified Solutions.P56            as Solution
 --
 -- >>> symmetric (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty))
 -- True
---
--- &#129335; &#129335;
 symmetric :: Tree a -> Bool
 symmetric = Solution.symmetric

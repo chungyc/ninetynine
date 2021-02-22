@@ -14,7 +14,5 @@ import qualified Solutions.P33 as Solution
 --
 -- >>> coprime 35 64
 -- True
---
--- &#129335;
 coprime :: Integral a => a -> a -> Bool
 coprime = Solution.coprime

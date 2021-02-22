@@ -20,8 +20,6 @@ import           GHC.Generics    (Generic)
 -- A 'Tree' of type @a@ consists of either an 'Empty' node,
 -- or a 'Branch' containing one value of type @a@ with exactly two subtrees of type @a@.
 --
--- &#129335;
---
 -- === __Notes__
 --
 -- This is not the problem 54A from the original Ninety-Nine Haskell Problems.

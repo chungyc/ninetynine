@@ -16,7 +16,5 @@ import qualified Solutions.P31 as Solution
 --
 -- >>> isPrime 15
 -- False
---
--- &#129335; &#129335;
 isPrime :: Integral a => a -> Bool
 isPrime = Solution.isPrime

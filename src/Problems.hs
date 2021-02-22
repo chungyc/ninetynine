@@ -4,82 +4,83 @@ Copyright: Copyright (C) 2021 Yoo Chung
 License: BSD3
 Maintainer: dev@chungyc.org
 
-This is a list of [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
+This is a list of Ninety-Nine Haskell Problems.
 The number of shruggies indicate difficulty level, and are based on the original list.
 Some solutions to these problems are in "Solutions".
 
+These are based on the Ninety-Nine Haskell Problems on the [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
 The source for this module is available at https://github.com/chungyc/ninetynine.
 -}
 module Problems (
   -- * List problems
-  -- ** Problem 1
+  -- ** Problem 1 &#129335;
   myLast,
-  -- ** Problem 2
+  -- ** Problem 2 &#129335;
   myButLast,
-  -- ** Problem 3
+  -- ** Problem 3 &#129335;
   elementAt,
-  -- ** Problem 4
+  -- ** Problem 4 &#129335;
   myLength,
-  -- ** Problem 5
+  -- ** Problem 5 &#129335;
   myReverse,
-  -- ** Problem 6
+  -- ** Problem 6 &#129335;
   isPalindrome,
-  -- ** Problem 7
+  -- ** Problem 7 &#129335; &#129335;
   flatten,
   NestedList (Elem, List),
-  -- ** Problem 8
+  -- ** Problem 8 &#129335; &#129335;
   compress,
-  -- ** Problem 9
+  -- ** Problem 9 &#129335; &#129335;
   pack,
-  -- ** Problem 10
+  -- ** Problem 10 &#129335;
   encode,
-  -- ** Problem 11
+  -- ** Problem 11 &#129335;
   encodeModified,
   Encoding (Single, Multiple),
-  -- ** Problem 12
+  -- ** Problem 12 &#129335; &#129335;
   decodeModified,
-  -- ** Problem 13
+  -- ** Problem 13 &#129335; &#129335;
   encodeDirect,
-  -- ** Problem 14
+  -- ** Problem 14 &#129335;
   dupli,
-  -- ** Problem 15
+  -- ** Problem 15 &#129335; &#129335;
   repli,
-  -- ** Problem 16
+  -- ** Problem 16 &#129335; &#129335;
   dropEvery,
-  -- ** Problem 17
+  -- ** Problem 17 &#129335;
   split,
   -- * Arithmetic problems
-  -- ** Problem 31
+  -- ** Problem 31 &#129335; &#129335;
   isPrime,
-  -- ** Problem 32
+  -- ** Problem 32 &#129335; &#129335;
   myGCD,
-  -- ** Problem 33
+  -- ** Problem 33 &#129335;
   coprime,
-  -- ** Problem 34
+  -- ** Problem 34 &#129335; &#129335;
   totient,
-  -- ** Problem 35
+  -- ** Problem 35 &#129335; &#129335;
   primeFactors,
   -- * Logic and code problems
-  -- ** Problem 46
+  -- ** Problem 46 &#129335; &#129335;
   BoolFunc,
   table,
   -- * Binary tree problems
-  -- ** Problem 54
+  -- ** Problem 54 &#129335;
   Tree (Empty, Branch),
   leaf,
   tree1,
   tree2,
   tree3,
   tree4,
-  -- ** Problem 55
+  -- ** Problem 55 &#129335; &#129335;
   cbalTree,
-  -- ** Problem 56
+  -- ** Problem 56 &#129335; &#129335;
   symmetric,
-  -- ** Problem 57
+  -- ** Problem 57 &#129335; &#129335;
   construct,
   addedTo,
   -- * Miscellaenous problems
-  -- ** Problem 90
+  -- ** Problem 90 &#129335; &#129335;
   queens,
   ) where
 

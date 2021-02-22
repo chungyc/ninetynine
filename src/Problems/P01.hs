@@ -16,7 +16,5 @@ import qualified Solutions.P01 as Solution
 --
 -- >>> myLast ['x','y','z']
 -- 'z'
---
--- &#129335;
 myLast :: [a] -> a
 myLast = Solution.myLast

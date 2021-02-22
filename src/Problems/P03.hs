@@ -17,7 +17,5 @@ import qualified Solutions.P03 as Solution
 --
 -- >>> elementAt "haskell" 5
 -- 'e'
---
--- &#129335;
 elementAt :: [a] -> Int -> a
 elementAt = Solution.elementAt

@@ -21,8 +21,6 @@ module Problems.P46.Definitions (
 -- Write a function 'Problems.P46.table' which returns
 -- the truth table of a given logical expression in two variables.
 --
--- &#129335; &#129335;
---
 -- === __Notes__
 --
 -- There is no technical reason to define the type synonym 'BoolFunc'.

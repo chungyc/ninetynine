@@ -19,7 +19,5 @@ import qualified Solutions.P34 as Solution
 --
 -- >>> totient 10
 -- 4
---
--- &#129335; &#129335;
 totient :: Integral a => a -> a
 totient = Solution.totient

@@ -13,7 +13,5 @@ import qualified Solutions.P16 as Solution
 --
 -- >>> dropEvery "abcdefghik" 3
 -- "abdeghk"
---
--- &#129335; &#129335;
 dropEvery :: [a] -> Int -> [a]
 dropEvery = Solution.dropEvery

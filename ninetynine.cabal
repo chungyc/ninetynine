@@ -4,14 +4,15 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 16af42db9d96f0f905944b9342a97243e8d024c2a5f15974bb1d1a513fa970c3
+-- hash: 35dc11d35441aea82529d65fb1b16d18cac477e08fe6c67b63d1dd83a66ec8e6
 
 name:           ninetynine
 version:        0.2.0.0
 synopsis:       Ninety-Nine Haskell Problems
-description:    Ninety-Nine Haskell Problems. They are listed in the "Problems" module. For more information, please see the README at <https://github.com/chungyc/ninetynine#readme>
+description:    Ninety-Nine Haskell Problems. These are programming exercises for practice with [Haskell](https://www.haskell.org/). The problems are listed in the "Problems" module.
+                Based on the Ninety-Nine Haskell problems on [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems). For more information, see <https://github.com/chungyc/ninetynine>.
 category:       Education
-homepage:       https://github.com/chungyc/ninetynine#readme
+homepage:       http://github.com/chungyc/ninetynine
 bug-reports:    https://github.com/chungyc/ninetynine/issues
 author:         Yoo Chung
 maintainer:     dev@chungyc.org
@@ -22,6 +23,7 @@ build-type:     Simple
 extra-source-files:
     README.md
     ChangeLog.md
+    doc/TODO.md
 extra-doc-files:
     src/Problems/P54/images/tree1.gv
     src/Problems/P54/images/tree1.svg

@@ -17,7 +17,5 @@ import qualified Solutions.P10 as Solution
 --
 -- >>> encode "aaaabccaadeeee"
 -- [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
---
--- &#129335;
 encode :: Eq a => [a] -> [(Int, a)]
 encode = Solution.encode

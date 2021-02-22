@@ -25,7 +25,5 @@ import qualified Solutions.P55            as Solution
 -- , Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' (Branch 'x' Empty Empty) Empty)
 -- , Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty (Branch 'x' Empty Empty))
 -- , Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' Empty Empty)]
---
--- &#129335; &#129335;
 cbalTree :: Int -> [Tree Char]
 cbalTree = Solution.cbalTree

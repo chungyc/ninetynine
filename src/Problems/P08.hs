@@ -16,7 +16,5 @@ import qualified Solutions.P08 as Solution
 -- Example:
 -- >>> compress "aaaabccaadeeee"
 -- "abcade"
---
--- &#129335; &#129335;
 compress :: Eq a => [a] -> [a]
 compress = Solution.compress

@@ -28,7 +28,5 @@ import qualified Solutions.P90 as Solution
 --
 -- >>> head $ sort $ queens 8
 -- [1,5,8,6,3,7,2,4]
---
--- &#129335; &#129335;
 queens :: Int -> [[Int]]
 queens = Solution.queens

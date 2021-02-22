@@ -12,7 +12,5 @@ import qualified Solutions.P35 as Solution
 --
 -- >>> primeFactors 315
 -- [3,3,5,7]
---
--- &#129335; &#129335;
 primeFactors :: Integral a => a -> [a]
 primeFactors = Solution.primeFactors

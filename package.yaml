@@ -5,10 +5,12 @@ license:             BSD3
 author:              "Yoo Chung"
 maintainer:          "dev@chungyc.org"
 copyright:           "Copyright (C) 2021 Yoo Chung"
+homepage:            "http://github.com/chungyc/ninetynine"
 
 extra-source-files:
 - README.md
 - ChangeLog.md
+- doc/*
 
 extra-doc-files:
 - src/Problems/P54/images/*
@@ -17,12 +19,12 @@ extra-doc-files:
 synopsis:            Ninety-Nine Haskell Problems
 category:            Education
 
-# To avoid duplicated efforts in documentation and dealing with the
-# complications of embedding Haddock markup inside cabal files, it is
-# common to point users to the README.md file.
 description:         Ninety-Nine Haskell Problems.
-                     They are listed in the "Problems" module.
-                     For more information, please see the README at <https://github.com/chungyc/ninetynine#readme>
+                     These are programming exercises for practice with [Haskell](https://www.haskell.org/).
+                     The problems are listed in the "Problems" module.
+
+                     Based on the Ninety-Nine Haskell problems on [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
+                     For more information, see <https://github.com/chungyc/ninetynine>.
 
 dependencies:
 - base >= 4.7 && < 5

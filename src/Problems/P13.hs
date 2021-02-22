@@ -21,7 +21,5 @@ import qualified Solutions.P13            as Solution
 --
 -- >>> encodeDirect "aaaabccaadeeee"
 -- [Multiple 4 'a',Single 'b',Multiple 2 'c',Multiple 2 'a',Single 'd',Multiple 4 'e']
---
--- &#129335; &#129335;
 encodeDirect :: Eq a => [a] -> [Encoding a]
 encodeDirect = Solution.encodeDirect

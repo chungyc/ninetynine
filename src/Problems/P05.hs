@@ -16,7 +16,5 @@ import qualified Solutions.P05 as Solution
 --
 -- >>> myReverse [1,2,3,4]
 -- [4,3,2,1]
---
--- &#129335;
 myReverse :: [a] -> [a]
 myReverse = Solution.myReverse
