@@ -68,6 +68,8 @@ module Solutions (
   -- ** Problem 46
   BoolFunc,
   table,
+  -- ** Problem 48
+  tablen,
   -- * Binary tree problems
   -- ** Problem 54
   Tree (Empty, Branch),
@@ -114,6 +116,7 @@ import           Solutions.P33
 import           Solutions.P34
 import           Solutions.P35
 import           Solutions.P46
+import           Solutions.P48
 import           Solutions.P54
 import           Solutions.P55
 import           Solutions.P56

@@ -22,6 +22,7 @@ import qualified Problems.P33Bench as P33
 import qualified Problems.P34Bench as P34
 import qualified Problems.P35Bench as P35
 import qualified Problems.P46Bench as P46
+import qualified Problems.P48Bench as P48
 import qualified Problems.P55Bench as P55
 import qualified Problems.P56Bench as P56
 import qualified Problems.P57Bench as P57
@@ -51,6 +52,7 @@ main = defaultMain [ P01.group
                    , P34.group
                    , P35.group
                    , P46.group
+                   , P48.group
                    -- P54 benchmark omitted
                    , P55.group
                    , P56.group

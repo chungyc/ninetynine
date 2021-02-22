@@ -43,7 +43,7 @@
     *   [ ] Problem 40
     *   [ ] Problem 41
     *   [x] Problem 46
-    *   [ ] Problem 48
+    *   [x] Problem 48
     *   [ ] Problem 49
     *   [ ] Problem 50
     *   [x] Problem 55
