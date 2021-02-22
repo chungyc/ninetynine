@@ -5,8 +5,13 @@ Definitions used by "Problems.P46".
 -}
 module Problems.P46.Definitions (
   BoolFunc,
+  -- * Utility functions
+  printTable,
+  printTablen,
   Functions (Functions, getTable, getAnd, getOr, getNand, getNor, getXor, getImpl, getEqu),
   ) where
+
+import           Data.List (intercalate, sort)
 
 -- | Define boolean functions 'Problems.P46.and'', 'Problems.P46.or'', 'Problems.P46.nand'',
 -- 'Problems.P46.nor'', 'Problems.P46.xor'', 'Problems.P46.impl'', and 'Problems.P46.equ'',
@@ -37,6 +42,22 @@ module Problems.P46.Definitions (
 -- Documentation for the expected semantics for each boolean function was added,
 -- and the example for 'Problems.P46.table' was modified to avoid sensitivity to order.
 type BoolFunc = Bool -> Bool -> Bool
+
+-- | Print truth table as returned by 'Problems.P46.table'.
+--
+-- Given the same pair of truth tables except for order, the output will be the same.
+printTable :: [(Bool, Bool, Bool)] -> IO ()
+printTable ts = mapM_ (putStrLn . showRow) $ sort ts
+  where showRow (a, b, c) = showBool a ++ " " ++ showBool b ++ " " ++ showBool c
+        showBool a = if a then "True " else "False"
+
+-- | Print truth table as returned by 'Problems.P48.tablen'.
+--
+-- Given the same pair of truth tables except for order, the output will be the same.
+printTablen :: [[Bool]] -> IO ()
+printTablen t = mapM_ (putStrLn . showRow) $ sort t
+  where showRow xs = intercalate " " $ map showBool xs
+        showBool a = if a then "True " else "False"
 
 -- | Set of functions grouped together.
 --
