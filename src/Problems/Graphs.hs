@@ -1,6 +1,6 @@
 module Problems.Graphs (
   ValueVertex (ValueVertex),
-  VertexEdgeGraph,
+  VertexesEdges,
   AdjacencyLists,
   Friendly,
   ) where
@@ -67,7 +67,7 @@ data ValueVertex = ValueVertex Int [ValueVertex]
 --
 -- >>> ([1, 2, 3, 4, 5], [(1, 2), (1, 4), (2, 3), (2, 4), (3, 4), (4, 5)])
 -- ...
-type VertexEdgeGraph = ([Int], [(Int, Int)])
+type VertexesEdges = ([Int], [(Int, Int)])
 
 -- | A common approach to representing graphs are /adjacency lists/.
 -- For each vertex, it is associated with the vertexes that are adjacent to it.
@@ -80,12 +80,11 @@ type AdjacencyLists = [(Int, [Int])]
 
 -- | The previous approaches can be verbose and error-prone for humans to use.
 --
--- One easier way for humans is use a sequence of vertexes to represent both
+-- An easier way for humans is to use a sequence of vertexes to represent both
 -- the vertexes and edges.  Within a sequence is implicitly
--- an edge between consecutive vertexes in a sequence.
+-- an edge between consecutive vertexes in the sequence.
 -- E.g., a sequence @[a, b, c, ...]@ means there are vertexes @a@, @b@, @c@, ... and edges @(a, b)@, @(b, c)@, ...
--- With this representation, there will be as many sequences as required to
--- represent all edges implicitly.
+-- There will be as many sequences as required to represent all edges in the graph.
 --
 -- For example, the example graph can be represented as:
 --
