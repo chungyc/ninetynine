@@ -1,9 +1,9 @@
 module Problems.Graphs (
   Value, v1, v2, v3, v4, v5,
-  List (List),
-  AdjacencyLists (AdjacencyLists),
-  AdjacencyListMap (AdjacencyListMap),
-  Friendly (Friendly),
+  List (List), lg,
+  AdjacencyLists (AdjacencyLists), adjg,
+  AdjacencyListMap (AdjacencyListMap), adjmg,
+  Friendly (Friendly), fg,
   Graph (vertexes, edges, neighbors, isValid),
   ) where
 
@@ -34,18 +34,31 @@ v5 = Value 5 [v4]
 data List = List ([Int], [(Int, Int)])
   deriving (Eq, Show)
 
+lg :: List
+lg = List ([1, 2, 3, 4, 5], [(1, 2), (1, 4), (2, 3), (2, 4), (3, 4), (4, 5)])
+
 -- | Graph represented as with adjacency lists.
 data AdjacencyLists = AdjacencyLists [(Int, [Int])]
   deriving (Eq, Show)
 
+adjg :: AdjacencyLists
+adjg = AdjacencyLists [(1, [2, 4]), (2, [1, 3, 4]), (3, [2, 4]), (4, [2, 3, 5]), (5, [4])]
+
 -- | Adjacency lists in a map.
 newtype AdjacencyListMap = AdjacencyListMap (Map.IntMap [Int])
+
+adjmg :: AdjacencyListMap
+adjmg = AdjacencyListMap $ Map.fromList l
+  where AdjacencyLists l = adjg
 
 -- | Human-friendly form.
 --
 -- Similar to DOT.
-data Friendly a = Friendly [[Int]]
+data Friendly = Friendly [[Int]]
   deriving (Eq, Show)
+
+fg :: Friendly
+fg = Friendly [[1, 2, 3, 4, 5], [1, 4], [2, 4]]
 
 class Graph g where
   vertexes :: g -> [Int]
