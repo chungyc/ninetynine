@@ -60,6 +60,8 @@ module Problems (
   totient,
   -- ** Problem 35 &#129335; &#129335;
   primeFactors,
+  -- ** Problem 36 &#129335; &#129335;
+  primeFactorsMultiplicity,
   -- * Logic and code problems
   -- ** Problem 46 &#129335; &#129335;
   BoolFunc,
@@ -110,6 +112,7 @@ import           Problems.P32
 import           Problems.P33
 import           Problems.P34
 import           Problems.P35
+import           Problems.P36
 import           Problems.P46
 import           Problems.P48
 import           Problems.P54
