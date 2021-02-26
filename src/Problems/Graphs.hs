@@ -1,14 +1,16 @@
 module Problems.Graphs (
-  Graph (vertexes, edges),
-  ValueVertex (ValueVertex),
-  VertexesEdges,
-  AdjacencyLists,
+  Graph (vertexes, edges, sets),
+  Vertex,
+  Edge (Edge),
+  Var,
+  Lists (Lists),
+  Adjacency (Adjacency),
   Paths,
-  isGraph,
-  isDirectedGraph,
   ) where
 
-import qualified Data.Set as Set
+import           Data.List (permutations)
+import           Data.Set  (Set)
+import qualified Data.Set  as Set
 
 -- | A graph is mathematically defined as a set of vertexes and a set of edges,
 -- where an edge is a set of two elements from the set of vertexes.
@@ -18,8 +20,6 @@ import qualified Data.Set as Set
 -- The following is an example of a graph, with vertexes represented as circles and edges represented as lines.
 --
 -- ![Graph with vertexes 1, 2, 3, 4, 5, and edges {1, 2}, {1, 4}, {2, 3}, {2, 4}, {3, 4}, {4, 5}](images/Graphs/Example.svg)
---
--- While vertexes could be anything, we will use integers to identify vertexes in these problems.
 --
 -- === __Notes__
 --
@@ -33,20 +33,62 @@ import qualified Data.Set as Set
 -- Most of the graph problems themselves remain substantially the same.
 class Graph g where
   -- | The set of vertexes.
-  vertexes :: g -> [Int]
+  vertexes :: g -> Set Vertex
 
   -- | The set of edges.
-  edges :: g -> [(Int, Int)]
+  edges :: g -> Set Edge
+
+  -- | The set of vertexes and edges together.  I.e.,
+  --
+  -- prop> sets g == (vertexes g, edges g)
+  sets :: g -> (Set Vertex, Set Edge)
+  sets g = (vertexes g, edges g)
+
+-- | A vertex in a graph.
+--
+-- In general, vertexes can be anything.  For these problems, vertexes will be integers.
+type Vertex = Int
+
+-- | An edge in a graph.
+--
+-- We will only deal with /undirected/ graphs.  I.e.,
+--
+-- prop> Edge (u, v) == Edge (v, u)
+data Edge = Edge (Vertex, Vertex)
+  deriving Show
+
+-- | Edges in undirected graphs have no direction, so the order of the vertexes do not matter.
+instance Eq Edge where
+  (==) (Edge e) (Edge e') = normalize e == normalize e'
+
+-- | We define an order for the sole purpose of making output reproducible.
+-- The ordering has no meaning otherwise.
+instance Ord Edge where
+  compare (Edge e) (Edge e') = compare (normalize e) (normalize e')
+
+-- | Normalizes the representation of an edge to a single representation.
+--
+-- I.e., @normalize (u, v) == normalize (v, u)@.
+normalize :: (Vertex, Vertex) -> (Vertex, Vertex)
+normalize e@(u, v)
+  | u <= v    = e
+  | otherwise = (v, u)
+
+-- | A default implementation for comparing graph equality.
+equal :: Graph g => g -> g -> Bool
+equal g g' = vs == vs' && es == es'
+  where (vs, vs') = (vertexes g, vertexes g')
+        (es, es') = (edges g, edges g')
 
 -- | There are many ways to represent graphs in Haskell.
--- For example, the example graph can be represented by vertexes including their adjacent vertexes as values:
+-- For example, the example graph can be represented by variables including their adjacent vertexes as values:
 --
 -- >>> :{
--- let v1 = ValueVertex 1 [v2, v4]
---     v2 = ValueVertex 2 [v1, v3, v3]
---     v3 = ValueVertex 3 [v2, v4]
---     v4 = ValueVertex 4 [v1, v2, v3, v5]
---     v5 = ValueVertex 5 [v4]
+-- let v1 = Var 1 [v2, v4]
+--     v2 = Var 2 [v1, v3, v3]
+--     v3 = Var 3 [v2, v4]
+--     v4 = Var 4 [v1, v2, v3, v5]
+--     v5 = Var 5 [v4]
 -- :}
 --
 -- === __Tying the knot__
@@ -65,10 +107,10 @@ class Graph g where
 -- For example, there are no graphs consistent with the following representation:
 --
 -- >>> :{
--- let v1  = ValueVertex 1 [v2]
---     v2  = ValueVertex 2 [v3]
---     v3  = ValueVertex 3 [v1']
---     v1' = ValueVertex 1 [v3]
+-- let v1  = Var 1 [v2]
+--     v2  = Var 2 [v3]
+--     v3  = Var 3 [v1']
+--     v1' = Var 1 [v3]
 -- :}
 --
 -- On the other hand, the following is a consistent representation of a graph.
@@ -77,93 +119,68 @@ class Graph g where
 -- otherwise, this would lead to an algorithm for the [halting problem](https://brilliant.org/wiki/halting-problem/).
 --
 -- >>> :{
--- let v1 = ValueVertex 1 [v2]
---     v2 = ValueVertex 2 [v1]
+-- let v1 = Var 1 [v2]
+--     v2 = Var 2 [v1]
 -- :}
 --
 -- If there are no cycles in the graph, this is not an issue.
 -- In fact, trees are graphs which are often represented this way.
-data ValueVertex = ValueVertex Int [ValueVertex]
-  deriving (Eq, Show)
+data Var = Var Vertex [Var]
+  deriving Show
 
--- | Graphs can also be represented by the set of its vertexes and the set of its edges.
+instance Eq Var where
+  (==) (Var v vs) (Var v' vs')
+    | v /= v'   = False
+    | otherwise = any (vs ==) (permutations vs')
+
+-- | Graphs can also be represented by the lists of its vertexes and edges.
 -- This is close to the standard mathematical definition of a graph.
 --
 -- For example, the example graph can be represented as:
 --
--- >>> ([1, 2, 3, 4, 5], [(1, 2), (1, 4), (2, 3), (2, 4), (3, 4), (4, 5)])
+-- >>> Lists [1, 2, 3, 4, 5] [(1, 2), (1, 4), (2, 3), (2, 4), (3, 4), (4, 5)]
 -- ...
-type VertexesEdges = ([Int], [(Int, Int)])
+data Lists = Lists [Vertex] [(Vertex, Vertex)]
+  deriving Show
 
--- | A common approach to representing graphs are /adjacency lists/.
--- For each vertex, it is associated with the vertexes that are adjacent to it.
+instance Graph Lists where
+  vertexes (Lists vs _) = Set.fromList vs
+  edges (Lists _ es) = Set.fromList $ map Edge es
+
+instance Eq Lists where
+  (==) g g' = equal g g'
+
+-- | A common approach to representing graphs are with /adjacency lists/.
+-- As the name implies, for each vertex it lists its adjacent vertexes
 --
 -- For example, the example graph can be represented as:
 --
--- >>> [(1, [2, 4]), (2, [1, 3, 4]), (3, [2, 4]), (4, [1, 2, 3, 5]), (5, [4])]
+-- >>> Adjacency [(1, [2, 4]), (2, [1, 3, 4]), (3, [2, 4]), (4, [1, 2, 3, 5]), (5, [4])]
 -- ...
-type AdjacencyLists = [(Int, [Int])]
+data Adjacency = Adjacency [(Vertex, [Vertex])]
+  deriving Show
+
+instance Graph Adjacency where
+  vertexes (Adjacency vs) = Set.fromList $ map fst vs
+  edges (Adjacency vs) = Set.fromList $ concat $ map (\(v, es) -> [Edge (v, e) | e <- es]) vs
+
+instance Eq Adjacency where
+  (==) g g' = equal g g'
 
 -- | The previous approaches can be verbose and error-prone for humans to use.
 --
--- An easier way for humans is to use a sequence of vertexes to represent both
--- the vertexes and edges.  Within a sequence is implicitly
--- an edge between consecutive vertexes in the sequence.
--- E.g., a sequence @[a, b, c, ...]@ means there are vertexes @a@, @b@, @c@, ... and edges @(a, b)@, @(b, c)@, ...
--- There will be as many sequences as required to represent all edges in the graph.
+-- An easier way for humans is to use paths of vertexes to represent both the vertexes and edges.
+-- Within a path is implicitly an edge between consecutive vertexes.
+-- E.g., a path @[a, b, c, ...]@ means there are vertexes @a@, @b@, @c@, ... and edges @(a, b)@, @(b, c)@, ...
+-- There will be as many paths as required to represent all edges in the graph.
 --
 -- For example, the example graph can be represented as:
 --
--- >>> [[1, 2, 3, 4, 5], [1, 4], [2, 4]]
+-- >>> Paths [[1, 2, 3, 4, 5], [1, 4], [2, 4]]
 -- ...
 --
 -- === __DOT graphs__
 --
--- This is similar to the approach used by very basic DOT graphs.
+-- This is similar to the approach used by DOT graphs,
 -- which are commonly used to generate [visualizations of graphs](https://graphviz.org/).
-type Paths = [[Int]]
-
--- | The definition of a graph as explained here is that of an /undirected/ graph,
--- where there is no direction to the edges.  If we store edges as an ordered pair of
--- vertexes, then this means that if \((u, v)\) is an edge, then \((v, u)\) must
--- also be an edge.
---
--- A value being of a particular type may not be enough to ensure that it represents
--- an undirected graph.  For example, an edge in 'VertexesEdges' may have an element
--- which is not a vertex of the graph.  'isGraph' is a function which will check
--- whether a 'Graph' value is a valid representation of an undirected graph.
--- Here, we will arbitrarily require that if edges are stored as ordered pairs,
--- then for an undirected graph @g@, if @(u, v)@ is in @'edges' g@, then  @(v, u)@
--- must also be in @'edges' g@.
-isGraph :: Graph g => g -> Bool
-isGraph g = edgesHaveVertexes && edgesAreNotDirectional
-  where vs = Set.fromList $ vertexes g
-        es = Set.fromList $ edges g
-        -- Vertexes in edges must be vertexes.
-        edgesHaveVertexes = Set.foldl (\r -> \(u, v) -> r && Set.member u vs && Set.member v vs) True es
-        -- Edges have no direction; i.e., (u, v) and (v, u) are the same edge.
-        -- We will require that they must both be in the edges list for undirected graphs.
-        --
-        -- Requiring that at most one of (u, v) or (v, u) is in the edges list
-        -- is a reasonable alternative requirement, but we will not use this one here.
-        -- It would make it infeasible to check the validity of a graph with
-        -- some representations using only the 'Graph' type class.
-        -- In particular, we would not be able to check whether a value of 'VertexesEdges'
-        -- or 'AdjacencyLists' would be a valid undirected graph without incorporating details
-        -- outside the 'Graph' type class.
-        edgesAreNotDirectional = Set.foldl (\r -> \(u, v) -> r && not (Set.member (v, u) es)) True es
-
--- | Edges may not only be stored as ordered pairs, but they may also be /defined/ as ordered pairs.
--- I.e., \((u, v)\) would not be the same edge as \((v, u)\).
--- Such graphs are called /directed/ graphs.
---
--- The graph representations in this module are able to represent directed graphs as well.
--- 'isDirectedGraph'  is a function which will check whether a 'Graph' value is a valid
--- representation of a directed graph.  The difference from 'isGraph' is that it does
--- not require the same symmetry condition for the vertexes in an edge.
-isDirectedGraph :: Graph g => g -> Bool
-isDirectedGraph g = edgesHaveVertexes
-  where vs = Set.fromList $ vertexes g
-        es = Set.fromList $ edges g
-        -- Vertexes in edges must be vertexes.
-        edgesHaveVertexes = Set.foldl (\r -> \(u, v) -> r && Set.member u vs && Set.member v vs) True es
+type Paths = [[Vertex]]
