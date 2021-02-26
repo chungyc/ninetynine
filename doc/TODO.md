@@ -36,9 +36,8 @@
     *   [x] Problem 33
     *   [x] Problem 34
     *   [x] Problem 35
-    *   [ ] Problem 36
-    *   [ ] Problem 37
-    *   [ ] Problem 38
+    *   [x] Problem 36
+    *   [x] Problem 37
     *   [ ] Problem 39
     *   [ ] Problem 40
     *   [ ] Problem 41
@@ -86,6 +85,7 @@
     *   [ ] Problem 98
     *   [ ] Problem 99
 *   [ ] Replace problems
+    *   [ ] Problem 38
     *   [ ] Problem 47
     *   [x] Problem 54
 *   [ ] Add problems so that there are actually 99 problems

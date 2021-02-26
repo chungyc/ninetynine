@@ -15,6 +15,7 @@ primeFactors n = reverse $ factor n primes []
 factor :: Integral a => a -> [a] -> [a] -> [a]
 factor 1 _ fs = fs
 factor n ps'@(p:ps) fs
+  | n < p*p         = n : fs
   | n `dividesBy` p = factor (n `div` p) ps' (p:fs)
   | otherwise       = factor n ps fs
 factor _ _ _ = undefined
