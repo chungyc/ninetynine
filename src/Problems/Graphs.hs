@@ -6,6 +6,8 @@ module Problems.Graphs (
   Lists (Lists),
   Adjacency (Adjacency),
   Paths,
+  G (G),
+  toGraph,
   ) where
 
 import           Data.List (permutations)
@@ -40,7 +42,7 @@ class Graph g where
 
   -- | The set of vertexes and edges together.  I.e.,
   --
-  -- prop> sets g == (vertexes g, edges g)
+  -- prop> sets (g :: G) == (vertexes g, edges g)
   sets :: g -> (Set Vertex, Set Edge)
   sets g = (vertexes g, edges g)
 
@@ -75,8 +77,8 @@ normalize e@(u, v)
   | otherwise = (v, u)
 
 -- | A default implementation for comparing graph equality.
-equal :: Graph g => g -> g -> Bool
-equal g g' = vs == vs' && es == es'
+equals :: Graph g => g -> g -> Bool
+equals g g' = vs == vs' && es == es'
   where (vs, vs') = (vertexes g, vertexes g')
         (es, es') = (edges g, edges g')
 
@@ -148,7 +150,7 @@ instance Graph Lists where
   edges (Lists _ es) = Set.fromList $ map Edge es
 
 instance Eq Lists where
-  (==) g g' = equal g g'
+  (==) g g' = equals g g'
 
 -- | A common approach to representing graphs are with /adjacency lists/.
 -- As the name implies, for each vertex it lists its adjacent vertexes
@@ -165,7 +167,7 @@ instance Graph Adjacency where
   edges (Adjacency vs) = Set.fromList $ concat $ map (\(v, es) -> [Edge (v, e) | e <- es]) vs
 
 instance Eq Adjacency where
-  (==) g g' = equal g g'
+  (==) g g' = equals g g'
 
 -- | The previous approaches can be verbose and error-prone for humans to use.
 --
@@ -183,4 +185,28 @@ instance Eq Adjacency where
 --
 -- This is similar to the approach used by DOT graphs,
 -- which are commonly used to generate [visualizations of graphs](https://graphviz.org/).
-type Paths = [[Vertex]]
+data Paths = Paths [[Vertex]]
+  deriving Show
+
+instance Graph Paths where
+  vertexes (Paths ps) = Set.fromList $ concat ps
+  edges (Paths ps) = Set.fromList $ concat $ map toEdges ps
+    where toEdges []             = []
+          toEdges [_]            = []
+          toEdges (u : vs@(v:_)) = Edge (u, v) : toEdges vs
+
+instance Eq Paths where
+  (==) g g' = equals g g'
+
+-- | A default graph representation.
+--
+-- This may become a type alias to a graph representation the problem solver defines.
+data G = G (Set Vertex) (Set Edge)
+  deriving (Eq, Show)
+
+toGraph :: (Set Vertex) -> (Set Edge) -> G
+toGraph = undefined
+
+instance Graph G where
+  vertexes (G vs _) = vs
+  edges (G _ es) = es
