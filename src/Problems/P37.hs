@@ -25,7 +25,8 @@ import qualified Solutions.P37 as Solution
 -- >>> totient' 10
 -- 4
 --
--- Use the benchmarks "P34Bench" and "P37Bench" to compare
--- the implementations for "Problems.P34" and "Problems.P37".
+-- Compare with the solution for "Problems.P34":
+--
+-- > stack bench --benchmark-arguments="P34/totient P37/totient'"
 totient' :: Integral a => a -> a
 totient' = Solution.totient'
