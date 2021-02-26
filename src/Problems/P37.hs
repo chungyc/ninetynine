@@ -9,7 +9,7 @@ import qualified Solutions.P37 as Solution
 
 -- | Calculate Euler's totient function \(\phi(m)\).
 --
--- See 'Problems.P34' for the definition of Euler's totient function.
+-- See "Problems.P34" for the definition of Euler's totient function.
 -- Implement an improved version based on Euler's product formula.
 --
 -- If the prime factors of \(m\) are known, i.e.,
@@ -27,6 +27,6 @@ import qualified Solutions.P37 as Solution
 --
 -- Compare with the solution for "Problems.P34":
 --
--- > stack bench --benchmark-arguments="P34/totient P37/totient'"
+-- > $ stack bench --benchmark-arguments="P34/totient P37/totient'"
 totient' :: Integral a => a -> a
 totient' = Solution.totient'
