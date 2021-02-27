@@ -57,6 +57,7 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - ninetynine
+    - containers
     - random
     - hspec
     - QuickCheck

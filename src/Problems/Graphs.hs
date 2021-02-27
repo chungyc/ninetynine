@@ -1,18 +1,25 @@
 module Problems.Graphs (
-  Graph (vertexes, edges, sets),
-  Vertex,
-  Edge (Edge),
+  Graph (vertexes, edges),
   Var,
   Lists (Lists),
   Adjacency (Adjacency),
-  Paths,
+  Paths (Paths),
   G (G),
+  Vertex,
+  Edge (Edge),
+  sets,
   toGraph,
   ) where
 
-import           Data.List (permutations)
-import           Data.Set  (Set)
-import qualified Data.Set  as Set
+import           Data.List     (permutations)
+import           Data.Map.Lazy (Map)
+import qualified Data.Map.Lazy as Map
+import           Data.Maybe    (fromJust)
+import           Data.Set      (Set)
+import qualified Data.Set      as Set
+
+-- $setup
+-- >>> import Problems.Graphs.Arbitrary ()
 
 -- | A graph is mathematically defined as a set of vertexes and a set of edges,
 -- where an edge is a set of two elements from the set of vertexes.
@@ -40,11 +47,23 @@ class Graph g where
   -- | The set of edges.
   edges :: g -> Set Edge
 
-  -- | The set of vertexes and edges together.  I.e.,
+  -- | The sets of vertexes and edges for a graph.  I.e.,
   --
   -- prop> sets (g :: G) == (vertexes g, edges g)
   sets :: g -> (Set Vertex, Set Edge)
   sets g = (vertexes g, edges g)
+
+  -- | Build a graph of type @g@, given a set of vertexes and a set of edges.
+  --
+  -- If the sets are not consistent with a valid graph, return 'Nothing'.
+  --
+  -- prop> toGraph (sets g) == (g :: G)
+  toGraph :: (Set Vertex, Set Edge) -> Maybe g
+  toGraph = undefined
+
+isValidGraph :: (Set Vertex, Set Edge) -> Bool
+isValidGraph (vs, es) = Set.isSubsetOf vs' vs
+  where vs' = Set.foldl (\s -> \(Edge (u, v)) -> Set.insert u $ Set.insert v s) Set.empty es
 
 -- | A vertex in a graph.
 --
@@ -92,6 +111,8 @@ equals g g' = vs == vs' && es == es'
 --     v4 = Var 4 [v1, v2, v3, v5]
 --     v5 = Var 5 [v4]
 -- :}
+--
+-- We will not be using this representation of graphs in the problems.
 --
 -- === __Tying the knot__
 --
@@ -190,23 +211,75 @@ data Paths = Paths [[Vertex]]
 
 instance Graph Paths where
   vertexes (Paths ps) = Set.fromList $ concat ps
+
   edges (Paths ps) = Set.fromList $ concat $ map toEdges ps
     where toEdges []             = []
           toEdges [_]            = []
           toEdges (u : vs@(v:_)) = Edge (u, v) : toEdges vs
 
+  toGraph g
+    | isValidGraph g = Just $ Paths $ snd $ extractPaths (fromJust $ toGraph g :: G, [])
+    | otherwise      = Nothing
+
+extractPaths :: (G, [[Vertex]]) -> (G, [[Vertex]])
+extractPaths e@(g@(G m), ps)
+  | Map.null m = e
+  | otherwise   = extractPaths (g', p' : ps)
+  where (g', p') = extractPathFrom (pathStart g) g
+
+pathStart :: G -> Vertex
+pathStart (G m) = fst $ head $ candidates $ Map.toList roots
+  -- Try to choose a vertex in zero or one edge.
+  -- Make it more likely to get paths such as [[1,2,3]] instead of [[2,3],[1,2]].
+  where roots = Map.filter ((>=) 1 . Set.size) m
+        candidates [] = Map.toList m
+        candidates vs = vs
+
+extractPathFrom :: Vertex -> G -> (G, [Vertex])
+extractPathFrom v g = extractPath v (g, [])
+
+extractPath :: Vertex -> (G, [Vertex]) -> (G, [Vertex])
+extractPath v (g@(G m), p)
+  | Set.null neighbors = (g, v : p)
+  | otherwise          = extractPath v' (deleteEdge v v' g, v : p)
+  where neighbors = Map.findWithDefault Set.empty v m
+        v'        = Set.findMin neighbors
+
+deleteEdge :: Vertex -> Vertex -> G -> G
+deleteEdge u v (G m) = G $ delete u v $ delete v u m
+  where delete u' v' m' = Map.update (toMaybe . Set.delete v') u' m'
+        toMaybe vs
+          | Set.null vs   = Nothing
+          | otherwise = Just vs
+
 instance Eq Paths where
   (==) g g' = equals g g'
 
--- | A default graph representation.
+-- | Represents a graph with a map where a vertex is a key and the set of its neighbors is the value.
 --
--- This may become a type alias to a graph representation the problem solver defines.
-data G = G (Set Vertex) (Set Edge)
+-- This is basically an indexed version of adjacency lists.
+-- This representation may be the easiest for graph functions to use,
+-- and we will use it as the default representation of graphs.
+--
+-- Example:
+--
+-- >>> import qualified Data.Map as M
+-- >>> import qualified Data.Set as S
+-- >>> G $ M.map S.fromList $ M.fromList [(1, [2, 4]), (2, [1, 3, 4]), (3, [2, 4]), (4, [1, 2, 3, 5]), (5, [4])]
+-- ...
+data G = G (Map Vertex (Set Vertex))
   deriving (Eq, Show)
 
-toGraph :: (Set Vertex) -> (Set Edge) -> G
-toGraph = undefined
-
 instance Graph G where
-  vertexes (G vs _) = vs
-  edges (G _ es) = es
+  vertexes (G m) = Map.keysSet m
+
+  edges (G m) = Map.foldlWithKey addVertex Set.empty m
+    where addVertex s v vs = Set.union s $ toEdges v vs
+          toEdges v vs = Set.map (\u -> Edge (v, u)) vs
+
+  toGraph (vs, es)
+    | Set.isSubsetOf vs' vs = Just $ G $ Set.foldl insertEdge Map.empty es
+    | otherwise = Nothing
+    where vs' = Set.foldl (\s -> \(Edge (u, v)) -> Set.insert u $ Set.insert v s) Set.empty es
+          insertEdge m (Edge (u, v)) = insertNeighbor u v $ insertNeighbor v u m
+          insertNeighbor u v m = Map.insertWith Set.union u (Set.singleton v) m

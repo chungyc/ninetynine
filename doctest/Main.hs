@@ -4,6 +4,7 @@ main :: IO ()
 main = do
   doctest $ "--fast" : stateless
   doctest $ toReload
+  doctest $ graphs
 
 mapFiles :: [String] -> [String]
 mapFiles = map ("src/Problems/" ++)
@@ -24,4 +25,7 @@ stateless = mapFiles
 
 -- | Deterministic examples with local definitions to reset.
 toReload :: [String]
-toReload = mapFiles [ "P48.hs", "P57.hs", "P90.hs", "Graphs.hs" ]
+toReload = mapFiles [ "P48.hs", "P57.hs", "P90.hs" ]
+
+graphs :: [String]
+graphs = ["--fast", "src/Problems/Graphs.hs", "test/Problems/Graphs/Arbitrary.hs"]
