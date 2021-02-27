@@ -1,25 +1,20 @@
 module Problems.Graphs (
-  Graph (vertexes, edges),
+  Graph (vertexes, edges, sets, neighbors, adjacent, toGraph, isValidGraph),
+  Vertex,
+  Edge (Edge),
   Var,
   Lists (Lists),
   Adjacency (Adjacency),
   Paths (Paths),
   G (G),
-  Vertex,
-  Edge (Edge),
-  sets,
-  toGraph,
   ) where
 
-import           Data.List     (permutations)
+import           Data.List     (group, permutations, sort)
 import           Data.Map.Lazy (Map)
 import qualified Data.Map.Lazy as Map
 import           Data.Maybe    (fromJust)
 import           Data.Set      (Set)
 import qualified Data.Set      as Set
-
--- $setup
--- >>> import Problems.Graphs.Arbitrary ()
 
 -- | A graph is mathematically defined as a set of vertexes and a set of edges,
 -- where an edge is a set of two elements from the set of vertexes.
@@ -47,22 +42,41 @@ class Graph g where
   -- | The set of edges.
   edges :: g -> Set Edge
 
-  -- | The sets of vertexes and edges for a graph.  I.e.,
-  --
-  -- prop> sets (g :: G) == (vertexes g, edges g)
+  -- | The sets of vertexes and edges for a graph.  I.e., @('vertexes' g, 'edges' g)@.
   sets :: g -> (Set Vertex, Set Edge)
   sets g = (vertexes g, edges g)
+
+  -- | The neighbors of a vertex in a graph.
+  -- I.e., the set of vertexes adjacent to the given vertex.
+  neighbors :: Vertex -> g -> Set Vertex
+  neighbors v g = Set.foldl extract Set.empty $ edges g
+    where extract vs (Edge (u', v'))
+            | v == u'   = Set.insert v' vs
+            | v == v'   = Set.insert u' vs
+            | otherwise = vs
+
+  -- | Whether the given vertexes are adjacent in the graph.
+  adjacent :: Vertex -> Vertex -> g -> Bool
+  adjacent u v g = Set.member (Edge (u, v)) (edges g)
 
   -- | Build a graph of type @g@, given a set of vertexes and a set of edges.
   --
   -- If the sets are not consistent with a valid graph, return 'Nothing'.
-  --
-  -- prop> toGraph (sets g) == (g :: G)
   toGraph :: (Set Vertex, Set Edge) -> Maybe g
-  toGraph = undefined
 
-isValidGraph :: (Set Vertex, Set Edge) -> Bool
-isValidGraph (vs, es) = Set.isSubsetOf vs' vs
+  -- | Whether the graph representation is valid.
+  --
+  -- If graph representations can only be built using 'toGraph',
+  -- it should be impossible to build an invalid graph representation.
+  -- However, we allow graph representations to be built directly,
+  -- so for some representations of graphs, it is possible to build an invalid one.
+  isValidGraph :: g -> Bool
+
+-- | Checks whether the given set of vertexes and edges can form a graph.
+--
+-- I.e., the vertexes in edges must be in the set of vertexes.
+areValidGraphSets :: (Set Vertex, Set Edge) -> Bool
+areValidGraphSets (vs, es) = Set.isSubsetOf vs' vs
   where vs' = Set.foldl (\s -> \(Edge (u, v)) -> Set.insert u $ Set.insert v s) Set.empty es
 
 -- | A vertex in a graph.
@@ -75,14 +89,14 @@ type Vertex = Int
 -- We will only deal with /undirected/ graphs.  I.e.,
 --
 -- prop> Edge (u, v) == Edge (v, u)
-data Edge = Edge (Vertex, Vertex)
+newtype Edge = Edge (Vertex, Vertex)
   deriving Show
 
--- | Edges in undirected graphs have no direction, so the order of the vertexes do not matter.
+-- Edges in undirected graphs have no direction, so the order of the vertexes do not matter.
 instance Eq Edge where
   (==) (Edge e) (Edge e') = normalize e == normalize e'
 
--- | We define an order for the sole purpose of making output reproducible.
+-- We define an order for the sole purpose of making output reproducible.
 -- The ordering has no meaning otherwise.
 instance Ord Edge where
   compare (Edge e) (Edge e') = compare (normalize e) (normalize e')
@@ -105,25 +119,25 @@ equals g g' = vs == vs' && es == es'
 -- For example, the example graph can be represented by variables including their adjacent vertexes as values:
 --
 -- >>> :{
--- let v1 = Var 1 [v2, v4]
---     v2 = Var 2 [v1, v3, v3]
---     v3 = Var 3 [v2, v4]
---     v4 = Var 4 [v1, v2, v3, v5]
---     v5 = Var 5 [v4]
+-- let v1 = Var () [v2, v4]
+--     v2 = Var () [v1, v3, v4]
+--     v3 = Var () [v2, v4]
+--     v4 = Var () [v1, v2, v3, v5]
+--     v5 = Var () [v4]
 -- :}
 --
--- We will not be using this representation of graphs in the problems.
+-- We will not be using this representation of graphs further.
 --
 -- === __Tying the knot__
 --
--- While many languages can do something similar with objects pointing or referencing each other,
+-- While many languages can repesent cycles in graphs with objects pointing or referencing each other,
 -- most of them cannot do so by /value/ if there are any cycles.
 -- This is possible in Haskell thanks to lazy evaluation,
 -- and this technique is called ["tying the knot"](https://wiki.haskell.org/Tying_the_Knot).
 --
--- However, tying the knot to represent cycles may not be useful in many situations.
+-- However, tying the knot to represent graphs with cycles can be problematic.
 -- It is equivalent to and indistinguishable from an infinite multiway tree.
--- This can be resolved by assuming that vertexes with the same label are the same vertex.
+-- This can be resolved by assuming that values with the same label are the same vertex.
 -- Unfortunately, this allows for an inconsistent graph representation,
 -- and there is no general way to confirm that a graph representation is consistent.
 --
@@ -137,7 +151,7 @@ equals g g' = vs == vs' && es == es'
 -- :}
 --
 -- On the other hand, the following is a consistent representation of a graph.
--- Unforunately, it cannot be proven that it is consistent with just the values.
+-- Unfortunately, it cannot be proven that it is consistent using just the values.
 -- For the general case, even knowledge of the code will not always be enough;
 -- otherwise, this would lead to an algorithm for the [halting problem](https://brilliant.org/wiki/halting-problem/).
 --
@@ -146,12 +160,12 @@ equals g g' = vs == vs' && es == es'
 --     v2 = Var 2 [v1]
 -- :}
 --
--- If there are no cycles in the graph, this is not an issue.
+-- If there are no cycles in the graph, there is no need to tie the knot, so this is not an issue.
 -- In fact, trees are graphs which are often represented this way.
-data Var = Var Vertex [Var]
+data Var a = Var a [Var a]
   deriving Show
 
-instance Eq Var where
+instance Eq a => Eq (Var a) where
   (==) (Var v vs) (Var v' vs')
     | v /= v'   = False
     | otherwise = any (vs ==) (permutations vs')
@@ -161,14 +175,21 @@ instance Eq Var where
 --
 -- For example, the example graph can be represented as:
 --
--- >>> Lists [1, 2, 3, 4, 5] [(1, 2), (1, 4), (2, 3), (2, 4), (3, 4), (4, 5)]
--- ...
-data Lists = Lists [Vertex] [(Vertex, Vertex)]
+-- >>> Lists ([1, 2, 3, 4, 5], [(1, 2), (1, 4), (2, 3), (2, 4), (3, 4), (4, 5)])
+-- Lists ...
+newtype Lists = Lists ([Vertex], [(Vertex, Vertex)])
   deriving Show
 
 instance Graph Lists where
-  vertexes (Lists vs _) = Set.fromList vs
-  edges (Lists _ es) = Set.fromList $ map Edge es
+  vertexes (Lists (vs, _)) = Set.fromList vs
+
+  edges (Lists (_, es)) = Set.fromList $ map Edge es
+
+  toGraph (vs, es)
+    | areValidGraphSets (vs, es) = Just $ Lists (Set.toList vs, map (\(Edge e) -> e) $ Set.toList es)
+    | otherwise                  = Nothing
+
+  isValidGraph (Lists (vs, es)) = areValidGraphSets (Set.fromList vs, Set.fromList $ map Edge es)
 
 instance Eq Lists where
   (==) g g' = equals g g'
@@ -179,13 +200,33 @@ instance Eq Lists where
 -- For example, the example graph can be represented as:
 --
 -- >>> Adjacency [(1, [2, 4]), (2, [1, 3, 4]), (3, [2, 4]), (4, [1, 2, 3, 5]), (5, [4])]
--- ...
-data Adjacency = Adjacency [(Vertex, [Vertex])]
+-- Adjacency ...
+newtype Adjacency = Adjacency [(Vertex, [Vertex])]
   deriving Show
 
 instance Graph Adjacency where
   vertexes (Adjacency vs) = Set.fromList $ map fst vs
+
   edges (Adjacency vs) = Set.fromList $ concat $ map (\(v, es) -> [Edge (v, e) | e <- es]) vs
+
+  neighbors v (Adjacency vs) = Set.fromList $ snd $ head $ filter ((==) v . fst) vs
+
+  adjacent u v (Adjacency vs)
+    | null ls = False
+    | otherwise = elem v $ snd $ head ls
+    where ls = filter ((==) u . fst) vs
+
+  toGraph g
+    | areValidGraphSets g = Just $ Adjacency $ Map.toList $ Map.map Set.toList m
+    | otherwise           = Nothing
+    where (G m) = fromJust $ toGraph g :: G
+
+  isValidGraph (Adjacency ls) = unique && symmetric
+    where
+      -- There should not be more than one adjacency list for the same vertex.
+      unique = all ((==) 1 . length) $ group $ sort $ map fst ls
+      -- The validity condition is basically the same as that of 'G', which is more efficient to check.
+      symmetric = isValidGraph $ G $ Map.fromList $ map (\(v, vs) -> (v, Set.fromList vs)) ls
 
 instance Eq Adjacency where
   (==) g g' = equals g g'
@@ -200,13 +241,20 @@ instance Eq Adjacency where
 -- For example, the example graph can be represented as:
 --
 -- >>> Paths [[1, 2, 3, 4, 5], [1, 4], [2, 4]]
--- ...
+-- Paths ...
 --
 -- === __DOT graphs__
 --
 -- This is similar to the approach used by DOT graphs,
 -- which are commonly used to generate [visualizations of graphs](https://graphviz.org/).
-data Paths = Paths [[Vertex]]
+-- E.g., the example graph can be written in DOT as:
+--
+-- > graph {
+-- >   1 -- 2 -- 3 -- 4 -- 5
+-- >   1 -- 4
+-- >   2 -- 4
+-- > }
+newtype Paths = Paths [[Vertex]]
   deriving Show
 
 instance Graph Paths where
@@ -218,8 +266,10 @@ instance Graph Paths where
           toEdges (u : vs@(v:_)) = Edge (u, v) : toEdges vs
 
   toGraph g
-    | isValidGraph g = Just $ Paths $ snd $ extractPaths (fromJust $ toGraph g :: G, [])
-    | otherwise      = Nothing
+    | areValidGraphSets g = Just $ Paths $ snd $ extractPaths (fromJust $ toGraph g :: G, [])
+    | otherwise           = Nothing
+
+  isValidGraph = const True
 
 extractPaths :: (G, [[Vertex]]) -> (G, [[Vertex]])
 extractPaths e@(g@(G m), ps)
@@ -239,11 +289,11 @@ extractPathFrom :: Vertex -> G -> (G, [Vertex])
 extractPathFrom v g = extractPath v (g, [])
 
 extractPath :: Vertex -> (G, [Vertex]) -> (G, [Vertex])
-extractPath v (g@(G m), p)
-  | Set.null neighbors = (g, v : p)
-  | otherwise          = extractPath v' (deleteEdge v v' g, v : p)
-  where neighbors = Map.findWithDefault Set.empty v m
-        v'        = Set.findMin neighbors
+extractPath v (g, p)
+  | Set.null vs = (g, v : p)
+  | otherwise   = extractPath v' (deleteEdge v v' g, v : p)
+  where vs = neighbors v g
+        v' = Set.findMin vs
 
 deleteEdge :: Vertex -> Vertex -> G -> G
 deleteEdge u v (G m) = G $ delete u v $ delete v u m
@@ -261,13 +311,13 @@ instance Eq Paths where
 -- This representation may be the easiest for graph functions to use,
 -- and we will use it as the default representation of graphs.
 --
--- Example:
+-- For example, the example graph can be represented as:
 --
 -- >>> import qualified Data.Map as M
 -- >>> import qualified Data.Set as S
 -- >>> G $ M.map S.fromList $ M.fromList [(1, [2, 4]), (2, [1, 3, 4]), (3, [2, 4]), (4, [1, 2, 3, 5]), (5, [4])]
--- ...
-data G = G (Map Vertex (Set Vertex))
+-- G ...
+newtype G = G (Map Vertex (Set Vertex))
   deriving (Eq, Show)
 
 instance Graph G where
@@ -277,9 +327,18 @@ instance Graph G where
     where addVertex s v vs = Set.union s $ toEdges v vs
           toEdges v vs = Set.map (\u -> Edge (v, u)) vs
 
+  neighbors v (G m) = Map.findWithDefault Set.empty v m
+
+  adjacent u v g = Set.member u $ neighbors v g
+
   toGraph (vs, es)
-    | Set.isSubsetOf vs' vs = Just $ G $ Set.foldl insertEdge Map.empty es
-    | otherwise = Nothing
-    where vs' = Set.foldl (\s -> \(Edge (u, v)) -> Set.insert u $ Set.insert v s) Set.empty es
-          insertEdge m (Edge (u, v)) = insertNeighbor u v $ insertNeighbor v u m
+    | areValidGraphSets (vs, es) = Just $ G $ Set.foldl insertEdge Map.empty es
+    | otherwise                  = Nothing
+    where insertEdge m (Edge (u, v)) = insertNeighbor u v $ insertNeighbor v u m
           insertNeighbor u v m = Map.insertWith Set.union u (Set.singleton v) m
+
+  isValidGraph (G m) = Map.foldlWithKey (\r -> \v -> \vs -> r && symmetric v vs) True m
+    where symmetric v vs = Set.foldl (\r' -> \v' -> r' && converse v v') True vs
+          converse v v' = v `inside` Map.lookup v' m
+          inside _ Nothing   = False  -- edge has vertex not in set of vertexes
+          inside v (Just vs) = Set.member v vs
