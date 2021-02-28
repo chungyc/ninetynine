@@ -83,11 +83,21 @@ module Problems (
   -- ** Problem 57 &#129335; &#129335;
   construct,
   addedTo,
+  -- * Graph problems
+  Graph (vertexes, edges),
+  Vertex,
+  Edge (Edge),
+  Var,
+  Lists (Lists),
+  Adjacency (Adjacency),
+  Paths (Paths),
+  G (G),
   -- * Miscellaenous problems
   -- ** Problem 90 &#129335; &#129335;
   queens,
   ) where
 
+import           Problems.Graphs
 import           Problems.P01
 import           Problems.P02
 import           Problems.P03

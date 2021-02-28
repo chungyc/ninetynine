@@ -7,6 +7,7 @@ module Problems.Graphs (
   Adjacency (Adjacency),
   Paths (Paths),
   G (G),
+  areValidGraphSets,
   ) where
 
 import           Data.List     (group, permutations, sort)
