@@ -266,7 +266,7 @@ instance Graph Paths where
           toEdges (u : vs@(v:_)) = Edge (u, v) : toEdges vs
 
   toGraph g
-    | areValidGraphSets g = Just $ Paths $ snd $ extractPaths (fromJust $ toGraph g :: G, [])
+    | areValidGraphSets g = Just $ Paths $ snd $ extractPaths (fromJust $ toGraph g, [])
     | otherwise           = Nothing
 
   isValidGraph = const True
@@ -274,7 +274,7 @@ instance Graph Paths where
 extractPaths :: (G, [[Vertex]]) -> (G, [[Vertex]])
 extractPaths e@(g@(G m), ps)
   | Map.null m = e
-  | otherwise   = extractPaths (g', p' : ps)
+  | otherwise  = extractPaths (g', p' : ps)
   where (g', p') = extractPathFrom (pathStart g) g
 
 pathStart :: G -> Vertex
@@ -289,8 +289,8 @@ extractPathFrom :: Vertex -> G -> (G, [Vertex])
 extractPathFrom v g = extractPath v (g, [])
 
 extractPath :: Vertex -> (G, [Vertex]) -> (G, [Vertex])
-extractPath v (g, p)
-  | Set.null vs = (g, v : p)
+extractPath v (g@(G m), p)
+  | Set.null vs = (G $ Map.delete v m, v : p)
   | otherwise   = extractPath v' (deleteEdge v v' g, v : p)
   where vs = neighbors v g
         v' = Set.findMin vs
@@ -299,8 +299,8 @@ deleteEdge :: Vertex -> Vertex -> G -> G
 deleteEdge u v (G m) = G $ delete u v $ delete v u m
   where delete u' v' m' = Map.update (toMaybe . Set.delete v') u' m'
         toMaybe vs
-          | Set.null vs   = Nothing
-          | otherwise = Just vs
+          | Set.null vs = Nothing
+          | otherwise   = Just vs
 
 instance Eq Paths where
   (==) g g' = equals g g'
@@ -332,9 +332,10 @@ instance Graph G where
   adjacent u v g = Set.member u $ neighbors v g
 
   toGraph (vs, es)
-    | areValidGraphSets (vs, es) = Just $ G $ Set.foldl insertEdge Map.empty es
+    | areValidGraphSets (vs, es) = Just $ G $ Set.foldl insertEdge fromVertexes es
     | otherwise                  = Nothing
-    where insertEdge m (Edge (u, v)) = insertNeighbor u v $ insertNeighbor v u m
+    where fromVertexes = Map.fromSet (const Set.empty) vs
+          insertEdge m (Edge (u, v)) = insertNeighbor u v $ insertNeighbor v u m
           insertNeighbor u v m = Map.insertWith Set.union u (Set.singleton v) m
 
   isValidGraph (G m) = Map.foldlWithKey (\r -> \v -> \vs -> r && symmetric v vs) True m

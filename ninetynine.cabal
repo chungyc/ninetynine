@@ -4,7 +4,7 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 74217e42c5533d27c90f7fb09065bfdd6008ac5d075e428d1714713fefcec6a4
+-- hash: 409ecb0dd2cef70cf89cc2d2b8af4c22e5b7d062b236f160ff9a47a90fc54320
 
 name:           ninetynine
 version:        0.2.0.0
@@ -147,7 +147,6 @@ test-suite ninetynine-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Problems.Graphs.Arbitrary
       Problems.GraphsSpec
       Problems.P01Spec
       Problems.P02Spec
