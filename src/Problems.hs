@@ -104,6 +104,9 @@ module Problems (
   toAdjacency,
   toPaths,
   toG,
+  -- ** Problem 81
+  -- | &#129335; &#129335;
+  paths,
   -- * Miscellaenous problems
   -- ** Problem 90 &#129335; &#129335;
   queens,
@@ -143,4 +146,5 @@ import           Problems.P55
 import           Problems.P56
 import           Problems.P57
 import           Problems.P80
+import           Problems.P81
 import           Problems.P90
