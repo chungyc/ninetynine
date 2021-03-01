@@ -24,11 +24,5 @@ import qualified Solutions.P81   as Solution
 --
 -- >>> paths 2 6 $ toG $ Paths [[1,2,3], [1,3,4,2], [5,6]]
 -- []
---
--- === __Notes__
---
--- The example in the original problem 81 at https://wiki.haskell.org/99_questions/80_to_89
--- makes it apparent that it is supposed to find paths for a directed graph.
--- We use an undirected graph here, consistent with other problems.
 paths :: Vertex -> Vertex -> G -> [[Vertex]]
 paths = Solution.paths
