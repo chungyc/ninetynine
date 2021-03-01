@@ -40,7 +40,7 @@
     *   [x] Problem 35
     *   [x] Problem 36
     *   [x] Problem 37
-    *   [ ] Problem 39
+    *   [x] Problem 39
     *   [ ] Problem 40
     *   [ ] Problem 41
     *   [x] Problem 46

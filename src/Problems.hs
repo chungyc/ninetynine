@@ -85,6 +85,13 @@ module Problems (
   -- ** Problem 36
   -- | &#129335; &#129335;
   primeFactorsMultiplicity,
+  -- ** Problem 37
+  -- | &#129335; &#129335;
+  totient',
+  -- ** Problem 39
+  -- | &#129335;
+  primesR,
+  primes,
   -- * Logic and code problems
   -- ** Problem 46
   -- | &#129335; &#129335;
@@ -170,6 +177,8 @@ import           Problems.P33
 import           Problems.P34
 import           Problems.P35
 import           Problems.P36
+import           Problems.P37
+import           Problems.P39
 import           Problems.P46
 import           Problems.P48
 import           Problems.P54

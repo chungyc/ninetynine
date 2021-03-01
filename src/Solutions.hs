@@ -68,6 +68,9 @@ module Solutions (
   primeFactorsMultiplicity,
   -- ** Problem 37
   totient',
+  -- ** Problem 39
+  primesR,
+  primes,
   -- * Logic and code problems
   -- ** Problem 46
   BoolFunc,
@@ -128,6 +131,7 @@ import           Solutions.P34
 import           Solutions.P35
 import           Solutions.P36
 import           Solutions.P37
+import           Solutions.P39
 import           Solutions.P46
 import           Solutions.P48
 import           Solutions.P54
