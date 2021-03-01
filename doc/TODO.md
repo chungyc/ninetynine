@@ -4,8 +4,6 @@
 *   [ ] Explanation for how to add new problems, tests, benchmarks, etc.
 *   [ ] Refactor problem modules
     *   [ ] Reorganize more general material to their own module instead of as sub-modules to particular problem modules.
-    *   [ ] Extract arbitrary graph generation to single module
-    *   [ ] Convert to self in problem 80.
 *   [ ] Provide implementations for all problems
     *   [x] Problem 1
     *   [x] Problem 2
