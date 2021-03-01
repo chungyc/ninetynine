@@ -8,8 +8,8 @@ module Problems.P48 (tablen) where
 import qualified Solutions.P48 as Solution
 
 -- $setup
+-- >>> import           Problems.Logic
 -- >>> import           Problems.P46
--- >>> import           Problems.P46.Definitions
 
 -- | Truth tables for logical expressions with an arbitrary number of variables.
 --

@@ -1,9 +1,9 @@
 module Problems.P46Bench (group) where
 
 import           Criterion
-import qualified Problems.P46             as Problem
-import           Problems.P46.Definitions
-import qualified Solutions.P46            as Solution
+import           Problems.Logic
+import qualified Problems.P46   as Problem
+import qualified Solutions.P46  as Solution
 
 group :: Benchmark
 group = bgroup "P46"

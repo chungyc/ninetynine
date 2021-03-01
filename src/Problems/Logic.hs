@@ -1,9 +1,5 @@
-{- |
-Description: 'BoolFunc'
-
-Definitions used by "Problems.P46".
--}
-module Problems.P46.Definitions (
+-- | Supporting definitions for logic and code problems.
+module Problems.Logic (
   BoolFunc,
   -- * Utility functions
   printTable,

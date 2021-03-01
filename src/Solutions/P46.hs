@@ -18,7 +18,7 @@ module Solutions.P46 (
   functions,
   ) where
 
-import           Problems.P46.Definitions
+import           Problems.Logic
 
 -- | Truth tables for logical expressions with two operands.
 table :: BoolFunc -> [(Bool, Bool, Bool)]

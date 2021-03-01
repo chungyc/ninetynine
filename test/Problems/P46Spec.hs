@@ -1,9 +1,9 @@
 module Problems.P46Spec (spec) where
 
-import           Data.List                (sort)
-import qualified Problems.P46             as Problem
-import           Problems.P46.Definitions
-import qualified Solutions.P46            as Solution
+import           Data.List             (sort)
+import           Problems.Logic
+import qualified Problems.P46          as Problem
+import qualified Solutions.P46         as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck

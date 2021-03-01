@@ -18,8 +18,8 @@ module Problems.P46 (
   functions,
   ) where
 
-import           Problems.P46.Definitions
-import qualified Solutions.P46            as Solution
+import           Problems.Logic
+import qualified Solutions.P46  as Solution
 
 -- | Truth tables for logical expressions with two operands.
 --
