@@ -5,7 +5,7 @@ Some solutions to "Problems.P12" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P12 (decodeModified, decodeModified') where
 
-import           Problems.P11.Definitions
+import           Problems.Lists
 
 -- | Decode a run-length encoded list.
 --

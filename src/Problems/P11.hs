@@ -5,8 +5,8 @@ Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P11".
 -}
 module Problems.P11 (encodeModified) where
 
-import           Problems.P11.Definitions
-import qualified Solutions.P11            as Solution
+import           Problems.Lists
+import qualified Solutions.P11  as Solution
 
 -- | Modified run-length encoding.
 --

@@ -105,7 +105,6 @@ module Solutions (
   ) where
 
 import           Problems.Lists
-import           Problems.P11.Definitions
 import           Problems.P54.Definitions
 import           Solutions.P01
 import           Solutions.P02

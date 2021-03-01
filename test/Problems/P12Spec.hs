@@ -1,9 +1,9 @@
 module Problems.P12Spec (spec) where
 
+import           Problems.Lists
 import           Problems.P11
-import           Problems.P11.Definitions
-import qualified Problems.P12             as Problem
-import qualified Solutions.P12            as Solution
+import qualified Problems.P12          as Problem
+import qualified Solutions.P12         as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 

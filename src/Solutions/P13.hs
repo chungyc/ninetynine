@@ -5,7 +5,7 @@ Some solutions to "Problems.P13" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P13 (encodeDirect) where
 
-import           Problems.P11.Definitions
+import           Problems.Lists
 
 -- | Run-length encoding of a list.  Direct solution.
 --

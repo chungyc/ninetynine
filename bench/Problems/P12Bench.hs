@@ -1,9 +1,9 @@
 module Problems.P12Bench (group) where
 
 import           Criterion
-import           Problems.P11.Definitions
-import qualified Problems.P12             as Problem
-import qualified Solutions.P12            as Solution
+import           Problems.Lists
+import qualified Problems.P12   as Problem
+import qualified Solutions.P12  as Solution
 
 group :: Benchmark
 group = bgroup "P12"

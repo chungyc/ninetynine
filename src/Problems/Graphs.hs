@@ -1,9 +1,7 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric  #-}
 
-{- |
-Supporting definitions for graph problems.
--}
+-- | Supporting definitions for graph problems.
 module Problems.Graphs (
   Graph (vertexes, edges, sets, neighbors, adjacent, toGraph, isValidGraph),
   Vertex,

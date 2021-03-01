@@ -164,7 +164,6 @@ import           Problems.P08
 import           Problems.P09
 import           Problems.P10
 import           Problems.P11
-import           Problems.P11.Definitions
 import           Problems.P12
 import           Problems.P13
 import           Problems.P14
