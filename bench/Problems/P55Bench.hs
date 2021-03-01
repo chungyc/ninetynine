@@ -1,9 +1,9 @@
 module Problems.P55Bench (group) where
 
 import           Criterion
-import           Problems.P54.Definitions
-import qualified Problems.P55             as Problem
-import qualified Solutions.P55            as Solution
+import           Problems.BinaryTrees
+import qualified Problems.P55         as Problem
+import qualified Solutions.P55        as Solution
 
 group :: Benchmark
 group = bgroup "P55"

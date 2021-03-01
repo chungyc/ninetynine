@@ -4,7 +4,7 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8a581c79eaea7a453135086647d1c3ba09e6c51a5349641bd963e4200154ddf6
+-- hash: 42d958ce60932e6867a1668305ffd896328432bfba217e53744cc8e72708cb51
 
 name:           ninetynine
 version:        0.2.0.0
@@ -39,6 +39,7 @@ source-repository head
 library
   exposed-modules:
       Problems
+      Problems.BinaryTrees
       Problems.Graphs
       Problems.Lists
       Problems.Logic
@@ -70,7 +71,6 @@ library
       Problems.P46
       Problems.P48
       Problems.P54
-      Problems.P54.Definitions
       Problems.P55
       Problems.P56
       Problems.P57
@@ -152,6 +152,8 @@ test-suite ninetynine-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      Problems.BinaryTrees.Arbitrary
+      Problems.BinaryTreesSpec
       Problems.Graphs.Arbitrary
       Problems.GraphsSpec
       Problems.Lists.Arbitrary
@@ -182,8 +184,6 @@ test-suite ninetynine-test
       Problems.P39Spec
       Problems.P46Spec
       Problems.P48Spec
-      Problems.P54.Arbitrary
-      Problems.P54.DefinitionsSpec
       Problems.P54Spec
       Problems.P55Spec
       Problems.P56Spec

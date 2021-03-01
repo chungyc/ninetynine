@@ -151,6 +151,7 @@ module Problems (
   queens,
   ) where
 
+import           Problems.BinaryTrees
 import           Problems.Graphs
 import           Problems.Lists
 import           Problems.P01
@@ -181,7 +182,6 @@ import           Problems.P39
 import           Problems.P46
 import           Problems.P48
 import           Problems.P54
-import           Problems.P54.Definitions
 import           Problems.P55
 import           Problems.P56
 import           Problems.P57

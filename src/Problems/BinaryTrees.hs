@@ -1,11 +1,8 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric  #-}
-{- |
-Description: 'Tree'
 
-Definitions used by "Problems.P54".
--}
-module Problems.P54.Definitions (
+-- | Supporting definitions for binary tree problems.
+module Problems.BinaryTrees (
   Tree (Empty, Branch),
   -- * Support functions
   printTreeList,

@@ -5,8 +5,8 @@ Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P57".
 -}
 module Problems.P57 (construct, addedTo) where
 
-import           Problems.P54.Definitions
-import qualified Solutions.P57            as Solution
+import           Problems.BinaryTrees
+import qualified Solutions.P57        as Solution
 
 -- $setup
 -- >>> import Problems.P56

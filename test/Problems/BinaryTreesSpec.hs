@@ -1,7 +1,7 @@
-module Problems.P54.DefinitionsSpec (spec) where
+module Problems.BinaryTreesSpec (spec) where
 
-import           Problems.P54.Arbitrary   ()
-import           Problems.P54.Definitions
+import           Problems.BinaryTrees
+import           Problems.BinaryTrees.Arbitrary ()
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck

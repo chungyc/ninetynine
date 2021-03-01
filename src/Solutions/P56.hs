@@ -5,7 +5,7 @@ Some solutions to "Problems.P56" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P56 (symmetric) where
 
-import           Problems.P54.Definitions
+import           Problems.BinaryTrees
 
 -- | Symmetric binary trees.
 --

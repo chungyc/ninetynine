@@ -104,8 +104,8 @@ module Solutions (
   queens,
   ) where
 
+import           Problems.BinaryTrees
 import           Problems.Lists
-import           Problems.P54.Definitions
 import           Solutions.P01
 import           Solutions.P02
 import           Solutions.P03

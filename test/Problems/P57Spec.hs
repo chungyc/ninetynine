@@ -1,10 +1,10 @@
 module Problems.P57Spec (spec) where
 
-import           Data.List                (group)
-import           Problems.P54.Definitions
+import           Data.List             (group)
+import           Problems.BinaryTrees
 import           Problems.P56
-import qualified Problems.P57             as Problem
-import qualified Solutions.P57            as Solution
+import qualified Problems.P57          as Problem
+import qualified Solutions.P57         as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck

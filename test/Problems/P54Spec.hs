@@ -1,8 +1,8 @@
 module Problems.P54Spec (spec) where
 
-import qualified Problems.P54             as Problem
-import           Problems.P54.Definitions
-import qualified Solutions.P54            as Solution
+import           Problems.BinaryTrees
+import qualified Problems.P54         as Problem
+import qualified Solutions.P54        as Solution
 import           Test.Hspec
 
 data Functions a = Functions { getLeaf :: a -> Tree a, getTree1 :: Tree a

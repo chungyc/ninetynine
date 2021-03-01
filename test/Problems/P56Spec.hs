@@ -1,9 +1,9 @@
 module Problems.P56Spec (spec) where
 
-import           Problems.P54.Arbitrary   ()
-import           Problems.P54.Definitions
-import qualified Problems.P56             as Problem
-import qualified Solutions.P56            as Solution
+import           Problems.BinaryTrees
+import           Problems.BinaryTrees.Arbitrary ()
+import qualified Problems.P56                   as Problem
+import qualified Solutions.P56                  as Solution
 import           System.Random
 import           Test.Hspec
 import           Test.Hspec.QuickCheck

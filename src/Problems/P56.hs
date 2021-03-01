@@ -5,8 +5,8 @@ Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P56".
 -}
 module Problems.P56 (symmetric) where
 
-import           Problems.P54.Definitions
-import qualified Solutions.P56            as Solution
+import           Problems.BinaryTrees
+import qualified Solutions.P56        as Solution
 
 -- | Symmetric binary trees.
 --

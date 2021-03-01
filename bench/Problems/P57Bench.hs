@@ -1,9 +1,9 @@
 module Problems.P57Bench (group) where
 
 import           Criterion
-import           Problems.P54.Definitions
-import qualified Problems.P57             as Problem
-import qualified Solutions.P57            as Solution
+import           Problems.BinaryTrees
+import qualified Problems.P57         as Problem
+import qualified Solutions.P57        as Solution
 import           System.Random
 
 group :: Benchmark

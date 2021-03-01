@@ -5,7 +5,7 @@ Some solutions to "Problems.P55" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P55 (cbalTree) where
 
-import           Problems.P54.Definitions
+import           Problems.BinaryTrees
 
 -- | Construct completely balanced binary trees
 --

@@ -3,9 +3,9 @@ Description: Binary trees
 
 Some solutions to "Problems.P54" of Ninety-Nine Haskell "Problems".
 -}
-module Solutions.P54 (leaf, tree1, tree2, tree3, tree4) where
+module Solutions.P54 (Tree, leaf, tree1, tree2, tree3, tree4) where
 
-import           Problems.P54.Definitions
+import           Problems.BinaryTrees
 
 -- | Define a shorthand function for constructing a leaf node.
 --

@@ -5,7 +5,7 @@ Some solutions to "Problems.P57" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P57 (construct, addedTo) where
 
-import           Problems.P54.Definitions
+import           Problems.BinaryTrees
 
 -- | Binary search trees.
 --
