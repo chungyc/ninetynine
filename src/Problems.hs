@@ -13,74 +13,103 @@ The source for this module is available at https://github.com/chungyc/ninetynine
 -}
 module Problems (
   -- * List problems
-  -- ** Problem 1 &#129335;
+  -- ** Problem 1
+  -- | &#129335;
   myLast,
-  -- ** Problem 2 &#129335;
+  -- ** Problem 2
+  -- | &#129335;
   myButLast,
-  -- ** Problem 3 &#129335;
+  -- ** Problem 3
+  -- | &#129335;
   elementAt,
-  -- ** Problem 4 &#129335;
+  -- ** Problem 4
+  -- | &#129335;
   myLength,
-  -- ** Problem 5 &#129335;
+  -- ** Problem 5
+  -- | &#129335;
   myReverse,
-  -- ** Problem 6 &#129335;
+  -- ** Problem 6
+  -- | &#129335;
   isPalindrome,
-  -- ** Problem 7 &#129335; &#129335;
+  -- ** Problem 7
+  -- | &#129335; &#129335;
   flatten,
   NestedList (Elem, List),
-  -- ** Problem 8 &#129335; &#129335;
+  -- ** Problem 8
+  -- | &#129335; &#129335;
   compress,
-  -- ** Problem 9 &#129335; &#129335;
+  -- ** Problem 9
+  -- | &#129335; &#129335;
   pack,
-  -- ** Problem 10 &#129335;
+  -- ** Problem 10
+  -- | &#129335;
   encode,
-  -- ** Problem 11 &#129335;
+  -- ** Problem 11
+  -- | &#129335;
   encodeModified,
   Encoding (Single, Multiple),
-  -- ** Problem 12 &#129335; &#129335;
+  -- ** Problem 12
+  -- | &#129335; &#129335;
   decodeModified,
-  -- ** Problem 13 &#129335; &#129335;
+  -- ** Problem 13
+  -- | &#129335; &#129335;
   encodeDirect,
-  -- ** Problem 14 &#129335;
+  -- ** Problem 14
+  -- | &#129335;
   dupli,
-  -- ** Problem 15 &#129335; &#129335;
+  -- ** Problem 15
+  -- | &#129335; &#129335;
   repli,
-  -- ** Problem 16 &#129335; &#129335;
+  -- ** Problem 16
+  -- | &#129335; &#129335;
   dropEvery,
-  -- ** Problem 17 &#129335;
+  -- ** Problem 17
+  -- | &#129335;
   split,
   -- * Arithmetic problems
-  -- ** Problem 31 &#129335; &#129335;
+  -- ** Problem 31
+  -- | &#129335; &#129335;
   isPrime,
-  -- ** Problem 32 &#129335; &#129335;
+  -- ** Problem 32
+  -- | &#129335; &#129335;
   myGCD,
-  -- ** Problem 33 &#129335;
+  -- ** Problem 33
+  -- | &#129335;
   coprime,
-  -- ** Problem 34 &#129335; &#129335;
+  -- ** Problem 34
+  -- | &#129335; &#129335;
   totient,
-  -- ** Problem 35 &#129335; &#129335;
+  -- ** Problem 35
+  -- | &#129335; &#129335;
   primeFactors,
-  -- ** Problem 36 &#129335; &#129335;
+  -- ** Problem 36
+  -- | &#129335; &#129335;
   primeFactorsMultiplicity,
   -- * Logic and code problems
-  -- ** Problem 46 &#129335; &#129335;
+  -- ** Problem 46
+  -- | &#129335; &#129335;
   BoolFunc,
   table,
-  -- ** Problem 48 &#129335; &#129335;
+  -- ** Problem 48
+  -- | &#129335; &#129335;
   tablen,
   -- * Binary tree problems
-  -- ** Problem 54 &#129335;
+  -- ** Problem 54
+  -- | &#129335;
   Tree (Empty, Branch),
   leaf,
   tree1,
   tree2,
   tree3,
   tree4,
-  -- ** Problem 55 &#129335; &#129335;
+  -- ** Problem 55
+  -- | &#129335; &#129335;
   cbalTree,
-  -- ** Problem 56 &#129335; &#129335;
+  -- ** Problem 56
+  -- | &#129335; &#129335;
   symmetric,
-  -- ** Problem 57 &#129335; &#129335;
+  -- ** Problem 57
+  -- | &#129335; &#129335;
   construct,
   addedTo,
   -- * Graph problems
@@ -92,8 +121,10 @@ module Problems (
   Adjacency (Adjacency),
   Paths (Paths),
   G (G),
-  -- ** Problem 80 &#129335; &#129335; &#129335;
-  -- | Write functions to convert between the different graph representations
+  -- ** Problem 80
+  -- | &#129335; &#129335; &#129335;
+  --
+  -- Write functions to convert between the different graph representations
   -- 'Lists', 'Adjacency', 'Paths', and 'G'.
   --
   -- The types can already be easily converted between each other using
@@ -108,7 +139,8 @@ module Problems (
   -- | &#129335; &#129335;
   paths,
   -- * Miscellaenous problems
-  -- ** Problem 90 &#129335; &#129335;
+  -- ** Problem 90
+  -- | &#129335; &#129335;
   queens,
   ) where
 
