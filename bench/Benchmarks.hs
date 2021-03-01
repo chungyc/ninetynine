@@ -28,6 +28,7 @@ import qualified Problems.P48Bench as P48
 import qualified Problems.P55Bench as P55
 import qualified Problems.P56Bench as P56
 import qualified Problems.P57Bench as P57
+import qualified Problems.P80Bench as P80
 import qualified Problems.P90Bench as P90
 
 main :: IO()
@@ -61,5 +62,6 @@ main = defaultMain [ P01.group
                    , P55.group
                    , P56.group
                    , P57.group
+                   , P80.group
                    , P90.group
                    ]

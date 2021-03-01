@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
 module Problems.Graphs (
   Graph (vertexes, edges, sets, neighbors, adjacent, toGraph, isValidGraph),
   Vertex,
@@ -10,12 +12,14 @@ module Problems.Graphs (
   areValidGraphSets,
   ) where
 
-import           Data.List     (group, permutations, sort)
-import           Data.Map.Lazy (Map)
-import qualified Data.Map.Lazy as Map
-import           Data.Maybe    (fromJust)
-import           Data.Set      (Set)
-import qualified Data.Set      as Set
+import           Control.DeepSeq
+import           Data.List       (group, permutations, sort)
+import           Data.Map.Lazy   (Map)
+import qualified Data.Map.Lazy   as Map
+import           Data.Maybe      (fromJust)
+import           Data.Set        (Set)
+import qualified Data.Set        as Set
+import           GHC.Generics    (Generic)
 
 -- | A graph is mathematically defined as a set of vertexes and a set of edges,
 -- where an edge is a set of two elements from the set of vertexes.
@@ -91,7 +95,7 @@ type Vertex = Int
 --
 -- prop> Edge (u, v) == Edge (v, u)
 newtype Edge = Edge (Vertex, Vertex)
-  deriving Show
+  deriving (Show)
 
 -- Edges in undirected graphs have no direction, so the order of the vertexes do not matter.
 instance Eq Edge where
@@ -179,7 +183,7 @@ instance Eq a => Eq (Var a) where
 -- >>> Lists ([1, 2, 3, 4, 5], [(1, 2), (1, 4), (2, 3), (2, 4), (3, 4), (4, 5)])
 -- Lists ...
 newtype Lists = Lists ([Vertex], [(Vertex, Vertex)])
-  deriving Show
+  deriving (Show, Generic, NFData)
 
 instance Graph Lists where
   vertexes (Lists (vs, _)) = Set.fromList vs
@@ -203,7 +207,7 @@ instance Eq Lists where
 -- >>> Adjacency [(1, [2, 4]), (2, [1, 3, 4]), (3, [2, 4]), (4, [1, 2, 3, 5]), (5, [4])]
 -- Adjacency ...
 newtype Adjacency = Adjacency [(Vertex, [Vertex])]
-  deriving Show
+  deriving (Show, Generic, NFData)
 
 instance Graph Adjacency where
   vertexes (Adjacency vs) = Set.fromList $ map fst vs
@@ -256,7 +260,7 @@ instance Eq Adjacency where
 -- >   2 -- 4
 -- > }
 newtype Paths = Paths [[Vertex]]
-  deriving Show
+  deriving (Show, Generic, NFData)
 
 instance Graph Paths where
   vertexes (Paths ps) = Set.fromList $ concat ps
@@ -319,7 +323,7 @@ instance Eq Paths where
 -- >>> G $ M.map S.fromList $ M.fromList [(1, [2, 4]), (2, [1, 3, 4]), (3, [2, 4]), (4, [1, 2, 3, 5]), (5, [4])]
 -- G ...
 newtype G = G (Map Vertex (Set Vertex))
-  deriving (Eq, Show)
+  deriving (Eq, Show, Generic, NFData)
 
 instance Graph G where
   vertexes (G m) = Map.keysSet m

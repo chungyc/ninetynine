@@ -92,6 +92,18 @@ module Problems (
   Adjacency (Adjacency),
   Paths (Paths),
   G (G),
+  -- ** Problem 80 &#129335; &#129335; &#129335;
+  -- | Write functions to convert between the different graph representations
+  -- 'Lists', 'Adjacency', 'Paths', and 'G'.
+  --
+  -- The types can already be easily converted between each other using
+  -- the 'sets' and 'toGraph' functions available to the 'Graph' type class.
+  -- Unlike other problems, this problem should be solved without using
+  -- the functions available to the 'Graph' type class for it to not be trivial.
+  toLists,
+  toAdjacency,
+  toPaths,
+  toG,
   -- * Miscellaenous problems
   -- ** Problem 90 &#129335; &#129335;
   queens,
@@ -130,4 +142,5 @@ import           Problems.P54.Definitions
 import           Problems.P55
 import           Problems.P56
 import           Problems.P57
+import           Problems.P80
 import           Problems.P90

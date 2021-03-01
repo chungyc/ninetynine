@@ -2,6 +2,7 @@
 
 *   [ ] Tutorial for solving problems
 *   [ ] Explanation for how to add new problems, tests, benchmarks, etc.
+*   [ ] Reorganize more general material to their own module instead of as sub-modules to particular problem modules.
 *   [ ] Provide implementations for all problems
     *   [x] Problem 1
     *   [x] Problem 2
@@ -64,7 +65,7 @@
     *   [ ] Problem 71
     *   [ ] Problem 72
     *   [ ] Problem 73
-    *   [ ] Problem 80
+    *   [x] Problem 80
     *   [ ] Problem 81
     *   [ ] Problem 82
     *   [ ] Problem 83

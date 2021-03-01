@@ -82,5 +82,6 @@ benchmarks:
     - -with-rtsopts=-N
     dependencies:
     - ninetynine
-    - criterion
+    - containers
     - random
+    - criterion

@@ -89,6 +89,11 @@ module Solutions (
   -- ** Problem 57
   construct,
   addedTo,
+  -- ** Problem 80
+  toLists,
+  toAdjacency,
+  toPaths,
+  toG,
   -- * Miscellaenous problems
   -- ** Problem 90
   queens,
@@ -127,4 +132,5 @@ import           Solutions.P54
 import           Solutions.P55
 import           Solutions.P56
 import           Solutions.P57
+import           Solutions.P80
 import           Solutions.P90
