@@ -4,7 +4,7 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1fdbc9905e7811094ffb2a70a0580885c1cc6fa5222c46007e6e38df0497c219
+-- hash: c1eec13cb536ff646a69636b50b824e433592d727ce8191560045fc5ca4db19b
 
 name:           ninetynine
 version:        0.2.0.0
@@ -40,6 +40,7 @@ library
   exposed-modules:
       Problems
       Problems.Graphs
+      Problems.Lists
       Problems.P01
       Problems.P02
       Problems.P03
@@ -47,7 +48,6 @@ library
       Problems.P05
       Problems.P06
       Problems.P07
-      Problems.P07.Definitions
       Problems.P08
       Problems.P09
       Problems.P10
@@ -155,13 +155,13 @@ test-suite ninetynine-test
   other-modules:
       Problems.Graphs.Arbitrary
       Problems.GraphsSpec
+      Problems.Lists.Arbitrary
       Problems.P01Spec
       Problems.P02Spec
       Problems.P03Spec
       Problems.P04Spec
       Problems.P05Spec
       Problems.P06Spec
-      Problems.P07.Arbitrary
       Problems.P07Spec
       Problems.P08Spec
       Problems.P09Spec

@@ -1,10 +1,9 @@
 {-# LANGUAGE DeriveGeneric #-}
-{- |
-Description: 'NestedList'
 
-Definitions used by "Problems.P07".
+{- |
+Supporting definitions for list problems.
 -}
-module Problems.P07.Definitions (NestedList (Elem, List)) where
+module Problems.Lists (NestedList (Elem, List)) where
 
 import           GHC.Generics (Generic)
 

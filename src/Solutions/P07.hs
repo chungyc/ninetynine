@@ -5,7 +5,7 @@ Some solutions to "Problems.P07" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P07 (flatten, flatten') where
 
-import           Problems.P07.Definitions
+import           Problems.Lists
 
 -- | Flatten a nested list structure.
 --

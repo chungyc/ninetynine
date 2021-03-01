@@ -1,8 +1,8 @@
 module Problems.P07Spec (spec) where
 
+import           Problems.Lists
+import           Problems.Lists.Arbitrary ()
 import qualified Problems.P07             as Problem
-import           Problems.P07.Arbitrary   ()
-import           Problems.P07.Definitions
 import qualified Solutions.P07            as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck

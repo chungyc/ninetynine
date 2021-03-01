@@ -1,9 +1,9 @@
 module Problems.P07Bench (group) where
 
 import           Criterion
-import qualified Problems.P07             as Problem
-import           Problems.P07.Definitions
-import qualified Solutions.P07            as Solution
+import           Problems.Lists
+import qualified Problems.P07   as Problem
+import qualified Solutions.P07  as Solution
 import           System.Random
 
 group :: Benchmark

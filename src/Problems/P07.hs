@@ -5,8 +5,8 @@ Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P07".
 -}
 module Problems.P07 (flatten) where
 
-import           Problems.P07.Definitions
-import qualified Solutions.P07            as Solution
+import           Problems.Lists
+import qualified Solutions.P07  as Solution
 
 -- | Flatten a nested list structure.
 --

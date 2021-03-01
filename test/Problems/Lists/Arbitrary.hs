@@ -1,8 +1,8 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
-module Problems.P07.Arbitrary (Arbitrary) where
+module Problems.Lists.Arbitrary (Arbitrary) where
 
 import           Generic.Random
-import           Problems.P07.Definitions
+import           Problems.Lists
 import           Test.QuickCheck
 
 instance Arbitrary a => Arbitrary (NestedList a) where

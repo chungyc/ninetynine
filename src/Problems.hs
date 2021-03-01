@@ -152,6 +152,7 @@ module Problems (
   ) where
 
 import           Problems.Graphs
+import           Problems.Lists
 import           Problems.P01
 import           Problems.P02
 import           Problems.P03
@@ -159,7 +160,6 @@ import           Problems.P04
 import           Problems.P05
 import           Problems.P06
 import           Problems.P07
-import           Problems.P07.Definitions
 import           Problems.P08
 import           Problems.P09
 import           Problems.P10
