@@ -16,7 +16,7 @@ leaf = Solution.leaf
 
 -- | Define as the tree as shown in the following.
 --
--- !['b' and 'c' are children of 'a', 'd' and 'e' are children of 'b', 'f' is the right child of 'c', 'g' is the left child of 'f'](src/Problems/P54/images/tree1.svg)
+-- !['b' and 'c' are children of 'a', 'd' and 'e' are children of 'b', 'f' is the right child of 'c', 'g' is the left child of 'f'](images/BinaryTrees/tree1.svg)
 tree1 :: Tree Char
 tree1 = Solution.tree1
 
@@ -30,6 +30,6 @@ tree3 = Solution.tree3
 
 -- | Define as the following tree with integer values.
 --
--- ![two nodes with both values of 2 are children of 1, 4 is the right child of the left 2](src/Problems/P54/images/tree4.svg)
+-- ![two nodes with both values of 2 are children of 1, 4 is the right child of the left 2](images/BinaryTrees/tree4.svg)
 tree4 :: Tree Int
 tree4 = Solution.tree4

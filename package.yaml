@@ -14,7 +14,6 @@ extra-source-files:
 
 extra-doc-files:
 - images/*/*
-- src/Problems/P54/images/*
 
 # Metadata used when publishing your package
 synopsis:            Ninety-Nine Haskell Problems
