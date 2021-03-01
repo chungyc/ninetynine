@@ -1,13 +1,10 @@
 module Problems.P80Spec (spec) where
 
-import           Data.Maybe            (fromJust)
-import           Data.Set              (Set)
-import qualified Data.Set              as Set
 import           Problems.Graphs
+import           Problems.Graphs.Arbitrary
 import           Problems.P80
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
-import           Test.QuickCheck
 
 spec :: Spec
 spec = parallel $ do
@@ -89,17 +86,3 @@ spec = parallel $ do
 
   -- There are no separate tests here for "Solutions.P80".
   -- Their important bits are already tested by "GraphsSpec".
-
-  where withGraph f (Sets s) = let g = fromJust $ toGraph s in f g
-
--- | Type for generating arbitrary sets of vertexes and edges which form a valid graph.
-newtype Sets = Sets (Set Vertex, Set Edge)
-  deriving Show
-
-instance Arbitrary Sets where
-  arbitrary = scale (ceiling . scaledSize) $ do
-    vs <- arbitrary
-    es <- sublistOf [Edge (u, v) | u <- vs, v <- vs, u <= v]
-    return $ Sets (Set.fromList vs, Set.fromList es)
-      -- For k vertexes, there can be about k^2 / 2 edges.
-      where scaledSize n = (*) 2 $ sqrt $ fromIntegral n :: Float

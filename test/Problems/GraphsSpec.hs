@@ -1,9 +1,10 @@
 module Problems.GraphsSpec (spec) where
 
-import           Data.Maybe            (fromJust)
-import           Data.Set              (Set)
-import qualified Data.Set              as Set
+import           Data.Maybe                (fromJust)
+import           Data.Set                  (Set)
+import qualified Data.Set                  as Set
 import           Problems.Graphs
+import           Problems.Graphs.Arbitrary hiding (withGraph)
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
@@ -63,14 +64,3 @@ general name toGraph' = do
         vertexPairs g = [(u,v) | let l = Set.toList $ vertexes g, u <- l, v <- l]
 
 type C g = (Set Vertex, Set Edge) -> Maybe g
-
-newtype Sets = Sets (Set Vertex, Set Edge)
-  deriving Show
-
-instance Arbitrary Sets where
-  arbitrary = scale (ceiling . scaledSize) $ do
-    vs <- arbitrary
-    es <- sublistOf [Edge (u, v) | u <- vs, v <- vs, u <= v]
-    return $ Sets (Set.fromList vs, Set.fromList es)
-      -- For k vertexes, there can be about k^2 / 2 edges.
-      where scaledSize n = (*) 2 $ sqrt $ fromIntegral n :: Float

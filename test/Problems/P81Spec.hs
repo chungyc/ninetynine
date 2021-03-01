@@ -1,13 +1,13 @@
 module Problems.P81Spec (spec) where
 
-import           Data.List             (nub)
-import           Data.Maybe            (fromJust)
-import           Data.Set              (Set)
-import qualified Data.Set              as Set
+import           Data.List                 (nub)
+import           Data.Maybe                (fromJust)
+import qualified Data.Set                  as Set
 import           Problems.Graphs
+import           Problems.Graphs.Arbitrary
 import           Problems.P80
-import qualified Problems.P81          as Problem
-import qualified Solutions.P81         as Solution
+import qualified Problems.P81              as Problem
+import qualified Solutions.P81             as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
@@ -62,14 +62,3 @@ spec = parallel $ do
   examples
   describe "From solutions" $ do
     properties Solution.paths "paths"
-
-newtype Sets = Sets (Set Vertex, Set Edge)
-  deriving Show
-
-instance Arbitrary Sets where
-  arbitrary = scale (ceiling . scaledSize) $ do
-    vs <- arbitrary
-    es <- sublistOf [Edge (u, v) | u <- vs, v <- vs, u < v]
-    return $ Sets (Set.fromList vs, Set.fromList es)
-      -- For k vertexes, there can be about k^2 / 2 edges.
-      where scaledSize n = (*) 2 $ sqrt $ fromIntegral n :: Float
