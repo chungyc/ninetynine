@@ -100,6 +100,9 @@ module Problems (
   -- ** Problem 48
   -- | &#129335; &#129335;
   tablen,
+  -- ** Problem 49
+  -- | &#129335; &#129335;
+  gray,
   -- * Binary tree problems
   -- ** Problem 54
   -- | &#129335;
@@ -181,6 +184,7 @@ import           Problems.P37
 import           Problems.P39
 import           Problems.P46
 import           Problems.P48
+import           Problems.P49
 import           Problems.P54
 import           Problems.P55
 import           Problems.P56

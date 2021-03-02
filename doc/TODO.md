@@ -2,8 +2,6 @@
 
 *   [ ] Tutorial for solving problems
 *   [ ] Explanation for how to add new problems, tests, benchmarks, etc.
-*   [ ] Refactor problem modules
-    *   [ ] Reorganize more general material to their own module instead of as sub-modules to particular problem modules.
 *   [ ] Provide implementations for all problems
     *   [x] Problem 1
     *   [x] Problem 2
@@ -45,7 +43,7 @@
     *   [ ] Problem 41
     *   [x] Problem 46
     *   [x] Problem 48
-    *   [ ] Problem 49
+    *   [x] Problem 49
     *   [ ] Problem 50
     *   [x] Problem 55
     *   [x] Problem 56

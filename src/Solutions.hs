@@ -77,6 +77,8 @@ module Solutions (
   table,
   -- ** Problem 48
   tablen,
+  -- ** Problem 49
+  gray,
   -- * Binary tree problems
   -- ** Problem 54
   Tree (Empty, Branch),
@@ -133,6 +135,7 @@ import           Solutions.P37
 import           Solutions.P39
 import           Solutions.P46
 import           Solutions.P48
+import           Solutions.P49
 import           Solutions.P54
 import           Solutions.P55
 import           Solutions.P56
