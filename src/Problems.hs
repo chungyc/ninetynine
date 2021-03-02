@@ -148,6 +148,9 @@ module Problems (
   -- ** Problem 81
   -- | &#129335; &#129335;
   paths,
+  -- ** Problem 82
+  -- | &#129335; &#129335;
+  cycles,
   -- * Miscellaenous problems
   -- ** Problem 90
   -- | &#129335; &#129335;
@@ -191,4 +194,5 @@ import           Problems.P56
 import           Problems.P57
 import           Problems.P80
 import           Problems.P81
+import           Problems.P82
 import           Problems.P90

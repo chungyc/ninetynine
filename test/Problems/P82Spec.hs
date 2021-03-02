@@ -20,7 +20,7 @@ properties cycles name = do
       \(Sets (vs, es)) -> do
         vs' <- sublistOf $ Set.toList vs
         return $ forAll (shuffle vs') $ \trail ->
-          length trail > 1 ==>
+          length (nub trail) > 2 ==>
           head trail /= last trail ==>
           let path = nub trail
               v = head path
@@ -45,7 +45,7 @@ properties cycles name = do
         pathEdges (u : vs@(v:_)) = Set.insert (Edge (u, v)) $ pathEdges vs
 
 examples :: Spec
-examples = do
+examples = parallel $ do
   describe "examples" $ do
     it "cycles 1 $ toG $ Paths [[1,2,3], [1,3,4,2], [5,6]]" $ do
       cycles 1 (toG $ Paths [[1,2,3], [1,3,4,2], [5,6]])

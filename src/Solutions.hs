@@ -101,6 +101,8 @@ module Solutions (
   toG,
   -- ** Problem 81
   paths,
+  -- ** Problem 82
+  cycles,
   -- * Miscellaenous problems
   -- ** Problem 90
   queens,
@@ -142,4 +144,5 @@ import           Solutions.P56
 import           Solutions.P57
 import           Solutions.P80
 import           Solutions.P81
+import           Solutions.P82
 import           Solutions.P90
