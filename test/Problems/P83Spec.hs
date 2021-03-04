@@ -6,7 +6,9 @@ import           Data.Set                  (Set)
 import qualified Data.Set                  as Set
 import           Problems.Graphs
 import           Problems.Graphs.Arbitrary
+import           Problems.P80
 import           Problems.P81
+import           Problems.P83              (graph83)
 import qualified Problems.P83              as Problem
 import qualified Solutions.P83             as Solution
 import           Test.Hspec
@@ -48,11 +50,39 @@ properties
         classify (isConnectedGraph g) "connected" $
         isConnected g `shouldBe` isConnectedGraph g
 
+examples :: Spec
+examples = do
+  describe "Examples" $ do
+    it "length $ spanningTrees graph83" $ do
+      length (spanningTrees graph83) `shouldBe` 173
+
+    it "(toG $ Paths [[1,2,4,5,6,7,8],[1,3],[5,10],[7,9]]) `elem` (spanningTrees graph83)" $ do
+      spanningTrees graph83 `shouldSatisfy` elem (toG $ Paths [[1,2,4,5,6,7,8],[1,3],[5,10],[7,9]])
+
+    it "isTree graph83" $ do
+      isTree graph83 `shouldBe` False
+
+    it "isTree $ toG $ Paths [[1,2,3],[1,4,5]]" $ do
+      (isTree $ toG $ Paths [[1,2,3],[1,4,5]]) `shouldBe` True
+
+    it "isConnected graph83" $ do
+      isConnected graph83 `shouldBe` True
+
+    it "isConnected $ toG $ Lists ([1,2,3], [])" $ do
+      (isConnected $ toG $ Lists ([1,2,3], [])) `shouldBe` False
+
+    where spanningTrees = Problem.spanningTrees
+          isTree = Problem.isTree
+          isConnected = Problem.isConnected
+
 spec :: Spec
 spec = parallel $ do
   properties
     (Problem.spanningTrees, Problem.isTree, Problem.isConnected)
     ("spanningTrees", "isTree", "isConnected")
+
+  examples
+
   describe "From solutions" $ do
     properties
       (Solution.spanningTrees, Solution.isTree, Solution.isConnected)

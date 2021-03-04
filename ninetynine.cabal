@@ -4,7 +4,7 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 357cdd55c8fc1d0d1b9c3b39594762b7f80ddad2ebd9445114addccb9b2d0a6d
+-- hash: 2e44a3046abec10dd49f75160927069cb68919633e96291b89231827b27ff153
 
 name:           ninetynine
 version:        0.2.0.0
@@ -29,6 +29,8 @@ extra-doc-files:
     images/BinaryTrees/tree1.svg
     images/BinaryTrees/tree4.gv
     images/BinaryTrees/tree4.svg
+    images/Graphs/Example-P83.gv
+    images/Graphs/Example-P83.svg
     images/Graphs/Example.gv
     images/Graphs/Example.svg
 

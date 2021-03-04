@@ -3,6 +3,7 @@ import           Test.DocTest
 main :: IO ()
 main = do
   doctest $ "--fast" : stateless
+  doctest $ background
   doctest $ toReload
   doctest $ "--fast" : solutions
 
@@ -12,8 +13,7 @@ mapFiles = map ("src/Problems/" ++)
 -- | Deterministic examples with no state or local definitions to reset.
 stateless :: [String]
 stateless = mapFiles
-  [ "Graphs.hs"
-  , "P01.hs", "P02.hs", "P03.hs", "P04.hs", "P05.hs"
+  [ "P01.hs", "P02.hs", "P03.hs", "P04.hs", "P05.hs"
   , "P06.hs", "P07.hs", "P08.hs", "P09.hs", "P10.hs"
   , "P11.hs", "P12.hs", "P13.hs", "P14.hs", "P15.hs"
   , "P16.hs", "P17.hs"
@@ -22,7 +22,13 @@ stateless = mapFiles
   , "P46.hs", "P49.hs"
   , "P54.hs", "P55.hs"
   , "P56.hs"
+  , "P83.hs"
   ]
+
+-- | Deterministic examples in background modules.
+-- Run separately from problem modules to avoid type mismatches.
+background :: [String]
+background = mapFiles ["Graphs.hs"]
 
 -- | Deterministic examples with local definitions to reset.
 toReload :: [String]
