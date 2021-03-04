@@ -20,7 +20,7 @@ newtype Sets = Sets (Set Vertex, Set Edge)
 instance Arbitrary Sets where
   arbitrary = scale (ceiling . scaledSize) $ do
     vs <- arbitrary
-    es <- sublistOf [Edge (u, v) | u <- vs, v <- vs, u <= v]
+    es <- sublistOf [Edge (u, v) | u <- vs, v <- vs, u < v]
     return $ Sets (Set.fromList vs, Set.fromList es)
       -- For k vertexes, there can be about k^2 / 2 edges.
       where scaledSize n = (*) 2 $ sqrt $ fromIntegral n :: Float

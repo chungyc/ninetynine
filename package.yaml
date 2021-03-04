@@ -83,4 +83,5 @@ benchmarks:
     - ninetynine
     - containers
     - random
+    - deepseq
     - criterion
