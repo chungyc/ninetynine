@@ -107,6 +107,8 @@ module Solutions (
   spanningTrees,
   isTree,
   isConnected,
+  -- ** Problem 84
+  minimumSpanningTree,
   -- * Miscellaenous problems
   -- ** Problem 90
   queens,
@@ -150,4 +152,5 @@ import           Solutions.P80
 import           Solutions.P81
 import           Solutions.P82
 import           Solutions.P83
+import           Solutions.P84
 import           Solutions.P90

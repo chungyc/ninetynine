@@ -156,6 +156,9 @@ module Problems (
   spanningTrees,
   isTree,
   isConnected,
+  -- ** Problem 84
+  -- | &#129335; &#129335;
+  minimumSpanningTree,
   -- * Miscellaenous problems
   -- ** Problem 90
   -- | &#129335; &#129335;
@@ -201,4 +204,5 @@ import           Problems.P80
 import           Problems.P81
 import           Problems.P82
 import           Problems.P83
+import           Problems.P84
 import           Problems.P90

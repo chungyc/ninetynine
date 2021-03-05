@@ -19,9 +19,6 @@ import qualified Solutions.P84   as Solution
 -- While the weight of an edge could be encoded in the graph represention itself,
 -- here we will specify the weight of each edge in a separate map.
 --
--- It is not defined what should happen if the given graph is not connected.
---
---
 -- Example:
 --
 -- >>> import Data.Map.Lazy ((!))

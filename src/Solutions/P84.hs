@@ -12,67 +12,91 @@ import           Data.Set        (Set)
 import qualified Data.Set        as Set
 import           Problems.Graphs
 
-type WeightedG = (G, Map Edge Int)
-type Partial = (Set Vertex, Set Edge, Map Int [Edge])
-
 -- | Construct the minimum spanning tree.
 --
 -- Write a function which constructs the minimum spanning tree of a given weighted graph.
 -- While the weight of an edge could be encoded in the graph represention itself,
 -- here we will specify the weight of each edge in a separate map.
---
--- It is not defined what should happen if the given graph is not connected.
---
--- === __Hint__
---
--- The minimum spanning tree of a graph can be constructed
--- using [Prim's algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm).
 minimumSpanningTree :: G -> Map Edge Int -> G
 minimumSpanningTree g@(G m) weights
-  | null (vertexes g) = fromJust $ toGraph (Set.empty, Set.empty)
-  | otherwise = fromJust $ toGraph (vs, es)
+  | null (vertexes g) = G Map.empty
+  | otherwise = toSpanningTree vs es g
   where wg = (g, weights)
-        (v, _) = Map.findMin m
-        (vs, es, _) = expand wg (Set.singleton v, Set.empty, weightEdgesFromVertex v Set.empty wg)
+        (v, _) = Map.findMin m  -- chosen arbitrarily
+        (vs, es, _) = expand wg (Set.singleton v, Set.empty, weightEdgesFromVertex wg v Set.empty)
 
+type WeightedG = (G, Map Edge Int)
+
+-- | Partially constructed minimum spanning tree.
+type Partial = (Set Vertex,      -- Vertexes in the partially constructed tree.
+                Set Edge,        -- Edges in the partially constructed tree.
+                Map Int [Edge])  -- Boundary of edges between inside the tree and outside the tree, keyed by weight.
+
+-- | Converts the given vertexes and edges into a graph only if they from a spanning tree of the given graph.
+-- Otherwise, returns an empty graph.
+toSpanningTree :: Set Vertex -> Set Edge -> G -> G
+toSpanningTree vs es g
+  | vs == vertexes g = fromJust $ toGraph (vs, es)
+  | otherwise        = G Map.empty
+
+-- | Expand the partially constructed minimum spanning tree by one edge.
 expand :: WeightedG -> Partial -> Partial
 expand wg r@(vs, _, boundary)
   | Map.null boundary = r
   | otherwise = incorporateMinEdge wg e r
   where e = extractMinEdge wg boundary vs
 
+-- | Extract the edge with minimum weight which connects to outside the tree from the boundary.
+--
+-- While edges that do not connect to the outside of the tree are not added,
+-- edges that between vertexes inside the tree can exist because they are not removed.
+-- Such edges are skipped.
 extractMinEdge :: WeightedG -> Map Int [Edge] -> Set Vertex -> Maybe (Edge, Map Int [Edge])
 extractMinEdge wg boundary vs
   | Map.null boundary = Nothing
   | otherwise         = check e
-  where (e, boundary') = extractFromBoundary boundary vs wg
+  where (e, boundary') = extractFromBoundary wg boundary vs
         check (Edge (u', v'))
           | Set.member u' vs && Set.member v' vs = extractMinEdge wg boundary' vs
           | otherwise                            = Just (e, boundary')
 
-extractFromBoundary :: Map Int [Edge] -> Set Vertex -> WeightedG -> (Edge, Map Int [Edge])
-extractFromBoundary boundary vs wg = (e, boundary')
+-- | Extract the edge with minimum weight from the boundary.
+--
+-- The edge may not connect to a vertex outside the partially constructed tree.
+extractFromBoundary :: WeightedG -> Map Int [Edge] -> Set Vertex -> (Edge, Map Int [Edge])
+extractFromBoundary wg boundary vs = (e, boundary')
   where ((minWeight, es), boundary'') = Map.deleteFindMin boundary
         e = head es
         v = newVertex e vs
         boundary''' = reinsert (minWeight, tail es) boundary''
         boundary' = Map.unionWith (++) edgesFromVertex boundary'''
-        edgesFromVertex = weightEdgesFromVertex v vs wg
+        edgesFromVertex = weightEdgesFromVertex wg v vs
         reinsert (_, []) m'  = m'
         reinsert (w, es') m' = Map.insert w es' m'
 
+-- | Incorporate an edge into a partially constructed minimum spanning tree.
 incorporateMinEdge :: WeightedG -> Maybe (Edge, Map Int [Edge]) -> Partial -> Partial
 incorporateMinEdge _ Nothing r = r
 incorporateMinEdge wg (Just (e@(Edge (u, v)), boundary')) (vs, es, _) = expand wg (vs', es', boundary')
   where es' = Set.insert e es
         vs' = Set.insert v $ Set.insert u vs
 
-weightEdgesFromVertex :: Vertex -> Set Vertex -> WeightedG -> Map Int [Edge]
-weightEdgesFromVertex v vs (G m, weights) = weightEdges (Set.map (\v' -> Edge (v,v')) $ Map.findWithDefault Set.empty v m) vs weights
+-- | Returns the weight to edges map for edges connected to a vertex.
+--
+-- Edges that do not connect to outside the partially constructed tree are excluded.
+weightEdgesFromVertex :: WeightedG -> Vertex -> Set Vertex -> Map Int [Edge]
+weightEdgesFromVertex (G m, weights) v vs =
+  weightEdges (Set.map (\v' -> Edge (v,v')) $ Map.findWithDefault Set.empty v m) vs weights
 
+-- | Returns the weight to edges map from the edges.
+--
+-- Edges that do not connect to outside the partially constructed tree are excluded.
 weightEdges :: Set Edge -> Set Vertex -> Map Edge Int -> Map Int [Edge]
-weightEdges es vs weights = Map.fromListWith (++) $ map (\e -> (Map.findWithDefault 0 e weights, [e])) $ filter (\(Edge (u,v)) -> not (Set.member u vs && Set.member v vs)) $ Set.toList es
+weightEdges es vs weights = Map.fromListWith (++) $ map weightEdge $ filter crosses $ Set.toList es
+  where crosses (Edge (u, v)) = not $ Set.member u vs && Set.member v vs
+        weightEdge e = (Map.findWithDefault 0 e weights, [e])
 
+-- For the two vertexes in an edge, return the vertex outside the partially constructed tree.
 newVertex :: Edge -> Set Vertex -> Vertex
 newVertex (Edge (u, v)) vs
   | Set.member u vs = v
