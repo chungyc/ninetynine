@@ -92,16 +92,22 @@ spec = parallel $ do
 isSpanningTree :: G -> G -> Bool
 isSpanningTree g g' = vertexes g == vertexes g' && isTreeGraph g'
 
+-- | Checking whether a graph is a tree in the most straightforward way.
+-- I.e., that there is exactly one path between any two vertexes.
 isTreeGraph :: G -> Bool
 isTreeGraph g = all (\(u, v) -> (length $ paths u v g) == 1) pairs
   where vs = Set.toList $ vertexes g
         pairs = [(u, v) | u <- vs, v <- vs, u < v]
 
+-- | Checking whether a graph is connected in the most straightforward way.
+-- I.e., that there is some path between any two vertexes.
 isConnectedGraph :: G -> Bool
 isConnectedGraph g = all (\(u, v) -> not $ null $ paths u v g) pairs
   where vs = Set.toList $ vertexes g
         pairs = [(u, v) | u <- vs, v <- vs, u < v]
 
+-- | Create vertexes and edges from a structure-only tree.
+-- It will be a tree which includes all vertexes, so it will be a spanning tree.
 toSpanningTree :: PureTree -> G
 toSpanningTree t = fromJust $ toGraph (vs, es)
   where (_, vs, es) = toSpanningTree' t (1, Set.singleton 1, Set.empty)
@@ -116,6 +122,8 @@ fromChildren v (t:ts) (n, vs, es) = fromChildren v ts $ toSpanningTree' t (n', v
         vs' = Set.insert n' vs
         es' = Set.insert (Edge (v, n')) es
 
+-- | Generate a tree that is pure structure.
+-- This will be turned into a graph that is a spanning tree.
 data PureTree = Branch [PureTree]
   deriving Show
 
