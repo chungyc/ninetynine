@@ -27,9 +27,12 @@ properties minimumSpanningTree name = modifyMaxSize (const 5) $ do
         not (null $ vertexes g) ==>
         isConnected g ==>
         let weights = Map.fromList $ zip (Set.toList $ edges g) ws
-            weightSum g' = sum $ Set.map (\e -> Map.findWithDefault 0 e weights) $ edges g'
+            weightSum g' = sum $ map (\e -> Map.findWithDefault 0 e weights) $ Set.toList $ edges g'
             minimumWeightSum = minimum $ map weightSum $ spanningTrees g
-        in weightSum (minimumSpanningTree g weights) `shouldBe` minimumWeightSum
+        in counterexample ("weighted graph: " ++ show (g, weights)) $
+           counterexample ("spanning tree edges: " ++ show (map edges $ spanningTrees g)) $
+           counterexample ("spanning tree weights: " ++ show (map weightSum $ spanningTrees g)) $
+           weightSum (minimumSpanningTree g weights) `shouldBe` minimumWeightSum
 
 examples :: Spec
 examples = do
