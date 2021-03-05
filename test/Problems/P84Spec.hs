@@ -37,8 +37,11 @@ properties minimumSpanningTree name = modifyMaxSize (const 5) $ do
 examples :: Spec
 examples = do
   describe "Examples" $ do
-    it "" $ do
-      pending
+    it "minimumSpanningTree graph83 weights84" $ do
+      (sum $ map (weights84 Map.!) $ Set.toList $ edges $ minimumSpanningTree graph83 weights84) `shouldBe` 33
+
+  where minimumSpanningTree = Problem.minimumSpanningTree
+        weights84 = Problem.weights84
 
 spec :: Spec
 spec = do
