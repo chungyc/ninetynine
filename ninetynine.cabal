@@ -4,7 +4,7 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2e44a3046abec10dd49f75160927069cb68919633e96291b89231827b27ff153
+-- hash: 68da205ba227d45c5875bd7871f6276a005d0450597096e00b61704d9a770d90
 
 name:           ninetynine
 version:        0.2.0.0
@@ -81,6 +81,7 @@ library
       Problems.P81
       Problems.P82
       Problems.P83
+      Problems.P84
       Problems.P90
       Solutions
       Solutions.P01
@@ -120,6 +121,7 @@ library
       Solutions.P81
       Solutions.P82
       Solutions.P83
+      Solutions.P84
       Solutions.P90
   other-modules:
       Paths_ninetynine
@@ -201,6 +203,7 @@ test-suite ninetynine-test
       Problems.P81Spec
       Problems.P82Spec
       Problems.P83Spec
+      Problems.P84Spec
       Problems.P90Spec
       Solutions.P31.FunctionsSpec
       Paths_ninetynine
