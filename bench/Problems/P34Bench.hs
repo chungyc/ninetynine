@@ -8,7 +8,9 @@ group :: Benchmark
 group = bgroup "P34"
   [ subgroup "totient" Problem.totient
   , bgroup "Solutions"
-    [ subgroup "totient" Solution.totient ]
+    [ subgroup "totient"         Solution.totient
+    , subgroup "totientFiltered" Solution.totientFiltered
+    ]
   ]
 
 subgroup :: String -> (Integer -> Integer) -> Benchmark

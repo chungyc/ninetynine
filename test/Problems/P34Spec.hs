@@ -27,4 +27,5 @@ spec = do
   properties Problem.totient "totient"
   examples
   describe "From solution" $ do
-    properties Solution.totient "totient"
+    properties Solution.totient         "totient"
+    properties Solution.totientFiltered "totientFiltered"
