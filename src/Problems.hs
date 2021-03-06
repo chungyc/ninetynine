@@ -95,6 +95,9 @@ module Problems (
   -- | &#129335;
   primesR,
   primes,
+  -- ** Problem 40
+  -- | &#129335; &#129335;
+  goldbach,
   -- * Logic and code problems
   -- ** Problem 46
   -- | &#129335; &#129335;
@@ -197,6 +200,7 @@ import           Problems.P35
 import           Problems.P36
 import           Problems.P37
 import           Problems.P39
+import           Problems.P40
 import           Problems.P46
 import           Problems.P48
 import           Problems.P49

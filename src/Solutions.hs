@@ -73,6 +73,8 @@ module Solutions (
   -- ** Problem 39
   primesR,
   primes,
+  -- ** Problem 40
+  goldbach,
   -- * Logic and code problems
   -- ** Problem 46
   BoolFunc,
@@ -144,6 +146,7 @@ import           Solutions.P35
 import           Solutions.P36
 import           Solutions.P37
 import           Solutions.P39
+import           Solutions.P40
 import           Solutions.P46
 import           Solutions.P48
 import           Solutions.P49
