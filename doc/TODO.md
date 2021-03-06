@@ -98,7 +98,6 @@
     *   [ ] Problem 51
     *   [ ] Problem 52
     *   [ ] Problem 53
-    *   [ ] Problem 54
     *   [ ] Problem 74
     *   [ ] Problem 75
     *   [ ] Problem 76
