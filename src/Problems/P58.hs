@@ -1,9 +1,9 @@
 {- |
-Description: `symCbalTrees`
+Description: `symmetricBalancedTrees`
 
 Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P58".
 -}
-module Problems.P58 (symCbalTrees) where
+module Problems.P58 (symmetricBalancedTrees) where
 
 import           Problems.BinaryTrees
 import qualified Solutions.P58        as Solution
@@ -12,8 +12,8 @@ import qualified Solutions.P58        as Solution
 --
 -- === Examples
 --
--- >>> printTreeList $ symCbalTrees 5
+-- >>> printTreeList $ symmetricBalancedTrees 5
 -- [ Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty (Branch 'x' Empty Empty))
 -- , Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' (Branch 'x' Empty Empty) Empty)]
-symCbalTrees :: Int -> [Tree Char]
-symCbalTrees = Solution.symCbalTrees
+symmetricBalancedTrees :: Int -> [Tree Char]
+symmetricBalancedTrees = Solution.symmetricBalancedTrees

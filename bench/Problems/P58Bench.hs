@@ -7,13 +7,13 @@ import qualified Solutions.P58        as Solution
 
 group :: Benchmark
 group = bgroup "P58"
-  [ subgroup "symCbalTrees" Problem.symCbalTrees
+  [ subgroup "symmetricBalancedTrees" Problem.symmetricBalancedTrees
   , bgroup "Solutions"
-    [ subgroup "symCbalTrees" Solution.symCbalTrees ]
+    [ subgroup "symmetricBalancedTrees" Solution.symmetricBalancedTrees ]
   ]
 
 subgroup :: String -> (Int -> [Tree Char]) -> Benchmark
-subgroup name symCbalTrees = bgroup name
-  [ bench  "4" $ nf symCbalTrees  4
-  , bench "20" $ nf symCbalTrees 20
+subgroup name symmetricBalancedTrees = bgroup name
+  [ bench  "4" $ nf symmetricBalancedTrees  4
+  , bench "20" $ nf symmetricBalancedTrees 20
   ]

@@ -130,7 +130,7 @@ module Problems (
   addedTo,
   -- ** Problem 58
   -- | &#129335; &#129335;
-  symCbalTrees,
+  symmetricBalancedTrees,
   -- * Graph problems
   Graph (vertexes, edges),
   Vertex,

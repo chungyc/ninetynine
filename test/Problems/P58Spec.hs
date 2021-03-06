@@ -10,19 +10,19 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Int -> [Tree Char]) -> String -> Spec
-properties symCbalTrees name = modifyMaxSize (const 32) $ do
+properties symmetricBalancedTrees name = modifyMaxSize (const 32) $ do
   describe name $ do
     prop "are all completely balanced" $
-      \(Positive n) -> symCbalTrees n `shouldSatisfy` all balanced
+      \(Positive n) -> symmetricBalancedTrees n `shouldSatisfy` all balanced
 
     prop "are all symmetric" $
-      \(Positive n) -> symCbalTrees n `shouldSatisfy` all symmetric
+      \(Positive n) -> symmetricBalancedTrees n `shouldSatisfy` all symmetric
 
     prop "contains completely balanced trees which are symmetric" $
       \t -> classify (balanced t) "balanced" $
             classify (symmetric t) "symmetric" $
             classify (balanced t && symmetric t) "balanced and symmetric" $
-            xify (t :: Tree ()) `elem` symCbalTrees (count t) `shouldBe` balanced t && symmetric t
+            xify (t :: Tree ()) `elem` symmetricBalancedTrees (count t) `shouldBe` balanced t && symmetric t
 
   where count Empty          = (0 :: Int)
         count (Branch _ t v) = 1 + count t + count v
@@ -36,17 +36,17 @@ properties symCbalTrees name = modifyMaxSize (const 32) $ do
 examples :: Spec
 examples = do
   describe "Examples" $ do
-    it "symCbalTrees 5" $ do
-      symCbalTrees 5 `shouldMatchList`
+    it "symmetricBalancedTrees 5" $ do
+      symmetricBalancedTrees 5 `shouldMatchList`
         [ Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' (Branch 'x' Empty Empty) Empty)
         , Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty (Branch 'x' Empty Empty))
         ]
 
-  where symCbalTrees = Problem.symCbalTrees
+  where symmetricBalancedTrees = Problem.symmetricBalancedTrees
 
 spec :: Spec
 spec = do
-  properties Problem.symCbalTrees "symCbalTrees"
+  properties Problem.symmetricBalancedTrees "symmetricBalancedTrees"
   examples
   describe "From solutions" $ do
-    properties Solution.symCbalTrees "symCbalTrees"
+    properties Solution.symmetricBalancedTrees "symmetricBalancedTrees"

@@ -99,7 +99,7 @@ module Solutions (
   construct,
   addedTo,
   -- ** Problem 58
-  symCbalTrees,
+  symmetricBalancedTrees,
   -- ** Problem 80
   toLists,
   toAdjacency,
