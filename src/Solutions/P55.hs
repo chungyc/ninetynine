@@ -15,15 +15,14 @@ import           Problems.BinaryTrees
 --
 -- Write a function to construct completely balanced binary trees for a given number of nodes.
 -- The function should generate all solutions via backtracking.
--- Put the letter @\'x\'@ as information into all nodes of the tree.
-completelyBalancedTrees :: Int -> [Tree Char]
+completelyBalancedTrees :: Int -> [Tree ()]
 completelyBalancedTrees 0 = [Empty]
 completelyBalancedTrees n
   | n `mod` 2 == 0 = generate (n `div` 2) ((n `div` 2) - 1) ++
                      generate ((n `div` 2) - 1) (n `div` 2)
   | otherwise      = generate (n `div` 2) (n `div` 2)
 
-generate :: Int -> Int -> [Tree Char]
-generate m n = [Branch 'x' l r | l <- ltrees, r <- rtrees]
+generate :: Int -> Int -> [Tree ()]
+generate m n = [Branch () l r | l <- ltrees, r <- rtrees]
   where ltrees = completelyBalancedTrees m
         rtrees = completelyBalancedTrees n

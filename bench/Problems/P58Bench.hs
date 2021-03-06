@@ -12,7 +12,7 @@ group = bgroup "P58"
     [ subgroup "symmetricBalancedTrees" Solution.symmetricBalancedTrees ]
   ]
 
-subgroup :: String -> (Int -> [Tree Char]) -> Benchmark
+subgroup :: String -> (Int -> [Tree ()]) -> Benchmark
 subgroup name symmetricBalancedTrees = bgroup name
   [ bench  "4" $ nf symmetricBalancedTrees  4
   , bench "20" $ nf symmetricBalancedTrees 20

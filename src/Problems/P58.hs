@@ -13,7 +13,7 @@ import qualified Solutions.P58        as Solution
 -- === Examples
 --
 -- >>> printTreeList $ symmetricBalancedTrees 5
--- [ Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty (Branch 'x' Empty Empty))
--- , Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' (Branch 'x' Empty Empty) Empty)]
-symmetricBalancedTrees :: Int -> [Tree Char]
+-- [ Branch () (Branch () (Branch () Empty Empty) Empty) (Branch () Empty (Branch () Empty Empty))
+-- , Branch () (Branch () Empty (Branch () Empty Empty)) (Branch () (Branch () Empty Empty) Empty)]
+symmetricBalancedTrees :: Int -> [Tree ()]
 symmetricBalancedTrees = Solution.symmetricBalancedTrees

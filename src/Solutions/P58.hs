@@ -10,5 +10,5 @@ import           Problems.P55
 import           Problems.P56
 
 -- | Construct all symmetric, completely balanced binary trees with a given number of nodes.
-symmetricBalancedTrees :: Int -> [Tree Char]
+symmetricBalancedTrees :: Int -> [Tree ()]
 symmetricBalancedTrees = filter symmetric . completelyBalancedTrees

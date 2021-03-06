@@ -12,7 +12,7 @@ group = bgroup "P55"
     [ subgroup "completelyBalancedTrees" Solution.completelyBalancedTrees ]
   ]
 
-subgroup :: String -> (Int -> [Tree Char]) -> Benchmark
+subgroup :: String -> (Int -> [Tree ()]) -> Benchmark
 subgroup name completelyBalancedTrees = bgroup name
   [ bench  "4" $ nf completelyBalancedTrees  4
   , bench "20" $ nf completelyBalancedTrees 20

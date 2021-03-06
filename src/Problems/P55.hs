@@ -16,14 +16,13 @@ import qualified Solutions.P55        as Solution
 --
 -- Write a function to construct completely balanced binary trees for a given number of nodes.
 -- The function should generate all solutions via backtracking.
--- Put the letter @\'x\'@ as information into all nodes of the tree.
 --
 -- === Examples
 --
 -- >>> printTreeList $ completelyBalancedTrees 4
--- [ Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty Empty)
--- , Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' (Branch 'x' Empty Empty) Empty)
--- , Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty (Branch 'x' Empty Empty))
--- , Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' Empty Empty)]
-completelyBalancedTrees :: Int -> [Tree Char]
+-- [ Branch () (Branch () (Branch () Empty Empty) Empty) (Branch () Empty Empty)
+-- , Branch () (Branch () Empty Empty) (Branch () (Branch () Empty Empty) Empty)
+-- , Branch () (Branch () Empty Empty) (Branch () Empty (Branch () Empty Empty))
+-- , Branch () (Branch () Empty (Branch () Empty Empty)) (Branch () Empty Empty)]
+completelyBalancedTrees :: Int -> [Tree ()]
 completelyBalancedTrees = Solution.completelyBalancedTrees

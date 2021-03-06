@@ -9,7 +9,7 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
-properties :: (Int -> [Tree Char]) -> String -> Spec
+properties :: (Int -> [Tree ()]) -> String -> Spec
 properties symmetricBalancedTrees name = modifyMaxSize (const 32) $ do
   describe name $ do
     prop "are all completely balanced" $
@@ -22,7 +22,7 @@ properties symmetricBalancedTrees name = modifyMaxSize (const 32) $ do
       \t -> classify (balanced t) "balanced" $
             classify (symmetric t) "symmetric" $
             classify (balanced t && symmetric t) "balanced and symmetric" $
-            xify (t :: Tree ()) `elem` symmetricBalancedTrees (count t) `shouldBe` balanced t && symmetric t
+            t `elem` symmetricBalancedTrees (count t) `shouldBe` balanced t && symmetric t
 
   where count Empty          = (0 :: Int)
         count (Branch _ t v) = 1 + count t + count v
@@ -30,16 +30,14 @@ properties symmetricBalancedTrees name = modifyMaxSize (const 32) $ do
         balanced (Branch _ t v)
           | abs (count t - count v) <= 1 = balanced t && balanced v
           | otherwise                    = False
-        xify Empty          = Empty
-        xify (Branch _ t v) = Branch 'x' (xify t) (xify v)
 
 examples :: Spec
 examples = do
   describe "Examples" $ do
     it "symmetricBalancedTrees 5" $ do
       symmetricBalancedTrees 5 `shouldMatchList`
-        [ Branch 'x' (Branch 'x' Empty (Branch 'x' Empty Empty)) (Branch 'x' (Branch 'x' Empty Empty) Empty)
-        , Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty (Branch 'x' Empty Empty))
+        [ Branch () (Branch () Empty (Branch () Empty Empty)) (Branch () (Branch () Empty Empty) Empty)
+        , Branch () (Branch () (Branch () Empty Empty) Empty) (Branch () Empty (Branch () Empty Empty))
         ]
 
   where symmetricBalancedTrees = Problem.symmetricBalancedTrees
