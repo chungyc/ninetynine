@@ -98,6 +98,11 @@ $ stack build --test --bench --haddock --no-run-benchmarks --file-watch --watch-
 
 There are not actually 99 problems.
 
+This project does not have a standard line length, in that it does not try to fit
+descriptive pose within a fixed number of columns.
+Instead, line breaks are wherever I felt like putting them.
+However, there is a hard limit of 120 characters per line.
+
 There are some differences between the problems in this project and those
 at [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
 
