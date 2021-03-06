@@ -20,7 +20,7 @@
     *   [x] Problem 15
     *   [x] Problem 16
     *   [x] Problem 17
-    *   [ ] Problem 18
+    *   [x] Problem 18
     *   [ ] Problem 19
     *   [ ] Problem 20
     *   [ ] Problem 21
