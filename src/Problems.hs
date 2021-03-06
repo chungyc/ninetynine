@@ -120,7 +120,7 @@ module Problems (
   tree4,
   -- ** Problem 55
   -- | &#129335; &#129335;
-  cbalTree,
+  completelyBalancedTrees,
   -- ** Problem 56
   -- | &#129335; &#129335;
   symmetric,

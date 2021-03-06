@@ -9,17 +9,17 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Int -> [Tree Char]) -> String -> Spec
-properties cbalTree name = do
+properties completelyBalancedTrees name = do
   describe name $ do
     modifyMaxSize (const 32) $ do  -- limit combinatorial explosion
       prop "has completely balanced trees" $
-        \(NonNegative n) -> mapM_ (flip shouldSatisfy balanced) (cbalTree n)
+        \(NonNegative n) -> mapM_ (flip shouldSatisfy balanced) (completelyBalancedTrees n)
 
       prop "contains only 'x'" $
         let containsExpected Empty            = True
             containsExpected (Branch 'x' t v) = containsExpected t && containsExpected v
             containsExpected _                = False
-        in \(NonNegative n) -> mapM_ (flip shouldSatisfy containsExpected) (cbalTree n)
+        in \(NonNegative n) -> mapM_ (flip shouldSatisfy containsExpected) (completelyBalancedTrees n)
 
     describe "includes all completely balanced trees" $ do
       flip mapM_ [0..8] $ do
@@ -28,7 +28,7 @@ properties cbalTree name = do
                trees k = [Branch 'x' l r | (l, r) <- branches k]
                branches k = [(l, r) | (ls, rs) <- subtrees k, l <- ls, r <- rs]
                subtrees k = [(trees i, trees j) | i <- [0..k], j <- [0..k], i + j == (k-1)]
-           in cbalTree n `shouldMatchList` filter balanced (trees n))
+           in completelyBalancedTrees n `shouldMatchList` filter balanced (trees n))
 
   where count Empty          = (0 :: Int)
         count (Branch _ t v) = 1 + count t + count v
@@ -40,8 +40,8 @@ properties cbalTree name = do
 examples :: Spec
 examples = do
   describe "Examples" $ do
-    it "cbalTree 4" $ do
-      cbalTree 4 `shouldMatchList`
+    it "completelyBalancedTrees 4" $ do
+      completelyBalancedTrees 4 `shouldMatchList`
         [ Branch 'x'
           (Branch 'x' Empty Empty)
           (Branch 'x' Empty
@@ -58,11 +58,11 @@ examples = do
           (Branch 'x' Empty Empty)
         ]
 
-  where cbalTree = Problem.cbalTree
+  where completelyBalancedTrees = Problem.completelyBalancedTrees
 
 spec :: Spec
 spec = parallel $ do
-  properties Problem.cbalTree "cbalTree"
+  properties Problem.completelyBalancedTrees "completelyBalancedTrees"
   examples
   describe "From solutions" $ do
-    properties Solution.cbalTree "cbalTree"
+    properties Solution.completelyBalancedTrees "completelyBalancedTrees"

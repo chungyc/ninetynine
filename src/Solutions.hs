@@ -92,7 +92,7 @@ module Solutions (
   tree3,
   tree4,
   -- ** Problem 55
-  cbalTree,
+  completelyBalancedTrees,
   -- ** Problem 56
   symmetric,
   -- ** Problem 57
