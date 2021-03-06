@@ -66,6 +66,9 @@ module Problems (
   -- ** Problem 17
   -- | &#129335;
   split,
+  -- ** Problem 18
+  -- | &#129335; &#129335;
+  slice,
   -- * Arithmetic problems
   -- ** Problem 31
   -- | &#129335; &#129335;
@@ -185,6 +188,7 @@ import           Problems.P14
 import           Problems.P15
 import           Problems.P16
 import           Problems.P17
+import           Problems.P18
 import           Problems.P31
 import           Problems.P32
 import           Problems.P33
