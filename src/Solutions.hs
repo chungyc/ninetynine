@@ -98,6 +98,8 @@ module Solutions (
   -- ** Problem 57
   construct,
   addedTo,
+  -- ** Problem 58
+  symCbalTrees,
   -- ** Problem 80
   toLists,
   toAdjacency,
@@ -154,6 +156,7 @@ import           Solutions.P54
 import           Solutions.P55
 import           Solutions.P56
 import           Solutions.P57
+import           Solutions.P58
 import           Solutions.P80
 import           Solutions.P81
 import           Solutions.P82
