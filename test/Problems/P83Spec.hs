@@ -23,7 +23,7 @@ properties
     prop "includes only spanning trees" $
       withGraph $ \g ->
         classify (isConnectedGraph g) "connected" $
-        mapM_ (\t -> t `shouldSatisfy` isSpanningTree g) (spanningTrees g)
+        conjoin (map (\t -> t `shouldSatisfy` isSpanningTree g) (spanningTrees g))
 
     modifyMaxSize (\n -> ceiling $ (sqrt $ fromIntegral n :: Float)) $
       prop "includes a spanning tree" $

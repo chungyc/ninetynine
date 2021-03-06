@@ -15,7 +15,7 @@ properties primeFactors name = do
       \(Positive n) -> product (primeFactors n) `shouldBe` n
 
     prop "has prime factors" $
-      \(Positive n) -> mapM_ (flip shouldSatisfy isPrime) (primeFactors n)
+      \(Positive n) -> conjoin (map (flip shouldSatisfy isPrime) (primeFactors n))
 
     prop "is in ascending order" $
       \(Positive n) -> primeFactors n `shouldBe` sort (primeFactors n)

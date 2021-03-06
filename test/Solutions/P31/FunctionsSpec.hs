@@ -22,6 +22,6 @@ spec = do
     prop "has no numbers which are prime between consecutive elements" $
       \(NonNegative n) ->
         let (p:q:_) = drop n primes :: [Integer]
-        in mapM_ (flip shouldNotSatisfy isPrime) [(p+1)..(q-1)]
+        in conjoin (map (flip shouldNotSatisfy isPrime) [(p+1)..(q-1)])
 
   where isPrime p = not $ any (dividesBy p) [2..(p-1)]

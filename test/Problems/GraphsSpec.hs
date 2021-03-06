@@ -34,20 +34,20 @@ general name toGraph' = do
 
     prop "adjacent vertexes form an edge" $
       withGraph $ \g ->
-        mapM_ (\e@(u, v) -> adjacent u v g `shouldBe` Set.member (Edge e) (edges g)) (vertexPairs g)
+        conjoin (map (\e@(u, v) -> adjacent u v g `shouldBe` Set.member (Edge e) (edges g)) (vertexPairs g))
 
     prop "adjacent vertexes are neighbors" $
       withGraph $ \g ->
-        mapM_ (\(u, v) -> adjacent u v g `shouldBe` Set.member u (neighbors v g)) (vertexPairs g)
+        conjoin (map (\(u, v) -> adjacent u v g `shouldBe` Set.member u (neighbors v g)) (vertexPairs g))
 
     prop "neighbors are symmetric" $
       withGraph $ \g ->
         let isNeighborOf u v = Set.member u (neighbors v g)
-        in mapM_ (\(u, v) -> (u `isNeighborOf` v) `shouldBe` (v `isNeighborOf` u)) (vertexPairs g)
+        in conjoin (map (\(u, v) -> (u `isNeighborOf` v) `shouldBe` (v `isNeighborOf` u)) (vertexPairs g))
 
     prop "vertexes are symmetrically adjacent" $
       withGraph $ \g ->
-        mapM_ (\(u, v) -> adjacent u v g `shouldBe` adjacent v u g) (vertexPairs g)
+        conjoin (map (\(u, v) -> adjacent u v g `shouldBe` adjacent v u g) (vertexPairs g))
 
     prop "graphs built are valid" $
       withGraph $ \g -> isValidGraph g
