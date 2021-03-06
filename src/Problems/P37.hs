@@ -20,13 +20,13 @@ import qualified Solutions.P37 as Solution
 --
 -- \[ \phi(m) = \prod_{i=1}^r {p_i}^{k_i - 1} (p_i - 1) \]
 --
--- Example:
---
--- >>> totient' 10
--- 4
---
 -- Compare with the solution for "Problems.P34":
 --
 -- > $ stack bench --benchmark-arguments="P34/totient P37/totient'"
+--
+-- === Examples
+--
+-- >>> totient' 10
+-- 4
 totient' :: Integral a => a -> a
 totient' = Solution.totient'

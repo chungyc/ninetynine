@@ -9,7 +9,7 @@ import qualified Solutions.P15 as Solution
 
 -- | Replicate the elements of a list a given number of times.
 --
--- Example:
+-- === Examples
 --
 -- >>> repli "abc" 3
 -- "aaabbbccc"

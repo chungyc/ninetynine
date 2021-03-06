@@ -9,7 +9,7 @@ import qualified Solutions.P16 as Solution
 
 -- | Drop every N'th element from a list.
 --
--- Example:
+-- === Examples
 --
 -- >>> dropEvery "abcdefghik" 3
 -- "abdeghk"

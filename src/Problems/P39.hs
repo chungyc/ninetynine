@@ -10,7 +10,7 @@ import qualified Solutions.P39 as Solution
 -- | Given a range of integers by its lower and upper limit (inclusive),
 -- construct a list of all prime numbers in that range.
 --
--- Example:
+-- === Examples
 --
 -- >>> primesR 10 20
 -- [11,13,17,19]
@@ -19,7 +19,7 @@ primesR = Solution.primesR
 
 -- | Construct the list of all prime numbers.
 --
--- Example:
+-- === Examples
 --
 -- >>> take 5 primes
 -- [2,3,5,7,11]

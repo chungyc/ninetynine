@@ -9,7 +9,7 @@ import qualified Solutions.P01 as Solution
 
 -- | Find the last element of a list.
 --
--- Examples:
+-- === Examples
 --
 -- >>> myLast [1,2,3,4]
 -- 4

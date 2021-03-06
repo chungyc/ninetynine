@@ -13,7 +13,7 @@ import qualified Solutions.P18 as Solution
 -- between the @i@'th and @k@'th element of the original list (both limits included).
 -- Start counting the elements with 1.
 --
--- Example:
+-- === Examples
 --
 -- >>> slice ['a','b','c','d','e','f','g','h','i','k'] 3 7
 -- "cdefg"

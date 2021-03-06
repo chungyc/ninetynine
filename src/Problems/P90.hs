@@ -21,7 +21,7 @@ import qualified Solutions.P90 as Solution
 -- For example, @[4,2,7,3,6,8,5,1]@ means that the queen in the first column is in row 4,
 -- the queen in the second column is in row 2, etc.
 --
--- Examples:
+-- === Examples
 --
 -- >>> length (queens 8)
 -- 92

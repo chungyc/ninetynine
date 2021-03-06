@@ -19,7 +19,7 @@ import qualified Solutions.P84   as Solution
 -- While the weight of an edge could be encoded in the graph represention itself,
 -- here we will specify the weight of each edge in a separate map.
 --
--- Example:
+-- === Examples
 --
 -- >>> import Data.Map.Lazy ((!))
 -- >>> import qualified Data.Set as S
@@ -30,7 +30,8 @@ import qualified Solutions.P84   as Solution
 -- === __Hint__
 --
 -- The minimum spanning tree of a graph can be constructed
--- using [Prim's algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm).
+-- using [Prim's algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm)
+-- or [Kruskal's algorithm](https://en.wikipedia.org/wiki/Kruskal%27s_algorithm).
 minimumSpanningTree :: G -> Map Edge Int -> G
 minimumSpanningTree = Solution.minimumSpanningTree
 

@@ -18,7 +18,7 @@ import qualified Solutions.P55        as Solution
 -- The function should generate all solutions via backtracking.
 -- Put the letter @\'x\'@ as information into all nodes of the tree.
 --
--- Example:
+-- === Examples
 --
 -- >>> printTreeList $ cbalTree 4
 -- [ Branch 'x' (Branch 'x' (Branch 'x' Empty Empty) Empty) (Branch 'x' Empty Empty)

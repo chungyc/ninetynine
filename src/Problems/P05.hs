@@ -9,7 +9,7 @@ import qualified Solutions.P05 as Solution
 
 -- | Reverse a list.
 --
--- Examples:
+-- === Examples
 --
 -- >>> myReverse "A man, a plan, a canal, panama!"
 -- "!amanap ,lanac a ,nalp a ,nam A"

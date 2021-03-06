@@ -11,7 +11,7 @@ import qualified Solutions.P17 as Solution
 --
 -- Do not use any predefined predicates.
 --
--- Example:
+-- === Examples
 --
 -- >>> split "abcdefghik" 3
 -- ("abc","defghik")

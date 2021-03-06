@@ -17,7 +17,7 @@ import qualified Solutions.P57        as Solution
 -- Use this function to construct a binary search tree from a list of ordered elements.
 -- Each element should be added from the front to the back of the list.
 --
--- Examples:
+-- === Examples
 --
 -- >>> construct [3, 2, 5, 7, 1]
 -- Branch 3 (Branch 2 (Branch 1 Empty Empty) Empty) (Branch 5 Empty (Branch 7 Empty Empty))
@@ -47,7 +47,7 @@ construct = Solution.construct
 -- Use a simple insertion algorithm which leaves the tree mostly the same except
 -- for the new element in a leaf node.  In particular, no balancing should be done.
 --
--- Example:
+-- === Examples
 --
 -- >>> 8 `addedTo` Branch 5 Empty (Branch 7 Empty (Branch 9 Empty Empty))
 -- Branch 5 Empty (Branch 7 Empty (Branch 9 (Branch 8 Empty Empty) Empty))

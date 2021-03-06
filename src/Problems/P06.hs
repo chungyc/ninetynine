@@ -10,7 +10,7 @@ import qualified Solutions.P06 as Solution
 -- | Find out whether a list is a palindrome.
 -- A palindrome can be read forward or backward; e.g. "xamax".
 --
--- Examples:
+-- === Examples
 --
 -- >>> isPalindrome [1,2,3]
 -- False

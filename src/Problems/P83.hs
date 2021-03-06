@@ -18,7 +18,7 @@ import qualified Solutions.P83   as Solution
 --
 -- You can use 'graph83' as an example graph to construct spanning trees from.
 --
--- Examples:
+-- === Examples
 --
 -- >>> length $ spanningTrees graph83
 -- 173
@@ -30,7 +30,7 @@ spanningTrees = Solution.spanningTrees
 
 -- | Write a function which returns whether a graph is a tree using 'spanningTrees'.
 --
--- Examples:
+-- === Examples
 --
 -- >>> isTree graph83
 -- False
@@ -42,7 +42,7 @@ isTree = Solution.isTree
 
 -- | Write a function which returns whether a graph is connected using 'spanningTrees'.
 --
--- Examples:
+-- === Examples
 --
 -- >>> isConnected graph83
 -- True

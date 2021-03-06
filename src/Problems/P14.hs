@@ -9,7 +9,7 @@ import qualified Solutions.P14 as Solution
 
 -- | Duplicate the elements of a list.
 --
--- Example:
+-- === Examples
 --
 -- >>> dupli [1, 2, 3]
 -- [1,1,2,2,3,3]

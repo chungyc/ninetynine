@@ -14,7 +14,7 @@ import qualified Solutions.P11  as Solution
 -- if an element has no duplicates it is simply copied into the result list.
 -- Only elements with duplicates are transferred as @('Multiple' n x)@ values.
 --
--- Example:
+-- === Examples
 --
 -- >>> encodeModified "aaaabccaadeeee"
 -- [Multiple 4 'a',Single 'b',Multiple 2 'c',Multiple 2 'a',Single 'd',Multiple 4 'e']

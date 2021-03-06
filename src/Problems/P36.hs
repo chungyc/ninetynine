@@ -11,6 +11,8 @@ import qualified Solutions.P36 as Solution
 --
 -- Construct a list containing the prime factors and their multiplicity.
 --
+-- === Examples
+--
 -- >>> primeFactorsMultiplicity 315
 -- [(3,2),(5,1),(7,1)]
 primeFactorsMultiplicity :: Integral a => a -> [(a, a)]

@@ -9,7 +9,7 @@ import qualified Solutions.P04 as Solution
 
 -- | Find the number of elements of a list.
 --
--- Examples:
+-- === Examples
 --
 -- >>> myLength [123, 456, 789]
 -- 3

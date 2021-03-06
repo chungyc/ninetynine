@@ -10,7 +10,7 @@ import qualified Solutions.P09 as Solution
 -- | Pack consecutive duplicates of list elements into sublists.
 -- If a list contains repeated elements, they should be placed in separate sublists.
 --
--- Example:
+-- === Examples
 --
 -- >>> pack "aaaabccaadeeee"
 -- ["aaaa","b","cc","aa","d","eeee"]

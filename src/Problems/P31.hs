@@ -9,7 +9,7 @@ import qualified Solutions.P31 as Solution
 
 -- | Determine whether a given integer number is prime.
 --
--- Example:
+-- === Examples
 --
 -- >>> isPrime 7
 -- True

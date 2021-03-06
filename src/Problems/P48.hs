@@ -17,6 +17,8 @@ import qualified Solutions.P48 as Solution
 -- Define 'tablen' such that @tablen n f@ prints the truth table for the expression @f@,
 -- which contains @n@ logical variables.
 --
+-- === Examples
+--
 -- >>> printTablen $ tablen 3 (\[a,b,c] -> a `and'` (b `or'` c) `equ'` a `and'` b `or'` a `and'` c)
 -- False False False False
 -- False False True  False

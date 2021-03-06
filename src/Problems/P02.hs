@@ -9,7 +9,7 @@ import qualified Solutions.P02 as Solution
 
 -- | Find the last but one element of a list.
 --
--- Examples:
+-- === Examples
 --
 -- >>> myButLast [1,2,3,4]
 -- 3

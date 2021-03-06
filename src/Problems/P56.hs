@@ -15,14 +15,16 @@ import qualified Solutions.P56        as Solution
 -- Write a function 'symmetric' to check whether a given binary tree is symmetric.
 -- We are only interested in the structure, not in the contents of the nodes.
 --
--- Hint: Write a function @mirror@ first to check whether one tree is the mirror image of another.
---
--- Examples:
+-- === Examples
 --
 -- >>> symmetric (Branch 'x' (Branch 'x' Empty Empty) Empty)
 -- False
 --
 -- >>> symmetric (Branch 'x' (Branch 'x' Empty Empty) (Branch 'x' Empty Empty))
 -- True
+--
+-- === __Hint__
+--
+-- Write a function @mirror@ first to check whether one tree is the mirror image of another.
 symmetric :: Tree a -> Bool
 symmetric = Solution.symmetric

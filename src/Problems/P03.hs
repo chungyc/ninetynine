@@ -10,7 +10,7 @@ import qualified Solutions.P03 as Solution
 -- | Find the K'th element of a list.
 -- The first element in the list is number 1.
 --
--- Examples:
+-- === Examples
 --
 -- >>> elementAt [1,2,3] 2
 -- 2

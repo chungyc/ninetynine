@@ -28,7 +28,7 @@ import qualified Solutions.P46  as Solution
 -- will mean that @(f a b == c)@.  The list will include all possible
 -- distinct combinations of the tuples.
 --
--- Example:
+-- === Examples
 --
 -- >>> printTable $ table (\a b -> (and' a (or' a b)))
 -- False False False
@@ -41,7 +41,7 @@ table = Solution.table
 -- | Logical conjunction.
 -- I.e., @(and' a b)@ is true if and only if both @a@ and @b@ are true.
 --
--- Examples:
+-- === Examples
 --
 -- >>> and' True False
 -- False
@@ -51,7 +51,7 @@ and' = Solution.and'
 -- | Logical disjuncton.
 -- I.e., @(or' a b)@ is true if and only if one or both of @a@ and @b@ are true.
 --
--- Examples:
+-- === Examples
 --
 -- >>> or' True False
 -- True
@@ -61,7 +61,7 @@ or' = Solution.or'
 -- | Logical alternative denial.
 -- I.e., @(nand' a b)@ is true if and only if @(and' a b)@ is false.
 --
--- Examples:
+-- === Examples
 --
 -- >>> nand' True False
 -- True
@@ -71,7 +71,7 @@ nand' = Solution.nand'
 -- | Logical joint denial.
 -- I.e., @(nor' a b)@ is true if and only if @(or' a b)@ is false.
 --
--- Examples:
+-- === Examples
 --
 -- >>> nor' True False
 -- False
@@ -81,7 +81,7 @@ nor' = Solution.nor'
 -- | Logical exclusive disjunction.
 -- I.e., @(xor' a b)@ is true if and only if exactly one of @a@ and @b@ is true.
 --
--- Examples:
+-- === Examples
 --
 -- >>> xor' True False
 -- True
@@ -92,7 +92,7 @@ xor' = Solution.xor'
 -- I.e., @(impl' a b)@ being true means @b@ must be true if @a@ is true.
 -- If @a@ is false, there is no implication as to what @b@ should be.
 --
--- Examples:
+-- === Examples
 --
 -- >>> impl' True False
 -- False
@@ -102,7 +102,7 @@ impl' = Solution.impl'
 -- | Logical equivalence.
 -- I.e., @(equ' a b)@ being true means @a@ is true if and only if @b@ is true.
 --
--- Examples:
+-- === Examples
 --
 -- >>> equ' True False
 -- False

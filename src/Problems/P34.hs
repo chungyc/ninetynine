@@ -15,7 +15,7 @@ import qualified Solutions.P34 as Solution
 -- For example, with \(m = 10\), \(\{r \,|\, 1 \leq r \leq m, \textrm{coprime to $m$}\} = \{ 1, 3, 7, 9 \}\);
 -- thus \(\phi(m) = 4\).  Note the special case of \(\phi(1) = 1\).
 --
--- Example in Haskell:
+-- === Examples
 --
 -- >>> totient 10
 -- 4

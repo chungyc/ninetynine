@@ -19,7 +19,7 @@ import qualified Solutions.P82   as Solution
 --
 -- Write a function which finds all cycles in the graph which include the given vertex.
 --
--- Example:
+-- === Examples
 --
 -- >>> sort $ cycles 1 $ toG $ Paths [[1,2,3], [1,3,4,2], [5,6]]
 -- [[1,2,3],[1,2,4,3],[1,3,2],[1,3,4,2]]

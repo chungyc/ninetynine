@@ -10,7 +10,7 @@ import qualified Solutions.P32 as Solution
 -- | Determine the greatest common divisor of two positive integer numbers.
 -- Use [Euclid's algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm).
 --
--- Example:
+-- === Examples
 --
 -- >>> [myGCD 36 63, myGCD (-3) (-6), myGCD (-3) 6]
 -- [9,3,3]

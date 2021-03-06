@@ -10,9 +10,12 @@ import qualified Solutions.P33 as Solution
 -- | Determine whether two positive integer numbers are coprime.
 -- Two numbers are coprime if their greatest common divisor equals 1.
 --
--- Example:
+-- === Examples
 --
 -- >>> coprime 35 64
 -- True
+--
+-- >>> coprime 1173 1547
+-- False
 coprime :: Integral a => a -> a -> Bool
 coprime = Solution.coprime

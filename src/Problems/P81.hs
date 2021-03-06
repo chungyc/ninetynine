@@ -17,7 +17,7 @@ import qualified Solutions.P81   as Solution
 -- Write a function that, given two vertexes @a@ and @b@ in a graph,
 -- returns all the acyclic paths from @a@ to @b@.
 --
--- Examples:
+-- === Examples
 --
 -- >>> sort $ paths 1 4 $ toG $ Paths [[1,2,3], [1,3,4,2], [5,6]]
 -- [[1,2,3,4],[1,2,4],[1,3,2,4],[1,3,4]]

@@ -17,7 +17,7 @@ import qualified Solutions.P13  as Solution
 -- As with 'Problems.P11.encodeModified',
 -- simplify the result list by replacing the singletons @('Multiple' 1 x)@ by @('Single' x)@.
 --
--- Example:
+-- === Examples
 --
 -- >>> encodeDirect "aaaabccaadeeee"
 -- [Multiple 4 'a',Single 'b',Multiple 2 'c',Multiple 2 'a',Single 'd',Multiple 4 'e']
