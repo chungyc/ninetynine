@@ -31,7 +31,7 @@ import qualified Solutions.P91   as Solution
 --
 -- === __Hint__
 --
--- This is a known NP-complete problem.
+-- This is an NP-hard problem.
 -- A straightforward backtracking algorithm can be very slow even for
 -- moderately sized boards such as \(8 \times 8\).
 -- Consider using [Warnsdorff's rule](https://en.wikipedia.org/wiki/Knight%27s_tour#Warnsdorff's_rule).
