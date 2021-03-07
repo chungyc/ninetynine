@@ -37,3 +37,11 @@ toReload = mapFiles [ "P48.hs", "P57.hs", "P81.hs", "P82.hs", "P84.hs", "P90.hs"
 -- Examples in solutions.
 solutions :: [String]
 solutions = map ("src/Solutions/" ++) $ [ "P49.hs" ]
+
+{-
+Examples in the following problems are intentionally omitted from testing.
+
+* P91 : Alternative knight's tours exist, and beyond a 5x5 board,
+  it is not feasible to enumerate all of them so that we can pick one
+  unique tour to output.
+-}

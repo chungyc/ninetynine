@@ -118,6 +118,9 @@ module Solutions (
   -- * Miscellaenous problems
   -- ** Problem 90
   queens,
+  -- ** Problem 91
+  knightsTour,
+  closedKnightsTour,
   ) where
 
 import           Problems.BinaryTrees
@@ -163,3 +166,4 @@ import           Solutions.P82
 import           Solutions.P83
 import           Solutions.P84
 import           Solutions.P90
+import           Solutions.P91

@@ -172,6 +172,10 @@ module Problems (
   -- ** Problem 90
   -- | &#129335; &#129335;
   queens,
+  -- ** Problem 91
+  -- | &#129335; &#129335;
+  knightsTour,
+  closedKnightsTour,
   ) where
 
 import           Problems.BinaryTrees
@@ -218,3 +222,4 @@ import           Problems.P82
 import           Problems.P83
 import           Problems.P84
 import           Problems.P90
+import           Problems.P91
