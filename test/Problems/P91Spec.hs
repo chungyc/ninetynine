@@ -18,11 +18,12 @@ knightsTourProperties knightsTour name = do
       it "with size 4" $ do knightsTour 4 (1,1) `shouldBe` Nothing
 
     -- For naive backtracking algorithms, even slightly larger sizes can take a very long time.
-    modifyMaxSuccess (const 10) $ modifyMaxSize (const 2) $
+    modifyMaxSuccess (const 10) $
       prop "is knight's tour" $
-        \(Positive n') -> forAll (chooseInt (1,n'+4)) $ \x -> forAll (chooseInt (1,n'+4)) $ \y ->
-          let n = n' + 4
-              tour' = knightsTour n (x,y)
+        forAll (chooseInt(5,6)) $ \n ->
+        forAll (chooseInt (1,n)) $ \x ->
+        forAll (chooseInt (1,n)) $ \y ->
+          let tour' = knightsTour n (x,y)
               tour = fromJust tour'
           in isJust tour' ==>
              counterexample (show tour) $
