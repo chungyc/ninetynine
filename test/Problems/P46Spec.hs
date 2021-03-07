@@ -62,7 +62,7 @@ examples = do
         or'   = Problem.or'
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.functions "boolean functions"
   examples
   describe "From solutions" $ do

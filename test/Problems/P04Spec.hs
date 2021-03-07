@@ -26,7 +26,7 @@ examples =
   where myLength = Problem.myLength
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.myLength "myLength"
   examples
   describe "From solutions" $ do

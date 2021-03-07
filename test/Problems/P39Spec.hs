@@ -33,7 +33,7 @@ examples = do
         primes = Problem.primes
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties (Problem.primesR, Problem.primes) ("primesR", "primes")
   examples
   describe "From solutions" $ do

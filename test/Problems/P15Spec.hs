@@ -22,7 +22,7 @@ examples = do
   where repli = Problem.repli
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.repli "repli"
   examples
   describe "From solutions" $ do

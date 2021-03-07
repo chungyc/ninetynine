@@ -43,7 +43,7 @@ examples = do
   where symmetricBalancedTrees = Problem.symmetricBalancedTrees
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.symmetricBalancedTrees "symmetricBalancedTrees"
   examples
   describe "From solutions" $ do

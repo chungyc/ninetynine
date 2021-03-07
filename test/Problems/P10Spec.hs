@@ -27,7 +27,7 @@ examples = do
   where encode l = Problem.encode l
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.encode "encode"
   examples
   describe "From solutions" $ do

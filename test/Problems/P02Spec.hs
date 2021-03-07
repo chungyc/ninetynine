@@ -24,7 +24,7 @@ examples =
  where myButLast = Problem.myButLast
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.myButLast "myButLast"
   examples
   describe "From solutions" $ do

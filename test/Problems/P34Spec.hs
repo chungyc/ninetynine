@@ -23,7 +23,7 @@ examples = do
   where totient n = Problem.totient n
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.totient "totient"
   examples
   describe "From solution" $ do

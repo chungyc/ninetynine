@@ -23,7 +23,7 @@ examples = do
   where decodeModified = Problem.decodeModified
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.decodeModified "decodeModified"
   examples
   describe "From solutions" $ do

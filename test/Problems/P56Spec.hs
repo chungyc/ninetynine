@@ -47,7 +47,7 @@ examples = do
   where symmetric = Problem.symmetric
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.symmetric "symmetric"
   examples
   describe "From solutions" $ do

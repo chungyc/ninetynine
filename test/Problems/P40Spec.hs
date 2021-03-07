@@ -28,7 +28,7 @@ examples = do
   where goldbach n = Problem.goldbach (n :: Integer)
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.goldbach "goldbach"
   examples
   describe "From solutions" $ do

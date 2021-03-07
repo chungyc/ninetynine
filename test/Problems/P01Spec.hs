@@ -25,7 +25,7 @@ examples =
   where myLast = Problem.myLast
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.myLast "myLast"
   examples
   describe "From solutions" $ do

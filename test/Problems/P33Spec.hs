@@ -21,7 +21,7 @@ examples = do
   where coprime a b = Problem.coprime a b
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.coprime "coprime"
   examples
   describe "From solutions" $ do

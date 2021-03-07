@@ -31,7 +31,7 @@ examples = do
   where dropEvery = Problem.dropEvery
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.dropEvery "dropEvery"
   examples
   describe "From solutions" $ do

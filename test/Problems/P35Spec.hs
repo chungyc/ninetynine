@@ -29,7 +29,7 @@ examples = do
   where primeFactors n = Problem.primeFactors n
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.primeFactors "primeFactors"
   examples
   describe "From solutions" $ do

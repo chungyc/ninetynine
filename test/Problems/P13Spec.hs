@@ -23,7 +23,7 @@ examples = do
   where encodeDirect l = Problem.encodeDirect l
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.encodeDirect "encodeDirect"
   examples
   describe "From solutions" $ do

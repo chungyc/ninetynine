@@ -28,7 +28,7 @@ examples =
   where myReverse = Problem.myReverse
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.myReverse "myReverse"
   examples
   describe "From solutions" $ do

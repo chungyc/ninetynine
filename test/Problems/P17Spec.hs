@@ -28,7 +28,7 @@ examples = do
   where split = Problem.split
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.split "split"
   examples
   describe "From solutions" $ do

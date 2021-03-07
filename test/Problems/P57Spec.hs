@@ -77,7 +77,7 @@ examples = do
         addedTo x t = Problem.addedTo x t
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.construct "construct" Problem.addedTo "addedTo"
   examples
   describe "From solutions" $ do

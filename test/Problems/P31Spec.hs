@@ -24,7 +24,7 @@ examples = do
   where isPrime n = Problem.isPrime n
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.isPrime "isPrime"
   examples
   describe "From solutions" $ do

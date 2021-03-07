@@ -36,7 +36,7 @@ examples =
   where isPalindrome l = Problem.isPalindrome l
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.isPalindrome "isPalindrome"
   examples
   describe "From solutions" $ do

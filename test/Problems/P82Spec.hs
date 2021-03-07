@@ -45,7 +45,7 @@ properties cycles name = do
         pathEdges (u : vs@(v:_)) = Set.insert (Edge (u, v)) $ pathEdges vs
 
 examples :: Spec
-examples = parallel $ do
+examples = do
   describe "examples" $ do
     it "cycles 1 $ toG $ Paths [[1,2,3], [1,3,4,2], [5,6]]" $ do
       cycles 1 (toG $ Paths [[1,2,3], [1,3,4,2], [5,6]])
@@ -54,7 +54,7 @@ examples = parallel $ do
   where cycles = Problem.cycles
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.cycles "cycles"
   examples
   describe "From solutions" $ do

@@ -34,7 +34,7 @@ examples = do
   where pack l = Problem.pack l
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.pack "pack"
   examples
   describe "From solutions" $ do

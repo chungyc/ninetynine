@@ -22,7 +22,7 @@ examples = do
   where slice = Problem.slice
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.slice "slice"
   examples
   describe "From solutions" $ do

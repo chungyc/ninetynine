@@ -44,7 +44,7 @@ examples = do
         weights84 = Problem.weights84
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.minimumSpanningTree "minimumSpanningTree"
   examples
   describe "From solutions" $ do

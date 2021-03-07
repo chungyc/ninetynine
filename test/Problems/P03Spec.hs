@@ -27,7 +27,7 @@ examples =
   where elementAt = Problem.elementAt
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.elementAt "elementAt"
   examples
   describe "From solutions" $ do

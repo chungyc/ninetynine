@@ -36,7 +36,7 @@ examples =
   where flatten = Problem.flatten
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.flatten "flatten"
   examples
   describe "From solutions" $ do

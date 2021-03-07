@@ -38,7 +38,7 @@ examples = do
   where compress l = Problem.compress l
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.compress "compress"
   examples
   describe "From solutions" $ do

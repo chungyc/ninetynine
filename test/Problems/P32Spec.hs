@@ -27,7 +27,7 @@ examples = do
   where myGCD a b = Problem.myGCD a b
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.myGCD "myGCD"
   examples
   describe "From solutions" $ do

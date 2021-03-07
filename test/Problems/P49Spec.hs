@@ -20,7 +20,7 @@ properties gray name = do
     -- but this problem only demands that the function reproduces the examples.
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.gray "gray"
   describe "From solutions" $ do
     properties Solution.gray "gray"

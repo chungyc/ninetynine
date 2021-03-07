@@ -44,7 +44,7 @@ intSpec tree4 = do
                  (Branch 2 Empty Empty)
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   charSpec (Functions { getLeaf = Problem.leaf
                       , getTree1 = Problem.tree1
                       , getTree2 = Problem.tree2
