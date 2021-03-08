@@ -32,7 +32,7 @@ background = mapFiles ["Graphs.hs"]
 
 -- | Deterministic examples with local definitions to reset.
 toReload :: [String]
-toReload = mapFiles [ "P48.hs", "P57.hs", "P81.hs", "P82.hs", "P84.hs", "P90.hs" ]
+toReload = mapFiles [ "P48.hs", "P57.hs", "P81.hs", "P82.hs", "P84.hs", "P85.hs", "P90.hs" ]
 
 -- Examples in solutions.
 solutions :: [String]
