@@ -31,6 +31,6 @@ isomorphic = Solution.isomorphic
 graph85 :: G
 graph85 = toG $ Paths [[1,5,3,7,1,6,2,5], [2,8,3], [6,4,8], [4,7]]
 
--- | Example graph to try out 'isomorphic', along with 'graph1'.
+-- | Example graph to try out 'isomorphic', along with 'graph85'.
 graph85' :: G
 graph85' = toG $ Paths [[1,2,3,4,8,5,1], [5,6,7,8], [2,6], [3,7], [1,4]]
