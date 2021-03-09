@@ -69,6 +69,9 @@ module Problems (
   -- ** Problem 18
   -- | &#129335; &#129335;
   slice,
+  -- ** Problem 19
+  -- | &#129335; &#129335;
+  rotate,
   -- * Arithmetic problems
   -- ** Problem 31
   -- | &#129335; &#129335;
@@ -205,6 +208,7 @@ import           Problems.P15
 import           Problems.P16
 import           Problems.P17
 import           Problems.P18
+import           Problems.P19
 import           Problems.P31
 import           Problems.P32
 import           Problems.P33

@@ -4,7 +4,7 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8a4f2642eefa6002e9f74e1fd2ea31b2f4cd7b43c46bd8d2fb4c8b107bf1d42f
+-- hash: f16531821d4f9ba747b8d950fa46cee3e9cdfe3c92c57c59666e0631243b2375
 
 name:           ninetynine
 version:        0.2.0.0
@@ -63,6 +63,7 @@ library
       Problems.P16
       Problems.P17
       Problems.P18
+      Problems.P19
       Problems.P31
       Problems.P32
       Problems.P33
@@ -108,6 +109,7 @@ library
       Solutions.P16
       Solutions.P17
       Solutions.P18
+      Solutions.P19
       Solutions.P31
       Solutions.P31.Functions
       Solutions.P32
@@ -197,6 +199,7 @@ test-suite ninetynine-test
       Problems.P16Spec
       Problems.P17Spec
       Problems.P18Spec
+      Problems.P19Spec
       Problems.P31Spec
       Problems.P32Spec
       Problems.P33Spec
@@ -260,6 +263,7 @@ benchmark ninetynine-bench
       Problems.P16Bench
       Problems.P17Bench
       Problems.P18Bench
+      Problems.P19Bench
       Problems.P31Bench
       Problems.P32Bench
       Problems.P33Bench
