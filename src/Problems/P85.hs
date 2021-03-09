@@ -3,13 +3,11 @@ Description: 'isomorphic'
 
 Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P85".
 -}
-module Problems.P85 (isomorphic) where
+module Problems.P85 (isomorphic, graph85, graph85') where
 
 import           Problems.Graphs
+import           Problems.P80
 import qualified Solutions.P85   as Solution
-
--- $setup
--- >>> import Problems.P80
 
 -- | Graph isomorphism.
 --
@@ -24,15 +22,15 @@ import qualified Solutions.P85   as Solution
 -- >>> isomorphic (toG $ Paths [[1,2,3], [2,4]]) (toG $ Paths [[1,2,3],[1,4]])
 -- False
 --
--- >>> :{
---   isomorphic
---     (toG $ Lists
---       ([1,2,3,4,5,6,7,8],
---        [(1,5),(1,6),(1,7),(2,5),(2,6),(2,8),(3,5),(3,7),(3,8),(4,6),(4,7),(4,8)]))
---     (toG $ Lists
---       ([1,2,3,4,5,6,7,8],
---        [(1,2),(1,4),(1,5),(6,2),(6,5),(6,7),(8,4),(8,5),(8,7),(3,2),(3,4),(3,7)]))
--- :}
+-- >>> isomorphic graph85 graph85'
 -- True
 isomorphic :: G -> G -> Bool
 isomorphic = Solution.isomorphic
+
+-- Example graph to test 'isomorphic' with 'graph85''.
+graph85 :: G
+graph85 = toG $ Paths [[1,5,3,7,1,6,2,5], [2,8,3], [6,4,8], [4,7]]
+
+-- Example graph to test 'isomorphic' with 'graph1'.
+graph85' :: G
+graph85' = toG $ Paths [[1,2,3,4,8,5,1], [5,6,7,8], [2,6], [3,7], [1,4]]

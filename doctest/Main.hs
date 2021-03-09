@@ -22,7 +22,7 @@ stateless = mapFiles
   , "P46.hs", "P49.hs"
   , "P54.hs", "P55.hs", "P58.hs"
   , "P56.hs", "P59.hs"
-  , "P83.hs"
+  , "P83.hs", "P85.hs"
   ]
 
 -- | Deterministic examples in background modules.
@@ -32,7 +32,7 @@ background = mapFiles ["Graphs.hs"]
 
 -- | Deterministic examples with local definitions to reset.
 toReload :: [String]
-toReload = mapFiles [ "P48.hs", "P57.hs", "P81.hs", "P82.hs", "P84.hs", "P85.hs", "P90.hs" ]
+toReload = mapFiles [ "P48.hs", "P57.hs", "P81.hs", "P82.hs", "P84.hs", "P90.hs" ]
 
 -- Examples in solutions.
 solutions :: [String]

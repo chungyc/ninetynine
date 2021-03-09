@@ -41,16 +41,12 @@ examples = do
     it "isomorphic (toG $ Paths [[1,2,3], [2,4]]) (toG $ Paths [[1,2,3],[1,4]])" $ do
       isomorphic (toG $ Paths [[1,2,3], [2,4]]) (toG $ Paths [[1,2,3],[1,4]]) `shouldBe` False
 
-    it "isomorphic (toG $ Lists (...)) (toG $ Lists (...)" $ do
-      isomorphic
-        (toG $ Lists
-          ([1,2,3,4,5,6,7,8],
-           [(1,5),(1,6),(1,7),(2,5),(2,6),(2,8),(3,5),(3,7),(3,8),(4,6),(4,7),(4,8)]))
-        (toG $ Lists
-         ([1,2,3,4,5,6,7,8],
-          [(1,2),(1,4),(1,5),(6,2),(6,5),(6,7),(8,4),(8,5),(8,7),(3,2),(3,4),(3,7)]))
+    it "isomorphic graph85 graph85'" $ do
+      isomorphic graph85 graph85' `shouldBe` True
 
   where isomorphic = Problem.isomorphic
+        graph85 = Problem.graph85
+        graph85' = Problem.graph85'
 
 spec :: Spec
 spec = parallel $ do
