@@ -8,8 +8,7 @@ import qualified Solutions.P59        as Solution
 group :: Benchmark
 group = bgroup "P59"
   [ subgroup "heightBalancedTrees" Problem.heightBalancedTrees
-  , bgroup "Solutions"
-    [ subgroup "heightBalancedTrees" Solution.heightBalancedTrees ]
+  , bgroup "Solutions" [ subgroup "heightBalancedTrees"  Solution.heightBalancedTrees ]
   ]
 
 subgroup :: String -> (Int -> [Tree ()]) -> Benchmark

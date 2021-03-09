@@ -5,6 +5,8 @@
 module Problems.BinaryTrees (
   Tree (Empty, Branch),
   -- * Support functions
+  treeSize,
+  treeHeight,
   printTreeList,
   ) where
 
@@ -29,6 +31,16 @@ import           GHC.Generics    (Generic)
 -- the original problem into simple problems to solve.
 data Tree a = Empty | Branch a (Tree a) (Tree a)
   deriving (Eq, Show, Generic, NFData)
+
+-- | Returns the number of nodes in a binary tree.
+treeSize :: Tree a -> Int
+treeSize Empty          = 0
+treeSize (Branch _ l r) = 1 + treeSize l + treeSize r
+
+-- | Returns the height of a binary tree.
+treeHeight :: Tree a -> Int
+treeHeight Empty          = 0
+treeHeight (Branch _ l r) = 1 + max (treeHeight l) (treeHeight r)
 
 -- | An arbitrary total ordering for 'Tree'.
 --
