@@ -106,6 +106,8 @@ module Solutions (
   symmetricBalancedTrees,
   -- ** Problem 59
   heightBalancedTrees,
+  -- ** Problem 60
+  heightBalancedTreesWithNodes,
   -- ** Problem 80
   toLists,
   toAdjacency,
@@ -171,6 +173,7 @@ import           Solutions.P56
 import           Solutions.P57
 import           Solutions.P58
 import           Solutions.P59
+import           Solutions.P60
 import           Solutions.P80
 import           Solutions.P81
 import           Solutions.P82

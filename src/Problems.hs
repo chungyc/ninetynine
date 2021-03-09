@@ -140,6 +140,9 @@ module Problems (
   -- ** Problem 59
   -- | &#129335; &#129335;
   heightBalancedTrees,
+  -- ** Problem 60
+  -- | &#129335; &#129335;
+  heightBalancedTreesWithNodes,
   -- * Graph problems
   Graph (vertexes, edges),
   Vertex,
@@ -231,6 +234,7 @@ import           Problems.P56
 import           Problems.P57
 import           Problems.P58
 import           Problems.P59
+import           Problems.P60
 import           Problems.P80
 import           Problems.P81
 import           Problems.P82
