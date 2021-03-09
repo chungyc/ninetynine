@@ -72,6 +72,9 @@ module Problems (
   -- ** Problem 19
   -- | &#129335; &#129335;
   rotate,
+  -- ** Problem 20
+  -- | &#129335;
+  removeAt,
   -- * Arithmetic problems
   -- ** Problem 31
   -- | &#129335; &#129335;
@@ -209,6 +212,7 @@ import           Problems.P16
 import           Problems.P17
 import           Problems.P18
 import           Problems.P19
+import           Problems.P20
 import           Problems.P31
 import           Problems.P32
 import           Problems.P33

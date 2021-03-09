@@ -22,7 +22,7 @@
     *   [x] Problem 17
     *   [x] Problem 18
     *   [x] Problem 19
-    *   [ ] Problem 20
+    *   [x] Problem 20
     *   [ ] Problem 21
     *   [ ] Problem 22
     *   [ ] Problem 23
