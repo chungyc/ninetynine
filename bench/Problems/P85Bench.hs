@@ -13,7 +13,9 @@ group :: Benchmark
 group = bgroup "P85"
   [ subgroup "isomorphic" Problem.isomorphic
   , bgroup "Solutions"
-    [ subgroup "isomorphics" Solution.isomorphic ]
+    [ subgroup "isomorphic"  Solution.isomorphic
+    , subgroup "isomorphic'" Solution.isomorphic'
+    ]
   ]
 
 subgroup :: String -> (G -> G -> Bool) -> Benchmark
