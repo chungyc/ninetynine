@@ -3,7 +3,7 @@ Description: `heightBalancedTreesWithNodes`
 
 Some solutions to "Problems.P60" of Ninety-Nine Haskell "Problems".
 -}
-module Solutions.P60 (heightBalancedTreesWithNodes, minNodes, maxHeight) where
+module Solutions.P60 (heightBalancedTreesWithNodes) where
 
 import           Problems.BinaryTrees
 import           Problems.P59
