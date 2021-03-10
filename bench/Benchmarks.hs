@@ -37,6 +37,7 @@ import qualified Problems.P57Bench as P57
 import qualified Problems.P58Bench as P58
 import qualified Problems.P59Bench as P59
 import qualified Problems.P60Bench as P60
+import qualified Problems.P61Bench as P61
 import qualified Problems.P80Bench as P80
 import qualified Problems.P81Bench as P81
 import qualified Problems.P82Bench as P82
@@ -87,6 +88,7 @@ main = defaultMain [ P01.group
                    , P58.group
                    , P59.group
                    , P60.group
+                   , P61.group
                    , P80.group
                    , P81.group
                    , P82.group
