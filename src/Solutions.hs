@@ -132,6 +132,8 @@ module Solutions (
   -- ** Problem 91
   knightsTour,
   closedKnightsTour,
+  -- ** Problem 95
+  fullWords,
   ) where
 
 import           Problems.BinaryTrees
@@ -183,3 +185,4 @@ import           Solutions.P84
 import           Solutions.P85
 import           Solutions.P90
 import           Solutions.P91
+import           Solutions.P95

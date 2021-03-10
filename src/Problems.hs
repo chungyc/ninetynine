@@ -184,6 +184,9 @@ module Problems (
   -- | &#129335; &#129335;
   knightsTour,
   closedKnightsTour,
+  -- ** Problem 95
+  -- |  &#129335; &#129335;
+  fullWords,
   ) where
 
 import           Problems.BinaryTrees
@@ -236,3 +239,4 @@ import           Problems.P84
 import           Problems.P85
 import           Problems.P90
 import           Problems.P91
+import           Problems.P95

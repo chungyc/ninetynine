@@ -79,7 +79,7 @@
     *   [ ] Problem 92
     *   [ ] Problem 93
     *   [ ] Problem 94
-    *   [ ] Problem 95
+    *   [x] Problem 95
     *   [ ] Problem 96
     *   [ ] Problem 97
     *   [ ] Problem 98
