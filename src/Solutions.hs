@@ -109,6 +109,7 @@ module Solutions (
   -- ** Problem 60
   heightBalancedTreesWithNodes,
   -- ** Problem 80
+  ConvertibleGraph,
   toLists,
   toAdjacency,
   toPaths,

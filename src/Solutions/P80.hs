@@ -3,60 +3,43 @@ Description: Graph representation conversions
 
 Some solutions to "Problems.P80" of Ninety-Nine Haskell "Problems".
 -}
-module Solutions.P80 (
-  ListsConvertible (toLists),
-  AdjacencyConvertible (toAdjacency),
-  PathsConvertible (toPaths),
-  GConvertible (toG),
-  ) where
+module Solutions.P80 (ConvertibleGraph, toLists, toAdjacency, toPaths, toG) where
 
 import           Data.Maybe      (fromJust)
 import           Problems.Graphs
 
--- | Graphs which can be converted into the 'Lists' representation.
-class Graph g => ListsConvertible g where
+-- | Write functions to convert between the different graph representations
+-- 'Lists', 'Adjacency', 'Paths', and 'G'.
+--
+-- The types can already be easily converted between each other using
+-- the 'sets' and 'toGraph' functions available to the 'Graph' type class.
+-- Unlike the other graph problems, this problem should be solved without using
+-- the functions available to the 'Graph' type class for it to not be trivial.
+class Graph g => ConvertibleGraph g where
   -- | Convert graph to the 'Lists' representation.
   toLists :: g -> Lists
   toLists = fromJust . toGraph . sets
 
-instance ListsConvertible Adjacency where
-
-instance ListsConvertible Paths where
-
-instance ListsConvertible G where
-
--- | Graphs which can be converted into the 'Adjacency' representation.
-class Graph g => AdjacencyConvertible g where
   -- | Convert graph to the 'Adjacency' representation.
   toAdjacency :: g -> Adjacency
   toAdjacency = fromJust . toGraph . sets
 
-instance AdjacencyConvertible Lists where
-
-instance AdjacencyConvertible Paths where
-
-instance AdjacencyConvertible G where
-
--- | Graphs which can be converted into the 'Paths' representation.
-class Graph g => PathsConvertible g where
   -- | Convert graph to the 'Paths' representation.
   toPaths :: g -> Paths
   toPaths = fromJust . toGraph . sets
 
-instance PathsConvertible Lists where
-
-instance PathsConvertible Adjacency where
-
-instance PathsConvertible G where
-
--- | Graphs which can be converted into the 'G' representation.
-class Graph g => GConvertible g where
   -- | Convert graph to the 'G' representation.
   toG :: g -> G
   toG = fromJust . toGraph . sets
 
-instance GConvertible Lists where
+instance ConvertibleGraph Lists where
+  toLists = id
 
-instance GConvertible Adjacency where
+instance ConvertibleGraph Adjacency where
+  toAdjacency = id
 
-instance GConvertible Paths where
+instance ConvertibleGraph Paths where
+  toPaths = id
+
+instance ConvertibleGraph G where
+  toG = id
