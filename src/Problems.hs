@@ -149,6 +149,8 @@ module Problems (
   -- ** Problem 61
   leaves,
   internals,
+  -- ** Problem 62
+  atLevel,
   -- * Multiway tree problems
   MultiwayTree (MultiwayTree),
   multitree1,
@@ -250,6 +252,7 @@ import           Problems.P58
 import           Problems.P59
 import           Problems.P60
 import           Problems.P61
+import           Problems.P62
 import           Problems.P70
 import           Problems.P80
 import           Problems.P81

@@ -1,7 +1,7 @@
 {- |
 Description: `leaves`
 
-Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P60".
+Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P61".
 -}
 module Problems.P61 (leaves,internals) where
 

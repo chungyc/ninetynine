@@ -111,6 +111,8 @@ module Solutions (
   -- ** Problem 61
   leaves,
   internals,
+  -- ** Problem 62
+  atLevel,
   -- * Multiway tree problems
   -- ** Problem 70
   stringToTree,
@@ -186,6 +188,7 @@ import           Solutions.P58
 import           Solutions.P59
 import           Solutions.P60
 import           Solutions.P61
+import           Solutions.P62
 import           Solutions.P70
 import           Solutions.P80
 import           Solutions.P81

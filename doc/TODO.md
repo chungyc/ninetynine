@@ -52,7 +52,7 @@
     *   [x] Problem 59
     *   [x] Problem 60
     *   [x] Problem 61
-    *   [ ] Problem 62
+    *   [x] Problem 62
     *   [ ] Problem 63
     *   [ ] Problem 64
     *   [ ] Problem 65

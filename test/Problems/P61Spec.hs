@@ -2,6 +2,7 @@ module Problems.P61Spec (spec) where
 
 import           Problems.BinaryTrees
 import           Problems.BinaryTrees.Arbitrary ()
+import           Problems.P54
 import qualified Problems.P61                   as Problem
 import qualified Solutions.P61                  as Solution
 import           Test.Hspec
@@ -25,10 +26,23 @@ internalsProp internals name = do
     prop "has correct number of internal nodes" $
       \t -> length (internals t) `shouldBe` (treeSize t - countLeaves t)
 
+examples :: Spec
+examples = do
+  describe "Examples" $ do
+    it "leaves tree4" $ do
+      leaves tree4 `shouldMatchList` [4,2]
+
+    it "internals tree4" $ do
+      internals tree4 `shouldMatchList` [2,1]
+
+  where leaves = Problem.leaves
+        internals = Problem.internals
+
 spec :: Spec
 spec = parallel $ do
   leavesProp Problem.leaves "leaves"
   internalsProp Problem.internals "internals"
+  examples
   describe "From solutions" $ do
     leavesProp Solution.leaves "leaves"
 
