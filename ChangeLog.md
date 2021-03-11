@@ -4,6 +4,11 @@
 
 See https://github.com/chungyc/ninetynine.
 
+## v0.3.0.0
+
+*   Switched licensing to GPL 3.
+*   Added more problems.
+
 ## v0.2.0.0
 
 *   Settled on overall structure.  Includes:
