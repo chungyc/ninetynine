@@ -110,6 +110,7 @@ module Solutions (
   heightBalancedTreesWithNodes,
   -- ** Problem 61
   leaves,
+  internals,
   -- * Multiway tree problems
   -- ** Problem 70
   stringToTree,

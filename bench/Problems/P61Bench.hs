@@ -8,13 +8,22 @@ import qualified Solutions.P61        as Solution
 
 group :: Benchmark
 group = bgroup "P61"
-  [ subgroup "leaves" Problem.leaves
+  [ leavesGroup "leaves" Problem.leaves
+  , internalsGroup "internals" Problem.internals
   , bgroup "Solutions"
-    [ subgroup "leaves"  Solution.leaves ]
+    [ leavesGroup "leaves" Solution.leaves
+    , internalsGroup "internals" Solution.internals
+    ]
   ]
 
-subgroup :: String -> (Tree () -> [()]) -> Benchmark
-subgroup name leaves = bgroup name
+leavesGroup :: String -> (Tree () -> [()]) -> Benchmark
+leavesGroup name leaves = bgroup name
   [ bench "tree size 5"  $ nf leaves (head $ completelyBalancedTrees 5)
   , bench "tree size 25" $ nf leaves (head $ completelyBalancedTrees 25)
+  ]
+
+internalsGroup :: String -> (Tree () -> [()]) -> Benchmark
+internalsGroup name internals = bgroup name
+  [ bench "tree size 5"  $ nf internals (head $ completelyBalancedTrees 5)
+  , bench "tree size 25" $ nf internals (head $ completelyBalancedTrees 25)
   ]

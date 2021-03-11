@@ -148,6 +148,7 @@ module Problems (
   heightBalancedTreesWithNodes,
   -- ** Problem 61
   leaves,
+  internals,
   -- * Multiway tree problems
   MultiwayTree (MultiwayTree),
   multitree1,
