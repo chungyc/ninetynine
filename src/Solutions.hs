@@ -1,7 +1,7 @@
 {-|
 Description: Solutions to Ninety-Nine Haskell Problems
 Copyright: Copyright (C) 2021 Yoo Chung
-License: BSD3
+License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
 These are some solutions for Ninety-Nine Haskell "Problems".

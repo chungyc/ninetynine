@@ -1,12 +1,15 @@
 {-|
 Description: Ninety-Nine Haskell Problems
 Copyright: Copyright (C) 2021 Yoo Chung
-License: BSD3
+License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
 This is a list of Ninety-Nine Haskell Problems.
-The number of shruggies indicate difficulty level, and are based on the original list.
 Some solutions to these problems are in "Solutions".
+
+The number of shruggies indicate difficulty level, and are based on the original list.
+These difficulty levels were based on the original list of Prolog problems,
+so they may not be appropriate in the context of Haskell.
 
 These are based on the Ninety-Nine Haskell Problems on the [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
 The source for this module is available at https://github.com/chungyc/ninetynine.

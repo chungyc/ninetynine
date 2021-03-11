@@ -1,23 +1,22 @@
-cabal-version: 1.18
+cabal-version: 2.2
 
 -- This file has been generated from package.yaml by hpack version 0.33.0.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3a85c4940493284eee294d7855f7b2004a770704eff4edd7c6160979772c393f
+-- hash: 22defb364c828a2187b5baed890d6a61840c5065233aeb898c4a03aefa16818f
 
 name:           ninetynine
-version:        0.2.0.0
+version:        0.3.0.0
 synopsis:       Ninety-Nine Haskell Problems
-description:    Ninety-Nine Haskell Problems. These are programming exercises for practice with [Haskell](https://www.haskell.org/). The problems are listed in the "Problems" module.
-                Based on the Ninety-Nine Haskell problems on [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems). For more information, see <https://github.com/chungyc/ninetynine>.
+description:    Ninety-Nine Haskell Problems. These are programming exercises for practice with [Haskell](https://www.haskell.org/). Based on the Ninety-Nine Haskell problems on [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems). For more information, see <https://github.com/chungyc/ninetynine>.
 category:       Education
 homepage:       http://github.com/chungyc/ninetynine
 bug-reports:    https://github.com/chungyc/ninetynine/issues
 author:         Yoo Chung
 maintainer:     dev@chungyc.org
 copyright:      Copyright (C) 2021 Yoo Chung
-license:        BSD3
+license:        GPL-3.0-or-later
 license-file:   LICENSE
 build-type:     Simple
 extra-source-files:

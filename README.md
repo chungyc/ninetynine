@@ -94,6 +94,13 @@ automatically after any change is saved, then the following command will do so.
 $ stack build --test --bench --haddock --no-run-benchmarks --file-watch --watch-all
 ```
 
+## License
+
+This is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License,
+or (at your option) any later version.
+
 ## Notes
 
 There are not actually 99 problems.

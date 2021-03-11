@@ -1,7 +1,8 @@
 name:                ninetynine
-version:             0.2.0.0
+version:             0.3.0.0
 github:              "chungyc/ninetynine"
-license:             BSD3
+license:             GPL-3.0-or-later
+license-file:        LICENSE
 author:              "Yoo Chung"
 maintainer:          "dev@chungyc.org"
 copyright:           "Copyright (C) 2021 Yoo Chung"
@@ -21,8 +22,6 @@ category:            Education
 
 description:         Ninety-Nine Haskell Problems.
                      These are programming exercises for practice with [Haskell](https://www.haskell.org/).
-                     The problems are listed in the "Problems" module.
-
                      Based on the Ninety-Nine Haskell problems on [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
                      For more information, see <https://github.com/chungyc/ninetynine>.
 
