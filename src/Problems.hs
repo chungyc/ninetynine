@@ -162,6 +162,9 @@ module Problems (
   -- | &#129335; &#129335;
   stringToTree,
   treeToString,
+  -- ** Problem 71
+  -- | &#129335;
+  internalPathLength,
   -- * Graph problems
   Graph (vertexes, edges),
   Vertex,
@@ -254,6 +257,7 @@ import           Problems.P60
 import           Problems.P61
 import           Problems.P62
 import           Problems.P70
+import           Problems.P71
 import           Problems.P80
 import           Problems.P81
 import           Problems.P82
