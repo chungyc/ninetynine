@@ -4,7 +4,7 @@ cabal-version: 1.18
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: a0fd7a942b7258880de7ad084b3013a54f23db9b20b57a3159420289ca9c4c58
+-- hash: 3a85c4940493284eee294d7855f7b2004a770704eff4edd7c6160979772c393f
 
 name:           ninetynine
 version:        0.2.0.0
@@ -33,6 +33,16 @@ extra-doc-files:
     images/Graphs/Example-P83.svg
     images/Graphs/Example.gv
     images/Graphs/Example.svg
+    images/MultiwayTrees/tree1.gv
+    images/MultiwayTrees/tree1.svg
+    images/MultiwayTrees/tree2.gv
+    images/MultiwayTrees/tree2.svg
+    images/MultiwayTrees/tree3.gv
+    images/MultiwayTrees/tree3.svg
+    images/MultiwayTrees/tree4.gv
+    images/MultiwayTrees/tree4.svg
+    images/MultiwayTrees/tree5.gv
+    images/MultiwayTrees/tree5.svg
 
 source-repository head
   type: git
@@ -45,6 +55,7 @@ library
       Problems.Graphs
       Problems.Lists
       Problems.Logic
+      Problems.MultiwayTrees
       Problems.P01
       Problems.P02
       Problems.P03
@@ -85,6 +96,7 @@ library
       Problems.P59
       Problems.P60
       Problems.P61
+      Problems.P70
       Problems.P80
       Problems.P81
       Problems.P82
@@ -136,6 +148,7 @@ library
       Solutions.P59
       Solutions.P60
       Solutions.P61
+      Solutions.P70
       Solutions.P80
       Solutions.P81
       Solutions.P82
@@ -189,6 +202,7 @@ test-suite ninetynine-test
       Problems.Graphs.Arbitrary
       Problems.GraphsSpec
       Problems.Lists.Arbitrary
+      Problems.MultiwayTrees.Arbitrary
       Problems.P01Spec
       Problems.P02Spec
       Problems.P03Spec
@@ -229,6 +243,7 @@ test-suite ninetynine-test
       Problems.P59Spec
       Problems.P60Spec
       Problems.P61Spec
+      Problems.P70Spec
       Problems.P80Spec
       Problems.P81Spec
       Problems.P82Spec
@@ -296,6 +311,7 @@ benchmark ninetynine-bench
       Problems.P59Bench
       Problems.P60Bench
       Problems.P61Bench
+      Problems.P70Bench
       Problems.P80Bench
       Problems.P81Bench
       Problems.P82Bench

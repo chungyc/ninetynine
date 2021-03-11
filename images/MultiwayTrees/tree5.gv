@@ -1,0 +1,5 @@
+digraph {
+  a -> {f,c,b}
+  b -> {d,e}
+  f -> g
+}

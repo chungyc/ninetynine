@@ -22,6 +22,7 @@ stateless = mapFiles
   , "P46.hs", "P49.hs"
   , "P54.hs", "P55.hs"
   , "P56.hs", "P57.hs", "P59.hs", "P60.hs"
+  , "P70.hs"
   , "P83.hs", "P85.hs"
   , "P95.hs"
   ]
@@ -29,7 +30,7 @@ stateless = mapFiles
 -- | Deterministic examples in background modules.
 -- Run separately from problem modules to avoid type mismatches.
 background :: [String]
-background = mapFiles ["Graphs.hs"]
+background = mapFiles ["Graphs.hs", "MultiwayTrees.hs"]
 
 -- | Deterministic examples with local definitions to reset.
 toReload :: [String]

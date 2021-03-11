@@ -60,7 +60,7 @@
     *   [ ] Problem 67
     *   [ ] Problem 68
     *   [ ] Problem 69
-    *   [ ] Problem 70
+    *   [x] Problem 70
     *   [ ] Problem 71
     *   [ ] Problem 72
     *   [ ] Problem 73

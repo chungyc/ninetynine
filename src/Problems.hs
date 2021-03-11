@@ -145,6 +145,17 @@ module Problems (
   heightBalancedTreesWithNodes,
   -- ** Problem 61
   leaves,
+  -- * Multiway tree problems
+  MultiwayTree (MultiwayTree),
+  multitree1,
+  multitree2,
+  multitree3,
+  multitree4,
+  multitree5,
+  -- ** Problem 70
+  -- | &#129335; &#129335;
+  stringToTree,
+  treeToString,
   -- * Graph problems
   Graph (vertexes, edges),
   Vertex,
@@ -194,6 +205,7 @@ module Problems (
 import           Problems.BinaryTrees
 import           Problems.Graphs
 import           Problems.Lists
+import           Problems.MultiwayTrees
 import           Problems.P01
 import           Problems.P02
 import           Problems.P03
@@ -234,6 +246,7 @@ import           Problems.P58
 import           Problems.P59
 import           Problems.P60
 import           Problems.P61
+import           Problems.P70
 import           Problems.P80
 import           Problems.P81
 import           Problems.P82

@@ -17,7 +17,7 @@ properties leaves name = do
       \t -> length (leaves t) `shouldBe` countLeaves t
 
 spec :: Spec
-spec = focus $ parallel $ do
+spec = parallel $ do
   properties Problem.leaves "leaves"
   describe "From solutions" $ do
     properties Solution.leaves "leaves"

@@ -110,6 +110,10 @@ module Solutions (
   heightBalancedTreesWithNodes,
   -- ** Problem 61
   leaves,
+  -- * Multiway tree problems
+  -- ** Problem 70
+  stringToTree,
+  treeToString,
   -- * Graph problems
   -- ** Problem 80
   ConvertibleGraph,
@@ -181,6 +185,7 @@ import           Solutions.P58
 import           Solutions.P59
 import           Solutions.P60
 import           Solutions.P61
+import           Solutions.P70
 import           Solutions.P80
 import           Solutions.P81
 import           Solutions.P82
