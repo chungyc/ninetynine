@@ -200,6 +200,9 @@ module Problems (
   -- ** Problem 85
   -- | &#129335; &#129335;
   isomorphic,
+  -- ** Problem 86
+  -- | &#129335; &#129335;
+  colorGraph,
   -- * Miscellaenous problems
   -- ** Problem 90
   -- | &#129335; &#129335;
@@ -267,6 +270,7 @@ import           Problems.P82
 import           Problems.P83
 import           Problems.P84
 import           Problems.P85
+import           Problems.P86
 import           Problems.P90
 import           Problems.P91
 import           Problems.P95

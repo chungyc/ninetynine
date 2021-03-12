@@ -140,6 +140,8 @@ module Solutions (
   minimumSpanningTree,
   -- ** Problem 85
   isomorphic,
+  -- ** Problem 86
+  colorGraph,
   -- * Miscellaenous problems
   -- ** Problem 90
   queens,
@@ -202,6 +204,7 @@ import           Solutions.P82
 import           Solutions.P83
 import           Solutions.P84
 import           Solutions.P85
+import           Solutions.P86
 import           Solutions.P90
 import           Solutions.P91
 import           Solutions.P95
