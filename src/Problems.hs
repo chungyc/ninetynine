@@ -167,6 +167,9 @@ module Problems (
   -- ** Problem 71
   -- | &#129335;
   internalPathLength,
+  -- ** Problem 72
+  -- | &#129335;
+  postOrderSequence,
   -- * Graph problems
   Graph (vertexes, edges),
   Vertex,
@@ -264,6 +267,7 @@ import           Problems.P61
 import           Problems.P62
 import           Problems.P70
 import           Problems.P71
+import           Problems.P72
 import           Problems.P80
 import           Problems.P81
 import           Problems.P82

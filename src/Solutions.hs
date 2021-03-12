@@ -121,6 +121,8 @@ module Solutions (
   treeToString,
   -- ** Problem 71
   internalPathLength,
+  -- ** Problem 72
+  postOrderSequence,
   -- * Graph problems
   -- ** Problem 80
   ConvertibleGraph,
@@ -198,6 +200,7 @@ import           Solutions.P61
 import           Solutions.P62
 import           Solutions.P70
 import           Solutions.P71
+import           Solutions.P72
 import           Solutions.P80
 import           Solutions.P81
 import           Solutions.P82
