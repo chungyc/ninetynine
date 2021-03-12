@@ -1,0 +1,37 @@
+/*
+Representation of the following example, filled with actual colors.
+
+  >>> colorGraph $ toG $ Paths [[1,2,3,4,5,10,8,6,9,7,2], [1,5], [1,6], [3,8], [4,9], [7,10]]
+  [(1,1),(2,2),(3,1),(4,2),(5,3),(6,2),(7,1),(8,3),(9,3),(10,2)]
+
+The graph uses these colors to make it less likely for them to be indistinguishable.
+
+* #6FDE6E
+* #FF4242
+* #235FA4
+
+These colors were taken from
+https://medium.com/cafe-pixo/inclusive-color-palettes-for-the-web-bbfe8cf2410e
+*/
+graph {
+  layout=sfdp
+  node [style=filled,fontcolor=white]
+
+  1 [fillcolor="#235FA4"]
+  2 [fillcolor="#FF4242"]
+  3 [fillcolor="#235FA4"]
+  4 [fillcolor="#FF4242"]
+  5 [fillcolor="#6FDE6E"]
+  6 [fillcolor="#FF4242"]
+  7 [fillcolor="#235FA4"]
+  8 [fillcolor="#6FDE6E"]
+  9 [fillcolor="#6FDE6E"]
+  10 [fillcolor="#FF4242"]
+
+  1 -- 2 -- 3 -- 4 -- 5 -- 10 -- 8 -- 6 -- 9 -- 7 -- 2
+  1 -- 5
+  1 -- 6
+  3 -- 8
+  4 -- 9
+  7 -- 10
+}

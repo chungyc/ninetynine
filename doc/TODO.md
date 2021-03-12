@@ -62,7 +62,7 @@
     *   [ ] Problem 69
     *   [x] Problem 70
     *   [x] Problem 71
-    *   [ ] Problem 72
+    *   [x] Problem 72
     *   [ ] Problem 73
     *   [x] Problem 80
     *   [x] Problem 81

@@ -24,6 +24,10 @@ import qualified Solutions.P86   as Solution
 -- >>> colorGraph $ toG $ Paths [[1,2,3,4,5,10,8,6,9,7,2], [1,5], [1,6], [3,8], [4,9], [7,10]]
 -- [(1,1),(2,2),(3,1),(4,2),(5,3),(6,2),(7,1),(8,3),(9,3),(10,2)]
 --
+-- ==== __Visualization with real colors__
+--
+-- ![Graph above represented with actual colors](images/Graphs/Example-P86.svg)
+--
 -- === __Hint__
 --
 -- Write a function to sort vertexes in decreasing order of degree, i.e., the number of neighbors.
