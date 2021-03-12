@@ -57,6 +57,8 @@ module Solutions (
   rotate,
   -- ** Problem 20
   removeAt,
+  -- ** Problem 21
+  insertAt,
   -- * Arithmetic problems
   -- ** Problem 31
   isPrime,
@@ -170,6 +172,7 @@ import           Solutions.P17
 import           Solutions.P18
 import           Solutions.P19
 import           Solutions.P20
+import           Solutions.P21
 import           Solutions.P31
 import           Solutions.P32
 import           Solutions.P33

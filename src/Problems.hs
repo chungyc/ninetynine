@@ -78,6 +78,8 @@ module Problems (
   -- ** Problem 20
   -- | &#129335;
   removeAt,
+  -- ** Problem 21
+  insertAt,
   -- * Arithmetic problems
   -- ** Problem 31
   -- | &#129335; &#129335;
@@ -235,6 +237,7 @@ import           Problems.P17
 import           Problems.P18
 import           Problems.P19
 import           Problems.P20
+import           Problems.P21
 import           Problems.P31
 import           Problems.P32
 import           Problems.P33
