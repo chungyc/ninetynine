@@ -9,6 +9,8 @@ import qualified Solutions.P21 as Solution
 
 -- | Insert an element at a given position into a list.
 --
+-- === Examples
+--
 -- >>> insertAt 'X' "abcd" 2
 -- "aXbcd"
 insertAt :: a -> [a] -> Int -> [a]
