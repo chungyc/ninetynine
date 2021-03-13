@@ -170,6 +170,10 @@ module Problems (
   -- ** Problem 72
   -- | &#129335;
   postOrderSequence,
+  -- ** Problem 73
+  -- | &#129335; &#129335;
+  treeToSexp,
+  sexpToTree,
   -- * Graph problems
   Graph (vertexes, edges),
   Vertex,
@@ -268,6 +272,7 @@ import           Problems.P62
 import           Problems.P70
 import           Problems.P71
 import           Problems.P72
+import           Problems.P73
 import           Problems.P80
 import           Problems.P81
 import           Problems.P82

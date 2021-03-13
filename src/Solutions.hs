@@ -123,6 +123,9 @@ module Solutions (
   internalPathLength,
   -- ** Problem 72
   postOrderSequence,
+  -- ** Problem 73
+  treeToSexp,
+  sexpToTree,
   -- * Graph problems
   -- ** Problem 80
   ConvertibleGraph,
@@ -201,6 +204,7 @@ import           Solutions.P62
 import           Solutions.P70
 import           Solutions.P71
 import           Solutions.P72
+import           Solutions.P73
 import           Solutions.P80
 import           Solutions.P81
 import           Solutions.P82
