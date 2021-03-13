@@ -18,7 +18,7 @@ import qualified Solutions.P72          as Solution
 -- === __Notes__
 --
 -- The problem in the original list specifies a "bottom-up" order.
--- There is not a widespread common understanding of what this is
+-- There is no widespread common understanding of what this is
 -- (i.e., does this mean post-order, or all nodes at a level
 -- being sequenced before nodes at a higher level?),
 -- so post-order is specified instead.

@@ -12,7 +12,7 @@ postOrderSequence :: MultiwayTree a -> [a]
 postOrderSequence t = reverse $ addToList t []
 
 -- | Add each node once to a list in post-order sequence.
--- List will be reverse post-order.
+-- List will end up as reverse post-order sequence.
 addToList :: MultiwayTree a -> [a] -> [a]
 addToList (MultiwayTree x ts) xs = x:xs'
   where xs' = addToList' ts xs
