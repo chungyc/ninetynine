@@ -155,6 +155,9 @@ module Problems (
   internals,
   -- ** Problem 62
   atLevel,
+  -- ** Problem 63
+  completeBinaryTree,
+  isCompleteBinaryTree,
   -- * Multiway tree problems
   MultiwayTree (MultiwayTree),
   multitree1,
@@ -275,6 +278,7 @@ import           Problems.P59
 import           Problems.P60
 import           Problems.P61
 import           Problems.P62
+import           Problems.P63
 import           Problems.P70
 import           Problems.P71
 import           Problems.P72

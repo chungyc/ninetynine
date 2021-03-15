@@ -41,6 +41,7 @@ import qualified Problems.P59Bench as P59
 import qualified Problems.P60Bench as P60
 import qualified Problems.P61Bench as P61
 import qualified Problems.P62Bench as P62
+import qualified Problems.P63Bench as P63
 import qualified Problems.P70Bench as P70
 import qualified Problems.P71Bench as P71
 import qualified Problems.P72Bench as P72
@@ -101,6 +102,7 @@ main = defaultMain [ P01.group
                    , P60.group
                    , P61.group
                    , P62.group
+                   , P63.group
                    , P70.group
                    , P71.group
                    , P72.group
