@@ -20,6 +20,7 @@ import qualified Problems.P18Bench as P18
 import qualified Problems.P19Bench as P19
 import qualified Problems.P20Bench as P20
 import qualified Problems.P21Bench as P21
+import qualified Problems.P22Bench as P22
 import qualified Problems.P31Bench as P31
 import qualified Problems.P32Bench as P32
 import qualified Problems.P33Bench as P33
@@ -78,6 +79,7 @@ main = defaultMain [ P01.group
                    , P19.group
                    , P20.group
                    , P21.group
+                   , P22.group
                    , P31.group
                    , P32.group
                    , P33.group

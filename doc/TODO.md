@@ -24,7 +24,7 @@
     *   [x] Problem 19
     *   [x] Problem 20
     *   [x] Problem 21
-    *   [ ] Problem 22
+    *   [x] Problem 22
     *   [ ] Problem 23
     *   [ ] Problem 24
     *   [ ] Problem 25
