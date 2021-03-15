@@ -31,8 +31,10 @@ dependencies:
 library:
   source-dirs: src
   dependencies:
+  - array
   - containers
   - deepseq
+  - random
 
 executables:
   ninetynine-exe:

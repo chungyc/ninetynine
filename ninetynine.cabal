@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ce7ce9fc60994ee325134fad382dfc571a0fb9ab705e09ea45d12d3f8fcaca6c
+-- hash: a10e297884fc146e78a7ca9dc9c46e649112bc3d02007142039f832aeb369455
 
 name:           ninetynine
 version:        0.3.0.0
@@ -113,6 +113,7 @@ library
       Problems.P90
       Problems.P91
       Problems.P95
+      Problems.P97
       Solutions
       Solutions.P01
       Solutions.P02
@@ -171,14 +172,17 @@ library
       Solutions.P90
       Solutions.P91
       Solutions.P95
+      Solutions.P97
   other-modules:
       Paths_ninetynine
   hs-source-dirs:
       src
   build-depends:
-      base >=4.7 && <5
+      array
+    , base >=4.7 && <5
     , containers
     , deepseq
+    , random
   default-language: Haskell2010
 
 executable ninetynine-exe
@@ -272,6 +276,7 @@ test-suite ninetynine-test
       Problems.P90Spec
       Problems.P91Spec
       Problems.P95Spec
+      Problems.P97Spec
       Solutions.P31.FunctionsSpec
       Paths_ninetynine
   hs-source-dirs:
@@ -346,6 +351,7 @@ benchmark ninetynine-bench
       Problems.P90Bench
       Problems.P91Bench
       Problems.P95Bench
+      Problems.P97Bench
       Paths_ninetynine
   hs-source-dirs:
       bench

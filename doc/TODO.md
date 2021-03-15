@@ -81,7 +81,7 @@
     *   [ ] Problem 94
     *   [x] Problem 95
     *   [ ] Problem 96
-    *   [ ] Problem 97
+    *   [x] Problem 97
     *   [ ] Problem 98
     *   [ ] Problem 99
 *   [ ] Replace problems

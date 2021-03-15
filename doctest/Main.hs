@@ -26,7 +26,7 @@ stateless = mapFiles
   , "P70.hs"
   , "P71.hs", "P72.hs", "P73.hs"
   , "P83.hs", "P85.hs"
-  , "P95.hs"
+  , "P95.hs", "P97.hs"
   ]
 
 -- | Deterministic examples in background modules.

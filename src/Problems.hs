@@ -221,6 +221,9 @@ module Problems (
   -- ** Problem 95
   -- |  &#129335; &#129335;
   fullWords,
+  -- ** Problem 97
+  -- |  &#129335; &#129335;
+  sudoku,
   ) where
 
 import           Problems.BinaryTrees
@@ -283,3 +286,4 @@ import           Problems.P86
 import           Problems.P90
 import           Problems.P91
 import           Problems.P95
+import           Problems.P97

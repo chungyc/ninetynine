@@ -155,6 +155,8 @@ module Solutions (
   closedKnightsTour,
   -- ** Problem 95
   fullWords,
+  -- ** Problem 97
+  sudoku,
   ) where
 
 import           Problems.BinaryTrees
@@ -215,3 +217,4 @@ import           Solutions.P86
 import           Solutions.P90
 import           Solutions.P91
 import           Solutions.P95
+import           Solutions.P97
