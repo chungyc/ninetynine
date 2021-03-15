@@ -15,7 +15,6 @@ dividesBy a b = a `mod` b == 0
 -- Computed with an Erastothenes sieve.  Unlike the classic sieve,
 -- which strikes out multiples of prime numbers from subsequent numbers,
 -- checks the primality of each integer against the prime numbers already determined.
--- This also allows the list to be an unbounded list construct lazily.
 primes :: Integral a => [a]
 primes = 2 : odds
   where odds = iterate (next . (2+)) 3
