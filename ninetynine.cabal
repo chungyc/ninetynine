@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7bd1f871961c994297a3c9f9ee88baf08d0c67f997060d9d5d49409ad7aa141a
+-- hash: c25d7fad4d13a5be6e0113f0f5684f81e90cd696ba7ed389118bc3bde25b7f4b
 
 name:           ninetynine
 version:        0.3.0.0
@@ -24,6 +24,7 @@ extra-source-files:
     ChangeLog.md
     doc/TODO.md
 extra-doc-files:
+    images/BinaryTrees/Layout-P64.svg
     images/BinaryTrees/tree1.gv
     images/BinaryTrees/tree1.svg
     images/BinaryTrees/tree4.gv
@@ -104,6 +105,7 @@ library
       Problems.P61
       Problems.P62
       Problems.P63
+      Problems.P64
       Problems.P70
       Problems.P71
       Problems.P72
@@ -168,6 +170,7 @@ library
       Solutions.P61
       Solutions.P62
       Solutions.P63
+      Solutions.P64
       Solutions.P70
       Solutions.P71
       Solutions.P72
@@ -277,6 +280,7 @@ test-suite ninetynine-test
       Problems.P61Spec
       Problems.P62Spec
       Problems.P63Spec
+      Problems.P64Spec
       Problems.P70Spec
       Problems.P71Spec
       Problems.P72Spec
@@ -357,6 +361,7 @@ benchmark ninetynine-bench
       Problems.P61Bench
       Problems.P62Bench
       Problems.P63Bench
+      Problems.P64Bench
       Problems.P70Bench
       Problems.P71Bench
       Problems.P72Bench
