@@ -23,6 +23,7 @@ import qualified Problems.P21Bench as P21
 import qualified Problems.P22Bench as P22
 import qualified Problems.P23Bench as P23
 import qualified Problems.P24Bench as P24
+import qualified Problems.P25Bench as P25
 import qualified Problems.P31Bench as P31
 import qualified Problems.P32Bench as P32
 import qualified Problems.P33Bench as P33
@@ -85,6 +86,7 @@ main = defaultMain [ P01.group
                    , P22.group
                    , P23.group
                    , P24.group
+                   , P25.group
                    , P31.group
                    , P32.group
                    , P33.group

@@ -86,6 +86,8 @@ module Problems (
   randomSelect,
   -- ** Problem 24
   randomDraw,
+  -- ** Problem 25
+  randomPermute,
   -- * Arithmetic problems
   -- ** Problem 31
   -- | &#129335; &#129335;
@@ -263,6 +265,7 @@ import           Problems.P21
 import           Problems.P22
 import           Problems.P23
 import           Problems.P24
+import           Problems.P25
 import           Problems.P31
 import           Problems.P32
 import           Problems.P33

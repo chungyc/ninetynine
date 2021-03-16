@@ -65,6 +65,8 @@ module Solutions (
   randomSelect,
   -- ** Problem 24
   randomDraw,
+  -- ** Problem 25
+  randomPermute,
   -- * Arithmetic problems
   -- ** Problem 31
   isPrime,
@@ -194,6 +196,7 @@ import           Solutions.P21
 import           Solutions.P22
 import           Solutions.P23
 import           Solutions.P24
+import           Solutions.P25
 import           Solutions.P31
 import           Solutions.P32
 import           Solutions.P33

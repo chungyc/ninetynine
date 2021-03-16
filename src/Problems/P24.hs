@@ -8,9 +8,6 @@ module Problems.P24 (randomDraw) where
 import qualified Solutions.P24 as Solution
 import           System.Random
 
--- $setup
--- >>> import Data.List (unfoldr)
-
 -- | Lotto: Draw \(n\) different random numbers from the set \( \{ k \,|\, 1 \leq k \leq m \} \).
 --
 -- === Examples
