@@ -126,6 +126,8 @@ module Solutions (
   -- ** Problem 63
   completeBinaryTree,
   isCompleteBinaryTree,
+  -- ** Problem 64
+  layoutInorder,
   -- * Multiway tree problems
   -- ** Problem 70
   stringToTree,
@@ -219,6 +221,7 @@ import           Solutions.P60
 import           Solutions.P61
 import           Solutions.P62
 import           Solutions.P63
+import           Solutions.P64
 import           Solutions.P70
 import           Solutions.P71
 import           Solutions.P72
