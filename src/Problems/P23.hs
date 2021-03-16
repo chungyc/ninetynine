@@ -6,7 +6,6 @@ Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P23".
 module Problems.P23 (randomSelect) where
 
 import qualified Solutions.P23 as Solution
-
 import           System.Random
 
 -- | Extract a given number of randomly selected elements from a list.

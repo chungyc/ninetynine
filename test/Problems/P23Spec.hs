@@ -28,19 +28,18 @@ properties randomSelect name = do
         --
         -- Similarly, this also tests that randomSelect returns a new random generator.
         -- If it did not, the use of the same generator would return identical selections.
-        let xs = [1..100]
-            n = 10
-            select (_, g) = randomSelect xs n g
-            selections g = map fst $ tail $ iterate select ([], g)
-            isRandom ls = any (\(x,y) -> x /= y) $ zip ls $ tail ls
-        in \seed -> (take 10 $ selections $ mkStdGen seed) `shouldSatisfy` isRandom
+        \seed -> let xs = [1..100]
+                     n = 10
+                     selections = unfoldr (Just . randomSelect xs n) $ mkStdGen seed
+                     isRandom ls = any (\(x,y) -> x /= y) $ zip ls $ tail ls
+                 in (take 10 $ selections) `shouldSatisfy` isRandom
 
 examples :: Spec
 examples = do
   describe "Examples" $ do
-    it "fst $ randomSelect \"abcdefgh\" 3 $ mkStdGen 10" $ do
-      (fst $ randomSelect "abcdefgh" 3 $ mkStdGen 10)
-        `shouldSatisfy` flip isSubsequenceOf "abcdefgh" . sort
+    it "fst $ randomSelect \"abcdefgh\" 3 $ mkStdGen 111" $ do
+      (fst $ randomSelect "abcdefgh" 3 $ mkStdGen 111)
+        `shouldSatisfy` (\l -> sort l `isSubsequenceOf` "abcdefgh" && length l == 3)
 
     it "take 5 $ unfoldr (Just . randomSelect [1..100] 3) $ mkStdGen 111" $ do
       (take 5 $ unfoldr (Just . randomSelect [1..100 :: Int] 3) $ mkStdGen 111)
@@ -48,7 +47,7 @@ examples = do
 
     it "newStdGen >>= return . fst . randomSelect \"abcdefgh\" 3" $ do
       (newStdGen >>= return . fst . randomSelect "abcdefgh" 3)
-        >>= (`shouldSatisfy` flip isSubsequenceOf "abcdefgh" . sort)
+        >>= (`shouldSatisfy` (\l -> sort l `isSubsequenceOf` "abcdefgh" && length l == 3))
 
   where randomSelect l n g = Problem.randomSelect l n g
 
