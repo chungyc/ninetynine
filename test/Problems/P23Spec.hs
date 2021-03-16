@@ -42,8 +42,8 @@ examples = do
       (fst $ randomSelect "abcdefgh" 3 $ mkStdGen 10)
         `shouldSatisfy` flip isSubsequenceOf "abcdefgh" . sort
 
-    it "take 5 $ unfoldr (\\g -> Just $ randomSelect [1..100] 3 g) $ mkStdGen 111" $ do
-      (take 5 $ unfoldr (\g -> Just $ randomSelect [1..100 :: Int] 3 g) $ mkStdGen 111)
+    it "take 5 $ unfoldr (Just . randomSelect [1..100] 3) $ mkStdGen 111" $ do
+      (take 5 $ unfoldr (Just . randomSelect [1..100 :: Int] 3) $ mkStdGen 111)
         `shouldSatisfy` all (\l -> sort l `isSubsequenceOf` [1..100] && length l == 3)
 
     it "newStdGen >>= return . fst . randomSelect \"abcdefgh\" 3" $ do
