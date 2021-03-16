@@ -3,8 +3,8 @@ import           Test.DocTest
 main :: IO ()
 main = do
   doctest $ "--fast" : stateless
+  doctest $ stateful
   doctest $ background
-  doctest $ toReload
   doctest $ "--fast" : solutions
 
 mapFiles :: [String] -> [String]
@@ -30,14 +30,14 @@ stateless = mapFiles
   , "P95.hs", "P97.hs"
   ]
 
+-- | Deterministic examples with local definitions to reset.
+stateful :: [String]
+stateful = mapFiles [ "P48.hs", "P57.hs", "P61.hs", "P62.hs", "P81.hs", "P82.hs", "P84.hs", "P90.hs" ]
+
 -- | Deterministic examples in background modules.
 -- Run separately from problem modules to avoid type mismatches.
 background :: [String]
 background = mapFiles ["Graphs.hs", "MultiwayTrees.hs"]
-
--- | Deterministic examples with local definitions to reset.
-toReload :: [String]
-toReload = mapFiles [ "P48.hs", "P57.hs", "P61.hs", "P62.hs", "P81.hs", "P82.hs", "P84.hs", "P90.hs" ]
 
 -- Examples in solutions.
 solutions :: [String]
