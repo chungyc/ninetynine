@@ -23,7 +23,7 @@ examples = do
   where insertAt = Problem.insertAt
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.insertAt "insertAt"
   examples
   describe "From solutions" $ do

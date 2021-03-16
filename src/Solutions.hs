@@ -61,6 +61,8 @@ module Solutions (
   insertAt,
   -- ** Problem 22
   range,
+  -- ** Problem 23
+  randomSelect,
   -- * Arithmetic problems
   -- ** Problem 31
   isPrime,
@@ -188,6 +190,7 @@ import           Solutions.P19
 import           Solutions.P20
 import           Solutions.P21
 import           Solutions.P22
+import           Solutions.P23
 import           Solutions.P31
 import           Solutions.P32
 import           Solutions.P33

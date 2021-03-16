@@ -46,6 +46,9 @@ solutions = map ("src/Solutions/" ++) $ [ "P49.hs" ]
 {-
 Examples in the following problems are intentionally omitted from testing.
 
+* P23 : Randomness means we cannot expect deterministic output.
+  Even with a fixed pseudo-random number generator, we cannot impose any particular selection.
+
 * P86 : Multiple graph colorings are possible even with the specific algorithm,
   depending on how ties are broken when sorting.
 

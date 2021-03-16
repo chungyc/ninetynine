@@ -20,7 +20,7 @@ examples = do
   where removeAt = Problem.removeAt
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.removeAt "removeAt"
   examples
   describe "From solutions" $ do

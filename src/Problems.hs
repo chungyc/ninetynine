@@ -82,6 +82,8 @@ module Problems (
   insertAt,
   -- ** Problem 22
   range,
+  -- ** Problem 23
+  randomSelect,
   -- * Arithmetic problems
   -- ** Problem 31
   -- | &#129335; &#129335;
@@ -257,6 +259,7 @@ import           Problems.P19
 import           Problems.P20
 import           Problems.P21
 import           Problems.P22
+import           Problems.P23
 import           Problems.P31
 import           Problems.P32
 import           Problems.P33

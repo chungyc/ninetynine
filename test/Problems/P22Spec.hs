@@ -28,7 +28,7 @@ examples = do
   where range = Problem.range
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.range "range"
   examples
   describe "From solutions" $ do
