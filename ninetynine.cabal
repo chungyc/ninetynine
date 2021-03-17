@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c25d7fad4d13a5be6e0113f0f5684f81e90cd696ba7ed389118bc3bde25b7f4b
+-- hash: 0ddd644540976b656717115550d3b892cb78263f855a63e99f269c55357b3b25
 
 name:           ninetynine
 version:        0.3.0.0
@@ -54,6 +54,7 @@ library
   exposed-modules:
       Problems
       Problems.BinaryTrees
+      Problems.BinaryTrees.SVG
       Problems.Graphs
       Problems.Lists
       Problems.Logic
@@ -195,7 +196,9 @@ library
     , base >=4.7 && <5
     , containers
     , deepseq
+    , prettyprinter
     , random
+    , text
   default-language: Haskell2010
 
 executable ninetynine-exe

@@ -27,6 +27,12 @@ where \((1,1)\) is the top left corner of the rectangle bounding the drawn tree.
 
 >>> layoutInorder tree64
 Branch ('n',(8,1)) (Branch ('k',(6,2)) (Branch ('c',(2,3)) ...
+
+=== __Notes__
+
+In fact, the image was rendered to SVG using the return value of 'layoutInorder'
+with 'Problems.BinaryTrees.SVG.writeSVG'.  The images for "Problems.P65" and "Problems.P66"
+were also rendered similarly.
 -}
 layoutInorder :: Tree a -> Tree (a, (Int,Int))
 layoutInorder = Solution.layoutInorder
@@ -36,7 +42,7 @@ tree64 :: Tree Char
 tree64 = Branch 'n'
          (Branch 'k'
            (Branch 'c'
-             (Branch 'a' Empty Empty)
+            (Branch 'a' Empty Empty)
              (Branch 'h'
                (Branch 'g'
                  (Branch 'e' Empty Empty)

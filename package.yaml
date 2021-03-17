@@ -34,7 +34,9 @@ library:
   - array
   - containers
   - deepseq
+  - prettyprinter
   - random
+  - text
 
 executables:
   ninetynine-exe:
