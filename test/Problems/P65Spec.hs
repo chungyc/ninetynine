@@ -53,7 +53,7 @@ examples = do
         tree65 = Problem.tree65
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.layoutLevelConstant "layoutLevelConstant"
   examples
   describe "From solutions" $ do

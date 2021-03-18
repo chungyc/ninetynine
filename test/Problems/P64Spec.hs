@@ -37,7 +37,7 @@ examples = do
         tree64 = Problem.tree64
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.layoutInorder "layoutInorder"
   examples
   describe "From solutions" $ do

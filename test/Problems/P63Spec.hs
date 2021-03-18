@@ -44,7 +44,7 @@ examples = do
         isCompleteBinaryTree = Problem.isCompleteBinaryTree
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   completeBinaryTreeProp Problem.completeBinaryTree "completeBinaryTree"
   isCompleteBinaryTreeProp Problem.isCompleteBinaryTree "isCompleteBinaryTree"
   examples

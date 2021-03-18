@@ -26,7 +26,7 @@ examples = do
   where atLevel = Problem.atLevel
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.atLevel "atLevel"
   examples
   describe "From solutions" $ do
