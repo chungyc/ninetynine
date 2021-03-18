@@ -11,7 +11,8 @@ The number of shruggies indicate difficulty level, and are based on the original
 These difficulty levels were based on the original list of Prolog problems,
 so they may not be appropriate in the context of Haskell.
 
-These are based on the Ninety-Nine Haskell Problems on the [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
+These are based on the Ninety-Nine Haskell Problems on
+the [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
 The source for this module is available at https://github.com/chungyc/ninetynine.
 -}
 module Problems (
@@ -79,14 +80,19 @@ module Problems (
   -- | &#129335;
   removeAt,
   -- ** Problem 21
+  -- | &#129335;
   insertAt,
   -- ** Problem 22
+  -- | &#129335;
   range,
   -- ** Problem 23
+  -- | &#129335; &#129335;
   randomSelect,
   -- ** Problem 24
+  -- | &#129335;
   randomDraw,
   -- ** Problem 25
+  -- | &#129335;
   randomPermute,
   -- * Arithmetic problems
   -- ** Problem 31
@@ -157,18 +163,24 @@ module Problems (
   -- | &#129335; &#129335;
   heightBalancedTreesWithNodes,
   -- ** Problem 61
+  -- | &#129335;
   leaves,
   internals,
   -- ** Problem 62
+  -- | &#129335;
   atLevel,
   -- ** Problem 63
+  -- | &#129335; &#129335;
   completeBinaryTree,
   isCompleteBinaryTree,
   -- ** Problem 64
+  -- | &#129335; &#129335;
   layoutInorder,
   -- ** Problem 65
+  -- | &#129335; &#129335;
   layoutLevelConstant,
   -- ** Problem 66
+  -- | &#129335; &#129335; &#129335;
   layoutCompact,
   -- * Multiway tree problems
   MultiwayTree (MultiwayTree),
