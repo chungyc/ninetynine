@@ -168,6 +168,8 @@ module Problems (
   layoutInorder,
   -- ** Problem 65
   layoutLevelConstant,
+  -- ** Problem 66
+  layoutCompact,
   -- * Multiway tree problems
   MultiwayTree (MultiwayTree),
   multitree1,
@@ -294,6 +296,7 @@ import           Problems.P62
 import           Problems.P63
 import           Problems.P64
 import           Problems.P65
+import           Problems.P66
 import           Problems.P70
 import           Problems.P71
 import           Problems.P72

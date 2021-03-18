@@ -1,5 +1,5 @@
 {- |
-Description: 'LayoutLevelConstant'
+Description: 'layoutLevelConstant'
 
 Some solutions to "Problems.P65" of Ninety-Nine Haskell "Problems".
 -}

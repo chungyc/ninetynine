@@ -56,7 +56,7 @@
     *   [x] Problem 63
     *   [x] Problem 64
     *   [x] Problem 65
-    *   [ ] Problem 66
+    *   [x] Problem 66
     *   [ ] Problem 67
     *   [ ] Problem 68
     *   [ ] Problem 69

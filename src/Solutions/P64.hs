@@ -1,5 +1,5 @@
 {- |
-Description: 'LayoutInorder'
+Description: 'layoutInorder'
 
 Some solutions to "Problems.P64" of Ninety-Nine Haskell "Problems".
 -}
