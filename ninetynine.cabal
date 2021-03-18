@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ff906a29f250ee8f264c574999e2defd7310bfe18ab90e737aed839e0df61000
+-- hash: 65213ff34202e7e87bf7fbbf3c5e3af1dc14357470c6589c8a2eccfcf8dfea64
 
 name:           ninetynine
 version:        0.3.0.0
@@ -109,6 +109,7 @@ library
       Problems.P63
       Problems.P64
       Problems.P65
+      Problems.P66
       Problems.P70
       Problems.P71
       Problems.P72
@@ -175,6 +176,7 @@ library
       Solutions.P63
       Solutions.P64
       Solutions.P65
+      Solutions.P66
       Solutions.P70
       Solutions.P71
       Solutions.P72
@@ -204,25 +206,13 @@ library
     , text
   default-language: Haskell2010
 
-executable ninetynine-exe
-  main-is: Main.hs
-  other-modules:
-      Paths_ninetynine
-  hs-source-dirs:
-      app
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
-  build-depends:
-      base >=4.7 && <5
-    , ninetynine
-  default-language: Haskell2010
-
 test-suite examples-test
   type: exitcode-stdio-1.0
   main-is: Main.hs
   other-modules:
       Paths_ninetynine
   hs-source-dirs:
-      doctest
+      app/doctest
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5

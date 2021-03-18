@@ -38,17 +38,6 @@ library:
   - random
   - text
 
-executables:
-  ninetynine-exe:
-    main:                Main.hs
-    source-dirs:         app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - ninetynine
-
 tests:
   ninetynine-test:
     main:                Spec.hs
@@ -66,7 +55,7 @@ tests:
     - generic-random
   examples-test:
     main:                Main.hs
-    source-dirs:         doctest
+    source-dirs:         app/doctest
     ghc-options:
     - -threaded
     - -rtsopts
