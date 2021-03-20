@@ -1,7 +1,6 @@
 module Problems.P66Spec (spec) where
 
 import           Data.List                      (sort)
-import           Debug.Trace
 import           Problems.BinaryTrees
 import           Problems.BinaryTrees.Arbitrary ()
 import           Problems.P65
@@ -65,7 +64,7 @@ isCompact Empty = True
 isCompact (Branch _ _ Empty) = True
 isCompact (Branch _ Empty _) = True
 isCompact (Branch _ l r) = cannotBeCloser && isCompact l && isCompact r
-  where cannotBeCloser = overlapping (shift (trace (show $ bounds l) $ bounds l) 1) (shift (trace (show $ bounds r) $ bounds r) (-1))
+  where cannotBeCloser = overlapping (shift (bounds l) 1) (shift (bounds r) (-1))
         shift [] _         = []
         shift ((u,v):bs) n = (u+n,v+n) : shift bs n
 
