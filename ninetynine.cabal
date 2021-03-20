@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0662ca6212765a49b67ce8cf03ddd1435efa86f50efdc672bdbb480e9a4c5417
+-- hash: 496020f19b779a8d28e1b72403f07265b6c6c8a5d984d4f4e982539e4e44a3c0
 
 name:           ninetynine
 version:        0.3.0.0
@@ -37,6 +37,10 @@ extra-doc-files:
     images/Graphs/Example-P86.svg
     images/Graphs/Example.gv
     images/Graphs/Example.svg
+    images/Miscellaneous/Graceful-Tree-P92.gv
+    images/Miscellaneous/Graceful-Tree-P92.svg
+    images/Miscellaneous/Tree14-P92.gv
+    images/Miscellaneous/Tree14-P92.svg
     images/MultiwayTrees/tree1.gv
     images/MultiwayTrees/tree1.svg
     images/MultiwayTrees/tree2.gv
@@ -124,6 +128,7 @@ library
       Problems.P86
       Problems.P90
       Problems.P91
+      Problems.P92
       Problems.P95
       Problems.P97
       Solutions
@@ -191,6 +196,7 @@ library
       Solutions.P86
       Solutions.P90
       Solutions.P91
+      Solutions.P92
       Solutions.P95
       Solutions.P97
   other-modules:
@@ -293,6 +299,7 @@ test-suite ninetynine-test
       Problems.P86Spec
       Problems.P90Spec
       Problems.P91Spec
+      Problems.P92Spec
       Problems.P95Spec
       Problems.P97Spec
       Solutions.P31.FunctionsSpec
@@ -376,6 +383,7 @@ benchmark ninetynine-bench
       Problems.P86Bench
       Problems.P90Bench
       Problems.P91Bench
+      Problems.P92Bench
       Problems.P95Bench
       Problems.P97Bench
       Paths_ninetynine

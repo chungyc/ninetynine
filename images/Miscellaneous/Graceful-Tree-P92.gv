@@ -1,0 +1,11 @@
+graph {
+layout="dot"
+rankdir="LR"
+
+1 -- 7 [label="6"]
+2 -- 7 [label="5"]
+7 -- 3 [label="4"]
+3 -- 5 [label="2"]
+3 -- 6 [label="3"]
+5 -- 4 [label="1"]
+}

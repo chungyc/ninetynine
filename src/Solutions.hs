@@ -170,6 +170,9 @@ module Solutions (
   -- ** Problem 91
   knightsTour,
   closedKnightsTour,
+  -- ** Problem 92
+  gracefulTree,
+  gracefulTree',
   -- ** Problem 95
   fullWords,
   -- ** Problem 97
@@ -241,5 +244,6 @@ import           Solutions.P85
 import           Solutions.P86
 import           Solutions.P90
 import           Solutions.P91
+import           Solutions.P92
 import           Solutions.P95
 import           Solutions.P97

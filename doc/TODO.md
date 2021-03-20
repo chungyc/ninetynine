@@ -76,7 +76,7 @@
     *   [ ] Problem 89
     *   [x] Problem 90
     *   [x] Problem 91
-    *   [ ] Problem 92
+    *   [x] Problem 92
     *   [ ] Problem 93
     *   [ ] Problem 94
     *   [x] Problem 95

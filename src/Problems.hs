@@ -247,6 +247,9 @@ module Problems (
   -- | &#129335; &#129335;
   knightsTour,
   closedKnightsTour,
+  -- ** Problem 92
+  -- | &#129335; &#129335; &#129335;
+  gracefulTree,
   -- ** Problem 95
   -- |  &#129335; &#129335;
   fullWords,
@@ -322,5 +325,6 @@ import           Problems.P85
 import           Problems.P86
 import           Problems.P90
 import           Problems.P91
+import           Problems.P92
 import           Problems.P95
 import           Problems.P97

@@ -56,4 +56,6 @@ Examples in the following problems are intentionally omitted from testing.
 * P91 : Alternative knight's tours exist, and beyond a 5x5 board,
   it is not feasible to enumerate all of them so that we can pick one
   unique tour to output.
+
+* P92 : The graceful labeling is not unique.
 -}
