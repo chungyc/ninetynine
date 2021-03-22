@@ -29,7 +29,7 @@ examples = do
   where colorGraph = Problem.colorGraph
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.colorGraph "colorGraph"
   examples
   describe "From solutions" $ do

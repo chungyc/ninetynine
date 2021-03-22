@@ -164,6 +164,8 @@ module Solutions (
   isomorphic,
   -- ** Problem 86
   colorGraph,
+  -- ** Problem 87
+  depthFirst,
   -- * Miscellaenous problems
   -- ** Problem 90
   queens,
@@ -242,6 +244,7 @@ import           Solutions.P83
 import           Solutions.P84
 import           Solutions.P85
 import           Solutions.P86
+import           Solutions.P87
 import           Solutions.P90
 import           Solutions.P91
 import           Solutions.P92
