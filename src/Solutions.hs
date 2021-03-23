@@ -89,6 +89,8 @@ module Solutions (
   primes,
   -- ** Problem 40
   goldbach,
+  -- ** Problem 41
+  goldbachList,
   -- * Logic and code problems
   -- ** Problem 46
   BoolFunc,
@@ -220,6 +222,7 @@ import           Solutions.P36
 import           Solutions.P37
 import           Solutions.P39
 import           Solutions.P40
+import           Solutions.P41
 import           Solutions.P46
 import           Solutions.P48
 import           Solutions.P49

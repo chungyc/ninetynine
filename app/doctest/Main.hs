@@ -50,6 +50,9 @@ Examples in the following problems are intentionally omitted from testing.
 * P23, P24, P25 : Randomness means we cannot expect deterministic output.
   Even with a fixed pseudo-random number generator, we cannot impose any particular result.
 
+* P41 : Goldbach pairs are not unique except for 12.
+  It is difficult to deal with this without making the examples less illustrative.
+
 * P86 : Multiple graph colorings are possible even with the specific algorithm,
   depending on how ties are broken when sorting.
 
@@ -58,4 +61,5 @@ Examples in the following problems are intentionally omitted from testing.
   unique tour to output.
 
 * P92 : The graceful labeling is not unique.
+  It is difficult to deal with this without making the example less illustrative.
 -}
