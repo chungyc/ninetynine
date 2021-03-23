@@ -249,6 +249,9 @@ module Problems (
   -- ** Problem 87
   -- | &#129335; &#129335;
   depthFirst,
+  -- ** Problem 88
+  -- | &#129335; &#129335;
+  connectedComponents,
   -- * Miscellaenous problems
   -- ** Problem 90
   -- | &#129335; &#129335;
@@ -336,6 +339,7 @@ import           Problems.P84
 import           Problems.P85
 import           Problems.P86
 import           Problems.P87
+import           Problems.P88
 import           Problems.P90
 import           Problems.P91
 import           Problems.P92
