@@ -7,24 +7,24 @@ import qualified Solutions.P70          as Solution
 
 group :: Benchmark
 group = bgroup "P70"
-  [ stringToTreeGroup Problem.stringToTree "stringToTree"
-  , treeToStringGroup Problem.treeToString "treeToString"
+  [ stringToMultitreeGroup Problem.stringToMultitree "stringToMultitree"
+  , multitreeToStringGroup Problem.multitreeToString "multitreeToString"
   , bgroup "Solutions"
-    [ stringToTreeGroup Solution.stringToTree "stringToTree"
-    , treeToStringGroup Solution.treeToString "treeToString"
+    [ stringToMultitreeGroup Solution.stringToMultitree "stringToMultitree"
+    , multitreeToStringGroup Solution.multitreeToString "multitreeToString"
     ]
   ]
 
-stringToTreeGroup :: (String -> MultiwayTree Char) -> String -> Benchmark
-stringToTreeGroup stringToTree name = bgroup name
-  [ bench "string length 500" $ nf stringToTree (replicate 100 'a' ++
-                                                 replicate 50 '^' ++
-                                                 (concat $ replicate 50 "bc^d^^") ++
-                                                 replicate 50 '^') ]
+stringToMultitreeGroup :: (String -> MultiwayTree Char) -> String -> Benchmark
+stringToMultitreeGroup stringToMultitree name = bgroup name
+  [ bench "string length 500" $ nf stringToMultitree (replicate 100 'a' ++
+                                                      replicate 50 '^' ++
+                                                      (concat $ replicate 50 "bc^d^^") ++
+                                                      replicate 50 '^') ]
 
-treeToStringGroup :: (MultiwayTree Char -> String) -> String -> Benchmark
-treeToStringGroup treeToString name = bgroup name
-  [ bench "tree size 301" $ nf treeToString
+multitreeToStringGroup :: (MultiwayTree Char -> String) -> String -> Benchmark
+multitreeToStringGroup multitreeToString name = bgroup name
+  [ bench "tree size 301" $ nf multitreeToString
     (MultiwayTree 'a' $
      replicate 100 $ MultiwayTree 'b' [MultiwayTree 'c' [],
                                        MultiwayTree 'd' []]) ]

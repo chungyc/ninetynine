@@ -1,9 +1,9 @@
 {- |
-Description: `stringToTree`
+Description: `stringToMultitree`
 
 Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P70".
 -}
-module Problems.P70 (stringToTree,treeToString) where
+module Problems.P70 (stringToMultitree, multitreeToString) where
 
 import           Problems.MultiwayTrees
 import qualified Solutions.P70          as Solution
@@ -22,16 +22,16 @@ import qualified Solutions.P70          as Solution
 --
 -- === Examples
 --
--- >>> stringToTree "afg^^c^bd^e^^^" == multitree5
+-- >>> stringToMultitree "afg^^c^bd^e^^^" == multitree5
 -- True
-stringToTree :: String -> MultiwayTree Char
-stringToTree = Solution.stringToTree
+stringToMultitree :: String -> MultiwayTree Char
+stringToMultitree = Solution.stringToMultitree
 
 -- | Construct the node string from a 'MultiwayTree'.
 --
 -- === Examples
 --
--- >>> treeToString multitree5
+-- >>> multitreeToString multitree5
 -- "afg^^c^bd^e^^^"
-treeToString :: MultiwayTree Char -> String
-treeToString = Solution.treeToString
+multitreeToString :: MultiwayTree Char -> String
+multitreeToString = Solution.multitreeToString

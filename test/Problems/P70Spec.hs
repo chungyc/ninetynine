@@ -8,20 +8,20 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
 properties :: (String -> MultiwayTree Char, MultiwayTree Char -> String) -> (String, String) -> Spec
-properties (stringToTree, treeToString) (nameStringToTree, nameTreeToString) = do
-  describe nameStringToTree $ do
+properties (stringToMultitree, multitreeToString) (nameStringToMultitree, nameMultitreeToString) = do
+  describe nameStringToMultitree $ do
     prop "maps string to originating tree" $
-      withTree $ \t -> stringToTree (toString $ depthFirstSequence t) `shouldBe` t
+      withTree $ \t -> stringToMultitree (toString $ depthFirstSequence t) `shouldBe` t
 
-    prop "is inverse of treeToString" $
-      withTree $ \t -> (stringToTree . treeToString) t `shouldBe` t
+    prop "is inverse of multitreeToString" $
+      withTree $ \t -> (stringToMultitree . multitreeToString) t `shouldBe` t
 
-  describe nameTreeToString $ do
+  describe nameMultitreeToString $ do
     prop "maps to string according to definition" $
-      withTree $ \t -> treeToString t `shouldBe` (toString $ depthFirstSequence t)
+      withTree $ \t -> multitreeToString t `shouldBe` (toString $ depthFirstSequence t)
 
-    prop "is inverse of stringToTree" $
-      withString $ \s -> (treeToString . stringToTree) s `shouldBe` s
+    prop "is inverse of stringToMultitree" $
+      withString $ \s -> (multitreeToString . stringToMultitree) s `shouldBe` s
 
   where withTree f = \t -> f $ excludeSpecialCharacter t
         withString f = withTree $ \t -> f $ toString $ depthFirstSequence t
@@ -29,21 +29,21 @@ properties (stringToTree, treeToString) (nameStringToTree, nameTreeToString) = d
 examples :: Spec
 examples = do
   describe "Examples" $ do
-    it "stringToTree \"afg^^c^bd^e^^^\" == multitree5" $ do
-      stringToTree "afg^^c^bd^e^^^" `shouldBe` multitree5
+    it "stringToMultitree \"afg^^c^bd^e^^^\" == multitree5" $ do
+      stringToMultitree "afg^^c^bd^e^^^" `shouldBe` multitree5
 
-    it "treeToString multitree5" $ do
-      treeToString multitree5 `shouldBe` "afg^^c^bd^e^^^"
+    it "multitreeToString multitree5" $ do
+      multitreeToString multitree5 `shouldBe` "afg^^c^bd^e^^^"
 
-  where stringToTree = Problem.stringToTree
-        treeToString = Problem.treeToString
+  where stringToMultitree = Problem.stringToMultitree
+        multitreeToString = Problem.multitreeToString
 
 spec :: Spec
 spec = parallel $ do
-  properties (Problem.stringToTree, Problem.treeToString) ("stringToTree", "treeToString")
+  properties (Problem.stringToMultitree, Problem.multitreeToString) ("stringToMultitree", "multitreeToString")
   examples
   describe "From solutions" $ do
-    properties (Solution.stringToTree, Solution.treeToString) ("stringToTree", "treeToString")
+    properties (Solution.stringToMultitree, Solution.multitreeToString) ("stringToMultitree", "multitreeToString")
 
 -- | It is unavoidable that '^' in the string or tree would make the interpretation of a string ambiguous.
 -- Avoid the situation in the first place by excluding it and replacing it arbitrarily with '.'.

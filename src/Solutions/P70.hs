@@ -1,9 +1,9 @@
 {- |
-Description: `stringToTree`
+Description: `stringToMultitree`
 
 Some solutions to "Problems.P70" of Ninety-Nine Haskell "Problems".
 -}
-module Solutions.P70 (stringToTree,treeToString) where
+module Solutions.P70 (stringToMultitree, multitreeToString) where
 
 import           Problems.MultiwayTrees
 
@@ -18,8 +18,8 @@ import           Problems.MultiwayTrees
 -- For example, 'multitree5' is represented by the string @"afg^^c^bd^e^^^"@.
 --
 -- Write a function to construct the 'MultiwayTree' when the string is given.
-stringToTree :: String -> MultiwayTree Char
-stringToTree = fst . toNode
+stringToMultitree :: String -> MultiwayTree Char
+stringToMultitree = fst . toNode
 
 toNode :: String -> (MultiwayTree Char, String)
 toNode (x:xs) = (MultiwayTree x ts, remaining)
@@ -32,5 +32,5 @@ toList (ts, s) = toList (node : ts, remaining)
   where (node, remaining) = toNode s
 
 -- | Construct the node string from a 'MultiwayTree'.
-treeToString :: MultiwayTree Char -> String
-treeToString (MultiwayTree x ts) = x : (concat $ map treeToString ts) ++ "^"
+multitreeToString :: MultiwayTree Char -> String
+multitreeToString (MultiwayTree x ts) = x : (concat $ map multitreeToString ts) ++ "^"

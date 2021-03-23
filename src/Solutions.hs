@@ -132,10 +132,13 @@ module Solutions (
   layoutLevelConstant,
   -- ** Problem 66
   layoutCompact,
+  -- ** Problem 67
+  treeToString,
+  stringToTree,
   -- * Multiway tree problems
   -- ** Problem 70
-  stringToTree,
-  treeToString,
+  stringToMultitree,
+  multitreeToString,
   -- ** Problem 71
   internalPathLength,
   -- ** Problem 72
@@ -233,6 +236,7 @@ import           Solutions.P63
 import           Solutions.P64
 import           Solutions.P65
 import           Solutions.P66
+import           Solutions.P67
 import           Solutions.P70
 import           Solutions.P71
 import           Solutions.P72

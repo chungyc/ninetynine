@@ -182,6 +182,10 @@ module Problems (
   -- ** Problem 66
   -- | &#129335; &#129335; &#129335;
   layoutCompact,
+  -- ** Problem 67
+  -- | &#129335; &#129335;
+  treeToString,
+  stringToTree,
   -- * Multiway tree problems
   MultiwayTree (MultiwayTree),
   multitree1,
@@ -191,8 +195,8 @@ module Problems (
   multitree5,
   -- ** Problem 70
   -- | &#129335; &#129335;
-  stringToTree,
-  treeToString,
+  stringToMultitree,
+  multitreeToString,
   -- ** Problem 71
   -- | &#129335;
   internalPathLength,
@@ -315,6 +319,7 @@ import           Problems.P63
 import           Problems.P64
 import           Problems.P65
 import           Problems.P66
+import           Problems.P67
 import           Problems.P70
 import           Problems.P71
 import           Problems.P72
