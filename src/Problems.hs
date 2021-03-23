@@ -94,6 +94,9 @@ module Problems (
   -- ** Problem 25
   -- | &#129335;
   randomPermute,
+  -- ** Problem 26
+  -- | &#129335; &#129335;
+  combinations,
   -- * Arithmetic problems
   -- ** Problem 31
   -- | &#129335; &#129335;
@@ -300,6 +303,7 @@ import           Problems.P22
 import           Problems.P23
 import           Problems.P24
 import           Problems.P25
+import           Problems.P26
 import           Problems.P31
 import           Problems.P32
 import           Problems.P33
