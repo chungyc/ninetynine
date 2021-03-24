@@ -184,6 +184,8 @@ module Solutions (
   -- ** Problem 92
   gracefulTree,
   gracefulTree',
+  -- ** Problem 93
+  arithmeticPuzzle,
   -- ** Problem 95
   fullWords,
   -- ** Problem 97
@@ -261,5 +263,6 @@ import           Solutions.P88
 import           Solutions.P90
 import           Solutions.P91
 import           Solutions.P92
+import           Solutions.P93
 import           Solutions.P95
 import           Solutions.P97

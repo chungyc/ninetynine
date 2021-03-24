@@ -67,6 +67,7 @@ import qualified Problems.P88Bench as P88
 import qualified Problems.P90Bench as P90
 import qualified Problems.P91Bench as P91
 import qualified Problems.P92Bench as P92
+import qualified Problems.P93Bench as P93
 import qualified Problems.P95Bench as P95
 import qualified Problems.P97Bench as P97
 
@@ -140,6 +141,7 @@ main = defaultMain [ P01.group
                    , P90.group
                    , P91.group
                    , P92.group
+                   , P93.group
                    , P95.group
                    , P97.group
                    ]

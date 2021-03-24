@@ -266,6 +266,9 @@ module Problems (
   -- ** Problem 92
   -- | &#129335; &#129335; &#129335;
   gracefulTree,
+  -- ** Problem 93
+  -- | &#129335; &#129335; &#129335;
+  arithmeticPuzzle,
   -- ** Problem 95
   -- |  &#129335; &#129335;
   fullWords,
@@ -347,5 +350,6 @@ import           Problems.P88
 import           Problems.P90
 import           Problems.P91
 import           Problems.P92
+import           Problems.P93
 import           Problems.P95
 import           Problems.P97
