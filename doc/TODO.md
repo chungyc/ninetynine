@@ -29,7 +29,7 @@
     *   [x] Problem 24
     *   [x] Problem 25
     *   [x] Problem 26
-    *   [ ] Problem 27
+    *   [x] Problem 27
     *   [ ] Problem 28
     *   [x] Problem 31
     *   [x] Problem 32
