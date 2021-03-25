@@ -76,15 +76,18 @@ findExpressions t = Map.fromListWith (++) $ mapMaybe (\t' -> assoc $ (evalTree t
 -- Returns 'Nothing' if it is invalid, e.g., there would be division by zero.
 evalTree :: Tree (Either Op Integer) -> Maybe (Ratio Integer)
 evalTree (Branch (Right n) Empty Empty) = Just $ fromIntegral n
+
 evalTree (Branch (Left Divide) l r) = do
   l' <- evalTree l
   r' <- evalTree r
   case r' of 0 -> Nothing
              _ -> return $ evaluate Divide l' r'
+
 evalTree (Branch (Left op) l r) = do
   l' <- evalTree l
   r' <- evalTree r
   return $ evaluate op l' r'
+
 evalTree _                              = undefined
 
 evaluate :: Op -> Ratio Integer -> Ratio Integer -> Ratio Integer
@@ -108,17 +111,21 @@ formatEquation :: Tree (Either Op Integer) -> String
 formatEquation (Branch (Right n) Empty Empty) = show n
 formatEquation (Branch (Left Equals) l r) = formatEquation l ++ " = " ++ formatEquation r
 formatEquation (Branch (Left Add) l r) = formatEquation l ++ "+" ++ formatEquation r
+
 formatEquation (Branch (Left Subtract) l r)
   | isAdd r || isSubtract r = formatEquation l ++ "-(" ++ formatEquation r ++ ")"
   | otherwise               = formatEquation l ++ "-" ++ formatEquation r
+
 formatEquation (Branch (Left Multiply) l r) = format l ++ "*" ++ format r
   where format t | isAdd t || isSubtract t = "(" ++ formatEquation t ++ ")"
                  | otherwise               = formatEquation t
+
 formatEquation (Branch (Left Divide) l r)
   | isMultiply r || isDivide r = format l ++ "/(" ++ formatEquation r ++ ")"
   | otherwise                  = format l ++ "/" ++ format r
   where format t | isAdd t || isSubtract t = "(" ++ formatEquation t ++ ")"
                  | otherwise               = formatEquation t
+
 formatEquation _ = undefined  -- should not be possible
 
 isAdd :: Tree (Either Op Integer) -> Bool
