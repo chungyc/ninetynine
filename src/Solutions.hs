@@ -141,6 +141,10 @@ module Solutions (
   -- ** Problem 67
   treeToString,
   stringToTree,
+  -- ** Problem 68
+  inorder,
+  preorder,
+  ordersToTree,
   -- * Multiway tree problems
   -- ** Problem 70
   stringToMultitree,
@@ -250,6 +254,7 @@ import           Solutions.P64
 import           Solutions.P65
 import           Solutions.P66
 import           Solutions.P67
+import           Solutions.P68
 import           Solutions.P70
 import           Solutions.P71
 import           Solutions.P72

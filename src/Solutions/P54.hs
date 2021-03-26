@@ -15,7 +15,7 @@ leaf x = Branch x Empty Empty
 
 -- | Define as the tree as shown in the following.
 --
--- !['b' and 'c' are children of 'a', 'd' and 'e' are children of 'b', 'f' is the right child of 'c', 'g' is the left child of 'f'](src/Problems/P54/images/tree1.svg)
+-- !['b' and 'c' are children of 'a', 'd' and 'e' are children of 'b', 'f' is the right child of 'c', 'g' is the left child of 'f'](images/BinaryTrees/tree1.svg)
 tree1 :: Tree Char
 tree1 = Branch 'a' (Branch 'b' (leaf 'd') (leaf 'e'))
                    (Branch 'c' Empty (Branch 'f' (leaf 'g') Empty))
@@ -30,6 +30,6 @@ tree3 = Empty
 
 -- | Define as the following tree with integer values.
 --
--- ![Two nodes with both values of 2 are children of 1, 4 is the right child of the left 2](src/Problems/P54/images/tree4.svg)
+-- ![Two nodes with both values of 2 are children of 1, 4 is the right child of the left 2](images/BinaryTrees/tree4.svg)
 tree4 :: Tree Int
 tree4 = Branch 1 (Branch 2 Empty (leaf 4)) (leaf 2)

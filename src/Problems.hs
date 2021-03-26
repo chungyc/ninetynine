@@ -195,6 +195,11 @@ module Problems (
   -- | &#129335; &#129335;
   treeToString,
   stringToTree,
+  -- ** Problem 68
+  -- | &#129335; &#129335;
+  inorder,
+  preorder,
+  ordersToTree,
   -- * Multiway tree problems
   MultiwayTree (MultiwayTree),
   multitree1,
@@ -338,6 +343,7 @@ import           Problems.P64
 import           Problems.P65
 import           Problems.P66
 import           Problems.P67
+import           Problems.P68
 import           Problems.P70
 import           Problems.P71
 import           Problems.P72
