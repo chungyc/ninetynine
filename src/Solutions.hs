@@ -71,6 +71,9 @@ module Solutions (
   combinations,
   -- ** Problem 27
   disjointGroups,
+  -- ** Problem 28
+  lsort,
+  lfsort,
   -- * Arithmetic problems
   -- ** Problem 31
   isPrime,
@@ -227,6 +230,7 @@ import           Solutions.P24
 import           Solutions.P25
 import           Solutions.P26
 import           Solutions.P27
+import           Solutions.P28
 import           Solutions.P31
 import           Solutions.P32
 import           Solutions.P33

@@ -100,6 +100,10 @@ module Problems (
   -- ** Problem 27
   -- | &#129335; &#129335;
   disjointGroups,
+  -- ** Problem 28
+  -- | &#129335; &#129335;
+  lsort,
+  lfsort,
   -- * Arithmetic problems
   -- ** Problem 31
   -- | &#129335; &#129335;
@@ -316,6 +320,7 @@ import           Problems.P24
 import           Problems.P25
 import           Problems.P26
 import           Problems.P27
+import           Problems.P28
 import           Problems.P31
 import           Problems.P32
 import           Problems.P33

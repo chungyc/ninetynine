@@ -42,9 +42,8 @@ ordersToTree :: Eq a
              -> [a]  -- ^ Pre-order sequence
              -> Tree a  -- ^ Binary tree with the given in-order and pre-order sequences
 ordersToTree [] [] = Empty
-ordersToTree inseq (p:preseq)
-  | p' == p   = Branch p l r
-  | otherwise = undefined
+ordersToTree inseq (p:preseq) | p' == p   = Branch p l r
+                              | otherwise = undefined
   where (inseqLeft, p':inseqRight) = break (p ==) inseq
         (preseqLeft, preseqRight) = splitAt (length inseqLeft) preseq
         l = ordersToTree inseqLeft preseqLeft
