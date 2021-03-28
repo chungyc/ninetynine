@@ -281,6 +281,9 @@ module Problems (
   -- ** Problem 93
   -- | &#129335; &#129335; &#129335;
   arithmeticPuzzle,
+  -- ** Problem 94
+  -- | &#129335; &#129335; &#129335;
+  regularGraphs,
   -- ** Problem 95
   -- |  &#129335; &#129335;
   fullWords,
@@ -366,5 +369,6 @@ import           Problems.P90
 import           Problems.P91
 import           Problems.P92
 import           Problems.P93
+import           Problems.P94
 import           Problems.P95
 import           Problems.P97

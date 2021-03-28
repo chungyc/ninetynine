@@ -178,6 +178,7 @@ module Solutions (
   minimumSpanningTree,
   -- ** Problem 85
   isomorphic,
+  isomorphic',
   -- ** Problem 86
   colorGraph,
   -- ** Problem 87
@@ -195,6 +196,8 @@ module Solutions (
   gracefulTree',
   -- ** Problem 93
   arithmeticPuzzle,
+  -- ** Problem 94
+  regularGraphs,
   -- ** Problem 95
   fullWords,
   -- ** Problem 97
@@ -276,5 +279,6 @@ import           Solutions.P90
 import           Solutions.P91
 import           Solutions.P92
 import           Solutions.P93
+import           Solutions.P94
 import           Solutions.P95
 import           Solutions.P97

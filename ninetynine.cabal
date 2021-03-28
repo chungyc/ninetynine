@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e808584a28dec79c90f46367058f61177e9dfd9f80c7fdcb89ab769f4f1edbd9
+-- hash: 52e360e15c93cc2f821bc265a9e76366927467ef542911a8417d1f7a7010d400
 
 name:           ninetynine
 version:        0.3.0.0
@@ -138,6 +138,7 @@ library
       Problems.P91
       Problems.P92
       Problems.P93
+      Problems.P94
       Problems.P95
       Problems.P97
       Solutions
@@ -215,6 +216,7 @@ library
       Solutions.P91
       Solutions.P92
       Solutions.P93
+      Solutions.P94
       Solutions.P95
       Solutions.P97
   other-modules:
@@ -327,6 +329,7 @@ test-suite ninetynine-test
       Problems.P91Spec
       Problems.P92Spec
       Problems.P93Spec
+      Problems.P94Spec
       Problems.P95Spec
       Problems.P97Spec
       Solutions.P31.FunctionsSpec
@@ -420,6 +423,7 @@ benchmark ninetynine-bench
       Problems.P91Bench
       Problems.P92Bench
       Problems.P93Bench
+      Problems.P94Bench
       Problems.P95Bench
       Problems.P97Bench
       Paths_ninetynine
