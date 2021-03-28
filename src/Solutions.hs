@@ -179,6 +179,7 @@ module Solutions (
   -- ** Problem 85
   isomorphic,
   isomorphic',
+  isomorphic'',
   -- ** Problem 86
   colorGraph,
   -- ** Problem 87

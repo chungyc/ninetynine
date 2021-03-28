@@ -11,7 +11,7 @@ import           Data.Maybe      (fromJust)
 import qualified Data.Set        as Set
 import           Problems.Graphs
 import           Problems.P26
-import           Problems.P85
+import           Solutions.P85   (isomorphic)
 
 {- |
 Generate \(k\)-regular graphs with \(n\) vertexes.

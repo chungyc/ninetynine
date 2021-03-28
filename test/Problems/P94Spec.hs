@@ -3,8 +3,8 @@ module Problems.P94Spec (spec) where
 import           Control.Monad
 import qualified Data.Set              as Set
 import           Problems.Graphs
-import           Problems.P85
 import qualified Problems.P94          as Problem
+import           Solutions.P85         (isomorphic)
 import qualified Solutions.P94         as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
@@ -43,6 +43,13 @@ properties regularGraphs name = describe name $ modifyMaxSize (const 6) $ do
           , ((7,4), 2)
           , ((7,5), 0)
           , ((7,6), 1)
+          , ((8,2), 3)
+          , ((8,3), 6)
+          , ((8,4), 6)
+          , ((8,5), 3)
+          , ((8,6), 1)
+          , ((8,7), 1)
+          , ((9,2), 4)
           ]
       (\((n, k), r) -> it ("with " ++ show (n,k)) (length (regularGraphs n k) `shouldBe` r))
 

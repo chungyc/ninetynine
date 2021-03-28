@@ -53,8 +53,9 @@ spec = parallel $ do
   properties Problem.isomorphic "isomorphic"
   examples
   describe "From solutions" $ do
-    properties Solution.isomorphic  "isomorphic"
-    properties Solution.isomorphic' "isomorphic'"
+    properties Solution.isomorphic   "isomorphic"
+    properties Solution.isomorphic'  "isomorphic'"
+    properties Solution.isomorphic'' "isomorphic''"
 
 permute :: G -> [Vertex] -> G
 permute g p = fromJust $ toGraph (vs', es')
