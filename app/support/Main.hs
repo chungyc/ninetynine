@@ -6,6 +6,7 @@ import           Problems.P80
 import           Problems.P94
 import           System.IO
 
+-- | Tool for automatically generating supporting elements for use in documentation.
 main :: IO ()
 main = do
   renderBinaryTreeLayouts
