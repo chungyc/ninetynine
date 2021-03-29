@@ -1,10 +1,23 @@
+import           Problems.BinaryTrees.SVG
+import           Problems.P64
+import           Problems.P65
+import           Problems.P66
 import           Problems.P80
 import           Problems.P94
 import           System.IO
 
 main :: IO ()
 main = do
+  renderBinaryTreeLayouts
   printRegularGraphExamples
+
+-- | Render binary trees according to their layout to SVG,
+-- which will be included with the Haddock documentation.
+renderBinaryTreeLayouts :: IO ()
+renderBinaryTreeLayouts = do
+  writeSVG "images/BinaryTrees/Layout-P64.svg" $ layoutInorder tree64
+  writeSVG "images/BinaryTrees/Layout-P65.svg" $ layoutLevelConstant tree65
+  writeSVG "images/BinaryTrees/Layout-P66.svg" $ layoutCompact tree65
 
 -- | Print examples of regular graphs for "Problems.P94".
 -- The output is a valid Haskell module.
