@@ -38,6 +38,17 @@ library:
   - random
   - text
 
+executables:
+  generate-support:
+    main:                Main.hs
+    source-dirs:         app/support
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - ninetynine    
+
 tests:
   ninetynine-test:
     main:                Spec.hs

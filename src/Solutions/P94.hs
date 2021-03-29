@@ -19,6 +19,7 @@ Generate \(k\)-regular graphs with \(n\) vertexes.
 In a \(k\)-regular graph, all vertexes have a degree of \(k\).
 I.e., the number of edges incident in each vertex is \(k\).
 How many non-isomorphic 3-regular graphs with 6 vertexes are there?
+See "Problems.P94.Examples" for examples of \(k\)-regular graphs.
 -}
 regularGraphs :: Int  -- ^ \(n\)
               -> Int  -- ^ \(k\)
