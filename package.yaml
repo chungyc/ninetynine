@@ -48,6 +48,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - ninetynine
+    - filepath
     - process
 
 tests:
