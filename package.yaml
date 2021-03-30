@@ -47,7 +47,8 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - ninetynine    
+    - ninetynine
+    - process
 
 tests:
   ninetynine-test:

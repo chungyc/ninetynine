@@ -5,12 +5,36 @@ import           Problems.P66
 import           Problems.P80
 import           Problems.P94
 import           System.IO
+import           System.Process
 
 -- | Tool for automatically generating supporting elements for use in documentation.
+-- It is only meant to automatically generate various images and examples
+-- when their sources change.  It may not run properly on all systems.
 main :: IO ()
 main = do
+  putStr "Rendering graphs ..."
+  hFlush stdout
+  renderGraphs
+  putStrLn " done"
+
+  putStr "Rendering binary tree layouts .."
+  hFlush stdout
   renderBinaryTreeLayouts
+  putStrLn " done"
+
+  putStr "Printing regular graph examples ..."
+  hFlush stdout
   printRegularGraphExamples
+  putStrLn " done"
+
+-- | Render graphs specified in DOT with GraphViz.
+renderGraphs :: IO ()
+renderGraphs = do
+  mapM_ (call . (++) "images/BinaryTrees/") ["tree1", "tree4"]
+  mapM_ (call . (++) "images/MultiwayTrees/") ["tree1", "tree2", "tree3", "tree4", "tree5"]
+  mapM_ (call . (++) "images/Graphs/") ["Example", "Example-P83", "Example-P86"]
+  mapM_ (call . (++) "images/Miscellaneous/") ["Graceful-Tree-P92", "Tree14-P92"]
+  where call name = callCommand $ "dot -Tsvg " ++ name ++ ".gv -o " ++ name ++ ".svg"
 
 -- | Render binary trees according to their layout to SVG,
 -- which will be included with the Haddock documentation.
