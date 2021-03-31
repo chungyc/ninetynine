@@ -204,6 +204,10 @@ module Problems (
   inorder,
   preorder,
   ordersToTree,
+  -- ** Problem 69
+  -- | &#129335; &#129335;
+  dotstringToTree,
+  treeToDotstring,
   -- * Multiway tree problems
   MultiwayTree (MultiwayTree),
   multitree1,
@@ -352,6 +356,7 @@ import           Problems.P65
 import           Problems.P66
 import           Problems.P67
 import           Problems.P68
+import           Problems.P69
 import           Problems.P70
 import           Problems.P71
 import           Problems.P72
