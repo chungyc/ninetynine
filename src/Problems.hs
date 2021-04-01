@@ -147,6 +147,9 @@ module Problems (
   -- ** Problem 49
   -- | &#129335; &#129335;
   gray,
+  -- ** Problem 50
+  -- | &#129335; &#129335; &#129335;
+  huffman,
   -- * Binary tree problems
   -- ** Problem 54
   -- | &#129335;
@@ -341,6 +344,7 @@ import           Problems.P41
 import           Problems.P46
 import           Problems.P48
 import           Problems.P49
+import           Problems.P50
 import           Problems.P54
 import           Problems.P55
 import           Problems.P56

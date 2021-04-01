@@ -1,11 +1,32 @@
-import           Test.DocTest
+import           Data.List             (isInfixOf)
+import           System.Console.GetOpt
+import           System.Environment
+import           Test.DocTest          (doctest)
 
 main :: IO ()
 main = do
-  doctest $ "--fast" : stateless
-  doctest $ stateful
-  doctest $ background
-  doctest $ "--fast" : solutions
+  doctest' ["--fast"] stateless
+  doctest' [] stateful
+  doctest' [] background
+  doctest' ["--fast"] solutions
+
+doctest' :: [String] -> [String] -> IO ()
+doctest' flags filenames = do
+  args <- getArgs
+  match <- matchOptions args
+  doctest $ flags ++ (match filenames)
+
+data Flag = Match String deriving Show
+
+options :: [OptDescr Flag]
+options = [ Option [] ["match"] (ReqArg Match "match") "substring match on file name" ]
+
+-- | Support @--match@ option that is also supported by Hspec.
+matchOptions :: [String] -> IO ([String] -> [String])
+matchOptions argv =
+  case getOpt Permute options argv of
+    ([Match m], _, _) -> return $ filter $ isInfixOf m
+    _                 -> return $ id
 
 mapFiles :: [String] -> [String]
 mapFiles = map ("src/Problems/" ++)
@@ -57,6 +78,9 @@ Examples in the following problems are intentionally omitted from testing.
 
 * P41 : Goldbach pairs are not unique except for 12.
   It is difficult to deal with this without making the examples less illustrative.
+
+* P50 : Huffman encoding is not unique, but a direct example of what a Huffman encoding
+  looks like is too useful not to include.
 
 * P86 : Multiple graph colorings are possible even with the specific algorithm,
   depending on how ties are broken when sorting.
