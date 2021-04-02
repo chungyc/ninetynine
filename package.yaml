@@ -23,7 +23,9 @@ category:            Education
 description: |
   Ninety-Nine Haskell Problems.
   These are programming exercises for practice with [Haskell](https://www.haskell.org/).
+  .
   See the "Problems" module for the problems.
+  To try your hand at solving the problems, replace the aliases in the problem modules with your own implementations.
   .
   Based on the Ninety-Nine Haskell problems on [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
   For more information, see <https://github.com/chungyc/ninetynine>.
