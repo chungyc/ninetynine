@@ -1,7 +1,14 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric  #-}
 
--- | Supporting definitions for graph problems.
+{- |
+Description: Supporting definitions for graph problems
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
+
+Supporting definitions for graph problems.
+-}
 module Problems.Graphs (
   Graph (vertexes, edges, sets, neighbors, adjacent, toGraph, isValidGraph),
   Vertex,

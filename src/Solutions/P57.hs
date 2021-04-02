@@ -1,5 +1,8 @@
 {- |
 Description: `construct`
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
 
 Some solutions to "Problems.P57" of Ninety-Nine Haskell "Problems".
 -}

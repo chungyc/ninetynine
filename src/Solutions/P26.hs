@@ -1,5 +1,8 @@
 {- |
 Description: 'combinations'
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
 
 Some solutions to "Problems.P26" of Ninety-Nine Haskell "Problems".
 -}

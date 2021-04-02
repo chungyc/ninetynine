@@ -1,3 +1,10 @@
+{-|
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
+-}
+module Main (main) where
+
 import           Criterion.Main
 import qualified Problems.P01Bench as P01
 import qualified Problems.P02Bench as P02

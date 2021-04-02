@@ -1,3 +1,10 @@
+{-|
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
+-}
+module Main (main) where
+
 import           Data.List             (isInfixOf)
 import           System.Console.GetOpt
 import           System.Environment

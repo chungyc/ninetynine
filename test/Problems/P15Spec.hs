@@ -1,3 +1,8 @@
+{-|
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
+-}
 module Problems.P15Spec (spec) where
 
 import qualified Problems.P15          as Problem

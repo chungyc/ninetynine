@@ -1,7 +1,14 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric  #-}
 
--- | Supporting definitions for binary tree problems.
+{- |
+Description: Supporting definitions for binary tree problems
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
+
+Supporting definitions for binary tree problems.
+-}
 module Problems.BinaryTrees (
   Tree (Empty, Branch),
   -- * Support functions

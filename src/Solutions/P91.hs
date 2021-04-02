@@ -1,5 +1,8 @@
 {- |
 Description: 'knightsTour'
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
 
 Some solutions to "Problems.P91" of Ninety-Nine Haskell "Problems".
 -}

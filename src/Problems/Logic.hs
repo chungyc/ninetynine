@@ -1,4 +1,11 @@
--- | Supporting definitions for logic and code problems.
+{- |
+Description: Supporting definitions for logic and code problems
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
+
+Supporting definitions for logic and code problems.
+-}
 module Problems.Logic (
   BoolFunc,
   -- * Utility functions

@@ -1,7 +1,14 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric  #-}
 
--- | Supporting definitions for multiway tree problems.
+{- |
+Description: Supporting definitions for multiway tree problems
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
+
+Supporting definitions for multiway tree problems.
+-}
 module Problems.MultiwayTrees (
   MultiwayTree (MultiwayTree),
   multitree1, multitree2, multitree3, multitree4, multitree5,

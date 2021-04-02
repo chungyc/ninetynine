@@ -1,3 +1,10 @@
+{-|
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
+-}
+module Main (main) where
+
 import           Problems.BinaryTrees.SVG
 import           Problems.P64
 import           Problems.P65
@@ -53,7 +60,14 @@ renderBinaryTreeLayouts = do
 -- The output is a valid Haskell module.
 printRegularGraphExamples :: IO ()
 printRegularGraphExamples = withFile ("src" </> "Problems" </> "P94" </> "Examples" <.> "hs") WriteMode $ \h -> do
-  hPutStrLn h "-- | Examples of k-regular graphs with n vertexes."
+  hPutStrLn h "{- |"
+  hPutStrLn h "Description: Examples of regular graphs"
+  hPutStrLn h "Copyright: Copyright (C) 2021 Yoo Chung"
+  hPutStrLn h "License: GPL-3.0-or-later"
+  hPutStrLn h "Maintainer: dev@chungyc.org"
+  hPutStrLn h ""
+  hPutStrLn h "Examples of \\(k\\)-regular graphs with \\(n\\) vertexes."
+  hPutStrLn h "-}"
   hPutStrLn h "module Problems.P94.Examples where"
   hPutStrLn h ""
   hPutStrLn h "import Problems.Graphs"

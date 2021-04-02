@@ -1,7 +1,14 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric  #-}
 
--- | Supporting definitions for list problems.
+{- |
+Description: Supporting definitions for list problems
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
+
+Supporting definitions for list problems.
+-}
 module Problems.Lists (NestedList (Elem, List), Encoding (Single, Multiple)) where
 
 import           Control.DeepSeq

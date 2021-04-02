@@ -1,4 +1,11 @@
--- | Examples of k-regular graphs with n vertexes.
+{- |
+Description: Examples of regular graphs
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
+
+Examples of \(k\)-regular graphs with \(n\) vertexes.
+-}
 module Problems.P94.Examples where
 
 import Problems.Graphs

@@ -1,5 +1,8 @@
 {- |
 Description: 'dupli'
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
 
 Some solutions to "Problems.P14" of Ninety-Nine Haskell "Problems".
 -}

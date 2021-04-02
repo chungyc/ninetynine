@@ -1,3 +1,8 @@
+{-|
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
+-}
 module Problems.P20Spec (spec) where
 
 import qualified Problems.P20          as Problem

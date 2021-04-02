@@ -1,5 +1,8 @@
 {- |
 Description: Support functions for "Problem.P31".
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
 
 These functions were written in support of "Problem.P31",
 but which turn out to be useful for other problems as well.

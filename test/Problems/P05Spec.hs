@@ -1,3 +1,8 @@
+{-|
+Copyright: Copyright (C) 2021 Yoo Chung
+License: GPL-3.0-or-later
+Maintainer: dev@chungyc.org
+-}
 module Problems.P05Spec (spec) where
 
 import qualified Problems.P05          as Problem
