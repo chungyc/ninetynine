@@ -4,12 +4,17 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3fb20788b94d01a90ef7545bd8e75189347f57b75e353745f5b34d6786d4e674
+-- hash: 193d043705a08eaca93f58d81f936be1ac4865cf60f648f94465ec8ab71731bf
 
 name:           ninetynine
 version:        0.3.0.0
 synopsis:       Ninety-Nine Haskell Problems
-description:    Ninety-Nine Haskell Problems. These are programming exercises for practice with [Haskell](https://www.haskell.org/). Based on the Ninety-Nine Haskell problems on [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems). For more information, see <https://github.com/chungyc/ninetynine>.
+description:    Ninety-Nine Haskell Problems.
+                These are programming exercises for practice with [Haskell](https://www.haskell.org/).
+                See the "Problems" module for the problems.
+                .
+                Based on the Ninety-Nine Haskell problems on [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
+                For more information, see <https://github.com/chungyc/ninetynine>.
 category:       Education
 homepage:       http://github.com/chungyc/ninetynine
 bug-reports:    https://github.com/chungyc/ninetynine/issues
