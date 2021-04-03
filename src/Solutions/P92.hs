@@ -1,5 +1,5 @@
 {- |
-Description: 'gracefulTree'
+Description: Graceful tree labeling
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -18,8 +18,6 @@ import           Problems.Graphs
 import           Problems.P81
 
 {- |
-Graceful tree labeling.
-
 It has been conjectured that if graph \(G=(V,E)\) is a tree with \(n\) vertexes,
 which necessarily means that it has \(n-1\) edges, then there is
 a [/graceful labeling/](https://en.wikipedia.org/wiki/Graceful_labeling) of the tree.
@@ -101,8 +99,6 @@ isTree g = all (\(v,v') -> length (paths v v' g) == 1) [ (v,v') | v <- vs, v' <-
   where vs = Set.toList $ vertexes g
 
 {- |
-Graceful tree labeling.
-
 It has been conjectured that if graph \(G=(V,E)\) is a tree with \(n\) vertexes,
 which necessarily means that it has \(n-1\) edges, then there is
 a [/graceful labeling/](https://en.wikipedia.org/wiki/Graceful_labeling) of the tree.

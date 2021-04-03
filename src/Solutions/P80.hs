@@ -1,5 +1,5 @@
 {- |
-Description: Graph representation conversions
+Description: Converting between graph representations
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -34,6 +34,11 @@ class Graph g => ConvertibleGraph g where
   -- | Convert graph to the 'G' representation.
   toG :: g -> G
   toG = fromJust . toGraph . sets
+
+  -- All of the above do use 'toGraph' and 'sets', so the solutions are trivial here.
+  -- In essence, it was still an interesting and non-trivial exercise for me,
+  -- because I already did the real work as part of implementing 'toGraph' for
+  -- each of the graph representations.
 
 instance ConvertibleGraph Lists where
   toLists = id

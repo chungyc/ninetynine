@@ -1,5 +1,5 @@
 {- |
-Description: 'spanningTrees'
+Description: Construct spanning trees
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -12,9 +12,7 @@ import           Problems.Graphs
 import           Problems.P80
 import qualified Solutions.P83   as Solution
 
--- | Construct all spanning trees
---
--- Mathematically, a tree is a graph with exactly one path between any two vertexes.
+-- | Mathematically, a tree is a graph with exactly one path between any two vertexes.
 -- A spanning tree of a graph is a tree which includes all vertexes of the graph.
 --
 -- Write a function to construct all spanning trees of a given graph.

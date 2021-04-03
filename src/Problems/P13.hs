@@ -1,5 +1,5 @@
 {- |
-Description: 'encodeDirect'
+Description: Direct run-length encoding of a list
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -11,9 +11,7 @@ module Problems.P13 (encodeDirect) where
 import           Problems.Lists
 import qualified Solutions.P13  as Solution
 
--- | Run-length encoding of a list.  Direct solution.
---
--- Implement the so-called run-length encoding data compression method directly.
+-- | Implement the so-called run-length encoding data compression method directly.
 -- I.e., do not explicitly create the sublists containing the duplicates,
 -- as with 'Problems.P09.pack', but only count them.
 --

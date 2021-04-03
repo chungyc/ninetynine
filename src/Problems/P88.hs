@@ -1,5 +1,5 @@
 {- |
-Description: 'connectedComponents'
+Description: Connected components
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -15,9 +15,7 @@ import qualified Solutions.P88   as Solution
 -- >>> import Data.List (sort)
 -- >>> import Problems.P80
 
--- | Connected components.
---
--- Write a function that splits a graph into its connected components.
+-- | Write a function that splits a graph into its connected components.
 --
 -- === Examples
 --

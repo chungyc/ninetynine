@@ -1,5 +1,5 @@
 {- |
-Description: 'sudoku'
+Description: Sudoku
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -21,8 +21,6 @@ import qualified Data.Set      as Set
 import           System.Random
 
 {- |
-Sudoku.
-
 A Sudoku puzzle looks like this:
 
 \[

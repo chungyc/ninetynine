@@ -1,5 +1,5 @@
 {- |
-Description: 'myGCD'
+Description: Greatest common divisor
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org

@@ -1,5 +1,5 @@
 {- |
-Description: 'depthFirst'
+Description: Depth-first graph traversal
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -12,9 +12,7 @@ import           Data.Set        (Set)
 import qualified Data.Set        as Set
 import           Problems.Graphs
 
--- | Depth-first order graph traversal.
---
--- Write a predicate that generates a depth-first order graph traversal sequence.
+-- | Write a function that generates a depth-first order graph traversal sequence.
 -- The starting point should be specified,
 -- and the output should be a list of nodes that are reachable from this starting point in depth-first order.
 depthFirst :: G -> Vertex -> [Vertex]

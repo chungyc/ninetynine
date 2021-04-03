@@ -1,5 +1,5 @@
 {- |
-Description: 'minimumSpanningTree'
+Description: Construct minimum spanning tree
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -15,9 +15,7 @@ import           Data.Set        (Set)
 import qualified Data.Set        as Set
 import           Problems.Graphs
 
--- | Construct the minimum spanning tree.
---
--- Write a function which constructs the minimum spanning tree of a given weighted graph.
+-- | Write a function which constructs the minimum spanning tree of a given weighted graph.
 -- While the weight of an edge could be encoded in the graph represention itself,
 -- here we will specify the weight of each edge in a separate map.
 minimumSpanningTree :: G -> Map Edge Int -> G

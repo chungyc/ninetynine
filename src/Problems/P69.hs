@@ -1,5 +1,5 @@
 {- |
-Description: `dotstringToTree`
+Description: Dotstring representation of binary trees
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -15,8 +15,6 @@ import qualified Solutions.P69        as Solution
 -- >>> import Problems.P54
 
 {- |
-Dotstring representation of binary trees.
-
 Consider binary trees with nodes that are identified by single characters.
 Such a tree can be represented by the preorder sequence of its nodes in which dots (@.@)
 are inserted where an empty subtree is encountered during the tree traversal.

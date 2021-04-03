@@ -1,5 +1,5 @@
 {- |
-Description: `gray`
+Description: Gray codes
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -10,9 +10,7 @@ module Problems.P49 (gray) where
 
 import qualified Solutions.P49 as Solution
 
--- | Gray codes.
---
--- An n-bit Gray code is a sequence of n-bit strings constructed according to certain rules.
+-- | An n-bit Gray code is a sequence of n-bit strings constructed according to certain rules.
 -- For example,
 --
 -- >>> gray 1  -- 1-bit gray code

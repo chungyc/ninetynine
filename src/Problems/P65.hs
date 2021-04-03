@@ -1,5 +1,5 @@
 {- |
-Description: `layoutLevelConstant`
+Description: Binary tree layout; constant distance at each level
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org

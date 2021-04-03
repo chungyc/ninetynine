@@ -1,5 +1,5 @@
 {- |
-Description: `symmetric`
+Description: Symmetric binary trees
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -11,9 +11,7 @@ module Problems.P56 (symmetric) where
 import           Problems.BinaryTrees
 import qualified Solutions.P56        as Solution
 
--- | Symmetric binary trees.
---
--- Let us call a binary tree symmetric if you can draw a vertical line through the root node
+-- | Let us call a binary tree symmetric if you can draw a vertical line through the root node
 -- and then the right subtree is the mirror image of the left subtree.
 -- Write a function 'symmetric' to check whether a given binary tree is symmetric.
 -- We are only interested in the structure, not in the contents of the nodes.

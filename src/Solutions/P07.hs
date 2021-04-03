@@ -1,5 +1,5 @@
 {- |
-Description: 'flatten'
+Description: Flatten a nested list structure
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -10,20 +10,16 @@ module Solutions.P07 (flatten, flatten') where
 
 import           Problems.Lists
 
--- | Flatten a nested list structure.
---
--- Transform a list, possibly holding lists as elements,
--- into a "flat" list by replacing each list with its elements (recursively).
+-- | Transform a list, possibly holding lists as elements,
+-- into a "flat" list by replacing each list with its elements recursively.
 --
 -- Recursively flatten lists and concatenate them together.
 flatten :: NestedList a -> [a]
 flatten (Elem x)  = [x]
 flatten (List xs) = concat $ map flatten xs
 
--- | Flatten a nested list structure.
---
--- Transform a list, possibly holding lists as elements,
--- into a "flat" list by replacing each list with its elements (recursively).
+-- | Transform a list, possibly holding lists as elements,
+-- into a "flat" list by replacing each list with its elements recursively.
 --
 -- Build the list starting from the last one, prepending each element one at a time.
 flatten' :: NestedList a -> [a]

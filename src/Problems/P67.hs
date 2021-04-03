@@ -1,5 +1,5 @@
 {- |
-Description: `treeToString`
+Description: A string representation of binary trees
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -12,8 +12,6 @@ import           Problems.BinaryTrees
 import qualified Solutions.P67        as Solution
 
 {- |
-A string representation of binary trees.
-
 Somebody represents binary trees as strings of the following form:
 
 > a(b(d,e),c(,f(g,)))

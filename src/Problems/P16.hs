@@ -1,5 +1,5 @@
 {- |
-Description: 'dropEvery'
+Description: Drop elements in a list
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -10,7 +10,7 @@ module Problems.P16 (dropEvery) where
 
 import qualified Solutions.P16 as Solution
 
--- | Drop every N'th element from a list.
+-- | Drop every @n@th element from a list.
 --
 -- === Examples
 --

@@ -1,5 +1,5 @@
 {- |
-Description: 'primes'
+Description: List of prime numbers
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -10,7 +10,7 @@ module Solutions.P39 (primesR, primes) where
 
 import qualified Solutions.P31.Functions as Functions
 
--- | Given a range of integers by its lower and upper limit (inclusive),
+-- | Given a range of integers by its lower and upper limit, inclusive,
 -- construct a list of all prime numbers in that range.
 primesR :: Integral a => a -> a -> [a]
 primesR lo hi = takeWhile (<= hi) $ dropWhile (< lo) primes

@@ -1,5 +1,5 @@
 {- |
-Description: `heightBalancedTreesWithNodes`
+Description: Height-balanced binary trees with given number of nodes
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org

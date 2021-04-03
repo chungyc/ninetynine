@@ -1,5 +1,5 @@
 {- |
-Description: 'arithmeticPuzzle'
+Description: An arithmetic puzzle
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -17,8 +17,6 @@ import qualified Data.Set             as Set
 import           Problems.BinaryTrees
 
 {- |
-An arithmetic puzzle.
-
 Given a list of integer numbers, find a correct way of inserting
 the arithmetic signs such that the result is a correct equation.
 For example, with the list of numbers @[2,3,5,7,11]@,

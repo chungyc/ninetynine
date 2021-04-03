@@ -26,8 +26,14 @@ properties myGCD name = do
 examples :: Spec
 examples = do
   describe "Examples" $ do
-    it "[myGCD 36 63, myGCD (-3) (-6), myGCD (-3) 6]" $ do
-      [myGCD 36 63, myGCD (-3) (-6), myGCD (-3) 6] `shouldBe` [9, 3, 3 :: Int]
+    it "myGCD 36 63" $ do
+      myGCD 36 63 `shouldBe` (9 :: Int)
+
+    it "myGCD 125 81" $ do
+      myGCD 125 81 `shouldBe` (1 :: Int)
+
+    it "myGCD 221 559" $ do
+      myGCD 221 559 `shouldBe` (13 :: Int)
 
   where myGCD a b = Problem.myGCD a b
 

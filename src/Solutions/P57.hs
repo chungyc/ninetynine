@@ -1,5 +1,5 @@
 {- |
-Description: `construct`
+Description: Binary search trees
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -10,9 +10,9 @@ module Solutions.P57 (construct, addedTo) where
 
 import           Problems.BinaryTrees
 
--- | Binary search trees.
---
--- Write an 'addedTo' function which adds an element to a binary search tree to obtain another binary search tree.
+-- | Write an 'addedTo' function which adds an element to
+-- a [binary search tree](https://en.wikipedia.org/wiki/Binary_search_tree)
+-- to obtain another binary search tree.
 -- Use this function to construct a binary search tree from a list of ordered elements.
 -- Each element should be added from the front to the back of the list.
 construct :: Ord a => [a] -> Tree a

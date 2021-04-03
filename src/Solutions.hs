@@ -53,6 +53,7 @@ module Solutions (
   split,
   -- ** Problem 18
   slice,
+  slice',
   -- ** Problem 19
   rotate,
   -- ** Problem 20
@@ -85,6 +86,7 @@ module Solutions (
   coprime,
   -- ** Problem 34
   totient,
+  totientFiltered,
   -- ** Problem 35
   primeFactors,
   -- ** Problem 36

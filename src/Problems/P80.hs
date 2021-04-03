@@ -1,5 +1,5 @@
 {- |
-Description: Graph representation conversions
+Description: Converting between graph representations
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org

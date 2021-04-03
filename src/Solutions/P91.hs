@@ -1,5 +1,5 @@
 {- |
-Description: 'knightsTour'
+Description: Knight's tour
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -13,9 +13,7 @@ import           Data.Maybe (isJust)
 import           Data.Set   (Set)
 import qualified Data.Set   as Set
 
--- | Knight's tour.
---
--- Another famous problem is this one:
+-- | Another famous problem is this one:
 -- How can a knight jump on an \(N \times N\) chessboard in such a way that it visits every square exactly once?
 --
 -- Write a function which returns a knight's tour ending at a particular square.

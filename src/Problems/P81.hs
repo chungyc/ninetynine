@@ -1,5 +1,5 @@
 {- |
-Description: 'paths'
+Description: Paths between vertexes
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -15,9 +15,7 @@ import qualified Solutions.P81   as Solution
 -- >>> import Data.List
 -- >>> import Problems.P80
 
--- | Paths from one node to another one
---
--- Write a function that, given two vertexes @a@ and @b@ in a graph,
+-- | Write a function that, given two vertexes @a@ and @b@ in a graph,
 -- returns all the acyclic paths from @a@ to @b@.
 --
 -- === Examples

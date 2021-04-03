@@ -1,5 +1,5 @@
 {- |
-Description: 'cycles'
+Description: Cycles with a given vertex
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -15,9 +15,7 @@ import qualified Solutions.P82   as Solution
 -- >>> import Data.List
 -- >>> import Problems.P80
 
--- | Cycles with a given node.
---
--- A cycle is a path in a graph whose first and last vertexes are the same vertex.
+-- | A cycle is a path in a graph whose first and last vertexes are the same vertex.
 -- No edges and no other vertexes repeat in the path.
 --
 -- Write a function which finds all cycles in the graph which include the given vertex.

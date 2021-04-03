@@ -1,5 +1,5 @@
 {- |
-Description: `heightBalancedTrees`
+Description: Construct height-balanced binary trees
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -10,9 +10,7 @@ module Solutions.P59 (heightBalancedTrees) where
 
 import           Problems.BinaryTrees
 
--- | Construct height-balanced binary trees.
---
--- In a height-balanced binary tree, the following property holds for every node:
+-- | In a height-balanced binary tree, the following property holds for every node:
 -- The height of its left subtree and the height of its right subtree are almost equal,
 -- which means their difference is not greater than one.
 --

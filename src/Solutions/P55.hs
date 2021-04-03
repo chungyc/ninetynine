@@ -1,5 +1,5 @@
 {- |
-Description: `completelyBalancedTrees`
+Description:  Construct completely balanced binary trees
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -10,9 +10,7 @@ module Solutions.P55 (completelyBalancedTrees) where
 
 import           Problems.BinaryTrees
 
--- | Construct completely balanced binary trees
---
--- In a completely balanced binary tree, the following property holds for every node:
+-- | In a completely balanced binary tree, the following property holds for every node:
 -- The number of nodes in its left subtree and the number of nodes in its right subtree are almost equal,
 -- which means their difference is not greater than one.
 --

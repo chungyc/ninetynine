@@ -1,5 +1,5 @@
 {- |
-Description: 'split'
+Description: Split a list
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -12,7 +12,7 @@ import qualified Solutions.P17 as Solution
 
 -- | Split a list into two parts; the length of the first part is given.
 --
--- Do not use any predefined predicates.
+-- Do not use any predefined functions.
 --
 -- === Examples
 --

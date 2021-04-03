@@ -1,5 +1,5 @@
 {- |
-Description: `construct`
+Description: Binary search trees
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -14,9 +14,9 @@ import qualified Solutions.P57        as Solution
 -- $setup
 -- >>> import Problems.P56
 
--- | Binary search trees.
---
--- Write an 'addedTo' function which adds an element to a binary search tree to obtain another binary search tree.
+-- | Write an 'addedTo' function which adds an element to
+-- a [binary search tree](https://en.wikipedia.org/wiki/Binary_search_tree)
+-- to obtain another binary search tree.
 -- Use this function to construct a binary search tree from a list of ordered elements.
 -- Each element should be added from the front to the back of the list.
 --
@@ -37,7 +37,7 @@ import qualified Solutions.P57        as Solution
 -- problems: /Use the predicate add\/3, developed in chapter 4 of the course, to write a predicate to construct a binary search tree from a list of integer numbers./
 -- This is presumably a reference to course material used at the time the problems were written.
 -- Given the different context, the problem was revised to also implement the function that would
--- have take the role that the @add\/3@ predicate would have had in the original context.
+-- have taken the role that the @add\/3@ predicate would have had in the original context.
 --
 -- For consistent examples, the condition to also use naive binary search tree insertion was imposed.
 -- For the same reason, the order for which elements in a list are added to the tree is also specified.

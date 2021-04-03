@@ -1,5 +1,5 @@
 {- |
-Description: 'encodeModified'
+Description: Modified run-length encoding
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -12,11 +12,11 @@ import           Problems.Lists
 import           Problems.P04
 import           Problems.P09
 
--- | Modified run-length encoding.
---
--- Modify the 'Problems.P10.encode' function in such a way that
--- if an element has no duplicates it is simply copied into the result list.
--- Only elements with duplicates are transferred as @('Multiple' n x)@ values.
+{- |
+Modify the 'Problems.P10.encode' function in such a way that
+if an element has no duplicates it is simply copied into the result list.
+Only elements with duplicates are transferred as @('Multiple' n x)@ values.
+-}
 encodeModified :: Eq a => [a] -> [Encoding a]
 encodeModified xs = encodePacked $ pack xs
 

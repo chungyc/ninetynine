@@ -21,7 +21,7 @@ import           Control.DeepSeq
 import           Data.List       (intercalate, sort)
 import           GHC.Generics    (Generic)
 
--- | Binary tree.
+-- | A binary tree.
 --
 -- A 'Tree' of type @a@ consists of either an 'Empty' node,
 -- or a 'Branch' containing one value of type @a@ with exactly two subtrees of type @a@.

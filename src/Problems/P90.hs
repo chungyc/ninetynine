@@ -1,5 +1,5 @@
 {- |
-Description: `queens`
+Description: Find all solutions to the \(n\) queens problem
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -13,9 +13,7 @@ import qualified Solutions.P90 as Solution
 -- $setup
 -- >>> import Data.List
 
--- | Find all solutions to the \(n\) queens problem.
---
--- The eight queens problem is a classical problem in computer science.
+-- | The eight queens problem is a classical problem in computer science.
 -- The objective is to place eight queens on a chessboard so that no two queens are attacking each other.
 -- I.e., no two queens are in the same row, the same column, or on the same diagonal.
 -- Solve the extended problem for arbitrary \(n\).

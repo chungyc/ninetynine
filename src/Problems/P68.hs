@@ -1,5 +1,5 @@
 {- |
-Description: `ordersToTree`
+Description: In-order and pre-order sequences of binary trees
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org

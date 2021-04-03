@@ -1,5 +1,5 @@
 {- |
-Description: `gracefulTree`
+Description: Graceful tree labeling
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -14,8 +14,6 @@ import           Problems.P80
 import qualified Solutions.P92   as Solution
 
 {- |
-Graceful tree labeling.
-
 It has been conjectured that if graph \(G=(V,E)\) is a tree with \(n\) vertexes,
 which necessarily means that it has \(n-1\) edges, then there is
 a [/graceful labeling/](https://en.wikipedia.org/wiki/Graceful_labeling) of the tree.

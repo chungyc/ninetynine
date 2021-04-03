@@ -1,5 +1,5 @@
 {- |
-Description: `sudoku`
+Description: Sudoku
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -12,8 +12,6 @@ import           Data.List     (intercalate)
 import qualified Solutions.P97 as Solution
 
 {- |
-Sudoku.
-
 A Sudoku puzzle looks like this:
 
 \[

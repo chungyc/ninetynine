@@ -1,5 +1,5 @@
 {- |
-Description: 'connectedComponents'
+Description: Connected components
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -13,9 +13,7 @@ import qualified Data.Set        as Set
 import           Problems.Graphs
 import           Problems.P87
 
--- | Connected components.
---
--- Write a function that splits a graph into its connected components.
+-- | Write a function that splits a graph into its connected components.
 connectedComponents :: G -> [[Vertex]]
 connectedComponents g = getComponents g (vertexes g) []
 

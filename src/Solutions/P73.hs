@@ -1,5 +1,5 @@
 {- |
-Description: `treeToSexp`
+Description: Tree representation with s-expressions
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -11,9 +11,7 @@ module Solutions.P73 (treeToSexp,sexpToTree) where
 import           Data.List              (intercalate)
 import           Problems.MultiwayTrees
 
--- | Tree representation with s-expressions.
---
--- An [s-expression](https://en.wikipedia.org/wiki/S-expression) is
+-- | An [s-expression](https://en.wikipedia.org/wiki/S-expression) is
 -- commonly represented as a list of items between parentheses.
 -- In particular, s-expressions can be nested, e.g., @(a b (c d) e (f g))@.
 -- It is used by programming languages such as [Lisp](https://lisp-lang.org/)

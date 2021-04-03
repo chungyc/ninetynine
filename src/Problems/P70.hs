@@ -1,5 +1,5 @@
 {- |
-Description: `stringToMultitree`
+Description: Tree construction from a node string
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -11,9 +11,7 @@ module Problems.P70 (stringToMultitree, multitreeToString) where
 import           Problems.MultiwayTrees
 import qualified Solutions.P70          as Solution
 
--- | Tree construction from a node string.
---
--- We suppose that the nodes of a multiway tree contain single characters.
+-- | We suppose that the nodes of a multiway tree contain single characters.
 -- The characters in the node string are in depth-first order of the tree.
 -- The special character @^@ is inserted whenever the move is
 -- a backtrack to the previous level during tree traversal.

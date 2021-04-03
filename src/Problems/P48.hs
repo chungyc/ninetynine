@@ -1,5 +1,5 @@
 {- |
-Description: `tablen`
+Description: Truth tables for \(n\)-ary boolean function
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -16,7 +16,7 @@ import qualified Solutions.P48 as Solution
 
 -- | Truth tables for logical expressions with an arbitrary number of variables.
 --
--- Generalize "Problems.P46" in a way that the logical expression may contain any number of logical variables.
+-- Generalize 'Problems.P46.table' in a way that the logical expression may contain any number of logical variables.
 -- Define 'tablen' such that @tablen n f@ prints the truth table for the expression @f@,
 -- which contains @n@ logical variables.
 --

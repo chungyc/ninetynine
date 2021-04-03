@@ -1,5 +1,5 @@
 {- |
-Description: `heightBalancedTreesWithNodes`
+Description: Height-balanced binary trees with given number of nodes
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -41,6 +41,6 @@ import qualified Solutions.P60        as Solution
 --
 -- The original problem asked to implement functions computing the minimum number of nodes for a given height
 -- and the maximum height for a given number of nodes.  These are more of a hint as to how to implement
--- the main function in question, so they were made into hints instead of being part of the problem itself.
+-- the main function in question, so they were made hints instead of being part of the problem itself.
 heightBalancedTreesWithNodes :: Int -> [Tree ()]
 heightBalancedTreesWithNodes = Solution.heightBalancedTreesWithNodes

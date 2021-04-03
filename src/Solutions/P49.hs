@@ -1,5 +1,5 @@
 {- |
-Description: `gray`
+Description: Gray codes
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -8,9 +8,7 @@ Some solutions to "Problems.P49" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P49 (gray) where
 
--- | Gray codes.
---
--- An n-bit Gray code is a sequence of n-bit strings constructed according to certain rules.
+-- | An n-bit Gray code is a sequence of n-bit strings constructed according to certain rules.
 -- For example,
 --
 -- >>> gray 1  -- 1-bit gray code

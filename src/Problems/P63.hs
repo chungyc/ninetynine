@@ -1,5 +1,5 @@
 {- |
-Description: `completeBinaryTree`
+Description: Construct a complete binary tree
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -12,8 +12,6 @@ import           Problems.BinaryTrees
 import qualified Solutions.P63        as Solution
 
 {- |
-Construct a complete binary tree.
-
 A complete binary tree with height \(h\) is defined as follows:
 
 * The levels 1, 2, 3, ..., \(h-1\) contain the maximum number of nodes,

@@ -1,5 +1,5 @@
 {- |
-Description: 'removeAt'
+Description: Remove element from a list
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org

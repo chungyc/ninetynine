@@ -7,7 +7,7 @@ Maintainer: dev@chungyc.org
 This is a list of Ninety-Nine Haskell Problems.
 Some solutions to these problems are in "Solutions".
 
-The number of shruggies indicate difficulty level, and are based on the original list.
+The number of shruggies (&#129335;) indicate difficulty level, and are based on the original list.
 These difficulty levels were based on the original list of Prolog problems,
 so they may not be appropriate in the context of Haskell.
 
@@ -37,6 +37,8 @@ module Problems (
   isPalindrome,
   -- ** Problem 7
   -- | &#129335; &#129335;
+  --
+  -- === Flatten a nested list structure
   flatten,
   NestedList (Elem, List),
   -- ** Problem 8
@@ -47,16 +49,24 @@ module Problems (
   pack,
   -- ** Problem 10
   -- | &#129335;
+  --
+  -- === Run-length encoding of a list
   encode,
   -- ** Problem 11
   -- | &#129335;
+  --
+  -- === Modified run-length encoding
   encodeModified,
   Encoding (Single, Multiple),
   -- ** Problem 12
   -- | &#129335; &#129335;
+  --
+  -- === Decode a run-length encoded list
   decodeModified,
   -- ** Problem 13
   -- | &#129335; &#129335;
+  --
+  -- === Run-length encoding of a list; direct solution
   encodeDirect,
   -- ** Problem 14
   -- | &#129335;
@@ -90,6 +100,8 @@ module Problems (
   randomSelect,
   -- ** Problem 24
   -- | &#129335;
+  --
+  -- === Lotto
   randomDraw,
   -- ** Problem 25
   -- | &#129335;
@@ -99,14 +111,20 @@ module Problems (
   combinations,
   -- ** Problem 27
   -- | &#129335; &#129335;
+  --
+  -- === Group the elements of a set into disjoint subsets
   disjointGroups,
   -- ** Problem 28
   -- | &#129335; &#129335;
+  --
+  -- === Sorting a list of lists according to length of sublists
   lsort,
   lfsort,
   -- * Arithmetic problems
   -- ** Problem 31
   -- | &#129335; &#129335;
+  --
+  -- === Primality checking
   isPrime,
   -- ** Problem 32
   -- | &#129335; &#129335;
@@ -132,6 +150,8 @@ module Problems (
   primes,
   -- ** Problem 40
   -- | &#129335; &#129335;
+  --
+  -- === Goldbach's conjecture
   goldbach,
   -- ** Problem 41
   -- | &#129335; &#129335;
@@ -146,9 +166,13 @@ module Problems (
   tablen,
   -- ** Problem 49
   -- | &#129335; &#129335;
+  --
+  -- === Gray codes
   gray,
   -- ** Problem 50
   -- | &#129335; &#129335; &#129335;
+  --
+  -- === Huffman codes
   huffman,
   -- * Binary tree problems
   -- ** Problem 54
@@ -161,12 +185,18 @@ module Problems (
   tree4,
   -- ** Problem 55
   -- | &#129335; &#129335;
+  --
+  -- === Construct completely balanced binary trees
   completelyBalancedTrees,
   -- ** Problem 56
   -- | &#129335; &#129335;
+  --
+  -- === Symmetric binary trees
   symmetric,
   -- ** Problem 57
   -- | &#129335; &#129335;
+  --
+  -- === Binary search trees
   construct,
   addedTo,
   -- ** Problem 58
@@ -174,6 +204,8 @@ module Problems (
   symmetricBalancedTrees,
   -- ** Problem 59
   -- | &#129335; &#129335;
+  --
+  -- === Construct height-balanced binary trees
   heightBalancedTrees,
   -- ** Problem 60
   -- | &#129335; &#129335;
@@ -187,6 +219,8 @@ module Problems (
   atLevel,
   -- ** Problem 63
   -- | &#129335; &#129335;
+  --
+  -- === Construct a complete binary tree
   completeBinaryTree,
   isCompleteBinaryTree,
   -- ** Problem 64
@@ -200,6 +234,8 @@ module Problems (
   layoutCompact,
   -- ** Problem 67
   -- | &#129335; &#129335;
+  --
+  -- === A string representation of binary trees
   treeToString,
   stringToTree,
   -- ** Problem 68
@@ -209,6 +245,8 @@ module Problems (
   ordersToTree,
   -- ** Problem 69
   -- | &#129335; &#129335;
+  --
+  -- === Dotstring representation of binary trees
   dotstringToTree,
   treeToDotstring,
   -- * Multiway tree problems
@@ -220,6 +258,7 @@ module Problems (
   multitree5,
   -- ** Problem 70
   -- | &#129335; &#129335;
+  -- === Tree construction from a node string
   stringToMultitree,
   multitreeToString,
   -- ** Problem 71
@@ -230,6 +269,8 @@ module Problems (
   postOrderSequence,
   -- ** Problem 73
   -- | &#129335; &#129335;
+  --
+  -- === Tree representation with s-expressions
   treeToSexp,
   sexpToTree,
   -- * Graph problems
@@ -250,52 +291,78 @@ module Problems (
   toG,
   -- ** Problem 81
   -- | &#129335; &#129335;
+  --
+  -- === Paths between vertexes
   paths,
   -- ** Problem 82
   -- | &#129335; &#129335;
+  --
+  -- === Cycles with a given vertex
   cycles,
   -- ** Problem 83
   -- | &#129335; &#129335;
+  --
+  -- === Construct spanning trees
   spanningTrees,
   isTree,
   isConnected,
   -- ** Problem 84
   -- | &#129335; &#129335;
+  --
+  -- === Construct minimum spanning tree
   minimumSpanningTree,
   -- ** Problem 85
   -- | &#129335; &#129335;
+  --
+  -- === Graph isomorphism
   isomorphic,
   -- ** Problem 86
   -- | &#129335; &#129335;
   colorGraph,
   -- ** Problem 87
   -- | &#129335; &#129335;
+  --
+  -- === Depth-first graph traversal
   depthFirst,
   -- ** Problem 88
   -- | &#129335; &#129335;
+  --
+  -- === Connected components
   connectedComponents,
   -- * Miscellaenous problems
   -- ** Problem 90
   -- | &#129335; &#129335;
+  --
+  -- === Find all solutions to the \(n\) queens problem
   queens,
   -- ** Problem 91
   -- | &#129335; &#129335;
+  --
+  -- === Knight's tour
   knightsTour,
   closedKnightsTour,
   -- ** Problem 92
   -- | &#129335; &#129335; &#129335;
+  --
+  -- === Graceful tree labeling
   gracefulTree,
   -- ** Problem 93
   -- | &#129335; &#129335; &#129335;
+  --
+  -- === An arithmetic puzzle
   arithmeticPuzzle,
   -- ** Problem 94
   -- | &#129335; &#129335; &#129335;
   regularGraphs,
   -- ** Problem 95
   -- |  &#129335; &#129335;
+  --
+  -- === English number words
   fullWords,
   -- ** Problem 97
   -- |  &#129335; &#129335;
+  --
+  -- === Sudoku
   sudoku,
   ) where
 

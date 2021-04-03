@@ -1,5 +1,5 @@
 {- |
-Description: 'fullWords'
+Description: English number words
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -10,9 +10,7 @@ module Solutions.P95 (fullWords) where
 
 import           Data.List (intercalate)
 
--- | English number words.
---
--- On financial documents such as checks, numbers must sometimes be written in full words.
+-- | On financial documents such as checks, numbers must sometimes be written in full words.
 -- For example, 175 must be written as @"one-seven-five"@.
 -- Write a function to return non-negative integers in full words.
 fullWords :: Integral a => a -> String

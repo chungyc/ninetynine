@@ -1,5 +1,5 @@
 {- |
-Description: `internalPathLength`
+Description: Internal path length of a tree
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org

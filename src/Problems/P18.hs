@@ -1,5 +1,5 @@
 {- |
-Description: 'slice'
+Description: Extract a slice from a list
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -13,7 +13,7 @@ import qualified Solutions.P18 as Solution
 -- | Extract a slice from a list.
 --
 -- Given two indices, @i@ and @k@, the slice is the list containing the elements
--- between the @i@'th and @k@'th element of the original list (both limits included).
+-- between the @i@'th and @k@'th element of the original list, with both limits included.
 -- Start counting the elements with 1.
 --
 -- === Examples

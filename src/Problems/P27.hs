@@ -1,5 +1,5 @@
 {- |
-Description: 'disjointGroups'
+Description: Group into disjoint subsets
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -14,8 +14,6 @@ import qualified Solutions.P27 as Solution
 -- >>> import Data.List (sort)
 
 {- |
-Group the elements of a set into disjoint subsets.
-
 In how many ways can a group of 9 people work in 3 disjoint subgroups of 2, 3, and 4 persons?
 Given a list with the sizes of each group and list of items,
 write a function to return the list of disjoint groups.

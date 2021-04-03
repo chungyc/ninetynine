@@ -1,5 +1,5 @@
 {- |
-Description: 'myGCD'
+Description: Greatest common divisor
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -15,7 +15,13 @@ import qualified Solutions.P32 as Solution
 --
 -- === Examples
 --
--- >>> [myGCD 36 63, myGCD (-3) (-6), myGCD (-3) 6]
--- [9,3,3]
+-- >>> myGCD 36 63
+-- 9
+--
+-- >>> myGCD 125 81
+-- 1
+--
+-- >>> myGCD 221 559
+-- 13
 myGCD :: Integral a => a -> a -> a
 myGCD = Solution.myGCD
