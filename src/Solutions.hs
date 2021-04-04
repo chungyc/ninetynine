@@ -193,6 +193,8 @@ module Solutions (
   depthFirst,
   -- ** Problem 88
   connectedComponents,
+  -- ** Problem 89
+  bipartite,
   -- * Miscellaenous problems
   -- ** Problem 90
   queens,
@@ -285,6 +287,7 @@ import           Solutions.P85
 import           Solutions.P86
 import           Solutions.P87
 import           Solutions.P88
+import           Solutions.P89
 import           Solutions.P90
 import           Solutions.P91
 import           Solutions.P92

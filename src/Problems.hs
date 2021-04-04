@@ -274,6 +274,9 @@ module Problems (
   -- ** Problem 88
   -- | == &#129335; &#129335; Connected components
   connectedComponents,
+  -- ** Problem 89
+  -- | == &#129335; &#129335; Bipartite graphs
+  bipartite,
   -- * Miscellaenous problems
   -- ** Problem 90
   -- | == &#129335; &#129335; Find all solutions to the \(n\) queens problem
@@ -374,6 +377,7 @@ import           Problems.P85
 import           Problems.P86
 import           Problems.P87
 import           Problems.P88
+import           Problems.P89
 import           Problems.P90
 import           Problems.P91
 import           Problems.P92

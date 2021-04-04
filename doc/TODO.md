@@ -73,7 +73,7 @@
     *   [x] Problem 86
     *   [x] Problem 87
     *   [x] Problem 88
-    *   [ ] Problem 89
+    *   [x] Problem 89
     *   [x] Problem 90
     *   [x] Problem 91
     *   [x] Problem 92
