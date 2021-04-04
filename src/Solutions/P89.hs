@@ -21,9 +21,19 @@ partition g (remaining, boundary, us, vs)
   | Set.null boundary && Set.null remaining = True
   | Set.null boundary = let (v', r') = Set.deleteFindMin remaining
                         in partition g (r', Set.singleton v', us, vs)
+  -- If bipartite, then boundary' must necessarily end up the same set which will include vs.
+  -- If any vertex in boundary' is also in us,
+  -- then the set including us cannot be disjoint with that for vs.
   | not $ Set.disjoint boundary' us = False
   | otherwise = partition g (remaining', boundary', us', vs')
-  where boundary' = Set.difference (Set.unions $ Set.map (flip neighbors g) boundary) vs
-        remaining' = Set.difference remaining boundary
-        us' = vs
-        vs' = Set.union us boundary
+  where
+    -- The neighbors of vertexes that are slated to be added to us.
+    -- These neighbors will be added to the set which includes vs;
+    -- don't revisit those already visited.
+    boundary' = Set.difference (Set.unions $ Set.map (flip neighbors g) boundary) vs
+    -- The remaining vertexes that are neither in us' or vs' yet.
+    remaining' = Set.difference remaining boundary
+    -- Switch roles between us and vs.
+    us' = vs
+    -- Add the boundary vertexes to the set including us; switch roles between us and vs.
+    vs' = Set.union us boundary
