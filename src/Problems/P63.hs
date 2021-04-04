@@ -21,7 +21,7 @@ A complete binary tree with height \(h\) is defined as follows:
   all internal nodes come first, the leaves come second,
   and empty successors (the 'Empty's, which are not really nodes of the tree) come last.
 
-Particularly, complete binary trees are used as data structures or addressing schemes for heaps.
+In particular, complete binary trees are used as data structures or addressing schemes for heaps.
 
 Write a function to construct a complete binary tree with the given number of nodes.
 

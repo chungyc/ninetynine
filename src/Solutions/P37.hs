@@ -11,10 +11,9 @@ module Solutions.P37 (totient') where
 import           Problems.P36
 
 -- | Calculate Euler's totient function \(\phi(m)\).
+-- See 'Problems.P34.totient' for the definition of Euler's totient function.
 --
--- See 'Problems.P34' for the definition of Euler's totient function.
 -- Implement an improved version based on Euler's product formula.
---
 -- If the prime factors of \(m\) are known, i.e.,
 --
 -- \[ m = \prod_{i=1}^r {p_i}^{k_i} \]

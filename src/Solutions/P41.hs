@@ -14,7 +14,7 @@ import           Problems.P40
 -- return a list of all Goldbach compositions for the even numbers in the range.
 --
 -- In most cases, if an even number is written as the sum of two prime numbers, one of them is very small.
--- Very rarely, the primes are both bigger than say 50.
+-- Very rarely, it cannot be a sum of primes for which at least one is smaller than, say, 50.
 -- Try to find out how many such cases there are in the range \([2,3000]\).
 goldbachList :: Integral a => a -> a -> [(a,a)]
 goldbachList m n = map goldbach $ takeWhile (n >=) [m',m'+2..]

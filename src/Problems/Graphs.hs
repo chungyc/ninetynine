@@ -166,8 +166,6 @@ equals g g' = vs == vs' && es == es'
 --
 -- On the other hand, the following is a consistent representation of a graph.
 -- Unfortunately, it cannot be proven that it is consistent using just the values.
--- For the general case, even knowledge of the code will not always be enough;
--- otherwise, this would lead to an algorithm for the [halting problem](https://brilliant.org/wiki/halting-problem/).
 --
 -- >>> :{
 -- let v1 = Var 1 [v2]

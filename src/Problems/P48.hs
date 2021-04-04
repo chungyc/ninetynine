@@ -1,5 +1,5 @@
 {- |
-Description: Truth tables for \(n\)-ary boolean function
+Description: Truth tables for \(n\)-ary boolean functions
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org

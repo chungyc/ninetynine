@@ -18,165 +18,141 @@ The source for this module is available at https://github.com/chungyc/ninetynine
 module Problems (
   -- * List problems
   -- ** Problem 1
-  -- | &#129335;
+  -- | == &#129335; Last element of a list
   myLast,
   -- ** Problem 2
-  -- | &#129335;
+  -- | == &#129335; Penultimate element of a list
   myButLast,
   -- ** Problem 3
-  -- | &#129335;
+  -- | == &#129335; Find element of a list at a given position
   elementAt,
   -- ** Problem 4
-  -- | &#129335;
+  -- | == &#129335; Length of a list
   myLength,
   -- ** Problem 5
-  -- | &#129335;
+  -- | == &#129335; Reverse a list
   myReverse,
   -- ** Problem 6
-  -- | &#129335;
+  -- | == &#129335; Palindromes
   isPalindrome,
   -- ** Problem 7
-  -- | &#129335; &#129335;
-  --
-  -- === Flatten a nested list structure
+  -- | == &#129335; &#129335; Flatten a nested list structure
   flatten,
   NestedList (Elem, List),
   -- ** Problem 8
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Eliminate duplicate elements in a list
   compress,
   -- ** Problem 9
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Pack duplicates in a list
   pack,
   -- ** Problem 10
-  -- | &#129335;
-  --
-  -- === Run-length encoding of a list
+  -- | == &#129335; Run-length encoding of a list
   encode,
   -- ** Problem 11
-  -- | &#129335;
-  --
-  -- === Modified run-length encoding
+  -- | == &#129335; Modified run-length encoding
   encodeModified,
   Encoding (Single, Multiple),
   -- ** Problem 12
-  -- | &#129335; &#129335;
-  --
-  -- === Decode a run-length encoded list
+  -- | == &#129335; &#129335; Decode a run-length encoded list
   decodeModified,
   -- ** Problem 13
-  -- | &#129335; &#129335;
-  --
-  -- === Run-length encoding of a list; direct solution
+  -- | == &#129335; &#129335; Run-length encoding of a list; direct solution
   encodeDirect,
   -- ** Problem 14
-  -- | &#129335;
+  -- | == &#129335; Duplicate elements in a list
   dupli,
   -- ** Problem 15
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Replicate elements of a list
   repli,
   -- ** Problem 16
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Drop elements in a list
   dropEvery,
   -- ** Problem 17
-  -- | &#129335;
+  -- | == &#129335; Split a list
   split,
   -- ** Problem 18
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Extract a slice from a list
   slice,
   -- ** Problem 19
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Rotate a list
   rotate,
   -- ** Problem 20
-  -- | &#129335;
+  -- | == &#129335; Remove element from a list
   removeAt,
   -- ** Problem 21
-  -- | &#129335;
+  -- | == &#129335; Insert element into a list
   insertAt,
   -- ** Problem 22
-  -- | &#129335;
+  -- | == &#129335; Range of integers
   range,
   -- ** Problem 23
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Select random elements from a list
   randomSelect,
   -- ** Problem 24
-  -- | &#129335;
-  --
-  -- === Lotto
+  -- | == &#129335; Lotto
   randomDraw,
   -- ** Problem 25
-  -- | &#129335;
+  -- | == &#129335; Random permutation of a list
   randomPermute,
   -- ** Problem 26
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Combinations
   combinations,
   -- ** Problem 27
-  -- | &#129335; &#129335;
-  --
-  -- === Group the elements of a set into disjoint subsets
+  -- | == &#129335; &#129335; Group the elements of a set into disjoint subsets
   disjointGroups,
   -- ** Problem 28
-  -- | &#129335; &#129335;
-  --
-  -- === Sorting a list of lists according to length of sublists
+  -- | == &#129335; &#129335; Sorting a list of lists according to length of sublists
   lsort,
   lfsort,
   -- * Arithmetic problems
   -- ** Problem 31
-  -- | &#129335; &#129335;
-  --
-  -- === Primality checking
+  -- | == &#129335; &#129335; Primality checking
   isPrime,
   -- ** Problem 32
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Greatest common divisor
   myGCD,
   -- ** Problem 33
-  -- | &#129335;
+  -- | == &#129335; Coprimality
   coprime,
   -- ** Problem 34
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Euler's totient function
   totient,
   -- ** Problem 35
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; List of prime factors
   primeFactors,
   -- ** Problem 36
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; List of prime factors and their multiplicities
   primeFactorsMultiplicity,
   -- ** Problem 37
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Euler's totient function with Euler's product formula
   totient',
   -- ** Problem 39
-  -- | &#129335;
+  -- | == &#129335; List of prime numbers
   primesR,
   primes,
   -- ** Problem 40
-  -- | &#129335; &#129335;
-  --
-  -- === Goldbach's conjecture
+  -- | == &#129335; &#129335; Goldbach's conjecture
   goldbach,
   -- ** Problem 41
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; List of Goldbach pairs
   goldbachList,
   -- * Logic and code problems
   -- ** Problem 46
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Truth tables for logical expressions
   BoolFunc,
   table,
   -- ** Problem 48
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Truth tables for \(n\)-ary boolean functions
   tablen,
   -- ** Problem 49
-  -- | &#129335; &#129335;
-  --
-  -- === Gray codes
+  -- | == &#129335; &#129335; Gray codes
   gray,
   -- ** Problem 50
-  -- | &#129335; &#129335; &#129335;
-  --
-  -- === Huffman codes
+  -- | == &#129335; &#129335; &#129335; Huffman codes
   huffman,
   -- * Binary tree problems
   -- ** Problem 54
-  -- | &#129335;
+  -- | == &#129335; Binary trees
   Tree (Empty, Branch),
   leaf,
   tree1,
@@ -184,69 +160,55 @@ module Problems (
   tree3,
   tree4,
   -- ** Problem 55
-  -- | &#129335; &#129335;
-  --
-  -- === Construct completely balanced binary trees
+  -- | == &#129335; &#129335; Construct completely balanced binary trees
   completelyBalancedTrees,
   -- ** Problem 56
-  -- | &#129335; &#129335;
-  --
-  -- === Symmetric binary trees
+  -- | == &#129335; &#129335; Symmetric binary trees
   symmetric,
   -- ** Problem 57
-  -- | &#129335; &#129335;
-  --
-  -- === Binary search trees
+  -- | == &#129335; &#129335; Binary search trees
   construct,
   addedTo,
   -- ** Problem 58
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Symmetric and completely balanced binary trees
   symmetricBalancedTrees,
   -- ** Problem 59
-  -- | &#129335; &#129335;
-  --
-  -- === Construct height-balanced binary trees
+  -- | == &#129335; &#129335; Construct height-balanced binary trees
   heightBalancedTrees,
   -- ** Problem 60
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Height-balanced binary trees with given number of nodes
   heightBalancedTreesWithNodes,
   -- ** Problem 61
-  -- | &#129335;
+  -- | == &#129335; Collect nodes of a binary tree
   leaves,
   internals,
   -- ** Problem 62
-  -- | &#129335;
+  -- | == &#129335; Collect nodes at a given level
   atLevel,
   -- ** Problem 63
-  -- | &#129335; &#129335;
-  --
-  -- === Construct a complete binary tree
+  -- | == &#129335; &#129335; Construct a complete binary tree
   completeBinaryTree,
   isCompleteBinaryTree,
   -- ** Problem 64
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Binary tree layout; in-order
   layoutInorder,
   -- ** Problem 65
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Binary tree layout; constant distance at each level
   layoutLevelConstant,
   -- ** Problem 66
-  -- | &#129335; &#129335; &#129335;
+  -- | ==  &#129335; &#129335; &#129335; Binary tree layout; compact
   layoutCompact,
   -- ** Problem 67
-  -- | &#129335; &#129335;
-  --
-  -- === A string representation of binary trees
+  -- | == &#129335; &#129335; A string representation of binary trees
   treeToString,
   stringToTree,
   -- ** Problem 68
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; In-order and pre-order sequences of binary trees
   inorder,
   preorder,
   ordersToTree,
   -- ** Problem 69
-  -- | &#129335; &#129335;
-  --
-  -- === Dotstring representation of binary trees
+  -- | == &#129335; &#129335; Dotstring representation of binary trees
   dotstringToTree,
   treeToDotstring,
   -- * Multiway tree problems
@@ -257,20 +219,17 @@ module Problems (
   multitree4,
   multitree5,
   -- ** Problem 70
-  -- | &#129335; &#129335;
-  -- === Tree construction from a node string
+  -- | == &#129335; &#129335; Tree construction from a node string
   stringToMultitree,
   multitreeToString,
   -- ** Problem 71
-  -- | &#129335;
+  -- | == &#129335; Internal path length of a tree
   internalPathLength,
   -- ** Problem 72
-  -- | &#129335;
+  -- | == &#129335; Post-order sequence of a tree
   postOrderSequence,
   -- ** Problem 73
-  -- | &#129335; &#129335;
-  --
-  -- === Tree representation with s-expressions
+  -- | == &#129335; &#129335; Tree representation with s-expressions
   treeToSexp,
   sexpToTree,
   -- * Graph problems
@@ -283,86 +242,60 @@ module Problems (
   Paths (Paths),
   G (G),
   -- ** Problem 80
-  -- | &#129335; &#129335; &#129335;
+  -- | == &#129335; &#129335; &#129335; Converting between graph representations
   ConvertibleGraph,
   toLists,
   toAdjacency,
   toPaths,
   toG,
   -- ** Problem 81
-  -- | &#129335; &#129335;
-  --
-  -- === Paths between vertexes
+  -- | == &#129335; &#129335; Paths between vertexes
   paths,
   -- ** Problem 82
-  -- | &#129335; &#129335;
-  --
-  -- === Cycles with a given vertex
+  -- | == &#129335; &#129335; Cycles with a given vertex
   cycles,
   -- ** Problem 83
-  -- | &#129335; &#129335;
-  --
-  -- === Construct spanning trees
+  -- | == &#129335; &#129335; Construct spanning trees
   spanningTrees,
   isTree,
   isConnected,
   -- ** Problem 84
-  -- | &#129335; &#129335;
-  --
-  -- === Construct minimum spanning tree
+  -- | == &#129335; &#129335; Construct minimum spanning tree
   minimumSpanningTree,
   -- ** Problem 85
-  -- | &#129335; &#129335;
-  --
-  -- === Graph isomorphism
+  -- | == &#129335; &#129335; Graph isomorphism
   isomorphic,
   -- ** Problem 86
-  -- | &#129335; &#129335;
+  -- | == &#129335; &#129335; Graph coloring
   colorGraph,
   -- ** Problem 87
-  -- | &#129335; &#129335;
-  --
-  -- === Depth-first graph traversal
+  -- | == &#129335; &#129335; Depth-first graph traversal
   depthFirst,
   -- ** Problem 88
-  -- | &#129335; &#129335;
-  --
-  -- === Connected components
+  -- | == &#129335; &#129335; Connected components
   connectedComponents,
   -- * Miscellaenous problems
   -- ** Problem 90
-  -- | &#129335; &#129335;
-  --
-  -- === Find all solutions to the \(n\) queens problem
+  -- | == &#129335; &#129335; Find all solutions to the \(n\) queens problem
   queens,
   -- ** Problem 91
-  -- | &#129335; &#129335;
-  --
-  -- === Knight's tour
+  -- | == &#129335; &#129335; Knight's tour
   knightsTour,
   closedKnightsTour,
   -- ** Problem 92
-  -- | &#129335; &#129335; &#129335;
-  --
-  -- === Graceful tree labeling
+  -- | == &#129335; &#129335; &#129335; Graceful tree labeling
   gracefulTree,
   -- ** Problem 93
-  -- | &#129335; &#129335; &#129335;
-  --
-  -- === An arithmetic puzzle
+  -- | == &#129335; &#129335; &#129335; An arithmetic puzzle
   arithmeticPuzzle,
   -- ** Problem 94
-  -- | &#129335; &#129335; &#129335;
+  -- | == &#129335; &#129335; &#129335; Regular graphs
   regularGraphs,
   -- ** Problem 95
-  -- |  &#129335; &#129335;
-  --
-  -- === English number words
+  -- | == &#129335; &#129335; English number words
   fullWords,
   -- ** Problem 97
-  -- |  &#129335; &#129335;
-  --
-  -- === Sudoku
+  -- | == &#129335; &#129335; Sudoku
   sudoku,
   ) where
 
