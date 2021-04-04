@@ -5,6 +5,7 @@ Maintainer: dev@chungyc.org
 -}
 module Main (main) where
 
+import           Data.List                (intercalate)
 import           Problems.BinaryTrees.SVG
 import           Problems.P64
 import           Problems.P65
@@ -77,10 +78,11 @@ printRegularGraphExamples = withFile ("src" </> "Problems" </> "P94" </> "Exampl
   hPutStrLn h "regularGraphExamples :: [Paths]"
   hPutStrLn h "regularGraphExamples = ["
   hPutStrLn h ""
-  mapM_ (printRegularGraphs h) $ [(n,k) | n <- [3..8], k <- [2..n-1]] ++ [(9,2)]
+  mapM_ (printRegularGraphs h) [(n,k) | n <- [3..8], k <- [2..n-1]]
   -- Last manual output for the sake of avoiding an errant comma.
-  hPutStrLn h "  -- (n,k) = (0,0) with 1 solution"
-  hPutStrLn h "  Paths []"
+  hPutStrLn h "  -- (n,k) = (9,2) with 4 solutions"
+  hPutStr h "  "
+  hPutStrLn h $ intercalate ",\n  " $ map (show . toPaths) $ regularGraphs 9 2
   hPutStrLn h ""
   hPutStrLn h "  ]"
 
