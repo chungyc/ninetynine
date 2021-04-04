@@ -8,7 +8,7 @@ Some solutions to "Problems.P31" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P31 (isPrime, isPrime', isPrime'') where
 
-import           Solutions.P31.Functions
+import           Solutions.Arithmetic
 
 -- | Determine whether a given integer number is prime.
 --

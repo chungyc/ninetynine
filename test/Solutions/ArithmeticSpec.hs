@@ -1,6 +1,6 @@
-module Solutions.P31.FunctionsSpec (spec) where
+module Solutions.ArithmeticSpec (spec) where
 
-import           Solutions.P31.Functions
+import           Solutions.Arithmetic
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck

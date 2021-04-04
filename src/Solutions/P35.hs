@@ -8,7 +8,7 @@ Some solutions to "Problems.P35" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P35 (primeFactors) where
 
-import           Solutions.P31.Functions
+import           Solutions.Arithmetic
 
 -- | Determine the prime factors of a given positive integer.
 -- Construct a list containing the prime factors in ascending order.

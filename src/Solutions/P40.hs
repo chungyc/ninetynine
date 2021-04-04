@@ -9,7 +9,7 @@ Some solutions to "Problems.P40" of Ninety-Nine Haskell "Problems".
 module Solutions.P40 (goldbach) where
 
 import           Problems.P31
-import           Solutions.P31.Functions
+import           Solutions.Arithmetic
 
 -- | Goldbach's conjecture says that every positive even number greater than 2 is the sum of two prime numbers.
 -- For example: \(28 = 5 + 23\).
