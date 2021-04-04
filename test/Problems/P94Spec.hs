@@ -48,13 +48,6 @@ properties regularGraphs name = describe name $ modifyMaxSize (const 6) $ do
           , ((7,4), 2)
           , ((7,5), 0)
           , ((7,6), 1)
-          , ((8,2), 3)
-          , ((8,3), 6)
-          , ((8,4), 6)
-          , ((8,5), 3)
-          , ((8,6), 1)
-          , ((8,7), 1)
-          , ((9,2), 4)
           ]
       (\((n, k), r) -> it ("with " ++ show (n,k)) (length (regularGraphs n k) `shouldBe` r))
 
