@@ -10,7 +10,8 @@ For example, the module `Problems.P11` provides a skeleton in which you can
 provide your own implementation.  Once implemented, you can run the existing tests
 to confirm it is indeed a correct solution, or at least one without obvious bugs.
 You can also run existing benchmarks against your solution, e.g.,
-if you are curious how your amazingly clever but complicated solution performs.
+if you are curious how your amazingly clever but complicated solution performs
+compared to a simpler one.
 
 Modules under `Solutions` are those implemented by yours truly.
 The problem skeletons alias to these, so that tests against the problems can pass
@@ -57,7 +58,7 @@ $ stack test
 If you want to run tests for only a single problem:
 
 ```shell
-$ EXPORT PROBLEM=P01
+$ export PROBLEM=P01
 $ stack test --test-arguments=--match=$PROBLEM
 ```
 
@@ -85,13 +86,16 @@ $ export BENCHMARKFILE=$HOME/benchmarks.html
 $ stack bench --benchmark-arguments="--output=$BENCHMARKFILE $PROBLEM"
 ```
 
-### Quick edit cycle
+### Reducing recompilations
 
-If you would like to build all code, run tests, and regenerate documentation
-automatically after any change is saved, then the following command will do so.
+When running `stack test` and `stack bench` together,
+the build system will want to rebuild everything in the project.
+To restrict rebuilds to only modules that you have edited when running
+tests and benchmarks together, use the following commands instead:
 
 ```shell
-$ stack build --test --bench --haddock --no-run-benchmarks --file-watch --watch-all
+$ stack build --test --bench --no-run-tests
+$ stack build --test --bench --no-run-benchmarks
 ```
 
 ## License
@@ -101,14 +105,17 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License,
 or (at your option) any later version.
 
+For more permissive use of the problems themselves, refer back to the original list of
+Ninety-Nine Haskell Problems on the [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
+
 ## Notes
 
 There are not actually 99 problems.
 
 This project does not have a standard line length, in that it does not try to fit
-descriptive pose within a fixed number of columns.
+descriptive prose within a fixed number of columns.
 Instead, line breaks are wherever I felt like putting them.
-However, there is a hard limit of 120 characters per line.
+However, there is a hard limit of 120 characters per line if it is not problematic.
 
 There are some differences between the problems in this project and those
 at [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).

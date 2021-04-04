@@ -5,10 +5,26 @@ License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
 This is a list of Ninety-Nine Haskell Problems.
-Some solutions to these problems are in "Solutions".
 
-The number of shruggies (&#129335;) indicate difficulty level, and are based on the original list.
-These difficulty levels were based on the original list of Prolog problems,
+Each problem is provided a skeleton where you can implement your own solutions.
+For example, the "Problems.P11" module provides a skeleton in which you can
+provide your own implementation.  Once implemented, you can run the existing tests
+to confirm it is indeed a correct solution, or at least one without obvious bugs.
+You can also run existing benchmarks against your solution, e.g.,
+if you are curious how your amazingly clever but complicated solution performs
+compared to a simpler one.
+
+To run tests for a specific problem, for example "Problems.P11", execute:
+
+> $ stack build --test --bench --no-run-benchmarks --test-arguments=--match=P11
+
+To run benchmarks for a specific problem, for example "Problems.P11", execute:
+
+> $ stack build --test --bench --no-run-tests --benchmark-arguments=P11
+
+Some solutions to these problems are in the "Solutions" module.
+The number of shruggies (&#129335;) indicate difficulty level.
+These difficulty levels are based on the original list of Prolog problems,
 so they may not be appropriate in the context of Haskell.
 
 These are based on the Ninety-Nine Haskell Problems on
