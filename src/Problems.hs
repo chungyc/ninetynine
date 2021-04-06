@@ -14,14 +14,6 @@ You can also run existing benchmarks against your solution, e.g.,
 if you are curious how your amazingly clever but complicated solution performs
 compared to a simpler one.
 
-To run tests for a specific problem, for example "Problems.P11", execute:
-
-> $ stack build --test --bench --no-run-benchmarks --test-arguments=--match=P11
-
-To run benchmarks for a specific problem, for example "Problems.P11", execute:
-
-> $ stack build --test --bench --no-run-tests --benchmark-arguments=P11
-
 Some solutions to these problems are in the "Solutions" module.
 The number of shruggies (&#129335;) indicate difficulty level.
 These difficulty levels are based on the original list of Prolog problems,
