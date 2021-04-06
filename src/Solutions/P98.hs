@@ -134,13 +134,14 @@ replaceColumn picture column (Just line) = Just $ picture // cells
 -- pick a bit at random and see what happens if we pretend it's definite.
 guess :: RandomGen g => [[Int]] -> [[Int]] -> [Int] -> [Int] -> Bitmap -> g -> (Maybe Bitmap, g)
 guess rows columns remainingRows remainingColumns picture gen =
-  case picture' of Nothing -> (picture'', gen''')
-                   _       -> (picture', gen'')
+  case picture' of Nothing -> (picture'', gen'''')
+                   _       -> (picture', gen''')
   where candidates = filter (\p -> isNothing $ picture ! p) [(r,c) | r <- remainingRows, c <- remainingColumns]
         (i, gen') = randomR (0, length candidates - 1) gen
         candidate = candidates !! i
-        (picture', gen'') = fill (picture // [(candidate, Just False)]) gen'
-        (picture'', gen''') = fill (picture // [(candidate, Just True)]) gen''
+        (firstValue, gen'') = random gen'
+        (picture', gen''') = fill (picture // [(candidate, Just firstValue)]) gen''
+        (picture'', gen'''') = fill (picture // [(candidate, Just $ not firstValue)]) gen'''
         fill = fillBitmap rows columns remainingRows remainingColumns
 
 -- The definitions above deals with the scaffolding for solving the problem.
