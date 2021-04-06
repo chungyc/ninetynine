@@ -212,6 +212,8 @@ module Solutions (
   fullWords,
   -- ** Problem 97
   sudoku,
+  -- ** Problem 98
+  nonogram,
   ) where
 
 import           Problems.BinaryTrees
@@ -295,3 +297,4 @@ import           Solutions.P93
 import           Solutions.P94
 import           Solutions.P95
 import           Solutions.P97
+import           Solutions.P98

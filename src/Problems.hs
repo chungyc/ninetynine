@@ -316,6 +316,9 @@ module Problems (
   -- ** Problem 97
   -- | == &#129335; &#129335; Sudoku
   sudoku,
+  -- ** Problem 98
+  -- | == &#129335; &#129335; &#129335; Nonograms
+  nonogram,
   ) where
 
 import           Problems.BinaryTrees
@@ -401,3 +404,4 @@ import           Problems.P93
 import           Problems.P94
 import           Problems.P95
 import           Problems.P97
+import           Problems.P98
