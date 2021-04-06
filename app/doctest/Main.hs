@@ -58,7 +58,7 @@ stateless = mapFiles
   , "P83.hs", "P85.hs"
   , "P89.hs"
   , "P94.hs"
-  , "P95.hs", "P97.hs"
+  , "P95.hs", "P97.hs", "P98.hs"
   ]
 
 -- | Deterministic examples with local definitions to reset.
@@ -66,7 +66,7 @@ stateful :: [String]
 stateful = mapFiles [ "P26.hs", "P27.hs", "P48.hs", "P57.hs"
                     , "P61.hs", "P62.hs", "P66.hs", "P68.hs", "P69.hs"
                     , "P81.hs", "P82.hs", "P84.hs", "P87.hs", "P88.hs", "P90.hs"
-                    , "P93.hs", "P98.hs"
+                    , "P93.hs"
                     ]
 
 -- | Deterministic examples in background modules.

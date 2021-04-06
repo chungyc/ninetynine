@@ -6,7 +6,7 @@ Maintainer: dev@chungyc.org
 
 Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P97".
 -}
-module Problems.P97 (sudoku, sudokupuzzle, printsudoku) where
+module Problems.P97 (sudoku, sudokuPuzzle, printSudoku) where
 
 import           Data.List     (intercalate)
 import qualified Solutions.P97 as Solution
@@ -64,7 +64,7 @@ Each row will be a list of 9 numbers from 0 to 9, where 0 signifies a blank spot
 
 === Examples
 
->>> printsudoku $ sudoku sudokupuzzle
+>>> printSudoku $ sudoku sudokuPuzzle
 9 3 4 8 2 5 6 1 7
 6 7 2 9 1 4 8 5 3
 5 1 8 6 3 7 9 2 4
@@ -79,8 +79,8 @@ sudoku :: [[Int]] -> Maybe [[Int]]
 sudoku = Solution.sudoku
 
 -- | An example Sudoku puzzle which can be fed into 'sudoku'.
-sudokupuzzle :: [[Int]]
-sudokupuzzle =
+sudokuPuzzle :: [[Int]]
+sudokuPuzzle =
   [ [ 0, 0, 4, 8, 0, 0, 0, 1, 7 ]
   , [ 6, 7, 0, 9, 0, 0, 0, 0, 0 ]
   , [ 5, 0, 8, 0, 3, 0, 0, 2, 4 ]
@@ -93,9 +93,9 @@ sudokupuzzle =
   ]
 
 -- | Prints a puzzle or solution for 'sudoku' in tabular form.
-printsudoku :: Maybe [[Int]] -> IO ()
-printsudoku Nothing = return ()
-printsudoku (Just solution) = mapM_ putStrLn outputLines
+printSudoku :: Maybe [[Int]] -> IO ()
+printSudoku Nothing = return ()
+printSudoku (Just solution) = mapM_ putStrLn outputLines
   where outputLines = map (intercalate " " . map showInt) solution
         showInt 0 = "."
         showInt n = show n

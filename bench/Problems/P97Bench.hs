@@ -6,19 +6,19 @@ Maintainer: dev@chungyc.org
 module Problems.P97Bench (group) where
 
 import           Criterion
-import           Problems.P97  (sudokupuzzle)
+import           Problems.P97  (sudokuPuzzle)
 import qualified Problems.P97  as Problem
 import qualified Solutions.P97 as Solution
 
 group :: Benchmark
 group = bgroup "P97"
-  [ bench "sudoku sudokupuzzle" $ nf Problem.sudoku sudokupuzzle
-  , bench "sudoku blankpuzzle" $ nf Problem.sudoku blankpuzzle
+  [ bench "sudoku sudokuPuzzle" $ nf Problem.sudoku sudokuPuzzle
+  , bench "sudoku blankPuzzle" $ nf Problem.sudoku blankPuzzle
   , bgroup "Solutions"
-    [ bench "sudoku sudokupuzzle" $ nf Solution.sudoku sudokupuzzle
-    , bench "sudoku blankpuzzle" $ nf Solution.sudoku blankpuzzle
+    [ bench "sudoku sudokuPuzzle" $ nf Solution.sudoku sudokuPuzzle
+    , bench "sudoku blankPuzzle" $ nf Solution.sudoku blankPuzzle
     ]
   ]
 
-blankpuzzle :: [[Int]]
-blankpuzzle = replicate 9 $ replicate 9 0
+blankPuzzle :: [[Int]]
+blankPuzzle = replicate 9 $ replicate 9 0

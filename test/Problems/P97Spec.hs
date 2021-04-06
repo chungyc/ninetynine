@@ -55,8 +55,8 @@ properties sudoku name = modifyMaxSize (const 81) $ do
 examples :: Spec
 examples = do
   describe "Examples" $ do
-    it "sudoku sudokupuzzle" $ do
-      sudoku sudokupuzzle `shouldBe` Just
+    it "sudoku sudokuPuzzle" $ do
+      sudoku sudokuPuzzle `shouldBe` Just
         [ [ 9, 3, 4, 8, 2, 5, 6, 1, 7 ]
         , [ 6, 7, 2, 9, 1, 4, 8, 5, 3 ]
         , [ 5, 1, 8, 6, 3, 7, 9, 2, 4 ]
@@ -70,7 +70,7 @@ examples = do
         -- sudokupuzzle has unique solution
 
   where sudoku = Problem.sudoku
-        sudokupuzzle = Problem.sudokupuzzle
+        sudokuPuzzle = Problem.sudokuPuzzle
 
 spec :: Spec
 spec = parallel $ do
@@ -115,7 +115,7 @@ newtype SudokuPuzzle = SudokuPuzzle [[Int]]
 -- in case the solver only generates pathological test cases
 -- where they are the only ones the solver knows how to solve.
 instance Arbitrary SudokuPuzzle where
-  arbitrary = frequency [ (10, sized $ fromSolution), (1, elements sudokupuzzles) ]
+  arbitrary = frequency [ (10, sized $ fromSolution), (1, elements sudokuPuzzles) ]
     where fromSolution = \n -> MkGen (\r _ -> generateProblem r n)
 
 -- Test case size controls number of spots to make blank.
@@ -133,8 +133,8 @@ makeBlankSpots g n p = fst $ head $ drop n $ iterate step (p, positions)
         (g',g'') = split g
 
 -- Sudoku puzzles which are known to have solutions.
-sudokupuzzles :: [SudokuPuzzle]
-sudokupuzzles = map SudokuPuzzle
+sudokuPuzzles :: [SudokuPuzzle]
+sudokuPuzzles = map SudokuPuzzle
   [ [ [ 0, 6, 0, 1, 0, 8, 0, 0, 0 ]
     , [ 1, 0, 0, 0, 0, 4, 0, 0, 5 ]
     , [ 0, 4, 0, 3, 9, 0, 0, 7, 0 ]

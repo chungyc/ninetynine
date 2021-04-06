@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 20a7b9b8a4bdf974585c584ef3343a36389c4666c94666ffac4546f538c29552
+-- hash: 54014d678be4e280162b3eb6b129d8f9db07f6647949d4c6f177b2c7043f1ba3
 
 name:           ninetynine
 version:        0.3.0.0
@@ -244,6 +244,7 @@ library
     , base >=4.7 && <5
     , containers
     , deepseq
+    , mtl
     , prettyprinter
     , random
     , text

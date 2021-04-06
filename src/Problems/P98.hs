@@ -6,7 +6,7 @@ Maintainer: dev@chungyc.org
 
 Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P98".
 -}
-module Problems.P98 (nonogram, printNonogramPuzzle, printNonogramSolution) where
+module Problems.P98 (nonogram, printNonogramPuzzle, printNonogramSolution, nonogramPuzzle) where
 
 import           Data.List     (group, intercalate, transpose)
 import qualified Solutions.P98 as Solution
@@ -37,11 +37,15 @@ The person who solves the puzzle must complete the bitmap given only these lengt
 Published puzzles are larger than this example, e.g., \(25 \times 20\),
 and apparently always have unique solutions.
 
+Try to solve the \(25 \times 25\) puzzle in 'nonogramPuzzle'.
+
 === Examples
 
->>> let rows = [[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]]
->>> let columns = [[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]]
->>> printNonogramSolution $ nonogram rows columns
+>>> :{
+printNonogramSolution $
+nonogram [[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]]
+         [[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]]
+:}
    ■ ■ ■          3
  ■ ■   ■          2 1
    ■ ■ ■     ■ ■  3 2
@@ -69,9 +73,11 @@ nonogram = Solution.nonogram
 {- |
 Print out a nonogram puzzle.
 
->>> let rows = [[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]]
->>> let columns = [[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]]
->>> printNonogramPuzzle rows columns
+>>> :{
+printNonogramPuzzle
+  [[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]]
+  [[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]]
+:}
  □ □ □ □ □ □ □ □  3
  □ □ □ □ □ □ □ □  2 1
  □ □ □ □ □ □ □ □  3 2
@@ -92,9 +98,11 @@ printNonogramPuzzle rows columns = printNonogram rows columns Nothing
 {- |
 Print out a nonogram solution.
 
->>> let rows = [[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]]
->>> let columns = [[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]]
->>> printNonogramSolution $ nonogram rows columns
+>>> :{
+printNonogramSolution $
+nonogram [[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]]
+         [[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]]
+:}
    ■ ■ ■          3
  ■ ■   ■          2 1
    ■ ■ ■     ■ ■  3 2
@@ -156,3 +164,19 @@ formatColumns columns = transpose texts'
         -- make all strings the same length
         texts' = map (\t -> t ++ replicate (l - length t) ' ') texts
         l = maximum $ map length texts
+
+-- | A nonogram puzzle of size \(25 \times 25\).
+--
+-- >>> printNonogramSolution $ let (rs, cs) = nonogramPuzzle in nonogram rs cs
+-- ...
+nonogramPuzzle :: ([[Int]],[[Int]])
+nonogramPuzzle =
+  -- From https://nonograms-katana.com/, which states "All puzzles are free".
+  -- This is the 25x25 Pegasus puzzle.
+  ( [ [11], [11], [10], [9,1], [8,3], [8,5], [7,7], [7,9], [5,5,2], [9], [13], [16], [2,14], [2,14]
+    , [3,14], [2,15], [2,4,5], [3,4,3], [2,5,1,1], [2,2,1,1], [1,2,2,1], [1,2,2], [1,1], [2,2], [2,2]
+    ]
+  , [ [1,2], [1,5], [2,6], [2,4], [3,1], [3,5,6], [4,10,2], [6,9,1], [8,11], [9,12], [9,6,3]
+    , [15,2], [15,1], [14], [5,7], [8], [10], [11], [12,1], [6,6], [4,2,1], [5,5], [3], [3], [2]
+    ]
+  )

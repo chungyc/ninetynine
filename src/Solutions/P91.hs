@@ -19,7 +19,7 @@ import qualified Data.Set   as Set
 -- Write a function which returns a knight's tour ending at a particular square.
 -- Represent the squares by their coordinates with
 -- the tuple \((x,y)\), where \(1 \leq x \leq N\) and \(1 \leq y \leq N\).
--- A tour will be a list of these tuples of length \(N * N\).
+-- A tour will be a list of these tuples of length \(N \times N\).
 knightsTour :: Int -> (Int,Int) -> Maybe [(Int,Int)]
 knightsTour n pos
   | not legalEnd = Nothing

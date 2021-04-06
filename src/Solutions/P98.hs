@@ -8,11 +8,12 @@ Some solutions to "Problems.P98" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P98 (nonogram) where
 
-import           Data.Array    (Array, listArray, (!), (//))
-import qualified Data.Array    as Array
-import           Data.Foldable (foldlM)
-import           Data.List     (group)
-import           Data.Maybe    (fromJust, isJust, isNothing)
+import           Control.Monad.State.Lazy
+import           Data.Array               (Array, listArray, (!), (//))
+import qualified Data.Array               as Array
+import           Data.Foldable            (foldlM)
+import           Data.List                (group, sortOn)
+import           Data.Maybe               (fromJust, isJust, isNothing)
 import           System.Random
 
 {- |
@@ -91,7 +92,9 @@ getColumnSize picture = snd $ snd $ Array.bounds picture
 --    If there are still indefinite bits, pretend that one of them is definite and go back to 1.
 fillBitmap :: RandomGen g => [[Int]] -> [[Int]] -> [Int] -> [Int] -> Bitmap -> g -> (Maybe Bitmap, g)
 fillBitmap rows columns remainingRows remainingColumns picture gen
-  | all isJust picture      = (Just picture, gen)
+  | all isJust picture      = case isConsistentWithPuzzle picture rows columns of
+                                True  -> (Just picture, gen)
+                                False -> (Nothing, gen)
   | isNothing maybePicture' = (Nothing, gen)
   | picture == picture'     = guess rows columns remainingRows remainingColumns picture gen
   | otherwise               = fillBitmap rows columns remainingRows' remainingColumns' picture' gen
@@ -103,6 +106,12 @@ fillBitmap rows columns remainingRows remainingColumns picture gen
         remainingColumns' = filter isIncompleteColumn remainingColumns
         isIncompleteRow r = any (\c -> isNothing $ picture' ! (r,c)) [1..getColumnSize picture']
         isIncompleteColumn c = any (\r -> isNothing $ picture' ! (r,c)) [1..getRowSize picture']
+
+isConsistentWithPuzzle :: Bitmap -> [[Int]] -> [[Int]] -> Bool
+isConsistentWithPuzzle picture rows columns = withRows && withColumns
+  where withRows = rows == map (\r -> lengths $ getRow picture r) [1..getRowSize picture]
+        withColumns = columns == map (\c -> lengths $ getColumn picture c) [1..getColumnSize picture]
+        lengths = map length . filter head . group . map fromJust . Array.elems
 
 fillRows :: [[Int]] -> [Int] -> Bitmap -> Maybe Bitmap
 fillRows rows remainingRows p = foldlM (\p' -> \i -> fill p' i $ rows !! (i-1)) p remainingRows
@@ -134,15 +143,36 @@ replaceColumn picture column (Just line) = Just $ picture // cells
 -- pick a bit at random and see what happens if we pretend it's definite.
 guess :: RandomGen g => [[Int]] -> [[Int]] -> [Int] -> [Int] -> Bitmap -> g -> (Maybe Bitmap, g)
 guess rows columns remainingRows remainingColumns picture gen =
-  case picture' of Nothing -> (picture'', gen'''')
-                   _       -> (picture', gen''')
+  runState (guess' rows columns remainingRows remainingColumns picture) gen
+
+guess' :: RandomGen g => [[Int]] -> [[Int]] -> [Int] -> [Int] -> Bitmap -> State g (Maybe Bitmap)
+guess' rows columns remainingRows remainingColumns picture = do
+  tags <- rnds  -- Random numbers used for random tie breaking during sorting.
+  value <- rnd  -- Definite value to try first
+  let candidate = fst $ head $ sortOn (countIndefiniteNeighbors picture) $ zip candidates tags
+  picture' <- fill $ picture // [(candidate, Just value)]
+  case picture' of
+    Nothing -> fill $ picture // [(candidate, Just $ not value)]
+    _       -> return picture'
   where candidates = filter (\p -> isNothing $ picture ! p) [(r,c) | r <- remainingRows, c <- remainingColumns]
-        (i, gen') = randomR (0, length candidates - 1) gen
-        candidate = candidates !! i
-        (firstValue, gen'') = random gen'
-        (picture', gen''') = fill (picture // [(candidate, Just firstValue)]) gen''
-        (picture'', gen'''') = fill (picture // [(candidate, Just $ not firstValue)]) gen'''
-        fill = fillBitmap rows columns remainingRows remainingColumns
+        fill p = state $ fillBitmap rows columns remainingRows remainingColumns p
+
+-- | For sorting positions so that those that have more definite values in the same row and column come first.
+-- This will hopefully make it more likely to cause a contradiction earlier if there is no solution
+-- when we set a definite value for a position, i.e., prunes the search space much more.
+countIndefiniteNeighbors :: Bitmap -> ((Int,Int),Int) -> (Int,Int)
+countIndefiniteNeighbors picture ((row,column),rx) = (rowCount + columnCount,rx)
+  where rowCount = sum $ map toInt [picture ! (row, c) | c <- [1..getColumnSize picture]]
+        columnCount = sum $ map toInt [picture ! (r, column) | r <- [1..getRowSize picture]]
+        toInt Nothing = 1
+        toInt _       = 0
+
+rnd :: (RandomGen g, Random a) => State g a
+rnd = state random
+
+rnds :: (RandomGen g, Random a) => State g [a]
+rnds = do gen <- state split
+          return $ randoms gen
 
 -- The definitions above deals with the scaffolding for solving the problem.
 -- What comes below is the heart of the logic for inferring bits in the bitmap.
@@ -150,9 +180,10 @@ guess rows columns remainingRows remainingColumns picture gen =
 -- | Fill the line with more definite bits, if any.
 fillLine :: [Int] -> Line -> Maybe Line
 fillLine xs line
-  | isConsistent xs line' = Just $ toArray line'
-  | null possibleLines    = Nothing
-  | otherwise             = Just $ toArray $ incorporate bits definiteBits
+  | isConsistent xs line'    = Just $ toArray line'
+  | null possibleLines       = Nothing
+  | isDone && isInconsistent = Nothing
+  | otherwise                = Just $ toArray $ incorporated
   where
     bits = Array.elems line
     toArray l = listArray (1,length l) l
@@ -172,6 +203,10 @@ fillLine xs line
     set Nothing v  = v
     set u Nothing  = u
     set _ (Just u) = Just u
+
+    incorporated = incorporate bits definiteBits
+    isDone = all isJust incorporated
+    isInconsistent = not $ isConsistent xs incorporated
 
 isConsistent :: [Int] -> [Maybe Bool] -> Bool
 isConsistent [] line = all ((==) (Just False)) line

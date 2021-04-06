@@ -17,10 +17,17 @@ properties :: ([[Int]] -> [[Int]] -> Maybe [[Bool]]) -> String -> Spec
 properties nonogram name = describe name $ do
   modifyMaxSize (const 15) $ do
     prop "is consistent with puzzle" $
-      \(Bitmap b) -> counterexample ("rows=" ++ show (getRows b)) $
-                     counterexample ("columns=" ++ show (getColumns b)) $
-                     nonogram (getRows b) (getColumns b) `shouldSatisfy`
-                     \(Just b') -> getRows b == getRows b' && getColumns b == getColumns b'
+      \(Bitmap b) ->
+        let Just b' = nonogram rows columns
+            rows  = getRows b
+            rows' = getRows b'
+            columns  = getColumns b
+            columns' = getColumns b'
+        in counterexample ("rows =" ++ show rows) $
+           counterexample ("rows'=" ++ show (getRows b')) $
+           counterexample ("columns =" ++ show columns) $
+           counterexample ("columns'=" ++ show (getColumns b')) $
+           (rows', columns') `shouldBe` (rows, columns)
 
 examples :: Spec
 examples = do
