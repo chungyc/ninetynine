@@ -4,7 +4,6 @@
 *   [ ] Explanation for how to add new problems, tests, benchmarks, etc.
 *   [ ] Provide implementations for all problems
     *   [ ] Problem 96
-    *   [ ] Problem 99
 *   [ ] Replace problems
     *   [ ] Problem 38
     *   [ ] Problem 47
