@@ -28,7 +28,7 @@ import qualified Solutions.P61        as Solution
 -- Instead, the 'internals' function was moved from problem 62 to this one
 -- because it seemed a more natural grouping.
 --
--- The examples sort the results due avoid order sensitivity.
+-- The examples sort the results to avoid order sensitivity.
 -- It is less of an issue for 'leaves', which has a sort of obvious natural order,
 -- but there is no single natural order for 'internals'.
 leaves :: Tree a -> [a]
