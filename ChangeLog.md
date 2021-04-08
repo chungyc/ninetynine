@@ -4,6 +4,12 @@
 
 See https://github.com/chungyc/ninetynine.
 
+## v0.4.0.0
+
+*   Added all problems.
+*   Tool for automatically generating supporting files.
+*   Revamped problem descriptions regarding titles and module descriptions.
+
 ## v0.3.0.0
 
 *   Switched licensing to GPL 3.

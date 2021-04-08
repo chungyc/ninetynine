@@ -4,10 +4,10 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 210c0f26a3ee8ca171b43dae7127e2b05f0718315ec5ff6cdcc8898aa4c2142d
+-- hash: 3a73cd9acf1e7ac37db544a4077f174fbc16ada53c2ef80586aa3a6004bdcf1a
 
 name:           ninetynine
-version:        0.3.0.0
+version:        0.4.0.0
 synopsis:       Ninety-Nine Haskell Problems
 description:    Ninety-Nine Haskell Problems.
                 These are programming exercises for practice with [Haskell](https://www.haskell.org/).
