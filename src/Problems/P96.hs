@@ -22,14 +22,19 @@ Write a function which checks whether a given string is a legal identifier.
 
 >>> isIdentifier "this_is_a_long_identifier"
 True
+
 >>> isIdentifier "This_ends_in_an_underscore_"
 False
+
 >>> isIdentifier "This__has__two__consecutive__underscores"
 False
+
 >>> isIdentifier "1234"
 False
+
 >>> isIdentifier "_legal_in_many_other_languages"
 False
+
 >>> isIdentifier "Fibonacci_sequence_is_1_1_2_3_5_8_13_21_ad_infinitum"
 True
 
