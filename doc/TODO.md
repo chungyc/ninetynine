@@ -1,6 +1,7 @@
 # Pending tasks for Ninety-Nine Haskell Problems
 
 *   [ ] Tutorial for solving problems
+*   [ ] Adjust difficulty levels
 *   [x] Provide implementations for all problems
 *   [ ] Replace problems
     *   [ ] Problem 38
