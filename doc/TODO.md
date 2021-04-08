@@ -2,6 +2,7 @@
 
 *   [ ] Tutorial for solving problems
 *   [ ] Adjust difficulty levels
+*   [ ] Stop duplicating verbose explanations in solutions
 *   [x] Provide implementations for all problems
 *   [ ] Replace problems
     *   [ ] Problem 38
