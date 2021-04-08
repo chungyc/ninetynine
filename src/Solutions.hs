@@ -214,9 +214,13 @@ module Solutions (
   sudoku,
   -- ** Problem 98
   nonogram,
+  -- ** Problem 99
+  Crossword,
+  solveCrossword,
   ) where
 
 import           Problems.BinaryTrees
+import           Problems.Crosswords
 import           Problems.Lists
 import           Solutions.P01
 import           Solutions.P02
@@ -298,3 +302,4 @@ import           Solutions.P94
 import           Solutions.P95
 import           Solutions.P97
 import           Solutions.P98
+import           Solutions.P99

@@ -311,9 +311,14 @@ module Problems (
   -- ** Problem 98
   -- | == &#129335; &#129335; &#129335; Nonograms
   nonogram,
+  -- ** Problem 99
+  -- | == &#129335; &#129335; &#129335; Crossword puzzles
+  solveCrossword,
+  Crossword (..),
   ) where
 
 import           Problems.BinaryTrees
+import           Problems.Crosswords
 import           Problems.Graphs
 import           Problems.Lists
 import           Problems.MultiwayTrees
@@ -397,3 +402,4 @@ import           Problems.P94
 import           Problems.P95
 import           Problems.P97
 import           Problems.P98
+import           Problems.P99

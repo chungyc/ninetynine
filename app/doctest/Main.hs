@@ -58,7 +58,7 @@ stateless = mapFiles
   , "P83.hs", "P85.hs"
   , "P89.hs"
   , "P94.hs"
-  , "P95.hs", "P97.hs", "P98.hs"
+  , "P95.hs", "P97.hs", "P98.hs", "P99.hs"
   ]
 
 -- | Deterministic examples with local definitions to reset.
@@ -72,7 +72,7 @@ stateful = mapFiles [ "P26.hs", "P27.hs", "P48.hs", "P57.hs"
 -- | Deterministic examples in background modules.
 -- Run separately from problem modules to avoid type mismatches.
 background :: [String]
-background = mapFiles ["Graphs.hs", "MultiwayTrees.hs"]
+background = mapFiles ["Crosswords.hs", "Graphs.hs", "MultiwayTrees.hs"]
 
 -- Examples in solutions.
 solutions :: [String]

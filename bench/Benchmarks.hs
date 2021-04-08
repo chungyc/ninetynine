@@ -85,6 +85,7 @@ import qualified Problems.P94Bench as P94
 import qualified Problems.P95Bench as P95
 import qualified Problems.P97Bench as P97
 import qualified Problems.P98Bench as P98
+import qualified Problems.P99Bench as P99
 
 main :: IO()
 main = defaultMain [ P01.group
@@ -167,4 +168,5 @@ main = defaultMain [ P01.group
                    , P95.group
                    , P97.group
                    , P98.group
+                   , P99.group
                    ]
