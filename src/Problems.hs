@@ -244,11 +244,17 @@ module Problems (
   Graph (vertexes, edges),
   Vertex,
   Edge (Edge),
+  -- | == Graph representations
   Var,
   Lists (Lists),
   Adjacency (Adjacency),
   Paths (Paths),
   G (G),
+  -- | == Useful graph functions
+  --
+  -- These may be useful when implementing functions on graphs.
+  neighbors,
+  adjacent,
   -- ** Problem 80
   -- | == &#129335; &#129335; &#129335; Converting between graph representations
   ConvertibleGraph,
