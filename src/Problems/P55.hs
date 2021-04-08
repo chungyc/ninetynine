@@ -16,7 +16,6 @@ import qualified Solutions.P55        as Solution
 -- which means their difference is not greater than one.
 --
 -- Write a function to construct completely balanced binary trees for a given number of nodes.
--- The function should generate all solutions via backtracking.
 --
 -- === Examples
 --

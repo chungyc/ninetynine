@@ -15,7 +15,6 @@ import           Problems.BinaryTrees
 -- which means their difference is not greater than one.
 --
 -- Write a function to construct completely balanced binary trees for a given number of nodes.
--- The function should generate all solutions via backtracking.
 completelyBalancedTrees :: Int -> [Tree ()]
 completelyBalancedTrees 0 = [Empty]
 completelyBalancedTrees n
