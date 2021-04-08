@@ -39,35 +39,39 @@ randomSolveCrossword p gen = (fromPartial solution, gen')
   where (solution, gen') = build (toPartial p) gen
 
 -- | Partial solution being built up, and associated data supporting the buildup.
+--
+-- Maps are indexed by a number which identifies an individual site.
 data Partial = Partial
-  { sizes        :: (Int,Int)
-  , sites        :: Map Int Site          -- ^ Indexed sites
-  , candidates   :: Map Int [String]      -- ^ Possible words for each site.
+  { sizes        :: (Int,Int)             -- ^ Number of rows and columns
+  , sites        :: Map Int Site          -- ^ Sites, indexed by numbers identifiying sites
+
+  -- The above is a static description of the puzzle.
+  -- The below will be updated as the solution is built up.
+
+  , candidates   :: Map Int [String]      -- ^ Possible words for each site
   , partialWords :: Map Int [Maybe Char]  -- ^ Partially constructed words for sites
   , fullWords    :: Map Int String        -- ^ Fully constructed words for sites
   }
-  deriving Show
 
 -- | Structure of a site in a crossword puzzle to be filled with a word.
-data Site = Site { size        :: Int
-                 , position    :: (Int,Int)
-                 , orientation :: Orientation
-                 , crossovers  :: [CrossoverPoint]
-                 }
-  deriving Show
+data Site = Site
+  { size        :: Int               -- ^ Lenth of word that should fill the site
+  , position    :: (Int,Int)         -- ^ Position in grid in (row,column)
+  , orientation :: Orientation       -- ^ Whether site is horizontal or vertical
+  , crossovers  :: [CrossoverPoint]  -- ^ How the site crosses over with other sites
+  }
 
 -- | Orientation of a site.
-data Orientation = Horizontal | Vertical
-  deriving (Eq, Show)
+data Orientation = Horizontal | Vertical deriving Eq
 
 -- | Information about a crossover point between sites.
 --
 -- Holds position inside site, position inside the other site, and index of other site.
 data CrossoverPoint = CrossoverPoint Int Int Int
-  deriving Show
 
 -- Functions related to turning the puzzle and solution to and from internal and external forms.
 
+-- | Translate the crossword puzzle into a form used internally to solve the puzzle.
 toPartial :: Crossword -> Partial
 toPartial (Crossword { word = ws, grid = g }) =
   Partial { sizes = (length g, maximum $ map length g)
@@ -79,14 +83,15 @@ toPartial (Crossword { word = ws, grid = g }) =
   where (ss, pws) = toSites g
         sizedWords = Map.fromListWith (++) $ map (\w -> (length w, [w])) ws
 
+-- | Convert a grid to sites and possible characters.
+-- The latter will be 'Nothing' unless there is a prefilled character in a spot.
 toSites :: [[Either Bool Char]] -> (Map Int Site, Map Int [Maybe Char])
 toSites g = (markCrossovers indexedSites, indexedWords)
-  where sitesList = findSites g Horizontal ++ transposeSites (findSites (transpose g) Vertical)
+  where sitesList = findSites g Horizontal ++ findSites (transpose g) Vertical
         indexedSites = Map.fromList $ zip [1..] $ map fst sitesList
         indexedWords = Map.fromList $ zip [1..] $ map snd sitesList
-        transposeSites = map transposePos
-        transposePos (s@(Site { position = (row,col) }), pw) = (s { position = (col,row) }, pw)
 
+-- | From the rows in the grid, find the sites and their prefilled characters.
 findSites :: [[Either Bool Char]] -> Orientation -> [(Site, [Maybe Char])]
 findSites g orient = concat $ map (\l -> evalState find $ initial l) $ zip [0..] g
   where
@@ -122,7 +127,9 @@ findSites g orient = concat $ map (\l -> evalState find $ initial l) $ zip [0..]
     endLocation = do
       st <- get
       let s = Site { size = fssSize st
-                   , position = (fssRow st, fssStart st)
+                   , position = case orient of
+                       Horizontal -> (fssRow st, fssStart st)
+                       Vertical   -> (fssStart st, fssRow st)
                    , orientation = orient
                    , crossovers = []
                    }
@@ -153,6 +160,7 @@ data FindSitesState = FindSitesState
   , fssLocs  :: [(Site, [Maybe Char])]
   }
 
+-- | Mark the crossover points in each site.
 markCrossovers :: Map Int Site -> Map Int Site
 markCrossovers sitesMap = Map.foldlWithKey mark sitesMap crossoverSpots
   where taggedSpots = tagSpots sitesMap
@@ -171,6 +179,7 @@ markCrossovers sitesMap = Map.foldlWithKey mark sitesMap crossoverSpots
               offset (Site {position = (r,_), orientation = Vertical})   = row - r
           in CrossoverPoint (offset site) (offset otherSite) index
 
+-- | Tag each spot in the grid with the sites located on the spot.
 tagSpots :: Map Int Site -> Map (Int,Int) [Int]
 tagSpots sitesMap = Map.foldlWithKey tag Map.empty sitesMap
   where tag taggedSpots index site = Map.unionWith (++) taggedSpots $ siteSpots index site
@@ -179,6 +188,7 @@ tagSpots sitesMap = Map.foldlWithKey tag Map.empty sitesMap
         getPositions n (row,column) Horizontal = [(row, column+i) | i <- [0..n-1]]
         getPositions n (row,column) Vertical   = [(row+i, column) | i <- [0..n-1]]
 
+-- | Convert the internal form used for solving the puzzle to the form returned by 'solveCrossword'.
 fromPartial :: Maybe Partial -> Maybe [[Maybe Char]]
 fromPartial Nothing  = Nothing
 fromPartial (Just s) = Just $ g'
@@ -190,6 +200,7 @@ fromPartial (Just s) = Just $ g'
         g  = foldl incorporateWord blank horizWordSites
         g' = transpose $ foldl incorporateWord (transpose g) vertWordSites
 
+-- | Incorporate the given word at the given site into the crossword grid.
 incorporateWord :: [[Maybe Char]] -> (Site, String) -> [[Maybe Char]]
 incorporateWord g (s, w) = take r g ++ [row'] ++ drop (r+1) g
   where (r,c) = case orientation s of
@@ -229,6 +240,7 @@ build partial gen
 infer :: Partial -> Maybe Partial
 infer partial = foldM pruneSiteCandidateWords partial $ Map.keys $ candidates partial
 
+-- | Prune candidate words that are not possible from the given site.
 pruneSiteCandidateWords :: Partial -> Int -> Maybe Partial
 pruneSiteCandidateWords partial index = case cs' of
   []  -> Nothing
@@ -238,12 +250,14 @@ pruneSiteCandidateWords partial index = case cs' of
         cs = candidates partial ! index
         pw = partialWords partial ! index
 
+-- | Whether a word is consistent with the characters that have been determined so far.
 isConsistentWord :: [Maybe Char] -> String -> Bool
 isConsistentWord [] []                   = True
 isConsistentWord (Nothing : xs) (_ : ys) = isConsistentWord xs ys
 isConsistentWord (Just x : xs) (y : ys)  = x == y && isConsistentWord xs ys
 isConsistentWord _ _                     = False
 
+-- | Affix a word to a site, and all the other changes this entails.
 affixWord :: Partial -> Int -> String -> Partial
 affixWord p i w = foldl fill p' $ crossovers $ sites p' ! i
   where p' = p { candidates = Map.delete i $ remove $ candidates p
@@ -265,18 +279,22 @@ guess p gen = runState (guess' p) gen
 
 guess' :: RandomGen g => Partial -> State g (Maybe Partial)
 guess' p = do
-  tags <- rnds  -- used for random tie breaking with sorting
-  let siteIndex = snd $ head $ sortOn count $ zip (tags :: [Int]) $ Map.keys $ candidates p
+  tiebreakers <- do gen <- state split
+                    return $ (randoms gen :: [Int])
+  let siteIndex = snd $ head $ sortOn count $ zip tiebreakers $ Map.keys $ candidates p
   wordList <- state $ randomPermute $ candidates p ! siteIndex
   state $ tryGuesses p siteIndex wordList
-  where count (t, i) = (length $ candidates p ! i, t)
+  where
+    count (tag, i) =
+      -- Try sites with fewer candidates first.
+      ( length $ candidates p ! i
+      -- If above equal, try sites with fewer indefinite spots first.
+      , length $ filter isNothing $ partialWords p ! i
+      -- Random tiebreaker.
+      , tag)
 
-rnds :: (RandomGen g, Random a) => State g [a]
-rnds = do
-  (gen, gen') <- gets split
-  put gen'
-  return $ randoms gen
-
+-- | Try each guess for a site in the given order.
+-- It will return the first solution it can find, if any.
 tryGuesses :: RandomGen g => Partial -> Int -> [String] -> g -> (Maybe Partial, g)
 tryGuesses _ _ [] gen = (Nothing, gen)
 tryGuesses p i (w:ws) gen =
