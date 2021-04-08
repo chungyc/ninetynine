@@ -32,6 +32,11 @@ properties isIdentifier name = do
       \(Identifier s) -> forAll (chooseInt (0, length s - 1)) $ \k ->
         isIdentifier (take k s ++ "__" ++ drop k s) `shouldBe` False
 
+    prop "is false when invalid characters are included" $
+      \(Identifier s) -> forAll (chooseInt (0, length s - 1)) $ \k -> \c ->
+        c `notElem` (['A'..'Z'] ++ ['a'..'z'] ++ ['0'..'9'] ++ ['_']) ==>
+        isIdentifier (take k s ++ [c] ++ drop k s) `shouldBe` False
+
 examples :: Spec
 examples = do
   describe "Examples" $ do
