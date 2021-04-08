@@ -21,7 +21,7 @@ import           System.Random
 
 {- |
 Given an empty, or almost empty, crossword puzzle grid and a set of words,
-the problem is to place the words into the framework.
+the problem is to place the words on the grid.
 
 Words are strings of at least two characters.
 A horizontal or vertical sequence of spots in the crossword puzzle grid is called a site.

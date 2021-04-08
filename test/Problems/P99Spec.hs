@@ -5,7 +5,7 @@ Maintainer: dev@chungyc.org
 -}
 module Problems.P99Spec (spec) where
 
-import           Data.List             (transpose, zip4)
+import           Data.List             (nub, transpose, zip4)
 import           Data.Maybe            (fromJust, isJust, isNothing)
 import           Data.Set              (Set, isSubsetOf)
 import qualified Data.Set              as Set
@@ -100,7 +100,10 @@ genPuzzle n = do
   zs <- vectorOf m $ choose (False,True)
   mask <- vectorOf n $ vectorOf n $ frequency [(10, return False), (1, return True)]
   let s = constructSolution blank $ zip4 ws xs ys zs
-  return $ Puzzle $ Crossword { word = getWords s, grid = getGrid s mask }
+  let c = Crossword { word = getWords s, grid = getGrid s mask }
+  case nub (word c) == word c of
+    True  -> return $ Puzzle c
+    False -> genPuzzle n  -- a word used twice; try again
   where blank = replicate n $ replicate n Nothing
 
 -- | Construct a solution from the given words and their locations and orientations.

@@ -13,7 +13,7 @@ import           Problems.P80
 import qualified Solutions.P85   as Solution
 
 -- | Two graphs \(G_1 = (V_1,E_1)\) and \(G_2 = (V_2,E_2)\) are isomorphic if there is
--- a bijection \(f: V1 -> V_2\) such that for any vertexes \(x\), \(y\) in \(V_1\),
+-- a bijection \(f: V_1 -> V_2\) such that for any vertexes \(x\), \(y\) in \(V_1\),
 -- \(x\) and \(y\) are adjacent if and only if \(f(x)\) and \(f(y)\) are adjacent.
 --
 -- Write a function that determines whether two graphs are isomorphic.
