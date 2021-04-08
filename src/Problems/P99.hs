@@ -48,11 +48,6 @@ A L P H A
 ■ ■ P ■ R
 ■ ■ Y ■ E
 ■ ■ ■ ■ S
-
-=== __Hint__
-
-With a backtracking search of a solution for a larger puzzle,
-trying the sites in a particular order can have a huge effect on the number of search steps needed.
 -}
 solveCrossword :: Crossword -> Maybe [[Maybe Char]]
 solveCrossword = Solution.solveCrossword

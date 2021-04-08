@@ -38,15 +38,31 @@ randomSolveCrossword :: RandomGen g => Crossword -> g -> (Maybe [[Maybe Char]], 
 randomSolveCrossword p gen = (fromPartial solution, gen')
   where (solution, gen') = build (toPartial p) gen
 
--- | Partial solution being built up, and associated data supporting the buildup.
---
--- Maps are indexed by a number which identifies an individual site.
+{- |
+Partial solution being built up, and associated data supporting the buildup.
+
+Instead of trying fill the grid directly,
+the crossword puzzle is turned into a graph of sites,
+where each site is associated with the list of possible words,
+partially filled in characters, and definite words if found.
+The edges are formed by the crossover points between sites,
+and are labeled by how they cross over.
+
+The solver will try to prune candidate words from sites,
+or guess what the word for a site in a solution may be.
+When a site is filled with a word, it updates its neighbors in the graph
+to fill additional characters in crossing sites.
+
+Maps are indexed by numbers which identify individual sites.
+-}
 data Partial = Partial
   { sizes        :: (Int,Int)             -- ^ Number of rows and columns
   , sites        :: Map Int Site          -- ^ Sites, indexed by numbers identifiying sites
 
   -- The above is a static description of the puzzle.
   -- The below will be updated as the solution is built up.
+  -- 'candidates' and 'partialWords' have the same keys,
+  -- while 'fullWords' is keyed by their complement.
 
   , candidates   :: Map Int [String]      -- ^ Possible words for each site
   , partialWords :: Map Int [Maybe Char]  -- ^ Partially constructed words for sites
