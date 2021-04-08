@@ -1,4 +1,5 @@
 {-|
+Description: Tests for the examples included with the documentation
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -58,7 +59,7 @@ stateless = mapFiles
   , "P83.hs", "P85.hs"
   , "P89.hs"
   , "P94.hs"
-  , "P95.hs", "P97.hs", "P98.hs", "P99.hs"
+  , "P95.hs", "P96.hs", "P97.hs", "P98.hs", "P99.hs"
   ]
 
 -- | Deterministic examples with local definitions to reset.

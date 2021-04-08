@@ -210,6 +210,8 @@ module Solutions (
   regularGraphs,
   -- ** Problem 95
   fullWords,
+  -- ** Problem 96
+  isIdentifier,
   -- ** Problem 97
   sudoku,
   -- ** Problem 98
@@ -300,6 +302,7 @@ import           Solutions.P92
 import           Solutions.P93
 import           Solutions.P94
 import           Solutions.P95
+import           Solutions.P96
 import           Solutions.P97
 import           Solutions.P98
 import           Solutions.P99

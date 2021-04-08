@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 5b026b59bcdf3fde0c5ca87225b393bff63d843266b6029b20107dcc7b7b75e1
+-- hash: 210c0f26a3ee8ca171b43dae7127e2b05f0718315ec5ff6cdcc8898aa4c2142d
 
 name:           ninetynine
 version:        0.3.0.0
@@ -44,6 +44,8 @@ extra-doc-files:
     images/Graphs/Example-P86.svg
     images/Graphs/Example.gv
     images/Graphs/Example.svg
+    images/Miscellaneous/Ada.gv
+    images/Miscellaneous/Ada.svg
     images/Miscellaneous/Graceful-Tree-P92.gv
     images/Miscellaneous/Graceful-Tree-P92.svg
     images/Miscellaneous/Tree14-P92.gv
@@ -152,6 +154,7 @@ library
       Problems.P94
       Problems.P94.Examples
       Problems.P95
+      Problems.P96
       Problems.P97
       Problems.P98
       Problems.P99
@@ -235,6 +238,7 @@ library
       Solutions.P93
       Solutions.P94
       Solutions.P95
+      Solutions.P96
       Solutions.P97
       Solutions.P98
       Solutions.P99
@@ -368,6 +372,7 @@ test-suite ninetynine-test
       Problems.P93Spec
       Problems.P94Spec
       Problems.P95Spec
+      Problems.P96Spec
       Problems.P97Spec
       Problems.P98Spec
       Problems.P99Spec
@@ -467,6 +472,7 @@ benchmark ninetynine-bench
       Problems.P93Bench
       Problems.P94Bench
       Problems.P95Bench
+      Problems.P96Bench
       Problems.P97Bench
       Problems.P98Bench
       Problems.P99Bench

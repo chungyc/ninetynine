@@ -1,0 +1,32 @@
+digraph {
+rankdir=LR
+
+S [label="begin", rank="source"]
+L1 [label="letter"]
+C1 [label="", width=0.1, height=0.1]
+U [label="_"]
+I1 [label="", style="invis"]
+C2 [label="", width=0.1, height=0.1]
+D [label="digit"]
+L2 [label="letter"]
+I2 [label="", style="invis"]
+C3 [label="", width=0.1, height=0.1]
+E [label="end", rank="sink"]
+
+S -> L1 -> E
+L1 -> C1
+C3 -> E
+
+subgraph cluster_G1 {
+  style="invis"
+
+  C1 -> I1 -> C2 [style="invis"]
+  C2 -> I2 -> C3 [style="invis"]
+  C1 -> U -> C2
+  C2 -> D -> C3
+  C1 -> C2 -> L2 [weight=100]
+  L2 -> C3
+  C3 -> C1
+}
+
+}

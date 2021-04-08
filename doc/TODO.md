@@ -1,9 +1,7 @@
 # Pending tasks for Ninety-Nine Haskell Problems
 
 *   [ ] Tutorial for solving problems
-*   [ ] Explanation for how to add new problems, tests, benchmarks, etc.
-*   [ ] Provide implementations for all problems
-    *   [ ] Problem 96
+*   [x] Provide implementations for all problems
 *   [ ] Replace problems
     *   [ ] Problem 38
     *   [ ] Problem 47

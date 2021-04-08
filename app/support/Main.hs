@@ -45,7 +45,7 @@ renderGraphs = do
   mapM_ (call . (</>) ("images" </> "BinaryTrees")) ["tree1", "tree4"]
   mapM_ (call . (</>) ("images" </> "MultiwayTrees")) ["tree1", "tree2", "tree3", "tree4", "tree5"]
   mapM_ (call . (</>) ("images" </> "Graphs")) ["Example", "Example-P83", "Example-P86"]
-  mapM_ (call . (</>) ("images" </> "Miscellaneous")) ["Graceful-Tree-P92", "Tree14-P92"]
+  mapM_ (call . (</>) ("images" </> "Miscellaneous")) ["Graceful-Tree-P92", "Tree14-P92", "Ada"]
   where call name = callCommand $ "dot -Tsvg " ++ (name <.> "gv") ++ " -o " ++ (name <.> "svg")
 
 -- | Render binary trees according to their layout to SVG,

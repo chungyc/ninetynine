@@ -305,6 +305,9 @@ module Problems (
   -- ** Problem 95
   -- | == &#129335; &#129335; English number words
   fullWords,
+  -- ** Problem 96
+  -- | == &#129335; &#129335; Syntax checking
+  isIdentifier,
   -- ** Problem 97
   -- | == &#129335; &#129335; Sudoku
   sudoku,
@@ -400,6 +403,7 @@ import           Problems.P92
 import           Problems.P93
 import           Problems.P94
 import           Problems.P95
+import           Problems.P96
 import           Problems.P97
 import           Problems.P98
 import           Problems.P99
