@@ -25,8 +25,7 @@ Try to solve the \(25 \times 25\) crossword puzzle in 'crosswordPuzzle''.
 === Examples
 
 >>> :{
-printCrossword $
-solveCrossword $ Crossword
+crosswordPuzzle ==  Crossword
   { word = ["ALPHA", "ARES", "POPPY"]
   , grid = [ [ Left False, Left False, Left True,  Left False, Left False ]
            , [ Left False, Left False, Left True,  Left False, Left False ]
@@ -35,8 +34,14 @@ solveCrossword $ Crossword
            , [ Left False, Left False, Left True,  Left False, Left True  ]
            , [ Left False, Left False, Left False, Left False, Left True  ]
            ]
- }
+  }
 :}
+True
+
+>>> head $ (\(Just p) -> p) $ solveCrossword crosswordPuzzle
+[Nothing,Nothing,Just 'P',Nothing,Nothing]
+
+>>> printCrossword $ solveCrossword crosswordPuzzle
 ■ ■ P ■ ■
 ■ ■ O ■ ■
 A L P H A
