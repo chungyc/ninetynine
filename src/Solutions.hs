@@ -76,6 +76,8 @@ module Solutions (
   lsort,
   lfsort,
   -- * Arithmetic problems
+  -- ** Problem 29
+  fibonacci,
   -- ** Problem 31
   isPrime,
   isPrime',
@@ -252,6 +254,7 @@ import           Solutions.P25
 import           Solutions.P26
 import           Solutions.P27
 import           Solutions.P28
+import           Solutions.P29
 import           Solutions.P31
 import           Solutions.P32
 import           Solutions.P33

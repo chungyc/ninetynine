@@ -113,6 +113,9 @@ module Problems (
   lsort,
   lfsort,
   -- * Arithmetic problems
+  -- ** Problem 29
+  -- | == &#129335; Fibonacci numbers
+  fibonacci,
   -- ** Problem 31
   -- | == &#129335; &#129335; Primality checking
   isPrime,
@@ -359,6 +362,7 @@ import           Problems.P25
 import           Problems.P26
 import           Problems.P27
 import           Problems.P28
+import           Problems.P29
 import           Problems.P31
 import           Problems.P32
 import           Problems.P33

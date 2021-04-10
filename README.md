@@ -122,9 +122,12 @@ at [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Has
 
 *   Some of the wording was rephrased to match more closely their context in Haskell.
     For example, "Problems.P10" mentions encoding to a list of tuples, not a list of lists.
+
 *   Some problems are intentionally omitted or replaced, because they are
     uninteresting in the context of Haskell or they cannot be provided as
     problem skeletons that fit the framework of this project.
     Such problems will be noted as such.
+
+*   A number of problems were added to fill out 99 problems.
 
 For pending tasks, see the [TODO](doc/TODO.md).

@@ -9,7 +9,7 @@
     *   [ ] Problem 47 : Consider universal NAND logic gate
     *   [x] Problem 54
 *   [ ] Add problems so that there are actually 99 problems
-    *   [ ] Problem 29 : Consider Fibonacci numbers, simple
+    *   [x] Problem 29
     *   [ ] Problem 30 : Consider Fibonacci numbers, sophisticated
     *   Consider big number problems
         *   [ ] Problem 42 : Consider modular multiplicative inverse
