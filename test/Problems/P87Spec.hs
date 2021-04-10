@@ -9,7 +9,7 @@ import           Data.List                 (inits, nub, tails)
 import           Data.Set                  (Set)
 import qualified Data.Set                  as Set
 import           Problems.Graphs
-import           Problems.Graphs.Arbitrary
+import           Problems.Graphs.Arbitrary ()
 import           Problems.P80
 import qualified Problems.P87              as Problem
 import qualified Solutions.P87             as Solution
@@ -21,19 +21,19 @@ properties :: (G -> Vertex -> [Vertex]) -> String -> Spec
 properties depthFirst name = do
   describe name $ do
     prop "starts from starting point" $
-      withGraph $ \g -> withStartFrom g $ \v ->
+      \g -> withStartFrom g $ \v ->
       depthFirst g v `shouldSatisfy` (==) v . head
 
     prop "is not cyclic" $
-      withGraph $ \g -> withStartFrom g $ \v ->
+      \g -> withStartFrom g $ \v ->
       depthFirst g v `shouldSatisfy` \l -> l == nub l
 
     prop "are reachable vertexes from starting point" $
-      withGraph $ \g -> withStartFrom g $ \v ->
+      \g -> withStartFrom g $ \v ->
       depthFirst g v `shouldSatisfy` (==) (reachable g Set.empty (Set.singleton v) Set.empty) . Set.fromList
 
     prop "traverses depth first" $
-      withGraph $ \g -> withStartFrom g $ \v ->
+      \g -> withStartFrom g $ \v ->
       depthFirst g v `shouldSatisfy` isDepthFirstSequence g
 
   where withStartFrom g f = not (null $ vertexes g) ==> forAll (elements $ Set.toList $ vertexes g) f

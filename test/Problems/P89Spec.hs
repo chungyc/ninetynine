@@ -9,7 +9,7 @@ import           Data.Maybe                (fromJust)
 import           Data.Set                  (Set)
 import qualified Data.Set                  as Set
 import           Problems.Graphs
-import           Problems.Graphs.Arbitrary
+import           Problems.Graphs.Arbitrary ()
 import           Problems.P80
 import qualified Problems.P89              as Problem
 import qualified Solutions.P89             as Solution
@@ -30,7 +30,7 @@ properties bipartite name = describe name $ do
 
   modifyMaxSize (const 20) $ do
     prop "is true if and only if graph is bipartite" $
-      withGraph $ \g -> bipartite g `shouldBe` isBipartite g
+      \g -> bipartite g `shouldBe` isBipartite g
 
 examples :: Spec
 examples = describe "Examples" $ do

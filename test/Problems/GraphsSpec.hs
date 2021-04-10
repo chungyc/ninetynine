@@ -9,7 +9,7 @@ import           Data.Maybe                (fromJust)
 import           Data.Set                  (Set)
 import qualified Data.Set                  as Set
 import           Problems.Graphs
-import           Problems.Graphs.Arbitrary hiding (withGraph)
+import           Problems.Graphs.Arbitrary
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck

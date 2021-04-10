@@ -10,7 +10,7 @@ import           Data.Map.Lazy             ((!))
 import qualified Data.Map.Lazy             as Map
 import qualified Data.Set                  as Set
 import           Problems.Graphs
-import           Problems.Graphs.Arbitrary
+import           Problems.Graphs.Arbitrary ()
 import           Problems.P80
 import qualified Problems.P86              as Problem
 import qualified Solutions.P86             as Solution
@@ -22,7 +22,7 @@ properties :: (G -> [(Vertex,Int)]) -> String -> Spec
 properties colorGraph name = do
   describe name $ do
     prop "no adjacent vertexes have same color" $
-      withGraph $ \g -> colorGraph g `shouldBeVertexColoringFor` g
+      \g -> colorGraph g `shouldBeVertexColoringFor` g
 
 examples :: Spec
 examples = do

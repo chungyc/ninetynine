@@ -19,8 +19,7 @@ import           Test.QuickCheck
 
 properties :: (Vertex -> G -> [[Vertex]]) -> String -> Spec
 properties cycles name = do
-  -- Cap size to limit combinatorial explosion.
-  describe name $ modifyMaxSize (const 40) $ do
+  describe name $ modifyMaxSize (const 25) $ do
     prop "includes cycle" $ do
       \(Sets (vs, es)) -> do
         vs' <- sublistOf $ Set.toList vs

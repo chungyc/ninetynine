@@ -14,3 +14,5 @@ import           Test.QuickCheck
 instance Arbitrary a => Arbitrary (MultiwayTree a) where
   arbitrary = genericArbitraryRec uniform
     `withBaseCase` (MultiwayTree <$> arbitrary <*> return [])
+
+  shrink = genericShrink

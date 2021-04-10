@@ -6,25 +6,32 @@ Maintainer: dev@chungyc.org
 module Problems.P88Spec (spec) where
 
 import           Data.List                 (sort)
+import           Data.Maybe                (fromJust)
+import qualified Data.Set                  as Set
 import           Problems.Graphs
-import           Problems.Graphs.Arbitrary
+import           Problems.Graphs.Arbitrary ()
 import           Problems.P80
 import           Problems.P87
 import qualified Problems.P88              as Problem
 import qualified Solutions.P88             as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
+import           Test.QuickCheck
 
 properties :: (G -> [[Vertex]]) -> String -> Spec
 properties connectedComponents name = describe name $ do
   prop "has paths between connected components" $
-    withGraph $ \g -> connectedComponents g
+    \g -> connectedComponents g
     `shouldSatisfy` all (\vs -> all (isConnected g) $ pairs vs)
 
   prop "does not have paths between unconnected components" $
-    withGraph $ \g -> connectedComponents g
-    `shouldSatisfy` all (not . isConnected g) . pairs . map head
-    -- connectivity is transitive; checks against from only one vertex from each component
+    \(Positive n) -> \(Positive m) ->
+      forAll (sublistOf [Edge (u,v) | u <- [1..n], v <- [u+1..n]]) $ \es ->
+      forAll (sublistOf [Edge (u,v) | u <- [n+1..n+m], v <- [u+1..n+m]]) $ \es' ->
+      let g = fromJust $ toGraph (Set.fromList [1..n+m], Set.fromList $ es ++ es')
+      in counterexample (show g) $
+         connectedComponents g `shouldSatisfy` all (not . isConnected g) . pairs . map head
+         -- connectivity is transitive; checks against from only one vertex from each component
 
   where isConnected g (u,v) = elem v $ depthFirst g u
         pairs vs = [(u,v) | u <- vs, v <- vs, u < v]

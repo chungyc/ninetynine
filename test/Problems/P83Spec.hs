@@ -10,7 +10,7 @@ import           Data.Maybe                (fromJust)
 import           Data.Set                  (Set)
 import qualified Data.Set                  as Set
 import           Problems.Graphs
-import           Problems.Graphs.Arbitrary
+import           Problems.Graphs.Arbitrary ()
 import           Problems.P80
 import           Problems.P81
 import           Problems.P83              (graph83)
@@ -23,12 +23,11 @@ import           Test.QuickCheck
 properties :: (G -> [G], G -> Bool, G -> Bool) -> (String, String, String) -> Spec
 properties
   (spanningTrees, isTree, isConnected)
-  (nameSpanningTrees, nameIsTree, nameIsConnected) = modifyMaxSize (const 25) $ do
+  (nameSpanningTrees, nameIsTree, nameIsConnected) = modifyMaxSize (const 15) $ do
   describe nameSpanningTrees $ do
     prop "includes only spanning trees" $
-      withGraph $ \g ->
-        classify (isConnectedGraph g) "connected" $
-        conjoin (map (\t -> t `shouldSatisfy` isSpanningTree g) (spanningTrees g))
+      \g -> classify (isConnectedGraph g) "connected" $
+            conjoin (map (\t -> t `shouldSatisfy` isSpanningTree g) (spanningTrees g))
 
     modifyMaxSize (\n -> ceiling $ (sqrt $ fromIntegral n :: Float)) $
       prop "includes a spanning tree" $
@@ -45,15 +44,13 @@ properties
 
   describe nameIsTree $ do
     prop "if and only if tree" $
-      withGraph $ \g ->
-        classify (isTreeGraph g) "tree" $
-        isTree g `shouldBe` isTreeGraph g
+      \g -> classify (isTreeGraph g) "tree" $
+            isTree g `shouldBe` isTreeGraph g
 
   describe nameIsConnected $ do
     prop "if and only if connected" $
-      withGraph $ \g ->
-        classify (isConnectedGraph g) "connected" $
-        isConnected g `shouldBe` isConnectedGraph g
+      \g -> classify (isConnectedGraph g) "connected" $
+            isConnected g `shouldBe` isConnectedGraph g
 
 examples :: Spec
 examples = do

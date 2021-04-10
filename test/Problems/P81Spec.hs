@@ -19,8 +19,7 @@ import           Test.QuickCheck
 
 properties :: (Vertex -> Vertex -> G -> [[Vertex]]) -> String -> Spec
 properties paths name =
-  -- Cap size to limit combinatorial explosion.
-  describe name $ modifyMaxSize (const 40) $ do
+  describe name $ modifyMaxSize (const 25) $ do
     prop "includes path" $ do
       \(Sets (vs, es)) -> do
         vs' <- sublistOf $ Set.toList vs

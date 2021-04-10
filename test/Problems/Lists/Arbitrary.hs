@@ -13,3 +13,4 @@ import           Test.QuickCheck
 
 instance Arbitrary a => Arbitrary (NestedList a) where
   arbitrary = genericArbitraryRec uniform `withBaseCase` (Elem <$> arbitrary)
+  shrink = genericShrink

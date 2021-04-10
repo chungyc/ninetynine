@@ -1,15 +1,33 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
+
 {-|
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
-module Problems.Graphs.Arbitrary (Sets (Sets), withGraph, Arbitrary) where
+module Problems.Graphs.Arbitrary (Sets (Sets), Arbitrary) where
 
 import           Data.Maybe      (fromJust)
 import           Data.Set        (Set)
 import qualified Data.Set        as Set
 import           Problems.Graphs
 import           Test.QuickCheck
+
+instance Arbitrary Lists where
+  arbitrary = (fromJust . toGraph . fromSets) <$> arbitrary
+  shrink g = map (fromJust . toGraph . fromSets) $ shrink $ Sets $ sets g
+
+instance Arbitrary Adjacency where
+  arbitrary = (fromJust . toGraph . fromSets) <$> arbitrary
+  shrink g = map (fromJust . toGraph . fromSets) $ shrink $ Sets $ sets g
+
+instance Arbitrary Paths where
+  arbitrary = (fromJust . toGraph . fromSets) <$> arbitrary
+  shrink g = map (fromJust . toGraph . fromSets) $ shrink $ Sets $ sets g
+
+instance Arbitrary G where
+  arbitrary = (fromJust . toGraph . fromSets) <$> arbitrary
+  shrink g = map (fromJust . toGraph . fromSets) $ shrink $ Sets $ sets g
 
 -- | Helper type for generating sets of vertexes and edges for a valid graph.
 --
@@ -22,27 +40,16 @@ import           Test.QuickCheck
 newtype Sets = Sets (Set Vertex, Set Edge)
   deriving Show
 
+fromSets :: Sets -> (Set Vertex, Set Edge)
+fromSets (Sets s) = s
+
 instance Arbitrary Sets where
   arbitrary = scale (ceiling . scaledSize) $ do
-    vs <- arbitrary
+    vs <- (\n -> [1..n]) <$> getSize
     es <- sublistOf [Edge (u, v) | u <- vs, v <- vs, u < v]
     return $ Sets (Set.fromList vs, Set.fromList es)
       -- For k vertexes, there can be about k^2 / 2 edges.
       where scaledSize n = (*) 2 $ sqrt $ fromIntegral n :: Float
 
--- | Helper function which takes in sets of vertexes and edges for a valid graph,
--- turns it into a graph, and applies the given function.
---
--- Useful for generating arbitrary valid graphs in property tests.
--- It is easy to generate sets of vertexes and edges for a valid graph,
--- but hard to generate graphs of multiple types directly.
--- Thus, the sets are arbitrarily generated, which are then turned into a graph.
---
--- Example:
---
--- > spec :: Spec
--- > spec = do
--- >   prop "sets are vertexes and edges" $
--- >     withGraph $ \g -> sets g `shouldBe` (vertexes g, edges g)
-withGraph :: Graph g => (g -> a) -> Sets -> a
-withGraph f (Sets s) = let g = fromJust $ toGraph s in f g
+  shrink (Sets (vs, es)) = map (\v -> Sets (Set.delete v vs, remove v)) $ Set.toList vs
+    where remove v = Set.filter (\(Edge (u', v')) -> u' == v || v' == v) es

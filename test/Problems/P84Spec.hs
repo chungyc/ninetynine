@@ -9,7 +9,7 @@ import           Data.Map.Lazy             (Map)
 import qualified Data.Map.Lazy             as Map
 import qualified Data.Set                  as Set
 import           Problems.Graphs
-import           Problems.Graphs.Arbitrary
+import           Problems.Graphs.Arbitrary ()
 import           Problems.P83
 import qualified Problems.P84              as Problem
 import qualified Solutions.P84             as Solution
@@ -21,14 +21,14 @@ properties :: (G -> Map Edge Int -> G) -> String -> Spec
 properties minimumSpanningTree name = modifyMaxSize (const 5) $ do
   describe name $ do
     prop "is a spanning tree" $
-      withGraph $ \g -> \(InfiniteList ws _) ->
+      \g -> \(InfiniteList ws _) ->
         not (null $ vertexes g) ==>
         isConnected g ==>
         let weights = Map.fromList $ zip (Set.toList $ edges g) ws
         in minimumSpanningTree g weights `shouldSatisfy` flip elem (spanningTrees g)
 
     prop "has minimum weight sum for spanning trees" $
-      withGraph $ \g -> \(InfiniteList ws _) ->
+      \g -> \(InfiniteList ws _) ->
         not (null $ vertexes g) ==>
         isConnected g ==>
         let weights = Map.fromList $ zip (Set.toList $ edges g) ws
