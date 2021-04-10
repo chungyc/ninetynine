@@ -17,13 +17,13 @@
         *   [ ] Problem 44 : Consider Miller-Rabin primality test
         *   [ ] Problem 45 : Consider RSA
     *   Consider more logic and code problems
-        *   [ ] Problem 51 Consider error correction code
-        *   [ ] Problem 52 Consider propositional logic solver with resolution rule
-        *   [ ] Problem 53 Consider first order logic solver with resolution rule
+        *   [ ] Problem 51 : Consider error correction code
+        *   [ ] Problem 52 : Consider conjunctive normal forms
+        *   [ ] Problem 53 : Consider propositional logic solver with resolution rule
     *   Monad problems
         *   [ ] Problem 74
-        *   [ ] Problem 75
+        *   [ ] Problem 75 : Consider arbitrary instance generator with applicative functors
         *   [ ] Problem 76
-        *   [ ] Problem 77
-        *   [ ] Problem 78
-        *   [ ] Problem 79
+        *   [ ] Problem 77 : Consider counting monad with Collatz conjecture
+        *   [ ] Problem 78 : Consider permutations with list monad
+        *   [ ] Problem 79 : Consider monad transformers with Tower of Hanoi (counting steps + stack + maybe)
