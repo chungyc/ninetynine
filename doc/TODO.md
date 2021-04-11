@@ -10,7 +10,7 @@
     *   [x] Problem 54
 *   [ ] Add problems so that there are actually 99 problems
     *   [x] Problem 29
-    *   [ ] Problem 30 : Consider Fibonacci numbers, sophisticated
+    *   [x] Problem 30
     *   Consider big number problems
         *   [ ] Problem 42 : Consider modular multiplicative inverse
         *   [ ] Problem 43 : Consider Montgomery form
