@@ -13,7 +13,6 @@ import           Data.Set                  (Set)
 import qualified Data.Set                  as Set
 import           Problems.Graphs
 import           Problems.Graphs.Arbitrary ()
-import           Problems.P81
 import qualified Problems.P92              as Problem
 import qualified Solutions.P92             as Solution
 import           Test.Hspec
@@ -25,10 +24,7 @@ properties gracefulTree name size= do
   modifyMaxSize (const size) $ do
     describe name $ do
       prop "is graceful labeling" $
-        withTreeGraph $ \g -> isTree g ==>
-                              gracefulTree g `shouldSatisfy` isGracefulLabeling g
-
-  where withTreeGraph f = forAll genPureTree $ \t -> let g = toTree t in f g
+        \(TreeGraph g) -> gracefulTree g `shouldSatisfy` isGracefulLabeling g
 
 examples :: Spec
 examples = do
@@ -51,17 +47,18 @@ spec = parallel $ do
     properties Solution.gracefulTree  "gracefulTree" 20
     properties Solution.gracefulTree' "gracefulTree'" 10
 
-isTree :: G -> Bool
-isTree g = all (\(v,v') -> length (paths v v' g) == 1) pairs
-  where vs = Set.toList $ vertexes g
-        pairs = [(u,v) | u <- vs, v <- vs, u < v]
-
 isGracefulLabeling :: G -> Maybe (Map Vertex Int) -> Bool
 isGracefulLabeling _ Nothing   = False
 isGracefulLabeling g (Just ls) = diffs == lbls
   where diff (Edge (u,v)) = abs $ (ls ! u) - (ls ! v)
         diffs = sort $ map diff $ Set.toList $ edges g
         lbls = [1..(Set.size (vertexes g) - 1)]
+
+-- | Generate a graph which is a tree.
+newtype TreeGraph = TreeGraph G deriving Show
+
+instance Arbitrary TreeGraph where
+  arbitrary = TreeGraph <$> toTree <$> arbitrary
 
 -- | Create vertexes and edges from a structure-only tree.
 toTree :: PureTree -> G
@@ -80,16 +77,16 @@ fromChildren v (t:ts) (n, vs, es) = fromChildren v ts $ toTree' t (n', vs', es')
 
 -- | Generate a tree that is pure structure.
 -- This will be turned into a graph that is a tree.
-data PureTree = Branch [PureTree]
-  deriving Show
+data PureTree = Branch [PureTree] deriving Show
 
-genPureTree :: Gen PureTree
-genPureTree = sized genPureTree'
+instance Arbitrary PureTree where
+  arbitrary = sized genPureTree
+  shrink (Branch ts) = ts ++ map Branch (shrink ts)
 
-genPureTree' :: Int -> Gen PureTree
-genPureTree' 0 = return $ Branch []
-genPureTree' n
-  | n > 0     = do
+genPureTree :: Int -> Gen PureTree
+genPureTree 0 = return $ Branch []
+genPureTree n
+  | n > 0 = do
       k <- choose (0, n-1)
-      liftM Branch $ vectorOf k $ genPureTree' $ (n-1) `div` (max 1 k)
+      liftM Branch $ vectorOf k $ genPureTree $ (n-1) `div` (max 1 k)
   | otherwise = undefined
