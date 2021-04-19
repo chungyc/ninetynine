@@ -78,7 +78,7 @@ True
 There are only 16 binary boolean functions, ignoring how they are actually computed,
 so it is feasible to devise logic circuits for all of them manually.
 
-To have a computer construct them automatically, which is more difficult,
+To have a computer construct them automatically, which may be more difficult,
 take advantage of the fact that a boolean function can be represented by its truth table.
 Consider what the inputs must be like for a NAND gate to output a desired truth table.
 -}
