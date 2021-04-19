@@ -155,6 +155,10 @@ module Problems (
   -- | == &#129335; &#129335; Truth tables for logical expressions
   BoolFunc,
   table,
+  -- ** Problem 47
+  -- | == &#129335; &#129335; Universal logic gates
+  evaluateCircuit,
+  buildCircuit,
   -- ** Problem 48
   -- | == &#129335; &#129335; Truth tables for \(n\)-ary boolean functions
   tablen,
@@ -378,6 +382,7 @@ import           Problems.P39
 import           Problems.P40
 import           Problems.P41
 import           Problems.P46
+import           Problems.P47
 import           Problems.P48
 import           Problems.P49
 import           Problems.P50

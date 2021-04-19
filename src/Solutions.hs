@@ -108,6 +108,9 @@ module Solutions (
   -- ** Problem 46
   BoolFunc,
   table,
+  -- ** Problem 47
+  evaluateCircuit,
+  buildCircuit,
   -- ** Problem 48
   tablen,
   -- ** Problem 49
@@ -269,6 +272,7 @@ import           Solutions.P39
 import           Solutions.P40
 import           Solutions.P41
 import           Solutions.P46
+import           Solutions.P47
 import           Solutions.P48
 import           Solutions.P49
 import           Solutions.P50

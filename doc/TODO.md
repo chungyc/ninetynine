@@ -6,7 +6,7 @@
 *   [x] Provide implementations for all problems
 *   [ ] Replace problems
     *   [ ] Problem 38 : Consider binomial coefficient
-    *   [ ] Problem 47 : Consider universal NAND logic gate
+    *   [x] Problem 47
     *   [x] Problem 54
 *   [ ] Add problems so that there are actually 99 problems
     *   [x] Problem 29
