@@ -79,7 +79,7 @@ the \(n\)th Fibonacci number with \(O(\log n)\) multiplications.
 
 Compare with the solution for "Problems.P29":
 
--- > $ stack bench --benchmark-arguments="P29/fibonacci P30/fibonacci'"
+> $ stack bench --benchmark-arguments="P29/fibonacci P30/fibonacci'"
 
 === Examples
 
@@ -94,7 +94,8 @@ Compare with the solution for "Problems.P29":
 
 === __Hint__
 
-Since \(x^{39} = (((((((x^2 )^2 )^2) x)^2) x)^2 ) x\), \(x^{39}\) can be computed with 8 multiplications instead of 38.
+With exponentiation by squaring, \(x^n\) can be computed with \(O(\log n)\) multiplications.
+E.g., since \(x^{39} = (((((((x^2 )^2 )^2) x)^2) x)^2 ) x\), \(x^{39}\) can be computed with 8 multiplications instead of 38.
 -}
 fibonacci' :: Integral a => a -> a
 fibonacci' = Solution.fibonacci'
