@@ -11,8 +11,8 @@
 *   [ ] Add problems so that there are actually 99 problems
     *   [x] Problem 29
     *   [x] Problem 30
+    *   [x] Problem 42
     *   Consider big number problems
-        *   [ ] Problem 42 : Consider modular multiplicative inverse
         *   [ ] Problem 43 : Consider Montgomery form
         *   [ ] Problem 44 : Consider Miller-Rabin primality test
         *   [ ] Problem 45 : Consider RSA
