@@ -49,7 +49,7 @@ stateless = mapFiles
   , "P21.hs", "P22.hs"
   , "P28.hs", "P29.hs", "P30.hs"
   , "P31.hs", "P32.hs", "P33.hs", "P34.hs", "P35.hs"
-  , "P36.hs", "P39.hs", "P40.hs"
+  , "P36.hs", "P38.hs", "P39.hs", "P40.hs"
   , "P42.hs"
   , "P46.hs", "P47.hs", "P49.hs"
   , "P54.hs", "P55.hs"

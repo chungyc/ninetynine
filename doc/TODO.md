@@ -5,7 +5,7 @@
 *   [ ] Stop duplicating verbose explanations in solutions
 *   [x] Provide implementations for all problems
 *   [ ] Replace problems
-    *   [ ] Problem 38 : Consider binomial coefficient
+    *   [x] Problem 38
     *   [x] Problem 47
     *   [x] Problem 54
 *   [ ] Add problems so that there are actually 99 problems

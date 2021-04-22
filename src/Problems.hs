@@ -140,6 +140,9 @@ module Problems (
   -- ** Problem 37
   -- | == &#129335; &#129335; Euler's totient function with Euler's product formula
   totient',
+  -- ** Problem 38
+  -- | == &#129335; &#129335; Highly totient numbers
+  highlyTotientNumbers,
   -- ** Problem 39
   -- | == &#129335; List of prime numbers
   primesR,
@@ -381,6 +384,7 @@ import           Problems.P34
 import           Problems.P35
 import           Problems.P36
 import           Problems.P37
+import           Problems.P38
 import           Problems.P39
 import           Problems.P40
 import           Problems.P41

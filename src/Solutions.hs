@@ -97,6 +97,8 @@ module Solutions (
   primeFactorsMultiplicity,
   -- ** Problem 37
   totient',
+  -- ** Problem 38
+  highlyTotientNumbers,
   -- ** Problem 39
   primesR,
   primes,
@@ -270,6 +272,7 @@ import           Solutions.P34
 import           Solutions.P35
 import           Solutions.P36
 import           Solutions.P37
+import           Solutions.P38
 import           Solutions.P39
 import           Solutions.P40
 import           Solutions.P41
