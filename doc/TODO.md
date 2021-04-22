@@ -4,7 +4,7 @@
 *   [ ] Adjust difficulty levels
 *   [ ] Stop duplicating verbose explanations in solutions
 *   [x] Provide implementations for all problems
-*   [ ] Replace problems
+*   [x] Replace problems
     *   [x] Problem 38
     *   [x] Problem 47
     *   [x] Problem 54
