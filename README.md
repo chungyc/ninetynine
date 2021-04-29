@@ -81,7 +81,7 @@ $ stack bench --benchmark-arguments=${PROBLEM}
 
 To run code for a problem interactively:
 
-```shell
+```
 $ stack ghci --no-load
 ...
 Prelude> :load Problems.P01
