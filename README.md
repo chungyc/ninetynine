@@ -55,11 +55,11 @@ To run all tests:
 $ stack test
 ```
 
-If you want to run tests for only a single problem:
+If you want to run tests for a specific problem:
 
 ```shell
 $ export PROBLEM=P01
-$ stack test --test-arguments=--match=$PROBLEM
+$ stack test --test-arguments=--match=${PROBLEM}
 ```
 
 The tests include testing of examples in documentation
@@ -70,32 +70,25 @@ then they can be skipped by adding `--skip examples-test` to the arguments.
 
 ### Benchmarks
 
-To run all benchmarks:
-
-```shell
-$ stack bench
-```
-
-By their nature, running all benchmarks takes significant time.
-You can run benchmarks for a single problem as in the following,
-which will also save the benchmark results in HTML.
+To run benchmarks for a specific problem:
 
 ```shell
 $ export PROBLEM=P01
-$ export BENCHMARKFILE=$HOME/benchmarks.html
-$ stack bench --benchmark-arguments="--output=$BENCHMARKFILE $PROBLEM"
+$ stack bench --benchmark-arguments=${PROBLEM}
 ```
 
-### Reducing recompilations
+### Running interactively
 
-When running `stack test` and `stack bench` together,
-the build system will want to rebuild everything in the project.
-To restrict rebuilds to only modules that you have edited when running
-tests and benchmarks together, use the following commands instead:
+To run code for a problem interactively:
 
 ```shell
-$ stack build --test --bench --no-run-tests
-$ stack build --test --bench --no-run-benchmarks
+$ stack ghci --no-load
+...
+Prelude> :load Problems.P01
+...
+*Problems.P01> myLast "abc"
+'c'
+*Problems.P01> ...
 ```
 
 ## License
