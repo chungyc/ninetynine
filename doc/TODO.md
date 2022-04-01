@@ -21,9 +21,9 @@
         *   [ ] Problem 52 : Consider conjunctive normal forms
         *   [ ] Problem 53 : Consider propositional logic solver with resolution rule
     *   Monad problems
-        *   [ ] Problem 74
-        *   [ ] Problem 75 : Consider arbitrary instance generator with applicative functors
-        *   [ ] Problem 76
-        *   [ ] Problem 77 : Consider counting monad with Collatz conjecture
-        *   [ ] Problem 78 : Consider permutations with list monad
+        *   [ ] Problem 74 : Consider IO without do notation
+        *   [ ] Problem 75 : Consider list without do notation with NP problem
+        *   [ ] Problem 76 : Consider counting monad with Collatz conjecture
+        *   [ ] Problem 77 : Consider counting monad transformer
+        *   [ ] Problem 78 : Consider stack monad transformer
         *   [ ] Problem 79 : Consider monad transformers with Tower of Hanoi (counting steps + stack + maybe)

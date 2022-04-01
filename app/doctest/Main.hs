@@ -74,7 +74,10 @@ stateful = mapFiles [ "P26.hs", "P27.hs", "P48.hs", "P57.hs"
 -- | Deterministic examples in background modules.
 -- Run separately from problem modules to avoid type mismatches.
 background :: [String]
-background = mapFiles ["Crosswords.hs", "Graphs.hs", "MultiwayTrees.hs"]
+background = mapFiles [ "Graphs.hs"
+                      , "Crosswords.hs"
+                      , "MultiwayTrees.hs"
+                      ]
 
 -- Examples in solutions.
 solutions :: [String]
