@@ -15,7 +15,8 @@ main :: IO ()
 main = do
   doctest' ["--fast"] stateless
   doctest' [] stateful
-  doctest' [] background
+  doctest' [] $ mapFiles ["Crosswords.hs"]
+  doctest' [] $ mapFiles ["MultiwayTrees.hs"]
   doctest' ["--fast"] solutions
 
 doctest' :: [String] -> [String] -> IO ()
@@ -71,14 +72,6 @@ stateful = mapFiles [ "P26.hs", "P27.hs", "P48.hs", "P57.hs"
                     , "P93.hs"
                     ]
 
--- | Deterministic examples in background modules.
--- Run separately from problem modules to avoid type mismatches.
-background :: [String]
-background = mapFiles [ "Graphs.hs"
-                      , "Crosswords.hs"
-                      , "MultiwayTrees.hs"
-                      ]
-
 -- Examples in solutions.
 solutions :: [String]
 solutions = map ("src/Solutions/" ++) $ [ "P49.hs" ]
@@ -104,4 +97,12 @@ Examples in the following problems are intentionally omitted from testing.
 
 * P92 : The graceful labeling is not unique.
   It is difficult to deal with this without making the example less illustrative.
+
+Examples in the following modules are also intentionally omitted from testing.
+
+* Problems.Graphs : The module and examples themselves are fine.
+  However, doctest fails on the examples here for some unknown reason.
+  This is likely related to changes in GHC; it used to succeed in older versions.
+  doctest does succeed with a standalone manual run
+  (`stack exec doctest src/Problems/Graphs.hs`).
 -}
