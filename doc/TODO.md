@@ -27,3 +27,5 @@
         *   [ ] Problem 77 : Consider counting monad transformer
         *   [ ] Problem 78 : Consider stack monad transformer
         *   [ ] Problem 79 : Consider monad transformers with Tower of Hanoi (counting steps + stack + maybe)
+*   [ ] Clean up modules which need `-fno-warn-incomplete-uni-patterns`
+    *    These were written before the warning was enabled by default

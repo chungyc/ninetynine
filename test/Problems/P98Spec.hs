@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
+
 {-|
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later

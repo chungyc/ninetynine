@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
+
 module Solutions.ArithmeticSpec (spec) where
 
 import           Solutions.Arithmetic

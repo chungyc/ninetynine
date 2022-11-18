@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
+
 {- |
 Description: In-order and pre-order sequences of binary trees
 Copyright: Copyright (C) 2021 Yoo Chung

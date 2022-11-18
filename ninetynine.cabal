@@ -1,10 +1,10 @@
 cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.33.0.
+-- This file has been generated from package.yaml by hpack version 0.35.0.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 42114b401560f0ce83869d5d20d2ce89e586f55d411e62512a1576e703d2c11e
+-- hash: b4a45776cb580e8a72ec533deb8151430078447109cab8250d025b38b147dd5e
 
 name:           ninetynine
 version:        0.4.0.0
@@ -254,6 +254,8 @@ library
       Solutions.P99
   other-modules:
       Paths_ninetynine
+  autogen-modules:
+      Paths_ninetynine
   hs-source-dirs:
       src
   build-depends:
@@ -271,6 +273,8 @@ executable generate-support
   main-is: Main.hs
   other-modules:
       Paths_ninetynine
+  autogen-modules:
+      Paths_ninetynine
   hs-source-dirs:
       app/support
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
@@ -285,6 +289,8 @@ test-suite examples-test
   type: exitcode-stdio-1.0
   main-is: Main.hs
   other-modules:
+      Paths_ninetynine
+  autogen-modules:
       Paths_ninetynine
   hs-source-dirs:
       app/doctest
@@ -393,6 +399,8 @@ test-suite ninetynine-test
       Problems.P99Spec
       Solutions.ArithmeticSpec
       Paths_ninetynine
+  autogen-modules:
+      Paths_ninetynine
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
@@ -496,6 +504,8 @@ benchmark ninetynine-bench
       Problems.P97Bench
       Problems.P98Bench
       Problems.P99Bench
+      Paths_ninetynine
+  autogen-modules:
       Paths_ninetynine
   hs-source-dirs:
       bench

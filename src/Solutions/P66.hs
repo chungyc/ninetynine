@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
+
 {- |
 Description: Binary tree layout; compact
 Copyright: Copyright (C) 2021 Yoo Chung

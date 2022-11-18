@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
+
 {- |
 Description: Universal logic gates
 Copyright: Copyright (C) 2021 Yoo Chung
