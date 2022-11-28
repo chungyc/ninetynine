@@ -79,7 +79,7 @@ solutions = map ("src/Solutions/" ++) $ [ "P49.hs" ]
 {-
 Examples in the following problems are intentionally omitted from testing.
 
-* P23, P24, P25 : Randomness means we cannot expect deterministic output.
+* P23, P24, P25, P51 : Randomness means we cannot expect deterministic output.
   Even with a fixed pseudo-random number generator, we cannot impose any particular result.
 
 * P41 : Goldbach pairs are not unique except for 12.

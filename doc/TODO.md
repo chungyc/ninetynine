@@ -17,7 +17,7 @@
         *   [ ] Problem 44 : Consider Miller-Rabin primality test
         *   [ ] Problem 45 : Consider RSA
     *   Consider more logic and code problems
-        *   [ ] Problem 51 : Consider error correction codes
+        *   [x] Problem 51 : Consider error correction codes
         *   [ ] Problem 52 : Consider conjunctive normal forms
         *   [ ] Problem 53 : Consider propositional logic solver with resolution rule
     *   Monad problems

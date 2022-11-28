@@ -174,6 +174,11 @@ module Problems (
   -- ** Problem 50
   -- | == &#129335; &#129335; &#129335; Huffman codes
   huffman,
+  -- ** Problem 51
+  -- | == &#129335; Error correction codes,
+  corrupt,
+  errorCorrectingEncode,
+  errorCorrectingDecode,
   -- * Binary tree problems
   -- ** Problem 54
   -- | == &#129335; Binary trees
@@ -394,6 +399,7 @@ import           Problems.P47
 import           Problems.P48
 import           Problems.P49
 import           Problems.P50
+import           Problems.P51
 import           Problems.P54
 import           Problems.P55
 import           Problems.P56

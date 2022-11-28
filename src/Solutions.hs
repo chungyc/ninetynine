@@ -121,6 +121,10 @@ module Solutions (
   gray,
   -- ** Problem 50
   huffman,
+  -- ** Problem 51
+  corrupt,
+  errorCorrectingEncode,
+  errorCorrectingDecode,
   -- * Binary tree problems
   -- ** Problem 54
   Tree (Empty, Branch),
@@ -282,6 +286,7 @@ import           Solutions.P47
 import           Solutions.P48
 import           Solutions.P49
 import           Solutions.P50
+import           Solutions.P51
 import           Solutions.P54
 import           Solutions.P55
 import           Solutions.P56

@@ -18,7 +18,7 @@ import           Problems.Graphs
 -- such that no adjacent vertexes have the same color.
 --
 -- Write a function to color a graph
--- using [Welch-Powell's algorithm](https://graphstream-project.org/doc/Algorithms/Welsh-Powell/)
+-- using [Welch-Powell's algorithm](https://graphstream-project.org/doc/Algorithms/Welsh-Powell/).
 -- Use distinct integers to represent distinct colors,
 -- and return the association list between vertexes and their colors.
 colorGraph :: G -> [(Vertex, Int)]
