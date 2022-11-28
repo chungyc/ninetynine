@@ -175,7 +175,7 @@ module Problems (
   -- | == &#129335; &#129335; &#129335; Huffman codes
   huffman,
   -- ** Problem 51
-  -- | == &#129335; Error correction codes,
+  -- | == &#129335; Error correction codes
   corrupt,
   errorCorrectingEncode,
   errorCorrectingDecode,
