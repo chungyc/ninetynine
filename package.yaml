@@ -39,6 +39,7 @@ library:
   - array
   - containers
   - deepseq
+  - process
   - mtl
   - prettyprinter
   - random
@@ -68,6 +69,7 @@ tests:
     dependencies:
     - ninetynine
     - containers
+    - process
     - random
     - hspec
     - QuickCheck
