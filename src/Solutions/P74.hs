@@ -8,7 +8,7 @@ Some solutions to "Problems.P74" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P74 (askGoldbach) where
 
-import           Problems.P40 (goldbach)
+import           Solutions.P40 (goldbach)
 import           System.IO
 
 {- |

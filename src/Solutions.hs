@@ -181,8 +181,11 @@ module Solutions (
   -- ** Problem 73
   treeToSexp,
   sexpToTree,
+  -- * Monad problems
   -- ** Problem 74
   askGoldbach,
+  -- ** Problem 75
+  maybeGoldbach,
   -- * Graph problems
   -- ** Problem 80
   ConvertibleGraph,
@@ -310,6 +313,7 @@ import           Solutions.P71
 import           Solutions.P72
 import           Solutions.P73
 import           Solutions.P74
+import           Solutions.P75
 import           Solutions.P80
 import           Solutions.P81
 import           Solutions.P82

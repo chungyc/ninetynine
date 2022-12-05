@@ -265,6 +265,9 @@ module Problems (
   -- ** Problem 74
   -- | == &#129335; &#129335; Monads without do notation
   askGoldbach,
+  -- ** Problem 75
+  -- | == &#129335; Maybe monads
+  maybeGoldbach,
   -- * Graph problems
   Graph (vertexes, edges),
   Vertex,
@@ -425,6 +428,7 @@ import           Problems.P71
 import           Problems.P72
 import           Problems.P73
 import           Problems.P74
+import           Problems.P75
 import           Problems.P80
 import           Problems.P81
 import           Problems.P82

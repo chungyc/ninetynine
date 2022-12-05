@@ -22,10 +22,10 @@
         *   [ ] Problem 53 : Consider propositional logic solver with resolution rule
     *   Monad problems
         *   [x] Problem 74 : Consider IO without do notation
-        *   [ ] Problem 75 : Consider Maybe monads
-        *   [ ] Problem 76 : Consider list monads
-        *   [ ] Problem 77 : Consider counting monad with Collatz conjecture
-        *   [ ] Problem 78 : Consider stack monad transformer
+        *   [x] Problem 75 : Consider Maybe monads
+        *   [ ] Problem 76 : Consider Either monads
+        *   [ ] Problem 77 : Consider list monads
+        *   [ ] Problem 78 : Consider counting monad with Collatz conjecture
         *   [ ] Problem 79 : Consider monad transformers with Tower of Hanoi (counting steps + stack + maybe)
 *   [ ] Clean up modules which need `-fno-warn-incomplete-uni-patterns`
-    *    These were written before the warning was enabled by default
+    *    These were written before the warning was enabled by default with `-Wall`
