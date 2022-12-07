@@ -167,7 +167,7 @@ findSites g orient = concat $ map (\l -> evalState find $ initial l) $ zip [0..]
                               , fssPos = 1 + fssPos st
                               }
 
--- | Monadic state for 'findSites'.
+-- | Monadic state for findSites.
 data FindSitesState = FindSitesState
   { fssSpots :: [Either Bool Char]
   , fssRow   :: Int

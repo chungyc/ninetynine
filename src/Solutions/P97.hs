@@ -113,7 +113,7 @@ type Board = Array (Int,Int) (Maybe Int)
 -- Intended to hold positions that are still blank, not all positions.
 type Pending = Map (Int,Int) (Set Int)
 
--- | Converts a puzzle or solution represented as a 'Board' into a list of lists.
+-- | Converts a puzzle or solution represented as a Board into a list of lists.
 fromBoard :: Board -> [[Int]]
 fromBoard b = [ l | i <- [1..9], let l = [ toInt $ b Array.! (i,j) | j <- [1..9] ] ]
   where toInt Nothing  = 0
@@ -124,7 +124,7 @@ toBoard :: [[Int]] -> (Board, Pending)
 toBoard p = (array ((1,1), (9,9)) list, toPending list)
   where list = toBoardList p
 
--- | Converts to association list for use by 'toBoard'.
+-- | Converts to association list for use by toBoard.
 toBoardList :: [[Int]] -> [((Int, Int), Maybe Int)]
 toBoardList p = concat $ map (\(i, l) -> map (\(j, n) -> ((i, j), maybeN n)) l) indexed
   where indexed = zip [1..9] $ map (zip [1..9]) p
