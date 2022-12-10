@@ -268,6 +268,9 @@ module Problems (
   -- ** Problem 75
   -- | == &#129335; Maybe monads
   maybeGoldbach,
+  -- ** Problem 76
+  -- | == &#129335; Either monads
+  eitherGoldbach,
   -- * Graph problems
   Graph (vertexes, edges),
   Vertex,
@@ -429,6 +432,7 @@ import           Problems.P72
 import           Problems.P73
 import           Problems.P74
 import           Problems.P75
+import           Problems.P76
 import           Problems.P80
 import           Problems.P81
 import           Problems.P82

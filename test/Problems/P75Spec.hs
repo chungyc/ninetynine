@@ -17,7 +17,7 @@ import           Text.Read             (readMaybe)
 properties :: (String -> Maybe (Int, (Int, Int))) -> String -> Spec
 properties maybeGoldbach name = describe name $ do
   prop "fails with non-number input" $
-    \s -> (isNothing $ (readMaybe s :: Maybe Int)) ==> maybeGoldbach s `shouldBe` Nothing
+    \s -> (isNothing (readMaybe s :: Maybe Int)) ==> maybeGoldbach s `shouldBe` Nothing
 
   prop "fails with number less than or equal to 2" $
     \n -> (n :: Int) <= 2 ==> maybeGoldbach (show n) `shouldBe` Nothing
