@@ -144,6 +144,7 @@ library
       Problems.P74
       Problems.P75
       Problems.P76
+      Problems.P77
       Problems.P80
       Problems.P81
       Problems.P82
@@ -238,6 +239,7 @@ library
       Solutions.P74
       Solutions.P75
       Solutions.P76
+      Solutions.P77
       Solutions.P80
       Solutions.P81
       Solutions.P82
@@ -388,6 +390,7 @@ test-suite ninetynine-test
       Problems.P74Spec
       Problems.P75Spec
       Problems.P76Spec
+      Problems.P77Spec
       Problems.P80Spec
       Problems.P81Spec
       Problems.P82Spec

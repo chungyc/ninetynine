@@ -24,7 +24,7 @@
         *   [x] Problem 74 : Consider IO without do notation
         *   [x] Problem 75 : Consider Maybe monads
         *   [x] Problem 76 : Consider Either monads
-        *   [ ] Problem 77 : Consider list monads
+        *   [x] Problem 77 : Consider list monads
         *   [ ] Problem 78 : Consider counting monad with Collatz conjecture
         *   [ ] Problem 79 : Consider monad transformers with Tower of Hanoi (counting steps + stack + maybe)
 *   [ ] Clean up modules which need `-fno-warn-incomplete-uni-patterns`

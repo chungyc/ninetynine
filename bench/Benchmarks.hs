@@ -166,6 +166,7 @@ main = defaultMain [ P01.group
                    -- P74 benchmark intentionally omitted
                    -- P75 benchmark intentionally omitted
                    -- P76 benchmark intentionally omitted
+                   -- P77 benchmark intentionally omitted
                    , P80.group
                    , P81.group
                    , P82.group

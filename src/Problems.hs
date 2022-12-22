@@ -271,6 +271,9 @@ module Problems (
   -- ** Problem 76
   -- | == &#129335; Either monads
   eitherGoldbach,
+  -- ** Problem 77
+  -- | == &#129335; List monads
+  randomWalkPaths,
   -- * Graph problems
   Graph (vertexes, edges),
   Vertex,
@@ -433,6 +436,7 @@ import           Problems.P73
 import           Problems.P74
 import           Problems.P75
 import           Problems.P76
+import           Problems.P77
 import           Problems.P80
 import           Problems.P81
 import           Problems.P82
