@@ -274,6 +274,9 @@ module Problems (
   -- ** Problem 77
   -- | == &#129335; List monads
   randomWalkPaths,
+  -- ** Problem 78
+  -- | == &#129335; Collatz conjecture
+  collatz,
   -- * Graph problems
   Graph (vertexes, edges),
   Vertex,
@@ -437,6 +440,7 @@ import           Problems.P74
 import           Problems.P75
 import           Problems.P76
 import           Problems.P77
+import           Problems.P78
 import           Problems.P80
 import           Problems.P81
 import           Problems.P82

@@ -190,6 +190,8 @@ module Solutions (
   eitherGoldbach,
   -- ** Problem 77
   randomWalkPaths,
+  -- ** Problem 78
+  collatz,
   -- * Graph problems
   -- ** Problem 80
   ConvertibleGraph,
@@ -320,6 +322,7 @@ import           Solutions.P74
 import           Solutions.P75
 import           Solutions.P76
 import           Solutions.P77
+import           Solutions.P78
 import           Solutions.P80
 import           Solutions.P81
 import           Solutions.P82
