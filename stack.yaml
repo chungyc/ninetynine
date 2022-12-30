@@ -67,8 +67,3 @@ ghc-options:
     "$locals": -Wall
     "$targets": -Werror
     "$everything": -O2
-
-build:
-  haddock-arguments:
-    haddock-args:
-    - --theme=Ocean
