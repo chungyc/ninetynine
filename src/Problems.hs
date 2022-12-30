@@ -277,6 +277,11 @@ module Problems (
   -- ** Problem 78
   -- | == &#129335; Collatz conjecture
   collatz,
+  -- ** Problem 79
+  -- | == &#129335; &#129335; Postfix notation
+  calculatePostfix,
+  Element (..),
+  Operator (..),
   -- * Graph problems
   Graph (vertexes, edges),
   Vertex,
@@ -441,6 +446,7 @@ import           Problems.P75
 import           Problems.P76
 import           Problems.P77
 import           Problems.P78
+import           Problems.P79
 import           Problems.P80
 import           Problems.P81
 import           Problems.P82

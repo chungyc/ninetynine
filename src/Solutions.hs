@@ -192,6 +192,8 @@ module Solutions (
   randomWalkPaths,
   -- ** Problem 78
   collatz,
+  -- ** Problem 79
+  calculatePostfix,
   -- * Graph problems
   -- ** Problem 80
   ConvertibleGraph,
@@ -323,6 +325,7 @@ import           Solutions.P75
 import           Solutions.P76
 import           Solutions.P77
 import           Solutions.P78
+import           Solutions.P79
 import           Solutions.P80
 import           Solutions.P81
 import           Solutions.P82

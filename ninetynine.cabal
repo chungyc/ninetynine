@@ -146,6 +146,7 @@ library
       Problems.P76
       Problems.P77
       Problems.P78
+      Problems.P79
       Problems.P80
       Problems.P81
       Problems.P82
@@ -167,6 +168,7 @@ library
       Problems.P97
       Problems.P98
       Problems.P99
+      Problems.PostfixNotation
       Solutions
       Solutions.Arithmetic
       Solutions.P01
@@ -242,6 +244,7 @@ library
       Solutions.P76
       Solutions.P77
       Solutions.P78
+      Solutions.P79
       Solutions.P80
       Solutions.P81
       Solutions.P82
@@ -278,6 +281,7 @@ library
     , process
     , random
     , text
+    , transformers
   default-language: Haskell2010
 
 executable generate-support
@@ -394,6 +398,7 @@ test-suite ninetynine-test
       Problems.P76Spec
       Problems.P77Spec
       Problems.P78Spec
+      Problems.P79Spec
       Problems.P80Spec
       Problems.P81Spec
       Problems.P82Spec

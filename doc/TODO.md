@@ -26,6 +26,6 @@
         *   [x] Problem 76 : Consider Either monads
         *   [x] Problem 77 : Consider list monads
         *   [x] Problem 78 : Consider counting for Collatz conjecture
-        *   [ ] Problem 79 : Consider monad transformers with Tower of Hanoi (counting steps + stack + maybe)
+        *   [x] Problem 79 : Consider monad transformers with postfix notation
 *   [ ] Clean up modules which need `-fno-warn-incomplete-uni-patterns`
     *    These were written before the warning was enabled by default with `-Wall`
