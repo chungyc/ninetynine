@@ -116,6 +116,7 @@ library
       Problems.P41
       Problems.P42
       Problems.P43
+      Problems.P44
       Problems.P46
       Problems.P47
       Problems.P48
@@ -215,6 +216,7 @@ library
       Solutions.P41
       Solutions.P42
       Solutions.P43
+      Solutions.P44
       Solutions.P46
       Solutions.P47
       Solutions.P48
@@ -370,6 +372,7 @@ test-suite ninetynine-test
       Problems.P41Spec
       Problems.P42Spec
       Problems.P43Spec
+      Problems.P44Spec
       Problems.P46Spec
       Problems.P47Spec
       Problems.P48Spec
