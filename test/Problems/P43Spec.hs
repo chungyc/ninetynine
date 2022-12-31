@@ -33,8 +33,16 @@ properties gaussianDividesBy name = describe name $ do
 
 examples :: Spec
 examples = describe "Examples" $ do
-  it "is pending" $ do
-    pending
+  it "(10 :+ 0) `gaussianDividesBy` (2 :+ 0)" $ do
+    (10 :+ 0) `gaussianDividesBy` (2 :+ 0) `shouldBe` True
+
+  it "(10 :+ 0) `gaussianDividesBy` (0 :+ 2)" $ do
+    (10 :+ 0) `gaussianDividesBy` (0 :+ 2) `shouldBe` True
+
+  it "(5 :+ 2) `gaussianDividesBy` (2 :+ (-1))" $ do
+    (5 :+ 2) `gaussianDividesBy` (2 :+ (-1)) `shouldBe` False
+
+  where gaussianDividesBy = Problem.gaussianDividesBy
 
 spec :: Spec
 spec = parallel $ do
