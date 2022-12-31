@@ -13,9 +13,9 @@
     *   [x] Problem 30
     *   [x] Problem 42
     *   Consider big number problems
-        *   [ ] Problem 43 : Consider Montgomery form
-        *   [ ] Problem 44 : Consider Miller-Rabin primality test
-        *   [ ] Problem 45 : Consider RSA
+        *   [ ] Problem 43 : Consider Gaussian primes
+        *   [ ] Problem 44 : Consider Gaussian primes, redux
+        *   [ ] Problem 45 : Consider Gaussian prime factorization
     *   Consider more logic and code problems
         *   [x] Problem 51
         *   [ ] Problem 52 : Consider conjunctive normal forms

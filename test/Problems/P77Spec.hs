@@ -42,7 +42,7 @@ examples = do
     where randomWalkPaths = Problem.randomWalkPaths
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.randomWalkPaths "randomWalkPaths"
   examples
   describe "From solutions" $ do

@@ -51,7 +51,7 @@ examples = do
     where eitherGoldbach = Problem.eitherGoldbach
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.eitherGoldbach "eitherGoldbach"
   examples
   describe "From solutions" $ do

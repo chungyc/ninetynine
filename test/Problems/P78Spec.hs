@@ -36,7 +36,7 @@ examples = do
     where collatz = Problem.collatz :: Int -> Int
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.collatz "collatz"
   examples
   describe "From solutions" $ do

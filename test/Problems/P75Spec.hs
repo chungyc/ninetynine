@@ -61,7 +61,7 @@ examples = do
           maybeGoldbach' = Problem.maybeGoldbach'
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.maybeGoldbach "maybeGoldbach"
   examples
   describe "From solutions" $ do

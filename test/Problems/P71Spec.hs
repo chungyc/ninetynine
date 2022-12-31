@@ -30,7 +30,7 @@ examples = do
   where internalPathLength = Problem.internalPathLength
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.internalPathLength "internalPathLength"
   examples
   describe "From solutions" $ do

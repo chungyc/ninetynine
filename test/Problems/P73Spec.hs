@@ -59,7 +59,7 @@ examples = do
         sexpToTree = Problem.sexpToTree
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties (Problem.treeToSexp, Problem.sexpToTree) ("treeToSexp", "sexpToTree")
   examples
   describe "From solutions" $ do

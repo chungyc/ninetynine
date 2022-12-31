@@ -119,7 +119,7 @@ examples = do
   where calculatePostfix = Problem.calculatePostfix
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.calculatePostfix "calculatePostfix"
   examples
   describe "From solutions" $ do

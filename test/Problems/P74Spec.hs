@@ -36,7 +36,7 @@ examples = do
     where askGoldbach = Problem.askGoldbach
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.askGoldbach "askGoldbach"
   properties Problem.askGoldbach' "askGoldbach'"
   examples

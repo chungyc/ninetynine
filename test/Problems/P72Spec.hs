@@ -27,7 +27,7 @@ examples = do
   where postOrderSequence = Problem.postOrderSequence
 
 spec :: Spec
-spec = do
+spec = parallel $ do
   properties Problem.postOrderSequence "postOrderSequence"
   examples
   describe "From solutions" $ do
