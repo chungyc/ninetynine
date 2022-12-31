@@ -114,7 +114,7 @@ There are some differences between the problems in this project and those
 at [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
 
 *   Some of the wording was rephrased to match more closely their context in Haskell.
-    For example, "Problems.P10" mentions encoding to a list of tuples, not a list of lists.
+    For example, `Problems.P10` mentions encoding to a list of tuples, not a list of lists.
 
 *   Some problems are intentionally omitted or replaced, because they are
     uninteresting in the context of Haskell or they cannot be provided as
