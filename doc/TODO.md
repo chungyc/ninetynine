@@ -17,15 +17,15 @@
         *   [ ] Problem 44 : Consider Miller-Rabin primality test
         *   [ ] Problem 45 : Consider RSA
     *   Consider more logic and code problems
-        *   [x] Problem 51 : Consider error correction codes
+        *   [x] Problem 51
         *   [ ] Problem 52 : Consider conjunctive normal forms
         *   [ ] Problem 53 : Consider propositional logic solver with resolution rule
     *   Monad problems
-        *   [x] Problem 74 : Consider IO without do notation
-        *   [x] Problem 75 : Consider Maybe monads
-        *   [x] Problem 76 : Consider Either monads
-        *   [x] Problem 77 : Consider list monads
-        *   [x] Problem 78 : Consider counting for Collatz conjecture
-        *   [x] Problem 79 : Consider monad transformers with postfix notation
+        *   [x] Problem 74
+        *   [x] Problem 75
+        *   [x] Problem 76
+        *   [x] Problem 77
+        *   [x] Problem 78
+        *   [x] Problem 79
 *   [ ] Clean up modules which need `-fno-warn-incomplete-uni-patterns`
     *    These were written before the warning was enabled by default with `-Wall`
