@@ -41,10 +41,10 @@ examples = do
 
 spec :: Spec
 spec = parallel $ do
-  properties Problem.gracefulTree "gracefulTree" 20
+  properties Problem.gracefulTree "gracefulTree" 16
   examples
   describe "From solutions" $ do
-    properties Solution.gracefulTree  "gracefulTree" 20
+    properties Solution.gracefulTree  "gracefulTree" 16
     properties Solution.gracefulTree' "gracefulTree'" 10
 
 isGracefulLabeling :: G -> Maybe (Map Vertex Int) -> Bool
