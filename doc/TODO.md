@@ -12,10 +12,10 @@
     *   [x] Problem 29
     *   [x] Problem 30
     *   [x] Problem 42
-    *   Consider big number problems
-        *   [ ] Problem 43 : Consider Gaussian primes
-        *   [ ] Problem 44 : Consider Gaussian primes, redux
-        *   [ ] Problem 45 : Consider Gaussian prime factorization
+    *   Consider Gaussian integer problems
+        *   [x] Problem 43
+        *   [ ] Problem 44 : Consider Gaussian primes
+        *   [ ] Problem 45 : Consider Gaussian primes, redux
     *   Consider more logic and code problems
         *   [x] Problem 51
         *   [ ] Problem 52 : Consider conjunctive normal forms

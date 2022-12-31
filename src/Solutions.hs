@@ -108,6 +108,8 @@ module Solutions (
   goldbachList,
   -- ** Problem 42
   multiplicativeInverse,
+  -- ** Problem 43
+  gaussianDividesBy,
   -- * Logic and code problems
   -- ** Problem 46
   BoolFunc,
@@ -294,6 +296,7 @@ import           Solutions.P39
 import           Solutions.P40
 import           Solutions.P41
 import           Solutions.P42
+import           Solutions.P43
 import           Solutions.P46
 import           Solutions.P47
 import           Solutions.P48

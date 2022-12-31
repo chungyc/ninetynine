@@ -156,6 +156,9 @@ module Problems (
   -- ** Problem 42
   -- | == &#129335; &#129335; Modular multiplicative inverse
   multiplicativeInverse,
+  -- ** Problem 43
+  -- | == &#129335; Gaussian integer divisibility
+  gaussianDividesBy,
   -- * Logic and code problems
   -- ** Problem 46
   -- | == &#129335; &#129335; Truth tables for logical expressions
@@ -415,6 +418,7 @@ import           Problems.P39
 import           Problems.P40
 import           Problems.P41
 import           Problems.P42
+import           Problems.P43
 import           Problems.P46
 import           Problems.P47
 import           Problems.P48
