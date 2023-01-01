@@ -9,6 +9,7 @@ import           Data.Complex
 import           Data.Foldable         (for_)
 import           Problems.P43          (gaussianDividesBy)
 import qualified Problems.P45          as Problem
+import           Solutions.Arithmetic  (gaussianMultiply, gaussianUnits)
 import qualified Solutions.P45         as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
@@ -20,12 +21,12 @@ properties isGaussianPrime' name = describe name $ do
     isGaussianPrime' (0:+0) `shouldBe` False
 
   context "with units" $ do
-    for_ units $ \x -> it (show x ++ " is not prime") $ isGaussianPrime' x `shouldBe` False
+    for_ gaussianUnits $ \x -> it (show x ++ " is not prime") $ isGaussianPrime' x `shouldBe` False
 
   prop "is false for composite Gaussian integers" $
     \x y -> all (not . shouldBeExcluded) [x,y]  ==>
-    counterexample (concat [show $ multiply x y, " = ", show x, " * ", show y]) $
-    isGaussianPrime' (x `multiply` y) `shouldBe` False
+    counterexample (concat [show $ gaussianMultiply x y, " = ", show x, " * ", show y]) $
+    isGaussianPrime' (x `gaussianMultiply` y) `shouldBe` False
 
   prop "does not have non-unit proper divisor when prime" $ withMaxSuccess 10000 $
     \x y -> all (not . shouldBeExcluded) [x,y] ==>
@@ -33,11 +34,8 @@ properties isGaussianPrime' name = describe name $ do
             isGaussianPrime' x ==>
     x `gaussianDividesBy` y `shouldBe` False
 
-  where zero = 0 :+ 0
-        units = [1 :+ 0, (-1) :+ 0, 0 :+ 1, 0 :+ (-1)]
-        multiply (a :+ b) (c :+ d) = (a*c-b*d) :+ (a*d+b*c)
-        shouldBeExcluded x = x == zero || x `elem` units
-        isAssociate x y = elem y $ map (multiply x) [ 1:+0, (-1):+0, 0:+1, 0:+(-1) ]
+  where shouldBeExcluded x = x == (0 :+ 0) || x `elem` gaussianUnits
+        isAssociate x y = elem y $ map (gaussianMultiply x) gaussianUnits
 
 examples :: Spec
 examples = describe "Examples" $ do

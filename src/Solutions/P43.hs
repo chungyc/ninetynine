@@ -9,7 +9,7 @@ Some solutions to "Problems.P43" of Ninety-Nine Haskell "Problems".
 module Solutions.P43 (gaussianDividesBy) where
 
 import           Data.Complex
-import           Solutions.Arithmetic (dividesBy)
+import           Solutions.Arithmetic (dividesBy, gaussianMultiply)
 
 {- | A Gaussian integer is a complex number where both the real and imaginary parts are integers.
 If \(x\) and \(y\) are Gaussian integers where \(y \neq 0\),
@@ -30,10 +30,9 @@ gaussianDividesBy _ (1 :+ 0)        = True
 gaussianDividesBy _ (-1 :+ 0)       = True
 gaussianDividesBy _ (0 :+ 1)        = True
 gaussianDividesBy _ (0 :+ -1)       = True
-gaussianDividesBy (a :+ b) (c :+ d) =
-  numeratorReal `dividesBy` denominator && numeratorImag `dividesBy` denominator
-  -- Basically normalizing x / y = (x * conjugate y) / (y * conjugate y)
+gaussianDividesBy x y@(c :+ d) =
+  realPart numerator `dividesBy` denominator && imagPart numerator `dividesBy` denominator
+  -- Normalizing x / y = (x * conjugate y) / (y * conjugate y)
   -- so that the denominator is purely real.
-  where numeratorReal = a * c + b * d
-        numeratorImag = b * c - a * d
+  where numerator = gaussianMultiply x $ conjugate y
         denominator = c*c + d*d

@@ -7,7 +7,9 @@ Maintainer: dev@chungyc.org
 These functions were written in support of specific arithmetic problems,
 but which turn out to be useful for other problems as well.
 -}
-module Solutions.Arithmetic (dividesBy, primes) where
+module Solutions.Arithmetic (dividesBy, primes, gaussianUnits, gaussianAdd, gaussianMultiply) where
+
+import           Data.Complex
 
 -- | Whether the first argument divides by the second argument.
 --
@@ -29,3 +31,15 @@ primes = 2 : odds
           | any (n `dividesBy`) (candidates n) = next $ n+2
           | otherwise                          = n
         candidates n = takeWhile (\k -> k*k <= n) odds
+
+-- | List of Gaussian integer units.  I.e., \(1\), \(i\), \(-1\), and \(-i\).
+gaussianUnits :: [Complex Integer]
+gaussianUnits = [ 1 :+ 0, 0 :+ 1, (-1) :+ 0, 0 :+ (-1) ]
+
+-- | Add two Gaussian integers.
+gaussianAdd :: Complex Integer -> Complex Integer -> Complex Integer
+gaussianAdd (a :+ b) (c :+ d) = (a+c) :+ (b+d)
+
+-- | Multiply two Gaussian integers.
+gaussianMultiply :: Complex Integer -> Complex Integer -> Complex Integer
+gaussianMultiply (a :+ b) (c :+ d) = (a*c - b*d) :+ (a*d + b*c)
