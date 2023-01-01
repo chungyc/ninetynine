@@ -27,5 +27,3 @@
         *   [x] Problem 77
         *   [x] Problem 78
         *   [x] Problem 79
-*   [ ] Clean up modules which need `-fno-warn-incomplete-uni-patterns`
-    *    These were written before the warning was enabled by default with `-Wall`
