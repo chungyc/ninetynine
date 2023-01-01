@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
-
 {-|
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
@@ -9,6 +7,7 @@ module Problems.P98Spec (spec) where
 
 import           Control.Monad
 import           Data.List             (group, transpose)
+import           Data.Maybe            (fromJust)
 import qualified Problems.P98          as Problem
 import qualified Solutions.P98         as Solution
 import           Test.Hspec
@@ -20,7 +19,7 @@ properties nonogram name = describe name $ do
   modifyMaxSize (const 15) $ do
     prop "is consistent with puzzle" $
       \(Bitmap b) ->
-        let Just b' = nonogram rows columns
+        let b' = fromJust $ nonogram rows columns
             rows  = getRows b
             rows' = getRows b'
             columns  = getColumns b
