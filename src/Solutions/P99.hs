@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
-
 {- |
 Description: Crossword puzzles
 Copyright: Copyright (C) 2021 Yoo Chung
@@ -15,7 +13,7 @@ import           Control.Monad.State.Lazy
 import           Data.List                (delete, sortOn, transpose)
 import           Data.Map.Lazy            (Map, (!))
 import qualified Data.Map.Lazy            as Map
-import           Data.Maybe               (isNothing)
+import           Data.Maybe               (fromJust, isNothing)
 import           Data.Tuple               (swap)
 import           Problems.Crosswords
 import           Problems.P25
@@ -251,7 +249,7 @@ build partial gen
         pws = partialWords partial
         fws = fullWords partial
         maybePartial = infer partial
-        Just partial' = maybePartial
+        partial' = fromJust maybePartial
         isUnchanged = (cs, pws, fws) == (candidates partial', partialWords partial', fullWords partial')
 
 -- | Infer further placements of letters and words.

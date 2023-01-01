@@ -101,7 +101,7 @@ fillBitmap rows columns remainingRows remainingColumns picture gen
   where maybePicture' = do
           p <- fillRows rows remainingRows picture
           fillColumns columns remainingColumns p
-        picture' = fromJust $ maybePicture'
+        picture' = fromJust maybePicture'
         remainingRows' = filter isIncompleteRow remainingRows
         remainingColumns' = filter isIncompleteColumn remainingColumns
         isIncompleteRow r = any (\c -> isNothing $ picture' ! (r,c)) [1..getColumnSize picture']
