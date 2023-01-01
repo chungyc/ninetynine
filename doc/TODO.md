@@ -15,7 +15,7 @@
     *   Consider Gaussian integer problems
         *   [x] Problem 43
         *   [x] Problem 44
-        *   [ ] Problem 45 : Consider Gaussian primes, redux
+        *   [x] Problem 45
     *   Consider more logic and code problems
         *   [x] Problem 51
         *   [ ] Problem 52 : Consider conjunctive normal forms
