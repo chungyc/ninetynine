@@ -490,6 +490,7 @@ benchmark ninetynine-bench
       Problems.P41Bench
       Problems.P42Bench
       Problems.P43Bench
+      Problems.P44Bench
       Problems.P46Bench
       Problems.P47Bench
       Problems.P48Bench

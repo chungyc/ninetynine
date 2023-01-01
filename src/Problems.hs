@@ -159,6 +159,9 @@ module Problems (
   -- ** Problem 43
   -- | == &#129335; Gaussian integer divisibility
   gaussianDividesBy,
+  -- ** Problem 44
+  -- | == &#129335; &#129335; Gaussian primes
+  isGaussianPrime,
   -- * Logic and code problems
   -- ** Problem 46
   -- | == &#129335; &#129335; Truth tables for logical expressions
@@ -419,6 +422,7 @@ import           Problems.P40
 import           Problems.P41
 import           Problems.P42
 import           Problems.P43
+import           Problems.P44
 import           Problems.P46
 import           Problems.P47
 import           Problems.P48

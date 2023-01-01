@@ -14,7 +14,7 @@
     *   [x] Problem 42
     *   Consider Gaussian integer problems
         *   [x] Problem 43
-        *   [ ] Problem 44 : Consider Gaussian primes
+        *   [x] Problem 44
         *   [ ] Problem 45 : Consider Gaussian primes, redux
     *   Consider more logic and code problems
         *   [x] Problem 51

@@ -110,6 +110,8 @@ module Solutions (
   multiplicativeInverse,
   -- ** Problem 43
   gaussianDividesBy,
+  -- ** Problem 44
+  isGaussianPrime,
   -- * Logic and code problems
   -- ** Problem 46
   BoolFunc,
@@ -297,6 +299,7 @@ import           Solutions.P40
 import           Solutions.P41
 import           Solutions.P42
 import           Solutions.P43
+import           Solutions.P44
 import           Solutions.P46
 import           Solutions.P47
 import           Solutions.P48
