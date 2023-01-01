@@ -117,6 +117,7 @@ library
       Problems.P42
       Problems.P43
       Problems.P44
+      Problems.P45
       Problems.P46
       Problems.P47
       Problems.P48
@@ -217,6 +218,7 @@ library
       Solutions.P42
       Solutions.P43
       Solutions.P44
+      Solutions.P45
       Solutions.P46
       Solutions.P47
       Solutions.P48
@@ -373,6 +375,7 @@ test-suite ninetynine-test
       Problems.P42Spec
       Problems.P43Spec
       Problems.P44Spec
+      Problems.P45Spec
       Problems.P46Spec
       Problems.P47Spec
       Problems.P48Spec
@@ -491,6 +494,7 @@ benchmark ninetynine-bench
       Problems.P42Bench
       Problems.P43Bench
       Problems.P44Bench
+      Problems.P45Bench
       Problems.P46Bench
       Problems.P47Bench
       Problems.P48Bench

@@ -112,6 +112,8 @@ module Solutions (
   gaussianDividesBy,
   -- ** Problem 44
   isGaussianPrime,
+  -- ** Problem 45
+  isGaussianPrime',
   -- * Logic and code problems
   -- ** Problem 46
   BoolFunc,
@@ -300,6 +302,7 @@ import           Solutions.P41
 import           Solutions.P42
 import           Solutions.P43
 import           Solutions.P44
+import           Solutions.P45
 import           Solutions.P46
 import           Solutions.P47
 import           Solutions.P48

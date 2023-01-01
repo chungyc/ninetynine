@@ -162,6 +162,9 @@ module Problems (
   -- ** Problem 44
   -- | == &#129335; &#129335; Gaussian primes
   isGaussianPrime,
+  -- ** Problem 45
+  -- | == &#129335; Gaussian primes using the two-square theorem
+  isGaussianPrime',
   -- * Logic and code problems
   -- ** Problem 46
   -- | == &#129335; &#129335; Truth tables for logical expressions
@@ -423,6 +426,7 @@ import           Problems.P41
 import           Problems.P42
 import           Problems.P43
 import           Problems.P44
+import           Problems.P45
 import           Problems.P46
 import           Problems.P47
 import           Problems.P48
