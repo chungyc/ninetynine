@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
-
 {- |
 Description: Universal logic gates
 Copyright: Copyright (C) 2021 Yoo Chung
@@ -13,6 +11,7 @@ module Solutions.P47 (evaluateCircuit, buildCircuit) where
 import           Data.List     (nub)
 import           Data.Map.Lazy (Map, (!))
 import qualified Data.Map.Lazy as Map
+import           Data.Maybe    (fromJust)
 import           Data.Set      (Set)
 import qualified Data.Set      as Set
 
@@ -41,8 +40,8 @@ eval :: Int -> [(Int,Int)] -> [(Int,Bool)] -> Bool
 eval _ [] []                   = undefined
 eval _ [] (r:_)                = snd r
 eval i ((k,l):circuit) outputs = eval (i+1) circuit $ (i, nand x y) : outputs
-  where (Just x) = lookup k outputs
-        (Just y) = lookup l outputs
+  where x = fromJust $ lookup k outputs
+        y = fromJust $ lookup l outputs
 
 nand :: Bool -> Bool -> Bool
 nand x y = not $ x && y
