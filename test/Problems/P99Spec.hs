@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
-
 {-|
 Copyright: Copyright (C) 2021 Yoo Chung
 License: GPL-3.0-or-later
@@ -25,11 +23,11 @@ properties solveCrossword name = describe name $ modifyMaxSize (const 50) $ do
 
   prop "uses only given words in rows" $
     \(Puzzle p) -> solveCrossword p `shouldSatisfy`
-                   \(Just s) -> all (includesGivenWords $ word p) s
+                   all (includesGivenWords $ word p) . fromJust
 
   prop "uses only given words in columns" $
     \(Puzzle p) -> solveCrossword p `shouldSatisfy`
-                   \(Just s) -> all (includesGivenWords $ word p) (transpose s)
+                   all (includesGivenWords $ word p) . transpose . fromJust
 
 examples :: Spec
 examples = describe "Examples" $ do
