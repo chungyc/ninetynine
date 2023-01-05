@@ -1,6 +1,6 @@
 {-|
 Description: Ninety-Nine Haskell Problems
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -188,6 +188,10 @@ module Problems (
   corrupt,
   errorCorrectingEncode,
   errorCorrectingDecode,
+  -- ** Problem 52
+  -- | == &#129335; &#129335; &#129335; Conjunctive normal form
+  toConjunctiveNormalForm,
+  Formula (..),
   -- * Binary tree problems
   -- ** Problem 54
   -- | == &#129335; Binary trees
@@ -433,6 +437,7 @@ import           Problems.P48
 import           Problems.P49
 import           Problems.P50
 import           Problems.P51
+import           Problems.P52
 import           Problems.P54
 import           Problems.P55
 import           Problems.P56

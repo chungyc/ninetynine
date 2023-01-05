@@ -1,6 +1,6 @@
 {-|
 Description: Solutions to Ninety-Nine Haskell Problems
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -131,6 +131,8 @@ module Solutions (
   corrupt,
   errorCorrectingEncode,
   errorCorrectingDecode,
+  -- ** Problem 52
+  toConjunctiveNormalForm,
   -- * Binary tree problems
   -- ** Problem 54
   Tree (Empty, Branch),
@@ -309,6 +311,7 @@ import           Solutions.P48
 import           Solutions.P49
 import           Solutions.P50
 import           Solutions.P51
+import           Solutions.P52
 import           Solutions.P54
 import           Solutions.P55
 import           Solutions.P56

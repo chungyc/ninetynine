@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -57,6 +57,7 @@ import qualified Problems.P48Bench as P48
 import qualified Problems.P49Bench as P49
 import qualified Problems.P50Bench as P50
 import qualified Problems.P51Bench as P51
+import qualified Problems.P52Bench as P52
 import qualified Problems.P55Bench as P55
 import qualified Problems.P56Bench as P56
 import qualified Problems.P57Bench as P57
@@ -149,6 +150,7 @@ main = defaultMain [ P01.group
                    , P49.group
                    , P50.group
                    , P51.group
+                   , P52.group
                    -- P54 benchmark intentionally omitted
                    , P55.group
                    , P56.group

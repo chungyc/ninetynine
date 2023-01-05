@@ -1,6 +1,6 @@
 {-|
 Description: Tests for the examples included with the documentation
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -89,6 +89,8 @@ Examples in the following problems are intentionally omitted from testing.
 
 * P50 : Huffman encoding is not unique, but a direct example of what a Huffman encoding
   looks like is too useful not to include.
+
+* P52 : The conjunctive normal form of boolean formula is often not unique.
 
 * P86 : Multiple graph colorings are possible even with the specific algorithm,
   depending on how ties are broken when sorting.

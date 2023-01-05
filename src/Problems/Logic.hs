@@ -1,20 +1,31 @@
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
+
 {- |
 Description: Supporting definitions for logic and code problems
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
 Supporting definitions for logic and code problems.
 -}
 module Problems.Logic (
+  -- * Truth tables
   BoolFunc,
-  -- * Utility functions
+  -- ** Utility functions
   printTable,
   printTablen,
   Functions (Functions, getTable, getAnd, getOr, getNand, getNor, getXor, getImpl, getEqu),
+  -- * Propositional logic
+  Formula (..),
+  -- ** Utility functions
+  evaluateFormula
   ) where
 
-import           Data.List (intercalate, sort)
+import           Control.DeepSeq
+import           Data.List       (intercalate, sort)
+import           Data.Map        (Map, (!))
+import           GHC.Generics    (Generic)
 
 -- | Define boolean functions 'Problems.P46.and'', 'Problems.P46.or'', 'Problems.P46.nand'',
 -- 'Problems.P46.nor'', 'Problems.P46.xor'', 'Problems.P46.impl'', and 'Problems.P46.equ'',
@@ -75,3 +86,25 @@ data Functions = Functions { getTable :: (Bool -> Bool -> Bool) -> [(Bool, Bool,
                            , getImpl  :: Bool -> Bool -> Bool
                            , getEqu   :: Bool -> Bool -> Bool
                            }
+
+-- | Represents a boolean formula.
+data Formula
+  -- | A constant value.
+  = Value Bool
+  -- | A variable with given name.
+  | Variable String
+  -- | Logical complement.  I.e., it is true only if its clause is false.
+  | Complement Formula
+  -- | Disjunction.  I.e., it is true if any of its clauses are true.
+  | Disjoin [Formula]
+  -- | Conjunction.   I.e., it is true only if all of its clauses are true.
+  | Conjoin [Formula]
+  deriving (Eq, Show, Generic, NFData)
+
+-- | Evaluate a boolean formula with the given mapping of variable names to values.
+evaluateFormula :: Map String Bool -> Formula -> Bool
+evaluateFormula _ (Value x)      = x
+evaluateFormula m (Variable s)   = m ! s
+evaluateFormula m (Complement f) = not $ evaluateFormula m f
+evaluateFormula m (Disjoin fs)   = or $ map (evaluateFormula m) fs
+evaluateFormula m (Conjoin fs)   = and $ map (evaluateFormula m) fs

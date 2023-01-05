@@ -17,7 +17,7 @@
     *   [x] Problem 45
     *   More logic and code problems
         *   [x] Problem 51
-        *   [ ] Problem 52 : Consider conjunctive normal forms
+        *   [x] Problem 52
         *   [ ] Problem 53 : Consider propositional logic solver with resolution rule
     *   [x] Problem 74
     *   [x] Problem 75
