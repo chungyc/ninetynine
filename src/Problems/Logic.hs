@@ -99,7 +99,7 @@ data Formula
   | Disjoin [Formula]
   -- | Conjunction.   I.e., it is true only if all of its clauses are true.
   | Conjoin [Formula]
-  deriving (Eq, Show, Generic, NFData)
+  deriving (Eq, Ord, Show, Generic, NFData)
 
 -- | Evaluate a boolean formula with the given mapping of variable names to values.
 evaluateFormula :: Map String Bool -> Formula -> Bool

@@ -125,6 +125,7 @@ library
       Problems.P50
       Problems.P51
       Problems.P52
+      Problems.P53
       Problems.P54
       Problems.P55
       Problems.P56
@@ -227,6 +228,7 @@ library
       Solutions.P50
       Solutions.P51
       Solutions.P52
+      Solutions.P53
       Solutions.P54
       Solutions.P55
       Solutions.P56
@@ -385,6 +387,7 @@ test-suite ninetynine-test
       Problems.P50Spec
       Problems.P51Spec
       Problems.P52Spec
+      Problems.P53Spec
       Problems.P54Spec
       Problems.P55Spec
       Problems.P56Spec
@@ -505,6 +508,7 @@ benchmark ninetynine-bench
       Problems.P50Bench
       Problems.P51Bench
       Problems.P52Bench
+      Problems.P53Bench
       Problems.P55Bench
       Problems.P56Bench
       Problems.P57Bench
