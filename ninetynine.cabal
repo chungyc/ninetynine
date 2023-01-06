@@ -27,7 +27,6 @@ build-type:     Simple
 extra-source-files:
     README.md
     ChangeLog.md
-    doc/TODO.md
 extra-doc-files:
     images/BinaryTrees/Layout-P64.svg
     images/BinaryTrees/Layout-P65.svg
