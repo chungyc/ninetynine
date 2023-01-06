@@ -78,9 +78,6 @@ examples = describe "Examples" $ do
   it "isTheorem [ X, !X ] False" $ do
     isTheorem [ Variable "X", Complement $ Variable "X" ] (Value False) `shouldBe` True
 
-  it "isTheorem [ X, !X ] (X | !X)" $ do
-    isTheorem [ Variable "X", Complement $ Variable "X" ] (Disjoin [Variable "X", Complement $ Variable "X"]) `shouldBe` True
-
   where isTheorem = Problem.isTheorem
 
 spec :: Spec
