@@ -13,11 +13,8 @@ import           Data.Maybe (isJust)
 import           Data.Set   (Set)
 import qualified Data.Set   as Set
 
--- | Another famous problem is this one:
--- How can a knight jump on an \(N \times N\) chessboard in such a way that it visits every square exactly once?
---
--- Write a function which returns a knight's tour ending at a particular square.
--- Represent the squares by their coordinates with
+-- | Returns a knight's tour ending at a particular square.
+-- Represents the squares by their coordinates with
 -- the tuple \((x,y)\), where \(1 \leq x \leq N\) and \(1 \leq y \leq N\).
 -- A tour will be a list of these tuples of length \(N \times N\).
 knightsTour :: Int -> (Int,Int) -> Maybe [(Int,Int)]
@@ -50,7 +47,7 @@ isLegalPosition n (x,y) = inRange x && inRange y
 
 -- | The same as 'knightsTour', except return a circular tour.
 -- I.e., the knight must be able to jump from the last position in the tour to the first position in the tour.
--- Start the tour from \((1,1)\).
+-- Starts the tour from \((1,1)\).
 closedKnightsTour :: Int -> Maybe [(Int,Int)]
 closedKnightsTour n
   | n < 3  = Nothing  -- Not enough room to jump anywhere.

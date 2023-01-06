@@ -19,15 +19,7 @@ import           Problems.Crosswords
 import           Problems.P25
 import           System.Random
 
-{- |
-Given an empty, or almost empty, crossword puzzle grid and a set of words,
-the problem is to place the words on the grid.
-
-Words are strings of at least two characters.
-A horizontal or vertical sequence of spots in the crossword puzzle grid is called a site.
-Our problem is to find a compatible way of placing words onto sites.
-Each word should be placed at most once at a site.
--}
+-- | Solve a crossword puzzle.
 solveCrossword :: Crossword -> Maybe [[Maybe Char]]
 solveCrossword p = fst $ randomSolveCrossword p $ mkStdGen 99
 

@@ -10,9 +10,7 @@ module Solutions.P95 (fullWords) where
 
 import           Data.List (intercalate)
 
--- | On financial documents such as checks, numbers must sometimes be written in full words.
--- For example, 175 must be written as @"one-seven-five"@.
--- Write a function to return non-negative integers in full words.
+-- | Return non-negative integers in full words.
 fullWords :: Integral a => a -> String
 fullWords 0 = "zero"
 fullWords n = intercalate "-" $ map toDigit $ toList n []

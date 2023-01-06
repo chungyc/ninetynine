@@ -16,32 +16,7 @@ import           Data.List                (group, sortOn)
 import           Data.Maybe               (fromJust, isJust, isNothing)
 import           System.Random
 
-{- |
-[Nonograms](https://en.wikipedia.org/wiki/Nonogram) are picture logic puzzles invented in 1987,
-spreading from Japan to across the world.  They look like this:
-
-@
- □ □ □ □ □ □ □ □  3
- □ □ □ □ □ □ □ □  2 1
- □ □ □ □ □ □ □ □  3 2
- □ □ □ □ □ □ □ □  2 2
- □ □ □ □ □ □ □ □  6
- □ □ □ □ □ □ □ □  1 5
- □ □ □ □ □ □ □ □  6
- □ □ □ □ □ □ □ □  1
- □ □ □ □ □ □ □ □  2
-
- 1 3 1 7 5 3 4 3
-
- 2 1 5 1
-@
-
-Essentially, each row and column of a rectangular bitmap is annotated
-with the respective lengths of its distinct strings of occupied cells.
-The person who solves the puzzle must complete the bitmap given only these lengths.
-Published puzzles are larger than this example, e.g., \(25 \times 20\),
-and apparently always have unique solutions.
--}
+-- | Solve a nonogram.
 nonogram :: [[Int]]  -- ^ Lengths of occupied cells in each row
          -> [[Int]]  -- ^ Lengths of occupied cells in each column
          -> Maybe [[Bool]]  -- ^ Solution to the puzzle, if it exists

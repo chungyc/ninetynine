@@ -19,19 +19,7 @@ import qualified Data.Set        as Set
 import           Problems.Graphs
 import           Problems.P81
 
-{- |
-It has been conjectured that if graph \(G=(V,E)\) is a tree with \(n\) vertexes,
-which necessarily means that it has \(n-1\) edges, then there is
-a [/graceful labeling/](https://en.wikipedia.org/wiki/Graceful_labeling) of the tree.
-This means that there is a way to label each vertex with integers from 1 to \(n\)
-such that for every integer \(m\) from 1 to \(n-1\), there is an edge whose difference
-in vertex labels is \(m\).  I.e., there is a bijection \(l : V \rightarrow \{ k \,|\, 1 \leq k \leq n \}\)
-such that \(\{ |l(v)-l(v')| \,|\, \{v,v'\} \in E \} = \{ k \,|\, 1 \leq k \leq n-1 \}\).
-There is no known counterexample, but neither is it proven that this is true for all trees.
-
-Write a function which will gracefully label a tree graph.
-If there is no graceful labeling for a particular tree,
-return 'Nothing', and write up the counterexample for publication.
+{- | Gracefully label a tree graph.
 
 This implementation builds up a partial graceful labeling, adding one vertex at a time.
 It gives up and tries another if a partial labeling cannot be extended.
@@ -100,19 +88,7 @@ isTree :: G -> Bool
 isTree g = all (\(v,v') -> length (paths v v' g) == 1) [ (v,v') | v <- vs, v' <- vs, v < v' ]
   where vs = Set.toList $ vertexes g
 
-{- |
-It has been conjectured that if graph \(G=(V,E)\) is a tree with \(n\) vertexes,
-which necessarily means that it has \(n-1\) edges, then there is
-a [/graceful labeling/](https://en.wikipedia.org/wiki/Graceful_labeling) of the tree.
-This means that there is a way to label each vertex with integers from 1 to \(n\)
-such that for every integer \(m\) from 1 to \(n-1\), there is an edge whose difference
-in vertex labels is \(m\).  I.e., there is a bijection \(l : V \rightarrow \{ k \,|\, 1 \leq k \leq n \}\)
-such that \(\{ |l(v)-l(v')| \,|\, \{v,v'\} \in E \} = \{ k \,|\, 1 \leq k \leq n-1 \}\).
-There is no known counterexample, but neither is it proven that this is true for all trees.
-
-Write a function which will gracefully label a tree graph.
-If there is no graceful labeling for a particular tree,
-return 'Nothing', and write up the counterexample for publication.
+{- | Gracefully label a tree graph.
 
 This implementation tries all permutations of vertex labels
 and checks if any are a graceful labeling.

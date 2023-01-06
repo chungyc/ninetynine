@@ -252,12 +252,10 @@ module Solutions (
   -- ** Problem 98
   nonogram,
   -- ** Problem 99
-  Crossword,
   solveCrossword,
   ) where
 
 import           Problems.BinaryTrees
-import           Problems.Crosswords
 import           Solutions.P01
 import           Solutions.P02
 import           Solutions.P03
