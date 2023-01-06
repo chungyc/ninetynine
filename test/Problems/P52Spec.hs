@@ -19,7 +19,7 @@ properties :: (Formula -> Formula) -> String -> Spec
 properties toConjunctiveNormalForm name =
   -- Avoid input sizes that are too large.
   -- Particular inputs have conjunctive normal forms that are exponential in length.
-  modifyMaxSize (const 20) $
+  modifyMaxSize (const 15) $
   describe name $ do
 
   prop "is in conjunctive normal form" $

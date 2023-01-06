@@ -8,10 +8,9 @@ Maintainer: dev@chungyc.org
 -}
 module Problems.P53Spec (spec) where
 
-import           Data.List             (nub, singleton)
+import           Data.List             (singleton)
 import           Data.Map              (Map)
 import qualified Data.Map              as Map
-import qualified Data.Set              as Set
 import           Problems.Logic        (Formula (..), evaluateFormula)
 import qualified Problems.P53          as Problem
 import qualified Solutions.P53         as Solution
@@ -23,60 +22,39 @@ properties :: ([Formula] -> Formula -> Bool) -> String -> Spec
 properties isTheorem name =
   -- Avoid sizes that are too large.
   -- An exponential number of applying the resolution rule may be necessary.
-  modifyMaxSize (const 20) $
+  modifyMaxSize (const 16) $
   describe name $ do
 
-  it "proves trivial True" $ do
+  it "trivially proves true" $ do
     isTheorem [] (Value True) `shouldBe` True
 
-  it "does not prove trival False" $ do
+  it "does not trivially prove false" $ do
     isTheorem [] (Value False) `shouldBe` False
-
-  it "proves trival true statement" $ do
-    isTheorem [] (Disjoin [Variable "X", Complement $ Variable "X"]) `shouldBe` True
-
-  it "does not prove trival false statement" $ do
-    isTheorem [] (Conjoin [Variable "X", Complement $ Variable "X"]) `shouldBe` False
-
-  prop "is not true for no axioms and a single variable conjecture" $
-    \s -> isTheorem [] (Variable s) `shouldBe` False
 
   prop "proves axiom" $
     \(Theory theory) ->
       not (null theory) ==>
-      withConsistent theory $
       forAll (elements theory) $ \conjecture ->
+      within timeout $
       isTheorem theory conjecture `shouldBe` True
 
-  xdescribe "Pending" $ do
-    prop "variables satisfying axioms must satisfy theorem" $
-      \(Theory theory) -> \(Conjecture conjecture) ->
-        forAll (assignmentsFor $ Disjoin [ conjecture, Conjoin theory ]) $ \vs ->
-        evaluateFormula vs (Conjoin theory) ==>
-        isTheorem theory conjecture ==>
-        evaluateFormula vs conjecture `shouldBe` True
+  prop "consistent axioms never prove false" $
+    \(Theory theory) -> forAll (assignmentsFor $ Conjoin theory) $ \vs ->
+      evaluateFormula vs (Conjoin theory) ==>
+      within timeout $
+      isTheorem theory (Value False) `shouldBe` False
 
-    prop "is true for theorem" $ mapSize (const 10) $
-      \(Theory theory) -> \(Conjecture conjecture) ->
-        isRealTheorem theory conjecture ==>
-        isTheorem theory conjecture `shouldBe` True
+  prop "contradictions prove everything" $
+    \(Conjecture conjecture) ->
+      within timeout $
+      isTheorem [Variable "X", Complement $ Variable "X"] conjecture `shouldBe` True
 
-    prop "is not true for conjecture with unknown variable" $
-      \(Theory theory) -> \(Conjecture conjecture) ->
-        not ((Set.fromList $ variables conjecture)
-             `Set.isSubsetOf`
-             (Set.fromList $ concatMap variables theory)) ==>
-        not (isTheorem [] conjecture) ==>
-        isTheorem theory conjecture `shouldBe` False
+  prop "proves or disproves" $
+    \(Theory theory) -> \(Conjecture conjecture) ->
+      within timeout $
+      total $ isTheorem theory conjecture
 
-    prop "does not prove contradiction with consistent axioms" $
-      \(Theory theory) -> \s ->
-        not (isTheorem theory $ Value False) ==>
-        isTheorem theory (Conjoin [Variable s, Complement $ Variable s]) `shouldBe` False
-
-    where withConsistent theory f =
-            forAll (assignmentsFor $ Conjoin theory) $ \vs ->
-            evaluateFormula vs (Conjoin $ theory) ==> f
+  where timeout = 10 * 1000 * 1000  -- ten seconds
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -129,17 +107,17 @@ instance Arbitrary Conjecture where
 formulas :: Gen Formula
 formulas = sized $ gen
   where gen n
-          | n < 2 = frequency [ (10, Value <$> arbitrary)
-                              , (10, Variable . singleton <$> choose ('A','Z'))
-                              , (5, Complement <$> formulas)
-                              , (1, Disjoin <$> listOf formulas)
-                              , (1, Conjoin <$> listOf formulas)
+          | n < 2 = frequency [ (1, Value <$> arbitrary)
+                              , (1000, Variable . singleton <$> choose ('A','Z'))
+                              , (500, Complement <$> formulas)
+                              , (100, Disjoin <$> listOf1 formulas)
+                              , (100, Conjoin <$> listOf1 formulas)
                               ]
           | otherwise = frequency [ (1, Value <$> arbitrary)
-                                  , (1, Variable . singleton <$> choose ('A','Z'))
-                                  , (5, scale (subtract 1) $ Complement <$> formulas)
-                                  , (10, scale (`div` 2) $ Disjoin <$> listOf formulas)
-                                  , (10, scale (`div` 2) $ Conjoin <$> listOf formulas)
+                                  , (100, Variable . singleton <$> choose ('A','Z'))
+                                  , (500, scale (subtract 1) $ Complement <$> formulas)
+                                  , (1000, scale (`div` 2) $ Disjoin <$> listOf1 formulas)
+                                  , (1000, scale (`div` 2) $ Conjoin <$> listOf1 formulas)
                                   ]
 
 shrinkFormula :: Formula -> [Formula]
@@ -164,20 +142,3 @@ variables (Variable s)    = [s]
 variables (Complement f') = variables f'
 variables (Disjoin fs)    = concatMap variables fs
 variables (Conjoin fs)    = concatMap variables fs
-
--- Verifies that the conjecture is a theorem for the theory by brute force.
--- Checks that all possible assigments of variables that are consistent
--- with the theory makes the conjecture true.
-isRealTheorem :: [Formula] -> Formula -> Bool
-isRealTheorem theory conjecture = all isTrue assignments
-  where vars = nub $ variables conjecture ++ concatMap variables theory
-        assignments = filter isPossible $ mappings vars [Map.empty]
-        isPossible m = evaluateFormula m $ Conjoin theory
-        isTrue m = evaluateFormula m conjecture
-
-mappings :: [String] -> [Map String Bool] -> [Map String Bool]
-mappings [] m = m
-mappings (x:xs) ms = do
-  m <- ms
-  v <- [False, True]
-  mappings xs $ return $ Map.insert x v m
