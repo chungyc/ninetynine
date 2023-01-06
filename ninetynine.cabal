@@ -5,7 +5,7 @@ cabal-version: 2.2
 -- see: https://github.com/sol/hpack
 
 name:           ninetynine
-version:        0.4.0.0
+version:        1.0
 synopsis:       Ninety-Nine Haskell Problems
 description:    Ninety-Nine Haskell Problems.
                 These are programming exercises for practice with [Haskell](https://www.haskell.org/).
