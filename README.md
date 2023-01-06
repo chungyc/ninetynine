@@ -3,8 +3,6 @@
 This is an implementation of the [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
 In a way, this is a buildable version of the list of problems with tests and benchmarks.
 
-**This is a work in progress.  It does not include all problems yet.**
-
 Each problem is provided a skeleton where you can implement your own solutions.
 For example, the module `Problems.P11` provides a skeleton in which you can
 provide your own implementation.  Once implemented, you can run the existing tests
@@ -119,8 +117,11 @@ at [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Has
 *   Some problems are intentionally omitted or replaced, because they are
     uninteresting in the context of Haskell or they cannot be provided as
     problem skeletons that fit the framework of this project.
-    Such problems will be noted as such.
+
+    *   These are problems 38, 47, and 54.
 
 *   A number of problems were added to fill out 99 problems.
+
+    *   These are problems 29, 30, 42, 43, 44, 45, 51, 52, 53, 74, 75, 76, 77, 78, and 79.
 
 For pending tasks, see the [TODO](doc/TODO.md).
