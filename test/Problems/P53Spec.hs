@@ -94,6 +94,7 @@ instance Arbitrary Theory where
   arbitrary = scale (`div` 2) $ Theory <$> listOf formulas
   shrink (Theory fs) = map Theory (shrinkList shrinkFormula fs)
 
+-- An arbitrary formula that can be used as a conjecture to prove.
 newtype Conjecture = Conjecture Formula deriving (Eq, Show)
 
 instance Arbitrary Conjecture where

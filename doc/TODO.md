@@ -8,17 +8,16 @@
     *   [x] Problem 38
     *   [x] Problem 47
     *   [x] Problem 54
-*   [ ] Add problems so that there are actually 99 problems
+*   [x] Add problems so that there are actually 99 problems
     *   [x] Problem 29
     *   [x] Problem 30
     *   [x] Problem 42
     *   [x] Problem 43
     *   [x] Problem 44
     *   [x] Problem 45
-    *   More logic and code problems
-        *   [x] Problem 51
-        *   [x] Problem 52
-        *   [ ] Problem 53 : Consider propositional logic solver with resolution rule
+    *   [x] Problem 51
+    *   [x] Problem 52
+    *   [x] Problem 53
     *   [x] Problem 74
     *   [x] Problem 75
     *   [x] Problem 76
