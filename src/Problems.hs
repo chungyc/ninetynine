@@ -192,6 +192,9 @@ module Problems (
   -- | == &#129335; &#129335; &#129335; Conjunctive normal form
   toConjunctiveNormalForm,
   Formula (..),
+  -- ** Problem 53
+  -- | == &#129335; &#129335; &#129335; Resolution rule
+  isTheorem,
   -- * Binary tree problems
   -- ** Problem 54
   -- | == &#129335; Binary trees
@@ -438,6 +441,7 @@ import           Problems.P49
 import           Problems.P50
 import           Problems.P51
 import           Problems.P52
+import           Problems.P53
 import           Problems.P54
 import           Problems.P55
 import           Problems.P56

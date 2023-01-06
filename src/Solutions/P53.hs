@@ -98,7 +98,6 @@ refute :: Set (Set Formula) -> Bool
 refute clauses
   | Nothing <- resolved = False
   | Just c <- resolved, Set.null c = True
-  | Just c <- resolved, Set.member c clauses = error $ "infinite loop!  " ++ show (c, clauses)
   | Just c <- resolved = refute $ Set.insert c clauses
   where resolved = resolve clauses $ matches clauses
 

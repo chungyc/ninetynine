@@ -133,6 +133,8 @@ module Solutions (
   errorCorrectingDecode,
   -- ** Problem 52
   toConjunctiveNormalForm,
+  -- ** Problem 53
+  isTheorem,
   -- * Binary tree problems
   -- ** Problem 54
   Tree (Empty, Branch),
@@ -312,6 +314,7 @@ import           Solutions.P49
 import           Solutions.P50
 import           Solutions.P51
 import           Solutions.P52
+import           Solutions.P53
 import           Solutions.P54
 import           Solutions.P55
 import           Solutions.P56
