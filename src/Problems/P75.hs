@@ -1,5 +1,5 @@
 {- |
-Description: Maybe monads
+Description: Maybe monad
 Copyright: Copyright (C) 2022 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
@@ -58,7 +58,7 @@ for a function to return a 'Maybe' value.
 
 Take advantage of the fact that 'Maybe' is a monad
 and rewrite @maybeGoldbach@ more succintly using do notation.
-The 'Control.Monad.guard' function, which in a 'Maybe' monad
+The 'Control.Monad.guard' function, which in the 'Maybe' monad
 returns @Just ()@ when its argument is true
 and @Nothing@ when its argument is false,
 would be useful for making it even more succinct.

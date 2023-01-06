@@ -1,5 +1,5 @@
 {- |
-Description: Either monads
+Description: Either monad
 Copyright: Copyright (C) 2022 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org

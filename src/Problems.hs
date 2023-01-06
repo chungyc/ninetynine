@@ -16,8 +16,6 @@ compared to a simpler one.
 
 Some solutions to these problems are in the "Solutions" module.
 The number of shruggies (&#129335;) indicate difficulty level.
-These difficulty levels are based on the original list of Prolog problems,
-so they may not be appropriate in the context of Haskell.
 
 These are based on the Ninety-Nine Haskell Problems on
 the [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
@@ -44,11 +42,11 @@ module Problems (
   -- | == &#129335; Palindromes
   isPalindrome,
   -- ** Problem 7
-  -- | == &#129335; &#129335; Flatten a nested list structure
+  -- | == &#129335; Flatten a nested list structure
   flatten,
   NestedList (Elem, List),
   -- ** Problem 8
-  -- | == &#129335; &#129335; Eliminate duplicate elements in a list
+  -- | == &#129335; Eliminate duplicate elements in a list
   compress,
   -- ** Problem 9
   -- | == &#129335; &#129335; Pack duplicates in a list
@@ -61,7 +59,7 @@ module Problems (
   encodeModified,
   Encoding (Single, Multiple),
   -- ** Problem 12
-  -- | == &#129335; &#129335; Decode a run-length encoded list
+  -- | == &#129335; Decode a run-length encoded list
   decodeModified,
   -- ** Problem 13
   -- | == &#129335; &#129335; Run-length encoding of a list; direct solution
@@ -70,7 +68,7 @@ module Problems (
   -- | == &#129335; Duplicate elements in a list
   dupli,
   -- ** Problem 15
-  -- | == &#129335; &#129335; Replicate elements of a list
+  -- | == &#129335; Replicate elements of a list
   repli,
   -- ** Problem 16
   -- | == &#129335; &#129335; Drop elements in a list
@@ -167,7 +165,7 @@ module Problems (
   isGaussianPrime',
   -- * Logic and code problems
   -- ** Problem 46
-  -- | == &#129335; &#129335; Truth tables for logical expressions
+  -- | == &#129335; Truth tables for logical expressions
   BoolFunc,
   table,
   -- ** Problem 47
@@ -282,13 +280,13 @@ module Problems (
   -- | == &#129335; &#129335; Monads without do notation
   askGoldbach,
   -- ** Problem 75
-  -- | == &#129335; Maybe monads
+  -- | == &#129335; Maybe monad
   maybeGoldbach,
   -- ** Problem 76
-  -- | == &#129335; Either monads
+  -- | == &#129335; Either monad
   eitherGoldbach,
   -- ** Problem 77
-  -- | == &#129335; List monads
+  -- | == &#129335; List monad
   randomWalkPaths,
   -- ** Problem 78
   -- | == &#129335; Collatz conjecture
