@@ -55,7 +55,7 @@ It is a proof by contradiction, and the procedure is as follows:
 
     *   If no more clauses can be inferred, then \(X\) cannot be inferred to be valid.
 
-Given a set of axioms and a formula, use the resolution rule to determine
+Given a list of axioms and a formula, use the resolution rule to determine
 whether the formula is valid given the axioms.
 
 === Examples
