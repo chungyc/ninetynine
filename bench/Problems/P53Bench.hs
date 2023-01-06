@@ -28,7 +28,7 @@ group = bgroup "P53"
     ]
   ]
 
-theory :: Formula
+theory :: [Formula]
 theory = [ Disjoin [x, y, z]
          , Conjoin [w, Complement v, Disjoin [Complement u, Complement y]]
          , Disjoin [Complement x, w, y]
