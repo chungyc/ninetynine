@@ -8,11 +8,10 @@ Maintainer: dev@chungyc.org
 -}
 module Problems.P53Spec (spec) where
 
-import           Data.List             (isSubsequenceOf, nub, singleton, sort,
-                                        subsequences)
+import           Data.List             (nub, singleton)
 import           Data.Map              (Map)
 import qualified Data.Map              as Map
-import           GHC.Generics          (Generic)
+import qualified Data.Set              as Set
 import           Problems.Logic        (Formula (..), evaluateFormula)
 import qualified Problems.P53          as Problem
 import qualified Solutions.P53         as Solution
@@ -25,41 +24,62 @@ properties isTheorem name =
   -- Avoid sizes that are too large.
   -- An exponential number of applying the resolution rule may be necessary.
   modifyMaxSize (const 20) $
-  xdescribe name $ do
+  describe name $ do
 
-  prop "proves axiom" $
-    \(Theory theory) -> forAll (elements theory) $ \conjecture ->
-      isTheorem theory conjecture `shouldBe` True
+  it "proves trivial True" $ do
+    isTheorem [] (Value True) `shouldBe` True
+
+  it "does not prove trival False" $ do
+    isTheorem [] (Value False) `shouldBe` False
+
+  it "proves trival true statement" $ do
+    isTheorem [] (Disjoin [Variable "X", Complement $ Variable "X"]) `shouldBe` True
+
+  it "does not prove trival false statement" $ do
+    isTheorem [] (Conjoin [Variable "X", Complement $ Variable "X"]) `shouldBe` False
 
   prop "is not true for no axioms and a single variable conjecture" $
     \s -> isTheorem [] (Variable s) `shouldBe` False
 
-  prop "must have any valid assignment of variables satisfy theorem" $
+  prop "proves axiom" $
     \(Theory theory) ->
-      forAll (scale (`div` 2) formulas) $ \conjecture ->
-      forAll (assignmentsFor $ Conjoin theory) $ \vs ->
-      evaluateFormula vs (Conjoin theory) ==>
-      isTheorem theory conjecture ==>
-      evaluateFormula vs conjecture `shouldBe` True
-
-  prop "is true for theorem" $
-    \(Theory theory) -> forAll (scale (`div` 2) formulas) $ \conjecture ->
-      isRealTheorem theory conjecture ==>
+      not (null theory) ==>
+      withConsistent theory $
+      forAll (elements theory) $ \conjecture ->
       isTheorem theory conjecture `shouldBe` True
 
-  prop "is not true for conjecture with unknown variable" $
-    \(Theory theory) -> forAll (scale (`div` 2) formulas) $ \conjecture ->
-      not ((sort $ variables conjecture) `isSubsequenceOf` (sort $ concatMap variables theory)) ==>
-      not (isTheorem [] conjecture) ==>
-      isTheorem theory conjecture `shouldBe` False
+  xdescribe "Pending" $ do
+    prop "variables satisfying axioms must satisfy theorem" $
+      \(Theory theory) -> \(Conjecture conjecture) ->
+        forAll (assignmentsFor $ Disjoin [ conjecture, Conjoin theory ]) $ \vs ->
+        evaluateFormula vs (Conjoin theory) ==>
+        isTheorem theory conjecture ==>
+        evaluateFormula vs conjecture `shouldBe` True
 
-  prop "does not prove contradiction with consistent axioms" $
-    \(Theory theory) -> \s ->
-      not (isTheorem theory $ Value False) ==>
-      isTheorem theory (Conjoin [Variable s, Complement $ Variable s]) `shouldBe` False
+    prop "is true for theorem" $ mapSize (const 10) $
+      \(Theory theory) -> \(Conjecture conjecture) ->
+        isRealTheorem theory conjecture ==>
+        isTheorem theory conjecture `shouldBe` True
+
+    prop "is not true for conjecture with unknown variable" $
+      \(Theory theory) -> \(Conjecture conjecture) ->
+        not ((Set.fromList $ variables conjecture)
+             `Set.isSubsetOf`
+             (Set.fromList $ concatMap variables theory)) ==>
+        not (isTheorem [] conjecture) ==>
+        isTheorem theory conjecture `shouldBe` False
+
+    prop "does not prove contradiction with consistent axioms" $
+      \(Theory theory) -> \s ->
+        not (isTheorem theory $ Value False) ==>
+        isTheorem theory (Conjoin [Variable s, Complement $ Variable s]) `shouldBe` False
+
+    where withConsistent theory f =
+            forAll (assignmentsFor $ Conjoin theory) $ \vs ->
+            evaluateFormula vs (Conjoin $ theory) ==> f
 
 examples :: Spec
-examples = xdescribe "Examples" $ do
+examples = describe "Examples" $ do
   it "isTheorem [ X, Y, Z ] (X | Y)" $ do
     isTheorem
       [ Variable "X", Variable "Y", Variable "Z" ]
@@ -77,6 +97,12 @@ examples = xdescribe "Examples" $ do
   it "isTheorem [ X ] Y" $ do
     isTheorem [ Variable "X" ] (Variable "Y") `shouldBe` False
 
+  it "isTheorem [ X, !X ] False" $ do
+    isTheorem [ Variable "X", Complement $ Variable "X" ] (Value False) `shouldBe` True
+
+  it "isTheorem [ X, !X ] (X | !X)" $ do
+    isTheorem [ Variable "X", Complement $ Variable "X" ] (Disjoin [Variable "X", Complement $ Variable "X"]) `shouldBe` True
+
   where isTheorem = Problem.isTheorem
 
 spec :: Spec
@@ -87,12 +113,17 @@ spec = parallel $ do
     properties Solution.isTheorem "isTheorem"
 
 -- A collection of boolean formulas forming a set of axioms.
-newtype Theory = Theory [Formula] deriving (Eq, Show, Generic)
+newtype Theory = Theory [Formula] deriving (Eq, Show)
 
 instance Arbitrary Theory where
   arbitrary = scale (`div` 2) $ Theory <$> listOf formulas
-  shrink (Theory []) = []
-  shrink (Theory fs) = map Theory $ subsequences fs
+  shrink (Theory fs) = map Theory (shrinkList shrinkFormula fs)
+
+newtype Conjecture = Conjecture Formula deriving (Eq, Show)
+
+instance Arbitrary Conjecture where
+  arbitrary = scale (`div` 2) $ Conjecture <$> formulas
+  shrink (Conjecture c) = map Conjecture $ shrinkFormula c
 
 -- Generate boolean formulas.
 formulas :: Gen Formula
@@ -110,6 +141,15 @@ formulas = sized $ gen
                                   , (10, scale (`div` 2) $ Disjoin <$> listOf formulas)
                                   , (10, scale (`div` 2) $ Conjoin <$> listOf formulas)
                                   ]
+
+shrinkFormula :: Formula -> [Formula]
+shrinkFormula (Value _)      = []
+shrinkFormula (Variable _)   = []
+shrinkFormula (Complement f) = [f] ++ map Complement (shrinkFormula f)
+shrinkFormula (Disjoin [])   = []
+shrinkFormula (Conjoin [])   = []
+shrinkFormula (Disjoin fs)   = fs ++ map Disjoin (shrinkList shrinkFormula fs)
+shrinkFormula (Conjoin fs)   = fs ++ map Conjoin (shrinkList shrinkFormula fs)
 
 -- Generate variable assignments for a boolean formula.
 assignmentsFor :: Formula -> Gen (Map String Bool)

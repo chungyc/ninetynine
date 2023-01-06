@@ -33,6 +33,9 @@ True
 
 >>> isTheorem [ Variable "X" ] $ Variable "Y"
 False
+
+>>> isTheorem [ Variable "X", Complement $ Variable "X" ] $ Value False
+True
 -}
 isTheorem :: [Formula] -> Formula -> Bool
 isTheorem = Solution.isTheorem
