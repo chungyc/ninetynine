@@ -10,11 +10,7 @@ module Solutions.P59 (heightBalancedTrees) where
 
 import           Problems.BinaryTrees
 
--- | In a height-balanced binary tree, the following property holds for every node:
--- The height of its left subtree and the height of its right subtree are almost equal,
--- which means their difference is not greater than one.
---
--- Construct a list of all height-balanced binary trees with the given maximum height.
+-- | Construct a list of all height-balanced binary trees with the given maximum height.
 heightBalancedTrees :: Int -> [Tree ()]
 heightBalancedTrees 0 = [Empty]
 heightBalancedTrees 1 = [Branch () Empty Empty]

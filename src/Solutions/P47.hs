@@ -15,24 +15,7 @@ import           Data.Maybe    (fromJust)
 import           Data.Set      (Set)
 import qualified Data.Set      as Set
 
-{- |
-Consider a logic circuit composed of NAND gates with binary input, specified as follows.
-
-* A list of pairs of numbers for each NAND gate.
-
-* A pair @(i,j)@ in the list denotes that the inputs for the NAND gate
-  are the outputs for the @i@th and @j@th gates in the list, respectively,
-  with the first element starting at index 1.
-
-    * As a special case, -1 and -2 denote the first and second boolean variables
-      fed into the circuit, respectively.
-
-    * An input to a NAND gate can only use output from a NAND gate which appears earlier in the list.
-
-* The output of the last gate in the list is the output of the logic circuit.
-
-Write a function to evaluate a given logic circuit as specified above.
--}
+-- | Evaluates a logic circuit.
 evaluateCircuit :: [(Int,Int)] -> Bool -> Bool -> Bool
 evaluateCircuit circuit x y = eval 1 circuit [(-2,y), (-1,x)]
 
@@ -47,10 +30,7 @@ nand :: Bool -> Bool -> Bool
 nand x y = not $ x && y
 
 {- |
-Any boolean function can be computed with logic circuits composed solely of NAND gates.
-I.e., NAND is a universal logic gate.
-
-Write a function to return a logic circuit composed of NAND gates
+Returns a logic circuit composed of NAND gates
 which computes a given a binary boolean function.
 The logic circuit should be in a form which 'evaluateCircuit' can evaluate.
 -}

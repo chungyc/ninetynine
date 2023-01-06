@@ -8,25 +8,8 @@ Some solutions to "Problems.P77" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P77 (randomWalkPaths) where
 
-{- | A list is also a monad.
-
-For example, "Problems.P14" could have been implemented with the list monad:
-
->>> :{
-dupli :: [a] -> [a]
-dupli xs = do
-  x <- xs
-  [x, x]
-:}
-
->>> dupli [1, 2, 3]
-[1,1,2,2,3,3]
-
-Using the list monad, implement a function which returns
-all the one-dimensional random walk paths with \(n\) steps.
-Starting from position 0, each step one can change positions by -1, 0, or 1.
-Each path will be a list of positions starting from 0.
--}
+-- | Returns all the one-dimensional random walk paths with \(n\) steps
+-- starting from position 0.
 randomWalkPaths :: Int -> [[Int]]
 randomWalkPaths n = map reverse $ randomWalkPaths' n
 

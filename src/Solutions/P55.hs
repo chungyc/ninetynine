@@ -10,11 +10,7 @@ module Solutions.P55 (completelyBalancedTrees) where
 
 import           Problems.BinaryTrees
 
--- | In a completely balanced binary tree, the following property holds for every node:
--- The number of nodes in its left subtree and the number of nodes in its right subtree are almost equal,
--- which means their difference is not greater than one.
---
--- Write a function to construct completely balanced binary trees for a given number of nodes.
+-- | Constructs completely balanced binary trees for a given number of nodes.
 completelyBalancedTrees :: Int -> [Tree ()]
 completelyBalancedTrees 0 = [Empty]
 completelyBalancedTrees n

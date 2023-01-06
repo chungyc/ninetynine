@@ -14,13 +14,10 @@ import qualified Data.Map.Lazy   as Map
 import qualified Data.Set        as Set
 import           Problems.Graphs
 
--- | Graph coloring assigns colors to each vertex in a way
--- such that no adjacent vertexes have the same color.
---
--- Write a function to color a graph
+-- | Color a graph
 -- using [Welch-Powell's algorithm](https://graphstream-project.org/doc/Algorithms/Welsh-Powell/).
--- Use distinct integers to represent distinct colors,
--- and return the association list between vertexes and their colors.
+-- Uses distinct integers to represent distinct colors,
+-- and returns the association list between vertexes and their colors.
 colorGraph :: G -> [(Vertex, Int)]
 colorGraph g = Map.toList $ colorVertexes g (sortByDegree g) 1 Map.empty
 

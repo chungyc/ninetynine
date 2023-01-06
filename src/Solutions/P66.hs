@@ -12,15 +12,7 @@ module Solutions.P66 (layoutCompact) where
 
 import           Problems.BinaryTrees
 
-{- |
-Yet another layout strategy is shown in the illustration below:
-
-![Layout example](images/BinaryTrees/Layout-P66.svg)
-
-The method yields a very compact layout while maintaining a certain symmetry in every node.
-Find out the rules and write the corresponding function.
-Use the same conventions as in "Problems.P64" and "Problems.P65".
--}
+-- | Lay out a binary tree compactly.
 layoutCompact :: Tree a -> Tree (a, (Int, Int))
 layoutCompact t = place t' (1 - leftMost t') 1
   where t' = layout t

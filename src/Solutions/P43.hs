@@ -11,13 +11,7 @@ module Solutions.P43 (gaussianDividesBy) where
 import           Data.Complex
 import           Solutions.Arithmetic (dividesBy, gaussianMultiply)
 
-{- | A Gaussian integer is a complex number where both the real and imaginary parts are integers.
-If \(x\) and \(y\) are Gaussian integers where \(y \neq 0\),
-then \(x\) is said to be divisible by \(y\)
-if there is a Guassian integer \(z\) such that \(x=yz\).
-
-Determine whether a Gaussian integer is divisible by another.
--}
+-- | Determine whether a Gaussian integer is divisible by another.
 gaussianDividesBy
   -- | \(x\)
   :: Complex Integer

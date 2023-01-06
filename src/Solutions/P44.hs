@@ -13,12 +13,7 @@ import           Data.List            ((\\))
 import           Problems.P43         (gaussianDividesBy)
 import           Solutions.Arithmetic (gaussianMultiply, gaussianUnits)
 
-{- | A Gaussian integer \(x\) is said to be a /Gaussian prime/ when it has no divisors except for
-the units and associates of \(x\).  The units are \(1\), \(i\), \(-1\), and \(-i\).
-The associates are defined by the numbers obtained when \(x\) is multiplied by each unit.
-
-Determine whether a Gaussian integer is a Gaussian prime.
--}
+-- | Determine whether a Gaussian integer is a Gaussian prime.
 isGaussianPrime :: Complex Integer -> Bool
 isGaussianPrime (0 :+ 0) = False
 isGaussianPrime (1 :+ 0) = False

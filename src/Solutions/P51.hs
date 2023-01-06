@@ -29,8 +29,7 @@ corrupt' offset ps@(n:ns) (c:cs)
 {- |
 Construct an error-correcting encoding of the given Boolean list.
 
-The encoding must be able to correct at least one error.
-Consider using a [repetition code](https://en.wikipedia.org/wiki/Repetition_code) of length 3.
+Uses a reptition code of length 3.
 -}
 errorCorrectingEncode :: [Bool] -> [Bool]
 errorCorrectingEncode [] = []

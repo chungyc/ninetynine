@@ -16,8 +16,6 @@ import           Problems.MultiwayTrees
 -- a backtrack to the previous level during tree traversal.
 -- Note that the tree traversal will also backtrack from the root node of the tree.
 --
--- For example, 'multitree5' is represented by the string @"afg^^c^bd^e^^^"@.
---
 -- Write a function to construct the 'MultiwayTree' when the string is given.
 stringToMultitree :: String -> MultiwayTree Char
 stringToMultitree = fst . toNode

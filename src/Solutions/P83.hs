@@ -14,10 +14,7 @@ import           Data.Set        (Set)
 import qualified Data.Set        as Set
 import           Problems.Graphs
 
--- | Mathematically, a tree is a graph with exactly one path between any two vertexes.
--- A spanning tree of a graph is a tree which includes all vertexes of the graph.
---
--- Write a function to construct all spanning trees of a given graph.
+-- | Construct all spanning trees of a given graph.
 spanningTrees :: G -> [G]
 spanningTrees g@(G m)
   | Map.null m = []

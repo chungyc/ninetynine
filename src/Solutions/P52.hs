@@ -11,12 +11,7 @@ module Solutions.P52 (toConjunctiveNormalForm) where
 import           Data.List      (partition)
 import           Problems.Logic (Formula (..))
 
-{- | It is known that any boolean function can be represented in conjunctive normal form.
-These are conjunctions of disjunctions of literals,
-where literals are one of boolean values, variables, or the complement of values or variables.
-For example, the boolean formula \(\neg(x \wedge \neg y) \wedge (z \vee w)\)
-is equivalent to the conjunctive normal form \( (\neg x \vee y) \wedge (z \vee w) \).
-
+{- |
 Return the conjunctive normal form of a boolean formula.
 The value returned should always be a conjunction of disjunctions.
 -}

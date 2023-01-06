@@ -11,13 +11,8 @@ module Solutions.P80 (ConvertibleGraph, toLists, toAdjacency, toPaths, toG) wher
 import           Data.Maybe      (fromJust)
 import           Problems.Graphs
 
--- | Write functions to convert between the different graph representations
+-- | Functions to convert between the different graph representations
 -- 'Lists', 'Adjacency', 'Paths', and 'G'.
---
--- The types can already be easily converted between each other using
--- the 'sets' and 'toGraph' functions available to the 'Graph' type class.
--- Unlike the other graph problems, this problem should be solved without using
--- the functions available to the 'Graph' type class for it to not be trivial.
 class Graph g => ConvertibleGraph g where
   -- | Convert graph to the 'Lists' representation.
   toLists :: g -> Lists

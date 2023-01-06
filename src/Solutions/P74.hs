@@ -11,30 +11,7 @@ module Solutions.P74 (askGoldbach) where
 import           Solutions.P40 (goldbach)
 import           System.IO
 
-{- |
-We would like to implement a function which reads an even number from standard input,
-finds two prime numbers which add up to the number (see 'Problems.P40.goldbach'),
-and prints out the equation to standard output.
-
-Given the use of input and ouput, this could be written with the IO monad in do notation:
-
-@
-askGoldbach :: Handle -> Handle -> IO ()
-askGoldbach hIn hOut = do
-  s <- hGetLine hIn
-  let n = read s :: Int
-  let (a,b) = goldbach n
-  hPutStr hOut $ show n
-  hPutStr hOut "="
-  hPutStr hOut $ show a
-  hPutStr hOut "+"
-  hPutStrLn hOut $ show b
-@
-
-Implement the function without do notation.
-In other words, use '>>=' or '>>' directly, instead of using them implicitly through do notation.
-Try to use these functions with prefix style instead of infix style.
--}
+-- | Implementation of 'Problems.P74.askGoldbach'' without do notation.
 askGoldbach :: Handle -> Handle -> IO ()
 askGoldbach hIn hOut =
   (>>=) (hGetLine hIn)

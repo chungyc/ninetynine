@@ -13,14 +13,6 @@ import           Problems.P35
 import           Problems.P37
 
 {- |
-It is possible for more than one number \(x\) to have the same totient number \(\phi(x)\).
-For example, \(\phi(77) = \phi(93) = 60\).
-
-A highly totient number \(n\) has the most such \(x\)
-among the totient numbers less than or equal to \(n\).
-I.e., \(n\) is a highly totient number
-if \(|\{x \,|\, \phi(x)=n \}| > |\{x \,|\, \phi(x)=m \}|\) for \(m < n\).
-
 Construct the list of highly totient numbers.
 -}
 highlyTotientNumbers :: Integral a => [a]

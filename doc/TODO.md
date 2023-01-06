@@ -1,7 +1,7 @@
 # Pending tasks for Ninety-Nine Haskell Problems
 
 *   [ ] Tutorial for solving problems
-*   [ ] Adjust difficulty levels
+*   [x] Adjust difficulty levels
 *   [ ] Stop duplicating verbose explanations in solutions
 *   [x] Provide implementations for all problems
 *   [x] Replace problems

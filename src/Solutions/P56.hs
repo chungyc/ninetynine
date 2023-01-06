@@ -10,10 +10,7 @@ module Solutions.P56 (symmetric) where
 
 import           Problems.BinaryTrees
 
--- | Let us call a binary tree symmetric if you can draw a vertical line through the root node
--- and then the right subtree is the mirror image of the left subtree.
--- Write a function 'symmetric' to check whether a given binary tree is symmetric.
--- We are only interested in the structure, not in the contents of the nodes.
+-- | Check whether a given binary tree is symmetric.
 symmetric :: Tree a -> Bool
 symmetric Empty                 = True
 symmetric (Branch _ left right) = mirror left right

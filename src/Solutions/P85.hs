@@ -16,11 +16,7 @@ import qualified Data.Set        as Set
 import           Problems.Graphs
 
 
--- | Two graphs \(G_1 = (V_1,E_1)\) and \(G_2 = (V_2,E_2)\) are isomorphic if there is
--- a bijection \(f: V_1 -> V_2\) such that for any vertexes \(x\), \(y\) in \(V_1\),
--- \(x\) and \(y\) are adjacent if and only if \(f(x)\) and \(f(y)\) are adjacent.
---
--- Write a function that determines whether two graphs are isomorphic.
+-- | Determine whether two graphs are isomorphic.
 --
 -- Builds up a bijection from a starting vertex to its neighbors,
 -- expanding until it encounters an inconsistency or until there are no more vertexes to expand to.
@@ -69,11 +65,7 @@ isSameDegrees m m' =
   Map.keys m == Map.keys m' &&
   all (\d -> Set.size (m ! d) == Set.size (m' ! d)) (Map.keys m)
 
--- | Two graphs \(G_1 = (V_1,E_1)\) and \(G_2 = (V_2,E_2)\) are isomorphic if there is
--- a bijection \(f: V_1 -> V_2\) such that for any vertexes \(x\), \(y\) in \(V_1\),
--- \(x\) and \(y\) are adjacent if and only if \(f(x)\) and \(f(y)\) are adjacent.
---
--- Write a function that determines whether two graphs are isomorphic.
+-- | Determine whether two graphs are isomorphic.
 --
 -- This tests all bijections of vertexes from one graph to another to see if any are identical.
 isomorphic' :: G -> G -> Bool
@@ -98,11 +90,7 @@ mapEdges :: Map Vertex Vertex -> Set Edge -> Set Edge
 mapEdges translate es = Set.map (\(Edge (u, v)) -> Edge (f u, f v)) es
   where f = (!) translate
 
--- | Two graphs \(G_1 = (V_1,E_1)\) and \(G_2 = (V_2,E_2)\) are isomorphic if there is
--- a bijection \(f: V_1 -> V_2\) such that for any vertexes \(x\), \(y\) in \(V_1\),
--- \(x\) and \(y\) are adjacent if and only if \(f(x)\) and \(f(y)\) are adjacent.
---
--- Write a function that determines whether two graphs are isomorphic.
+-- | Determine whether two graphs are isomorphic.
 --
 -- Tests bijections which are limited to matching vertexes with the same degree,
 -- and looks for any which results in one graph becoming identical to the other.

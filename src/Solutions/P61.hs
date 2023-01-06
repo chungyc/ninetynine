@@ -17,8 +17,6 @@ leaves (Branch x Empty Empty) = [x]
 leaves (Branch _ l r)         = leaves l ++ leaves r
 
 -- | Collect the internal nodes of a binary tree in a list.
---
--- An internal node of a binary tree has either one or two non-empty successors.
 internals :: Tree a -> [a]
 internals Empty                  = []
 internals (Branch _ Empty Empty) = []

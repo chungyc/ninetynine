@@ -14,30 +14,9 @@ import           Control.Monad.Trans.Maybe
 import           Control.Monad.Writer
 import           Problems.PostfixNotation
 
-{- | Postfix notation, also known as reverse Polish notation,
-has operators come after their operands in mathematical expressions.
-It has no need for operator precedence or parentheses to specify evaluation order.
+{- | Use monad transformers to evaluate postfix notation.
 
-Evaluation is typically done using a stack.  Numbers are pushed onto the stack,
-and operators pop out numbers and pushes back the result.
-The t'Control.Monad.State.Lazy.State' monad would be useful for maintaining such a stack.
-
-There may be errors with some expressions.  For example, an expression may be ill-formed,
-or there may be a division by zero.  It would be useful to use the 'Maybe' monad so
-that we can return 'Nothing' if there is an error.
-
-Finally for this problem, we would like to keep track of
-which operators are applied to which numbers.
-The function should also return a list of stack and operator pairs,
-with each entry showing the state of the stack when the operator is about to be applied.
-Logging each entry can be done with the t'Control.Monad.Writer.Lazy.Writer' monad.
-
-Unfortunately, it would be very cumbersome to use these monads directly together.
-Monad transformers are a way to make it substantially easier to use more than one monad
-at the same time.  Use monad transformers to compose the t'Control.Monad.State.Lazy.State',
-'Maybe', and t'Control.Monad.Writer.Lazy.Writer' monads into a single monad to implement
-a function which evaluates an expression in postfix notation.  It should also
-return the history of the calculation.
+Returns @Nothing@ when there is an error.  Also returns the history of the evaluation.
 -}
 calculatePostfix :: [Element] -> (Maybe Integer, [([Integer], Operator)])
 calculatePostfix xs = (extract result, calculations)

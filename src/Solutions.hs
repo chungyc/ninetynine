@@ -25,7 +25,6 @@ module Solutions (
   -- ** Problem 6
   isPalindrome,
   -- ** Problem 7
-  NestedList (Elem, List),
   flatten,
   flatten',
   -- ** Problem 8
@@ -36,7 +35,6 @@ module Solutions (
   -- ** Problem 10
   encode,
   -- ** Problem 11
-  Encoding (Single, Multiple),
   encodeModified,
   -- ** Problem 12
   decodeModified,
@@ -116,7 +114,6 @@ module Solutions (
   isGaussianPrime',
   -- * Logic and code problems
   -- ** Problem 46
-  BoolFunc,
   table,
   -- ** Problem 47
   evaluateCircuit,
@@ -261,7 +258,6 @@ module Solutions (
 
 import           Problems.BinaryTrees
 import           Problems.Crosswords
-import           Problems.Lists
 import           Solutions.P01
 import           Solutions.P02
 import           Solutions.P03

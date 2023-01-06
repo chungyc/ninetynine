@@ -10,21 +10,7 @@ module Solutions.P64 (layoutInorder) where
 
 import           Problems.BinaryTrees
 
-{- |
-Let's say we want to draw a binary tree.  In preparation, a layout algorithm is
-required to determine the position of each node in a rectangular grid.
-Several layout methods are conceivable.  One of them is shown in the illustration below:
-
-![Layout example](images/BinaryTrees/Layout-P64.svg)
-
-In this layout strategy, the position of a node \(v\) is obtained by the following two rules:
-
-* \(x(v)\) is equal to the position of the node \(v\) in the in-order sequence.
-* \(y(v)\) is equal to the depth of the node \(v\) in the tree.
-
-Write a function to annotate each node of the tree with a position,
-where \((1,1)\) is the top left corner of the rectangle bounding the drawn tree.
--}
+-- | Lay out a binary tree using in-order positions.
 layoutInorder :: Tree a -> Tree (a, (Int,Int))
 layoutInorder t = fst $ layout t 1 1
 

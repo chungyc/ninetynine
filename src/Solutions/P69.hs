@@ -10,15 +10,7 @@ module Solutions.P69 (dotstringToTree, treeToDotstring) where
 
 import           Problems.BinaryTrees
 
-{- |
-Dotstring representation of binary trees.
-
-Consider binary trees with nodes that are identified by single characters.
-Such a tree can be represented by the preorder sequence of its nodes in which dots (@.@)
-are inserted where an empty subtree is encountered during the tree traversal.
-
-Write a function to convert a dotstring representation into its corresponding binary tree.
--}
+-- | Convert a dotstring representation into its corresponding binary tree.
 dotstringToTree :: String -> Tree Char
 dotstringToTree s | null s'   = t
                   | otherwise = undefined
@@ -31,9 +23,7 @@ parseDotstring (c:xs)   = (Branch c l r, xs'')
         (r, xs'') = parseDotstring xs'
 parseDotstring _ = undefined
 
-{- |
-Write a function to convert a binary tree to its dotstring representation.
--}
+-- | Convert a binary tree to its dotstring representation.
 treeToDotstring :: Tree Char -> String
 treeToDotstring Empty          = "."
 treeToDotstring (Branch x l r) = [x] ++ treeToDotstring l ++ treeToDotstring r

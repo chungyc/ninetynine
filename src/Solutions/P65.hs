@@ -10,14 +10,7 @@ module Solutions.P65 (layoutLevelConstant) where
 
 import           Problems.BinaryTrees
 
-{- |
-An alternative layout method is depicted in the illustration below:
-
-![Layout example](images/BinaryTrees/Layout-P65.svg)
-
-Find out the rules and write the corresponding function.
-Use the same conventions as in "Problems.P64".
--}
+-- | Lay out a binary tree with constance distance at each level.
 layoutLevelConstant :: Tree a -> Tree (a, (Int,Int))
 layoutLevelConstant t = shift amount layoutTree
   where layoutTree = layout t 0 1 distance

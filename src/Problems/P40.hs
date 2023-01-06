@@ -15,7 +15,7 @@ import qualified Solutions.P40 as Solution
 -- It is one of the most famous facts in number theory that has not been proved to be correct in the general case.
 -- It has been numerically confirmed up to very large numbers.
 --
--- Write a function to find the two prime numbers that sum up to a given even integer.
+-- Write a function to find two prime numbers that sum up to a given even integer.
 --
 -- === Examples
 --
