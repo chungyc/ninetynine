@@ -17,7 +17,7 @@ despite not having been implemented yet.  Tests and benchmarks are parametized,
 so that it is possible to test and benchmark multiple solutions for a problem
 in a single code base.
 
-This project is available on GitHub at https://github.com/chungyc/ninetynine.
+This project is available on [GitHub](https://github.com/chungyc/ninetynine).
 
 ## Usage
 
@@ -42,8 +42,8 @@ $ stack haddock
 ```
 
 The documentation for the `Problems` module can serve as a standalone list of the problems
-without having to reference the original list.  Pre-generated documentation is available
-at https://ninetynine.haskell.chungyc.org/.
+without having to reference the original list.
+[Pre-generated documentation](https://ninetynine.haskell.chungyc.org/) is also available.
 
 ### Tests
 
@@ -101,8 +101,6 @@ Ninety-Nine Haskell Problems on the [HaskellWiki](https://wiki.haskell.org/H-99:
 
 ## Notes
 
-There are not actually 99 problems.
-
 This project does not have a standard line length, in that it does not try to fit
 descriptive prose within a fixed number of columns.
 Instead, line breaks are wherever I felt like putting them.
@@ -123,5 +121,3 @@ at [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Has
 *   A number of problems were added to fill out 99 problems.
 
     *   These are problems 29, 30, 42, 43, 44, 45, 51, 52, 53, 74, 75, 76, 77, 78, and 79.
-
-For pending tasks, see the [TODO](doc/TODO.md).
