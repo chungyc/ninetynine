@@ -6,7 +6,7 @@ Maintainer: dev@chungyc.org
 
 Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P53".
 -}
-module Problems.P53 where
+module Problems.P53 (isTheorem) where
 
 import           Problems.Logic (Formula (..))
 import qualified Solutions.P53  as Solution
