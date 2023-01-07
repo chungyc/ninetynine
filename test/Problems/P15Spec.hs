@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -12,17 +12,18 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: ([Int] -> Int -> [Int]) -> String -> Spec
-properties repli name = do
-  describe name $ do
-    prop "repeats elements given number of times" $
-      let naiveRepli l n = concat $ map (replicate n) l
-      in \l -> \(NonNegative n) -> repli l n `shouldBe` naiveRepli l n
+properties repli name = describe name $ do
+  prop "repeats nothing" $
+    \(NonNegative k) -> repli [] k `shouldBe` []
+
+  prop "repeats element" $
+    \xs -> \x -> \ys -> \(NonNegative k) ->
+      repli (xs ++ [x] ++ ys) k `shouldBe` repli xs k ++ replicate k x ++ repli ys k
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "repli \"abc\" 3" $ do
-      repli "abc" 3 `shouldBe` "aaabbbccc"
+examples = describe "Examples" $ do
+  it "repli \"abc\" 3" $ do
+    repli "abc" 3 `shouldBe` "aaabbbccc"
 
   where repli = Problem.repli
 

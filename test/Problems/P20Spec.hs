@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -11,16 +11,15 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
 properties :: (Int -> [Int] -> (Int,[Int])) -> String -> Spec
-properties removeAt name = do
-  describe name $ do
-    prop "removes k'th element from list" $
-      \xs -> \y -> \zs -> removeAt (length xs + 1) (xs ++ [y] ++ zs) `shouldBe` (y, xs ++ zs)
+properties removeAt name = describe name $ do
+  prop "removes k'th element from list" $
+    \xs -> \y -> \zs ->
+      removeAt (length xs + 1) (xs ++ [y] ++ zs) `shouldBe` (y, xs ++ zs)
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "removeAt 2 \"abcd\"" $ do
-      removeAt 2 "abcd" `shouldBe` ('b',"acd")
+examples = describe "Examples" $ do
+  it "removeAt 2 \"abcd\"" $ do
+    removeAt 2 "abcd" `shouldBe` ('b',"acd")
 
   where removeAt = Problem.removeAt
 

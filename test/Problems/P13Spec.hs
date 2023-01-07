@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -13,19 +13,17 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
 properties :: ([Int] -> [Encoding Int]) -> String -> Spec
-properties encodeDirect name = do
-  describe name $ do
-    prop "is same as encodeModified" $
-      \l -> encodeDirect l `shouldBe` encodeModified (l :: [Int])
+properties encodeDirect name = describe name $ do
+  prop "is same as encodeModified" $
+    \l -> encodeDirect l `shouldBe` encodeModified l
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "encodeDirect \"aaaabccaadeeee\"" $ do
-      encodeDirect "aaaabccaadeeee" `shouldBe`
-        [Multiple 4 'a', Single 'b', Multiple 2 'c', Multiple 2 'a', Single 'd', Multiple 4 'e']
+examples = describe "Examples" $ do
+  it "encodeDirect \"aaaabccaadeeee\"" $ do
+    encodeDirect "aaaabccaadeeee" `shouldBe`
+      [Multiple 4 'a', Single 'b', Multiple 2 'c', Multiple 2 'a', Single 'd', Multiple 4 'e']
 
-  where encodeDirect l = Problem.encodeDirect l
+  where encodeDirect = Problem.encodeDirect
 
 spec :: Spec
 spec = parallel $ do

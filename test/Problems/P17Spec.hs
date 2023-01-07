@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -12,23 +12,20 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: ([Int] -> Int -> ([Int], [Int])) -> String -> Spec
-properties split name = do
-  describe name $ do
-    prop "joins back to original list" $
-      \l -> forAll (choose (1, length l)) $ \n ->
-        let join (a, b) = a ++ b
-        in join (split l n) `shouldBe` l
+properties split name = describe name $ do
+  prop "splits nothing" $
+    \(NonNegative n) -> split [] n `shouldBe` ([], [])
 
-    prop "first part should be expected size" $
-      \l  -> forAll (choose (1, length l)) $ \n ->
-        n <= length l ==>
-        length (fst $ split l n) `shouldBe` n
+  prop "splits list" $
+    \xs -> \ys -> split (xs ++ ys) (length xs) `shouldBe` (xs, ys)
+
+  prop "does not split list with large enough given length" $
+    \xs -> \(NonNegative n) -> split xs (n + length xs) `shouldBe` (xs, [])
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "split \"abcdefghik\" 3" $ do
-      split "abcdefghik" 3 `shouldBe` ("abc", "defghik")
+examples = describe "Examples" $ do
+  it "split \"abcdefghik\" 3" $ do
+    split "abcdefghik" 3 `shouldBe` ("abc", "defghik")
 
   where split = Problem.split
 

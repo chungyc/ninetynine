@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -12,26 +12,23 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: ([Int] -> Int -> [Int]) -> String -> Spec
-properties dropEvery name = do
-  describe name $ do
-    prop "has every N'th element missing from original list" $
-      \(Positive n) -> \l ->
-        let scan _ [] [] = True
-            scan _ [] _ = False
-            scan k (_:xs) []
-              | k `mod` n == 0 = scan (k+1) xs []
-              | otherwise      = False
-            scan k (x:xs) ys'@(y:ys)
-              | k `mod` n == 0 = scan (k+1) xs ys'
-              | x == y         = scan (k+1) xs ys
-              | otherwise      = True
-        in dropEvery l n `shouldSatisfy` scan 1 l
+properties dropEvery name = describe name $ do
+  prop "drops nothing" $
+    \(Positive k) -> dropEvery [] k `shouldBe` []
+
+  prop "drops every n element" $
+    \(Positive n) -> \(Positive q) -> forAll (vectorOf (q*n-1) arbitrary) $ \xs -> \x ->
+      dropEvery (xs ++ [x]) n `shouldBe` dropEvery xs n
+
+  prop "does not drop other elements" $
+    \(Positive n) -> \xs -> \x ->
+      (length xs + 1) `mod` n /= 0 ==>
+      dropEvery (xs ++ [x]) n `shouldBe` dropEvery xs n ++ [x]
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "dropEvery \"abcdefghik\" 3" $ do
-      dropEvery "abcdefghik" 3 `shouldBe` "abdeghk"
+examples = describe "Examples" $ do
+  it "dropEvery \"abcdefghik\" 3" $ do
+    dropEvery "abcdefghik" 3 `shouldBe` "abdeghk"
 
   where dropEvery = Problem.dropEvery
 

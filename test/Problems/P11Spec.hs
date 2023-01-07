@@ -1,42 +1,46 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P11Spec (spec) where
 
 import           Problems.Lists
-import           Problems.P10
 import qualified Problems.P11          as Problem
 import qualified Solutions.P11         as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
+import           Test.QuickCheck
 
 properties :: ([Int] -> [Encoding Int]) -> String -> Spec
-properties encodeModified name = do
-  describe name $ do
-    prop "is same as encode, but with single elements not in sublist" $
-      \l -> let similar ([], []) = True
-                similar ((n, x) : xs, Single y : ys)
-                  | n == 1 && x == y = similar (xs, ys)
-                  | otherwise = False
-                similar ((n, x) : xs, Multiple m y : ys)
-                  | n == m && x == y = similar (xs, ys)
-                  | otherwise = False
-                similar _ = False
-            in (encode (l :: [Int]), encodeModified l) `shouldSatisfy` similar
+properties encodeModified name = describe name $ do
+  it "encodes nothing" $ do
+    encodeModified [] `shouldBe` []
 
-    prop "does not confuse single element as multiple elements" $
-      \l -> let multipleone (Multiple 1 _) = True
-                multipleone _              = False
-            in encodeModified (l :: [Int]) `shouldNotSatisfy` any multipleone
+  prop "multiple element is multiple" $ do
+    \l -> encodeModified l
+          `shouldSatisfy` all (\x -> case x of Multiple n _ -> n > 1; _ -> True)
+
+  prop "encodes single element" $ do
+    \xs -> \x -> \ys ->
+      length xs == 0 || last xs /= x ==>
+      length ys == 0 || head ys /= x ==>
+      encodeModified (xs ++ [x] ++ ys)
+      `shouldBe` encodeModified xs ++ [Single x] ++ encodeModified ys
+
+  prop "encode consecutive duplicates" $ do
+    \xs -> \x -> \ys -> \(Positive k) ->
+      k > 1 ==>
+      length xs == 0 || last xs /= x ==>
+      length ys == 0 || head ys /= x ==>
+      encodeModified (xs ++ replicate k x ++ ys)
+      `shouldBe` encodeModified xs ++ [Multiple k x] ++ encodeModified ys
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "encodeModified \"aaaabccaadeeee\"" $ do
-      encodeModified "aaaabccaadeeee" `shouldBe`
-        [Multiple 4 'a',Single 'b',Multiple 2 'c', Multiple 2 'a',Single 'd',Multiple 4 'e']
+examples = describe "Examples" $ do
+  it "encodeModified \"aaaabccaadeeee\"" $ do
+    encodeModified "aaaabccaadeeee" `shouldBe`
+      [Multiple 4 'a',Single 'b',Multiple 2 'c', Multiple 2 'a',Single 'd',Multiple 4 'e']
 
   where encodeModified l = Problem.encodeModified l
 

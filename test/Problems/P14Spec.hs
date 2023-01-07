@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -11,19 +11,18 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
 properties :: ([Int] -> [Int]) -> String -> Spec
-properties dupli name = do
-  describe name $ do
-    prop "duplicates elements of list" $
-      let doubled [] []            = True
-          doubled (x:xs) (y:y':ys) = x == y && y == y' && doubled xs ys
-          doubled _ _              = False
-      in \l -> dupli l `shouldSatisfy` doubled (l :: [Int])
+properties dupli name = describe name $ do
+  it "duplicates nothing" $ do
+    dupli [] `shouldBe` []
+
+  prop "duplicates element" $
+    \xs -> \x -> \ys ->
+      dupli (xs ++ [x] ++ ys) `shouldBe` dupli xs ++ [x,x] ++ dupli ys
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "dupli [1, 2, 3]" $ do
-      dupli [1, 2, 3] `shouldBe` [1,1,2,2,3,3 :: Int]
+examples = describe "Examples" $ do
+  it "dupli [1, 2, 3]" $ do
+    dupli [1, 2, 3] `shouldBe` [1,1,2,2,3,3 :: Int]
 
   where dupli = Problem.dupli
 
