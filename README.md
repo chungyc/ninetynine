@@ -13,7 +13,7 @@ compared to a simpler one.
 
 Modules under `Solutions` are those implemented by yours truly.
 The problem skeletons alias to these, so that tests against the problems can pass
-despite not having been implemented yet.  Tests and benchmarks are parametized,
+despite not having been implemented yet.  Tests and benchmarks are parameterized,
 so that it is possible to test and benchmark multiple solutions for a problem
 in a single code base.
 
