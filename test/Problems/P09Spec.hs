@@ -1,11 +1,10 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P09Spec (spec) where
 
-import           Problems.P08
 import qualified Problems.P09          as Problem
 import qualified Solutions.P09         as Solution
 import           Test.Hspec
@@ -13,30 +12,26 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: ([Int] -> [[Int]]) -> String -> Spec
-properties pack name = do
-  describe name $ do
-    prop "places identical elements in a sublist" $
-      let repeated []           = True
-          repeated [_]          = True
-          repeated (x:ys@(y:_)) = x == y && repeated ys
-      in \l -> classify (l == compress l) "trivial" $
-               pack l `shouldSatisfy` all repeated
+properties pack name = describe name $ do
+  prop "sublists are packed from list" $
+    \xs -> pack xs `shouldSatisfy` (==) xs . concat
 
-    prop "has expected sublist for each consecutive segment" $
-      \l -> classify (l == compress l) "trivial" $
-            map head (pack l) `shouldBe` compress l
+  prop "sublists contain identical elements" $
+    \xs -> pack xs `shouldSatisfy` all (\l -> and [ x == y | x <- l, y <- l])
 
-    prop "has the same elements but in sublists" $
-      \l -> classify (l == compress l) "trivial" $
-            (concat .  pack) l `shouldBe` l
+  prop "identical elements do not span consecutive sublists" $
+    \xs -> \(Positive k) -> \x -> \ys ->
+      length xs == 0 || last xs /= x ==>
+      length ys == 0 || head ys /= x ==>
+      pack (xs ++ replicate k x ++ ys)
+      `shouldBe` pack xs ++ [replicate k x] ++ pack ys
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "pack \"aaaabccaadeeee\"" $ do
-      pack "aaaabccaadeeee" `shouldBe` ["aaaa","b","cc","aa","d","eeee"]
+examples = describe "Examples" $ do
+  it "pack \"aaaabccaadeeee\"" $ do
+    pack "aaaabccaadeeee" `shouldBe` ["aaaa","b","cc","aa","d","eeee"]
 
-  where pack l = Problem.pack l
+  where pack = Problem.pack
 
 spec :: Spec
 spec = parallel $ do

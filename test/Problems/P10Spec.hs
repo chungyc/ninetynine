@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -9,27 +9,26 @@ import qualified Problems.P10          as Problem
 import qualified Solutions.P10         as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
+import           Test.QuickCheck
 
 properties :: ([Int] -> [(Int, Int)]) -> String -> Spec
-properties encode name = do
-  describe name $ do
-    prop "decodes into original list" $
-      \l -> (concat $ map (uncurry replicate) $ encode l) `shouldBe` l
+properties encode name = describe name $ do
+  prop "decodes into original list" $
+    \l -> encode l `shouldSatisfy` (==) l . concatMap (uncurry replicate)
 
-    prop "keeps consecutive encoded elements distinct" $
-      \l -> let distinct (x : ys@(y : _))
-                  | x == y    = False
-                  | otherwise = distinct ys
-                distinct _ = True
-            in encode l `shouldSatisfy` distinct . (map snd)
+  prop "encodes consecutive duplicates to single encoding" $
+    \xs -> \x -> \ys -> \(Positive k) ->
+      length xs == 0 || last xs /= x ==>
+      length ys == 0 || head ys /= x ==>
+      encode (xs ++ replicate k x ++ ys)
+      `shouldBe` encode xs ++ [(k,x)] ++ encode ys
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "encode \"aaaabccaadeeee\"" $ do
-      encode "aaaabccaadeeee" `shouldBe` [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
+examples = describe "Examples" $ do
+  it "encode \"aaaabccaadeeee\"" $ do
+    encode "aaaabccaadeeee" `shouldBe` [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
 
-  where encode l = Problem.encode l
+  where encode = Problem.encode
 
 spec :: Spec
 spec = parallel $ do

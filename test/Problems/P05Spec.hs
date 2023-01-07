@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -11,24 +11,23 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
 properties :: ([Int] -> [Int]) -> String -> Spec
-properties myReverse name = do
-  describe name $ do
-    prop "reverses a list" $
-      \l -> let naiveReverse []     = []
-                naiveReverse (x:xs) = (naiveReverse xs) ++ [x]
-            in myReverse l `shouldBe` naiveReverse l
+properties myReverse name = describe name $ do
+  prop "front becomes back" $
+    \l -> \x -> myReverse (x:l) `shouldBe` myReverse l ++ [x]
 
-    prop "returns original from reversed list" $
-      \l -> myReverse (myReverse l) `shouldBe` l
+  prop "back becomes front" $
+    \l -> \x -> myReverse (l ++ [x]) `shouldBe` x : myReverse l
+
+  prop "returns original from reversed list" $
+    \l -> myReverse (myReverse l) `shouldBe` l
 
 examples :: Spec
-examples =
-  describe "Examples" $ do
-    it "myReverse \"A man, a plan, a canal, panama!\"" $ do
-      myReverse "A man, a plan, a canal, panama!" `shouldBe` "!amanap ,lanac a ,nalp a ,nam A"
+examples = describe "Examples" $ do
+  it "myReverse \"A man, a plan, a canal, panama!\"" $ do
+    myReverse "A man, a plan, a canal, panama!" `shouldBe` "!amanap ,lanac a ,nalp a ,nam A"
 
-    it "myReverse [1,2,3,4]" $ do
-      myReverse [1,2,3,4] `shouldBe` [4,3,2,1 :: Int]
+  it "myReverse [1,2,3,4]" $ do
+    myReverse [1,2,3,4] `shouldBe` [4,3,2,1 :: Int]
 
   where myReverse = Problem.myReverse
 
