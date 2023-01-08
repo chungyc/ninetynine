@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -16,26 +16,37 @@ properties :: (Integer -> Integer -> [Integer], [Integer]) -> (String, String) -
 properties (primesR, primes) (namePrimesR, namePrimes) = do
   describe namePrimesR $ do
     prop "includes prime numbers in range" $
-      \(Positive x) -> \(Positive y) -> primesR x (x+y) `shouldBe` naivePrimesR x (x+y)
+      \(Positive n) -> \(NonNegative k) ->
+        primesR n (n+k) `shouldBe` filter isPrime [n..n+k]
 
   describe namePrimes $ do
-    it "includes prime numbers" $ do
-      take 10000 primes `shouldBe` take 10000 naivePrimes
+    prop "is not bounded" $
+      \(Positive n) -> take n primes `shouldSatisfy` (==) n . length
 
-  where naivePrimesR lo hi = filter isPrime [lo..hi]
-        naivePrimes = filter isPrime [1..]
+    prop "is in sorted order" $
+      \(Positive n) -> \(Positive k) ->
+        (primes !! n, primes !! n+k) `shouldSatisfy` \(x,y) -> x < y
+
+    prop "includes prime numbers" $
+      \(Positive n) ->
+        isPrime n ==>
+        takeWhile (<=n) primes `shouldSatisfy` elem n
+
+    prop "does not include prime numbers" $
+      \(Positive n) ->
+        not (isPrime n) ==>
+        takeWhile (<=n) primes `shouldSatisfy` not . elem n
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "primesR 10 20" $ do
-      primesR 10 20 `shouldBe` [11,13,17,19 :: Int]
+examples = describe "Examples" $ do
+  it "primesR 10 20" $ do
+    primesR 10 20 `shouldBe` [11,13,17,19]
 
-    it "take 5 primes" $ do
-      take 5 primes `shouldBe` [2,3,5,7,11 :: Int]
+  it "take 5 primes" $ do
+    take 5 primes `shouldBe` [2,3,5,7,11]
 
-  where primesR lo hi = Problem.primesR lo hi
-        primes = Problem.primes
+  where primesR lo hi = Problem.primesR lo hi :: [Int]
+        primes = Problem.primes :: [Int]
 
 spec :: Spec
 spec = parallel $ do

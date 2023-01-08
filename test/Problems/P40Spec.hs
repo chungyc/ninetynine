@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -13,22 +13,19 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Integer -> (Integer, Integer)) -> String -> Spec
-properties goldbach name = do
-  describe name $ do
-    prop "are prime numbers summing up to given even number" $
-      \(Positive n') ->
-        let n = 2*(n'+1)  -- even number larger than 2
-            (p,q) = goldbach n
-        in conjoin [ p+q `shouldBe` n
-                   , p `shouldSatisfy` isPrime
-                   , q `shouldSatisfy` isPrime
-                   ]
+properties goldbach name = describe name $ do
+  prop "sums up to given even number" $
+    forAll ((*2) . (+2) <$> arbitrarySizedNatural) $ \n ->
+    goldbach n `shouldSatisfy` \(x,y) -> x+y == n
+
+  prop "are prime numbers" $
+    forAll ((*2) . (+2) <$> arbitrarySizedNatural) $ \n ->
+    goldbach n `shouldSatisfy` \(x,y) -> isPrime x && isPrime y
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "goldbach 12" $ do
-      goldbach 12 `shouldBe` (5,7)
+examples = describe "Examples" $ do
+  it "goldbach 12" $ do
+    goldbach 12 `shouldBe` (5,7)
 
   where goldbach n = Problem.goldbach (n :: Integer)
 

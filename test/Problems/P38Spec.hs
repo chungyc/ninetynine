@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -14,13 +14,13 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
-properties :: ([Integer]) -> String -> Spec
+properties :: [Integer] -> String -> Spec
 properties highlyTotientNumbers name = describe name $ do
   it "includes 1" $ do
     head highlyTotientNumbers `shouldBe` 1
 
   modifyMaxSize (const 14) $ do
-    prop "only has elements with more solutions than lesser totient numbers" $
+    prop "members have more solutions than lesser totient numbers" $
       \(Positive k) ->
         let n = highlyTotientNumbers !! k
         in forAll (chooseInteger (1,n-1)) $
@@ -41,12 +41,11 @@ properties highlyTotientNumbers name = describe name $ do
                  countSolutions m `shouldSatisfy` (>=) (countSolutions n)
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "take 10 highlyTotientNumbers" $ do
-      take 10 highlyTotientNumbers `shouldBe` [1,2,4,8,12,24,48,72,144,240]
+examples = describe "Examples" $ do
+  it "take 10 highlyTotientNumbers" $ do
+    take 10 highlyTotientNumbers `shouldBe` [1,2,4,8,12,24,48,72,144,240]
 
-  where highlyTotientNumbers = Problem.highlyTotientNumbers :: [Integer]
+  where highlyTotientNumbers = Problem.highlyTotientNumbers :: [Int]
 
 spec :: Spec
 spec = parallel $ do

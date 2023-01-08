@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -14,24 +14,24 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Integer -> [(Integer, Integer)]) -> String -> Spec
-properties primeFactorsMultiplicity name = do
-  describe name $ do
-    prop "are factors of original number" $
-      \(Positive n) -> product (map (\(p, r) -> p^r) $ primeFactorsMultiplicity n) `shouldBe` n
+properties primeFactorsMultiplicity name = describe name $ do
+  prop "has product equal to original number" $
+    \(Positive n) -> primeFactorsMultiplicity n
+                     `shouldSatisfy` (==) n . product . map (\(p, r) -> p^r)
 
-    prop "are prime factors" $
-      \(Positive n) -> map fst (primeFactorsMultiplicity n) `shouldSatisfy` all isPrime
+  prop "are prime factors" $
+    \(Positive n) -> primeFactorsMultiplicity n `shouldSatisfy` all (isPrime . fst)
 
-    prop "are distinct factors" $
-      \(Positive n) -> map fst (primeFactorsMultiplicity n) `shouldSatisfy` all ((==) 1 . length) . group
+  prop "are distinct factors" $
+    \(Positive n) -> primeFactorsMultiplicity n
+                     `shouldSatisfy` all ((==) 1 . length) . group . map fst
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "primeFactorsMultiplicity 315" $ do
-      primeFactorsMultiplicity (315 :: Integer) `shouldBe` [(3,2),(5,1),(7,1)]
+examples = describe "Examples" $ do
+  it "primeFactorsMultiplicity 315" $ do
+    primeFactorsMultiplicity 315 `shouldBe` [(3,2),(5,1),(7,1)]
 
-  where primeFactorsMultiplicity n = Problem.primeFactorsMultiplicity n
+  where primeFactorsMultiplicity n = Problem.primeFactorsMultiplicity (n :: Int)
 
 spec :: Spec
 spec = parallel $ do
