@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -12,7 +12,7 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Integer -> Integer) -> String -> Spec
-properties fibonacci name = modifyMaxSize (const 25) $ describe name $ do
+properties fibonacci name = describe name $ do
   it "is one for first Fibonacci number" $ do
     fibonacci 1 `shouldBe` 1
 
@@ -20,7 +20,8 @@ properties fibonacci name = modifyMaxSize (const 25) $ describe name $ do
     fibonacci 2 `shouldBe` 1
 
   prop "is sum of two previous Fibonacci numbers" $
-    \(Positive n) -> n > 2 ==> fibonacci n `shouldBe` fibonacci (n-1) + fibonacci (n-2)
+    \(Positive n) -> n > 2 ==>
+    fibonacci n `shouldBe` fibonacci (n-1) + fibonacci (n-2)
 
 examples :: Spec
 examples = describe "Examples" $ do

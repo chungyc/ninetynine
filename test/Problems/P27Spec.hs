@@ -1,13 +1,11 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P27Spec (spec) where
 
-import           Control.Monad
 import           Data.List             (sort)
-import qualified Data.Set              as Set
 import qualified Problems.P27          as Problem
 import qualified Solutions.P27         as Solution
 import           Test.Hspec
@@ -15,26 +13,34 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: ([Int] -> [Int] -> [[[Int]]]) -> String -> Spec
-properties disjointGroups name = describe name $ modifyMaxSize (const 10) $ do
-  prop "has expected sizes of groups" $
-    \(List xs) -> \(GroupSizes ns) ->
-      disjointGroups ns xs `shouldSatisfy` all ((==) ns . map length)
+properties disjointGroups name = describe name $ do
+  prop "has expected group sizes" $
+    forAll (smallNumberList) $ \ns ->
+    forAll (vectorOf (sum ns) arbitrary) $ \xs ->
+    disjointGroups ns xs `shouldSatisfy` all ((==) ns . map length)
 
-  prop "are disjoint groups of list" $
-    \(List xs) -> \(GroupSizes ns) ->
-      disjointGroups ns xs `shouldSatisfy` all ((==) (sort xs) . sort . concat)
+  prop "each grouping makes up original list" $
+    forAll (smallNumberList) $ \ns ->
+    forAll (vectorOf (sum ns) arbitrary) $ \xs ->
+    disjointGroups ns xs `shouldSatisfy` all ((==) (sort xs) . sort . concat)
 
-  prop "is list of distinct groups" $
-    \(List xs) -> \(GroupSizes ns) ->
-      disjointGroups ns xs `shouldSatisfy`
-      \l -> length l == Set.size (Set.fromList $ map (map sort) l)
+  prop "has expected number of groupings" $
+    forAll (smallNumberList) $ \ns ->
+    forAll (vectorOf (sum ns) arbitrary) $ \xs ->
+    disjointGroups ns xs `shouldSatisfy` (==) (multinomial ns) . length
 
-  prop "has expected number of groups" $
-    \(List xs) -> \(GroupSizes ns) ->
-      disjointGroups ns xs `shouldSatisfy` (==) (multinomial ns) . length
+  prop "includes arbitrary groupings" $
+    forAll (resize 5 $ listOf $ resize 5 $ listOf arbitrary) $ \gs ->
+    not (tooLarge $ map length gs) ==>
+    disjointGroups (map length gs) (concat gs)
+    `shouldSatisfy` elem (sort $ map sort gs) . sortGroupings
 
   -- Assumes that the sum of group sizes exactly matches the length of the list.
   -- What happens when they do not is left undefined.
+
+  where
+    -- Sort a list of groupings so that every list at every level is sorted.
+    sortGroupings groupings = sort $ map (sort . map sort) groupings
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -58,43 +64,26 @@ spec = parallel $ do
   describe "From solutions" $ do
     properties Solution.disjointGroups "disjointGroups"
 
+-- | Generate a short list of small numbers to be used as group sizes.
+--
+-- It will not generate group sizes whose number of groupings are much larger
+-- than the the test should handle.
+smallNumberList :: Gen [Int]
+smallNumberList = (resize 6 . listOf) smallNumber `suchThat` (not . tooLarge)
+
+-- | Generates a small number for inclusion in group sizes.
+smallNumber :: Gen Int
+smallNumber = resize 6 $ arbitrarySizedNatural
+
+-- | Whether a list of groups sizes will result in a number of groupings
+-- larger than we should handle.  For preventing having to deal with too
+-- many groupings in the test without unduly restricting the group sizes.
+tooLarge :: [Int] -> Bool
+tooLarge ns = multinomial ns > 10000
+
+-- | Multinomial coefficient.
 multinomial :: [Int] -> Int
-multinomial ns = fromIntegral $ (factorial $ sum ns') `div` (product $ map factorial ns')
-  where ns' = map toInteger ns :: [Integer]
-
-factorial :: Integer -> Integer
-factorial n = product [1..n]
-
--- | Generate list with length exactly equal to the size.
-newtype List = List [Int] deriving (Eq, Show)
-
-instance Arbitrary List where
-  arbitrary = sized genList
-
-genList :: Int -> Gen List
-genList 0 = genList 1  -- no empty lists
-genList n = return $ List [1..n]
-
--- | Generate list of group sizes that sum up exactly to the size.
-newtype GroupSizes = GroupSizes [Int] deriving (Eq, Show)
-
-instance Arbitrary GroupSizes where
-  arbitrary = sized $ \n ->
-    case n of 0  -> return $ GroupSizes [1]  -- no empty lists
-              n' -> genGroupSizes n'
-
-genGroupSizes :: Int -> Gen GroupSizes
-genGroupSizes 0 = return $ GroupSizes []
-genGroupSizes 1 = return $ GroupSizes [1]
-genGroupSizes n = do
-  k <- chooseInt (1, n)
-  frequency [ (1, return $ GroupSizes $ end k)
-            , (2, more k)
-            ]
-  where end k | k == n    = [k]
-              | otherwise = [k, n-k]
-        more k | k == n    = return $ GroupSizes [k]
-               | otherwise = liftM (consGroupSizes k) $ genGroupSizes (n-k)
-
-consGroupSizes :: Int -> GroupSizes -> GroupSizes
-consGroupSizes x (GroupSizes xs) = GroupSizes (x:xs)
+multinomial ns = fromIntegral multinomial'
+  where multinomial' = factorial (sum ns') `div` product (map factorial ns')
+        ns' = map toInteger ns :: [Integer]  -- To accommodate large factors.
+        factorial n = product [1..n]

@@ -1,13 +1,11 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P28Spec (spec) where
 
 import           Data.List             (sort)
-import           Data.Map.Lazy         ((!))
-import qualified Data.Map.Lazy         as Map
 import qualified Problems.P28          as Problem
 import qualified Solutions.P28         as Solution
 import           Test.Hspec
@@ -18,16 +16,18 @@ lsortProp lsort name = describe name $ do
   prop "is permutation of original list" $
     \xs -> lsort xs `shouldSatisfy` (==) (sort xs) . sort
 
-  prop "is sorted by length" $
-    \xs -> lsort xs `shouldSatisfy` compareNeighbors (\(x,y) -> length x <= length y)
+  prop "is in same order as sorted lengths" $
+    \xs -> lsort xs `shouldSatisfy` (==) (sort $ map length xs) . map length
 
 lfsortProp :: ([[Int]] -> [[Int]]) -> String -> Spec
 lfsortProp lfsort name = describe name $ do
   prop "is permutation of original list" $
     \xs -> lfsort xs `shouldSatisfy` (==) (sort xs) . sort
 
-  prop "is sorted by frequency of length" $
-    \xs -> lfsort xs `shouldSatisfy` compareNeighbors (\(x,y) -> x <= y) . mapToLengthFrequency
+  prop "is in same order as sorted frequencies of lengths" $
+    \xs -> lfsort xs `shouldSatisfy`  (==) (sort $ toFrequencies xs) . toFrequencies
+
+  where toFrequencies xs = map (\ys -> length $ filter ((==) (length ys) . length) xs) xs
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -48,13 +48,3 @@ spec = parallel $ do
   describe "From solutions" $ do
     lsortProp Solution.lsort "lsort"
     lfsortProp Solution.lfsort "lfsort"
-
-compareNeighbors :: Ord a => ((a,a) -> Bool) -> [a] -> Bool
-compareNeighbors _ []  = True
-compareNeighbors _ [_] = True
-compareNeighbors f xs  = all f neighbors
-  where neighbors = zip xs $ tail xs
-
-mapToLengthFrequency :: [[a]] -> [Int]
-mapToLengthFrequency xs = map ((!) freqs . length) xs
-  where freqs = Map.fromListWith (+) $ map (\ys -> (length ys, 1)) xs

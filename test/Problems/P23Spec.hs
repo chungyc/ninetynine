@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -14,45 +14,43 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: ([Int] -> Int -> StdGen -> ([Int], StdGen)) -> String -> Spec
-properties randomSelect name = do
-  describe name $ do
-    prop "selects given number of elements" $
-      \xs -> forAll (chooseInt (0, length xs)) $ \n -> \seed ->
-        fst (randomSelect xs n $ mkStdGen seed) `shouldSatisfy` (==) n . length
+properties randomSelect name = describe name $ do
+  prop "selects given number of elements" $
+    \xs -> forAll (chooseInt (0, length xs)) $ \n -> \seed ->
+      randomSelect xs n (mkStdGen seed) `shouldSatisfy` (==) n . length . fst
 
-    prop "selects elements from list" $
-      \xs -> forAll (chooseInt (0, length xs)) $ \n -> \seed ->
-        fst (randomSelect xs n $ mkStdGen seed) `shouldSatisfy` flip isSubsequenceOf (sort xs) . sort
+  prop "selects elements from list" $
+    \xs -> forAll (chooseInt (0, length xs)) $ \n -> \seed ->
+      randomSelect xs n (mkStdGen seed)
+      `shouldSatisfy` flip isSubsequenceOf (sort xs) . sort . fst
 
-    modifyMaxSuccess (const 1) $ do
-      prop "is random and returns new random generator" $
-        -- Make a number of selections and confirm that the selection is random by
-        -- checking at least one of them is different from another.
-        -- It is theoretically possible for all of them to be the same with
-        -- true random numbers, but it is vanishingly unlikely.
-        --
-        -- Similarly, this also tests that randomSelect returns a new random generator.
-        -- If it did not, the use of the same generator would return identical selections.
-        \seed -> let xs = [1..100]
-                     n = 10
-                     selections = unfoldr (Just . randomSelect xs n) $ mkStdGen seed
-                     isRandom ls = any (\(x,y) -> x /= y) $ zip ls $ tail ls
-                 in (take 10 $ selections) `shouldSatisfy` isRandom
+  modifyMaxSuccess (const 1) $ prop "is random and returns new random generator" $
+    -- Make a number of selections and confirm that the selection is random by
+    -- checking at least one of them is different from another.
+    -- It is theoretically possible for all of them to be the same with
+    -- true random numbers, but it is vanishingly unlikely.
+    --
+    -- Similarly, this also tests that randomSelect returns a new random generator.
+    -- If it did not, the use of the same generator would return identical selections.
+    \seed -> let selections = unfoldr (Just . randomSelect [1..100] 10) $ mkStdGen seed
+                 isRandom ls = any (\(x,y) -> x /= y) $ zip ls $ tail ls
+             in conjoin [ selections `shouldSatisfy` any isRandom
+                        , selections `shouldSatisfy` isRandom
+                        ]
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "fst $ randomSelect \"abcdefgh\" 3 $ mkStdGen 111" $ do
-      (fst $ randomSelect "abcdefgh" 3 $ mkStdGen 111)
-        `shouldSatisfy` (\l -> sort l `isSubsequenceOf` "abcdefgh" && length l == 3)
+examples = describe "Examples" $ do
+  it "fst $ randomSelect \"abcdefgh\" 3 $ mkStdGen 111" $ do
+    (fst $ randomSelect "abcdefgh" 3 $ mkStdGen 111)
+      `shouldSatisfy` (\l -> sort l `isSubsequenceOf` "abcdefgh" && length l == 3)
 
-    it "take 5 $ unfoldr (Just . randomSelect [1..100] 3) $ mkStdGen 111" $ do
-      (take 5 $ unfoldr (Just . randomSelect [1..100 :: Int] 3) $ mkStdGen 111)
-        `shouldSatisfy` all (\l -> sort l `isSubsequenceOf` [1..100] && length l == 3)
+  it "take 5 $ unfoldr (Just . randomSelect [1..100] 3) $ mkStdGen 111" $ do
+    (take 5 $ unfoldr (Just . randomSelect [1..100 :: Int] 3) $ mkStdGen 111)
+      `shouldSatisfy` all (\l -> sort l `isSubsequenceOf` [1..100] && length l == 3)
 
-    it "newStdGen >>= return . fst . randomSelect \"abcdefgh\" 3" $ do
-      (newStdGen >>= return . fst . randomSelect "abcdefgh" 3)
-        >>= (`shouldSatisfy` (\l -> sort l `isSubsequenceOf` "abcdefgh" && length l == 3))
+  it "newStdGen >>= return . fst . randomSelect \"abcdefgh\" 3" $ do
+    (newStdGen >>= return . fst . randomSelect "abcdefgh" 3)
+      >>= (`shouldSatisfy` (\l -> sort l `isSubsequenceOf` "abcdefgh" && length l == 3))
 
   where randomSelect l n g = Problem.randomSelect l n g
 
