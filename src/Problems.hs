@@ -19,7 +19,7 @@ The number of shruggies (&#129335;) indicate difficulty level.
 
 These are based on the Ninety-Nine Haskell Problems on
 the [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
-The source for this module is available at https://github.com/chungyc/ninetynine.
+The source for this module is available at [GitHub](https://github.com/chungyc/ninetynine).
 -}
 module Problems (
   -- * List problems

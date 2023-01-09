@@ -18,9 +18,8 @@ module Problems.MultiwayTrees (
 import           Control.DeepSeq
 import           GHC.Generics    (Generic)
 
--- | Multiway tree.
---
--- A multiway tree is composed of a root element and a (possibly empty) set of successors which are multiway trees themselves.
+-- | A multiway tree is composed of a root element
+-- and a (possibly empty) set of successors which are multiway trees themselves.
 -- A multiway tree is never empty.  The set of successor trees is sometimes called a forest.
 data MultiwayTree a = MultiwayTree a [MultiwayTree a]
   deriving (Eq, Show, Generic, NFData)

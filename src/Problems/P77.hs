@@ -15,7 +15,7 @@ import qualified Solutions.P77 as Solution
 
 {- | A list is also a monad.
 
-For example, "Problems.P14" could have been implemented with the list monad:
+For example, 'Problems.P14.dupli' could have been implemented with the list monad:
 
 >>> :{
 dupli :: [a] -> [a]

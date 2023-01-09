@@ -28,12 +28,12 @@ Compare with the solution for "Problems.P44":
 
 >>> isGaussianPrime' (0 :+ 5)
 False
+>>> isGaussianPrime' (17 :+ 0)
+False
 >>> isGaussianPrime' (5 :+ 2)
 True
 >>> isGaussianPrime' ((-2) :+ 5)
 True
->>> isGaussianPrime' (17 :+ 0)
-False
 -}
 isGaussianPrime' :: Complex Integer -> Bool
 isGaussianPrime' = Solution.isGaussianPrime'

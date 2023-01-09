@@ -34,7 +34,7 @@ errorCorrectingEncode = Solution.errorCorrectingEncode
 {- |
 The inverse of 'errorCorrectingEncode'.
 Recover the original Boolean list from its encoding.
-There could be an error in the encoding.
+There could be a single error in the encoding.
 
 === Examples
 

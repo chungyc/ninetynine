@@ -12,8 +12,6 @@ import qualified Solutions.P17 as Solution
 
 -- | Split a list into two parts; the length of the first part is given.
 --
--- Do not use any predefined functions.
---
 -- === Examples
 --
 -- >>> split "abcdefghik" 3

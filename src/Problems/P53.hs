@@ -38,8 +38,9 @@ It is a proof by contradiction, and the procedure is as follows:
     For example, if the axioms are \(x\) and \(y\), and
     the given formula is \(z\), then \(Y\) would be \(x \wedge y \wedge \neg z\).
 
-    * Note that the resolution rule does not apply to the values of true and false.
-      If \(Y\) contains raw values, transform \(Y\) into a form which contains none.
+    *   Do not apply the resolution rule to the values of true and false.
+        If \(Y\) contains raw true or false values,
+        transform \(Y\) into a form which contains none.
 
 2.  Convert \(Y\) into conjunctive normal form; see "Problems.P52".
 
