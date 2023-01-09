@@ -1,11 +1,12 @@
 {-|
-Copyright: Copyright (C) 2022 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P43Spec (spec) where
 
 import           Data.Complex
+import           Data.Foldable         (for_)
 import qualified Problems.P43          as Problem
 import           Solutions.Arithmetic  (gaussianMultiply, gaussianUnits)
 import qualified Solutions.P43         as Solution
@@ -18,13 +19,17 @@ properties gaussianDividesBy name = describe name $ do
   prop "does not divide by zero" $ withMaxSuccess 10 $
     \x -> x `gaussianDividesBy` (0 :+ 0) `shouldBe` False
 
-  prop "divides by units" $ withMaxSuccess 10 $
-    \x -> conjoin (map (\y -> x `gaussianDividesBy` y `shouldBe` True) gaussianUnits)
+  context "with units" $ do
+    for_ gaussianUnits $ \unit ->
+      prop ("divided by " ++ show unit) $ withMaxSuccess 10 $
+        \x -> x `gaussianDividesBy` unit `shouldBe` True
 
   prop "divides multiple of divisor by divisor" $
-    \x y -> y /= (0 :+ 0) ==> (x `gaussianMultiply` y) `gaussianDividesBy` y `shouldBe` True
+    \x y -> y /= (0 :+ 0) ==>
+    (x `gaussianMultiply` y) `gaussianDividesBy` y `shouldBe` True
 
-  prop "no z such that x=y*z exists when x is not divided by y" $ withMaxSuccess 10000 $
+  prop "no z such that x=y*z exists when x is not divided by y" $
+    withMaxSuccess 10000 $
     \x y z -> not (x `gaussianDividesBy` y) && y /= (0 :+ 0) ==>
     y `gaussianMultiply` z `shouldSatisfy` (/=) x
 

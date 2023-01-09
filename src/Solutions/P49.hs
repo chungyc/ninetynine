@@ -10,7 +10,7 @@ module Solutions.P49 (gray) where
 
 -- | Returns the n-bit Gray code.
 gray :: Int -> [String]
-gray 0 = []
+gray 0 = [""]
 gray 1 = ["0", "1"]
 gray n
   | n > 1     = map ('0':) g ++ map ('1':) (reverse g)

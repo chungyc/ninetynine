@@ -1,14 +1,14 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P50Spec (spec) where
 
-import           Control.Monad
-import           Data.List             (isPrefixOf, sort)
+import           Data.List             (group, isPrefixOf, nub, sort)
 import           Data.Map.Lazy         (Map, (!))
 import qualified Data.Map.Lazy         as Map
+import           Data.Maybe            (fromJust)
 import           Problems.P50          (countCharacters, decodeHuffman,
                                         encodeHuffman, loweralpha, text)
 import qualified Problems.P50          as Problem
@@ -20,41 +20,54 @@ import           Test.QuickCheck
 properties :: ([(Char,Int)] -> [(Char,String)]) -> String -> Spec
 properties huffman name = describe name $ do
   prop "has code for all characters" $
-    \(Counts cs) -> huffman cs `shouldSatisfy` (==) (sort $ map fst cs) . sort . map fst
+    \(Counts cs) ->
+      huffman cs `shouldSatisfy`
+      (==) (sort $ map fst cs) . sort . map fst
 
-  prop "has shorter code for more frequent characters" $
-    \(Counts cs) -> huffman cs `shouldSatisfy` \e ->
-      let allpairs = [(c,c') | c <- map fst e, c' <- map fst e]
-          weight c = maybe 0 id $ lookup c cs
-          size c = maybe 0 length $ lookup c e
-          implies x y = not x || y
-      in all (\(c,c') -> (weight c > weight c') `implies` (size c <= size c')) allpairs
+  prop "each character has one code" $
+    \(Counts cs) ->
+      huffman cs `shouldSatisfy`
+      all (==1) . map length . group . sort . map fst
+
+  prop "no code is empty" $
+    \(Counts cs) ->
+      huffman cs `shouldSatisfy`
+      all (not . null) . map snd
+
+  prop "code is not longer than code for more frequent character" $
+    \(Counts cs) -> length cs > 1 ==>
+      forAll (elements $ map fst cs) $ \x ->
+      forAll (elements $ map fst cs) $ \y ->
+      retrieve x cs < retrieve y cs ==>
+      huffman cs `shouldSatisfy`
+      \e -> length (retrieve x e) >= length (retrieve y e)
 
   prop "has no code which is a prefix of another" $
-    \(Counts cs) ->
-      huffman cs `shouldSatisfy` \e ->
-      let allpairs = [(c,c') | c <- map snd e, c' <- map snd e]
-          areNotProperPrefixes (c,c') = c == c' || not (c `isPrefixOf` c' || c' `isPrefixOf` c)
-      in all areNotProperPrefixes allpairs
+    \(Counts cs) -> length cs > 1 ==>
+      forAll (elements $ map fst cs) $ \x ->
+      forAll (elements $ map fst cs) $ \y ->
+      x /= y ==>
+      huffman cs `shouldSatisfy`
+      \e -> not (retrieve x e `isPrefixOf` retrieve y e)
 
   prop "is unambiguous encoding" $
     \s -> let counts = countCharacters s
               table = huffman counts
           in counterexample ("counts = " ++ show counts) $
-             counterexample ("huffman counts = " ++ show table) $
+             counterexample ("encoding = " ++ show table) $
              (decodeHuffman table . encodeHuffman table) s `shouldBe` s
 
   prop "does not leave shorter codes unused" $
     \(Counts cs) ->
       length cs > 1 ==>
-      counterexample (show $ huffman cs) $
-      toTree (huffman cs) `shouldSatisfy` isCompact
+      huffman cs `shouldSatisfy` isCompact . toTree
 
-  prop "does not have child subtrees that are lighter than grandchild subtrees" $
+  prop "does not have child trees that are lighter than grandchild trees" $
     \(Counts cs) ->
       length cs > 1 ==>
-      counterexample (show $ huffman cs) $
-      toTree (huffman cs) `shouldSatisfy` isGreedy (Map.fromList cs)
+      huffman cs `shouldSatisfy` isGreedy (Map.fromList cs) . toTree
+
+  where retrieve x xs = fromJust $ lookup x xs
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -65,7 +78,7 @@ examples = describe "Examples" $ do
     in do
       length (encodeHuffman t string) `shouldBe` 224
       (decodeHuffman t . encodeHuffman t) string `shouldBe` string
-      -- There are more than one Huffman encoding which are valid for
+      -- There can be more than one Huffman encoding which are valid for
       -- the same character frequencies, but they should all result
       -- in an encoded text with the same length, and they should
       -- all be unambiguously decodeable back to the same text.
@@ -99,14 +112,17 @@ data HuffmanTree = Branch HuffmanTree HuffmanTree | Leaf (Maybe Char)
 toTree :: [(Char,String)] -> HuffmanTree
 toTree table = foldl incorporate (Leaf Nothing) table
 
+-- | Incorporate a character and its encoding into a Huffman tree
 incorporate :: HuffmanTree -> (Char,String) -> HuffmanTree
-incorporate (Leaf Nothing) (c, "")       = Leaf $ Just c
-incorporate (Leaf _) (_, "")             = undefined  -- duplicate code
-incorporate (Leaf Nothing) (c, '0':code) = Branch (incorporate (Leaf Nothing) (c, code)) (Leaf Nothing)
-incorporate (Leaf Nothing) (c, '1':code) = Branch (Leaf Nothing) (incorporate (Leaf Nothing) (c, code))
-incorporate (Branch l r) (c, '0':code)   = Branch (incorporate l (c, code)) r
-incorporate (Branch l r) (c, '1':code)   = Branch l (incorporate r (c, code))
-incorporate _ _                          = undefined  -- invalid encoding
+incorporate (Leaf Nothing) (c, "") = Leaf $ Just c
+incorporate (Leaf _) (_, "") = error "duplicate code"
+incorporate (Leaf Nothing) (c, '0':code) =
+  Branch (incorporate (Leaf Nothing) (c, code)) (Leaf Nothing)
+incorporate (Leaf Nothing) (c, '1':code) =
+  Branch (Leaf Nothing) (incorporate (Leaf Nothing) (c, code))
+incorporate (Branch l r) (c, '0':code) = Branch (incorporate l (c, code)) r
+incorporate (Branch l r) (c, '1':code) = Branch l (incorporate r (c, code))
+incorporate _ _ = error "invalid encoding"
 
 -- | Confirms that the Huffman tree does not leave any shorter codes unused.
 isCompact :: HuffmanTree -> Bool
@@ -128,7 +144,14 @@ isGreedy m (Branch l r) = all (\w -> all (\w' -> w >= w') grandchildWeights) chi
         subtreeWeights (Leaf _)       = []
         subtreeWeights (Branch l' r') = [weight l', weight r']
 
+-- | Distinct characters and associated counts.
 newtype Counts = Counts [(Char,Int)] deriving Show
 
 instance Arbitrary Counts where
-  arbitrary = liftM (Counts . countCharacters) arbitrary
+  arbitrary = sized $ \n ->
+    combine <$>
+    vectorOf n arbitraryPrintableChar <*>
+    infiniteListOf (arbitrarySizedNatural `suchThat` (>1))
+    where combine xs ys = Counts $ zip (nub xs) ys
+
+  shrink (Counts cs) = map Counts $ shrinkList shrink cs

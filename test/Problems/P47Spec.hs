@@ -1,7 +1,5 @@
-{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
-
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -34,16 +32,18 @@ properties (evaluateCircuit, buildCircuit) (nameEvaluateCircuit, nameBuildCircui
         in evaluateCircuit c x y `shouldBe` nand (eval l) (eval r)
 
     prop "is inverse of buildCircuit" $
-      \(Fn2 f) -> \x -> \y ->
-        evaluateCircuit (buildCircuit f) x y `shouldBe` f x y
+      \f -> \x -> \y ->
+        evaluateCircuit (buildCircuit $ applyFun2 f) x y `shouldBe` applyFun2 f x y
 
   describe nameBuildCircuit $ do
     prop "builds logic circuits for binary boolean functions" $
-      \(Fn2 f) -> buildCircuit f `shouldSatisfy` (==) (table f) . table . evaluateCircuit
+      \f -> buildCircuit (applyFun2 f)
+            `shouldSatisfy` (==) (table $ applyFun2 f) . table . evaluateCircuit
 
     prop "is almost inverse of evaluateCircuit" $
       \(Circuit c) -> \x -> \y ->
-        evaluateCircuit (buildCircuit $ evaluateCircuit c) x y `shouldBe` evaluateCircuit c x y
+        evaluateCircuit (buildCircuit $ evaluateCircuit c) x y
+        `shouldBe` evaluateCircuit c x y
         -- It should build a circuit with equivalent output,
         -- but it does not have to be the same circuit.
 
@@ -84,10 +84,14 @@ examples = describe "Examples" $ do
 
 spec :: Spec
 spec = parallel $ do
-  properties (Problem.evaluateCircuit, Problem.buildCircuit) ("evaluateCircuit", "buildCircuit")
+  properties
+    (Problem.evaluateCircuit, Problem.buildCircuit)
+    ("evaluateCircuit", "buildCircuit")
   examples
   describe "From solutions" $ do
-    properties (Solution.evaluateCircuit, Solution.buildCircuit) ("evaluateCircuit", "buildCircuit")
+    properties
+      (Solution.evaluateCircuit, Solution.buildCircuit)
+      ("evaluateCircuit", "buildCircuit")
 
 nand :: Bool -> Bool -> Bool
 nand x y = not $ x && y
@@ -105,21 +109,25 @@ table f = (f False False, f False True, f True False, f True True)
 newtype Circuit = Circuit [(Int,Int)] deriving Show
 
 instance Arbitrary Circuit where
-  arbitrary = sized genCircuit
+  arbitrary = sized gen
+    where gen 0 = gen 1
+
+          gen 1 = do
+            i <- oneof vars
+            j <- oneof vars
+            return $ Circuit [(i,j)]
+              where vars = [return $ -1, return $ -2]
+
+          gen n = do
+            i <- frequency inputs
+            j <- frequency inputs
+            Circuit c' <- gen (n-1)
+            return $ Circuit $ c' ++ [(i,j)]
+              where inputs = [ (1, return $ -1)
+                             , (1, return $ -2)
+                             , (n, chooseInt (1,n-1))
+                             ]
+
   shrink (Circuit [])  = []
   shrink (Circuit [_]) = []
   shrink (Circuit c)   = [Circuit $ init c]
-
-genCircuit :: Int -> Gen Circuit
-genCircuit 0 = genCircuit 1
-genCircuit 1 = do
-  i <- oneof vars
-  j <- oneof vars
-  return $ Circuit [(i,j)]
-  where vars = [return $ -1, return $ -2]
-genCircuit n = do
-  i <- frequency inputs
-  j <- frequency inputs
-  Circuit c' <- genCircuit (n-1)
-  return $ Circuit $ c' ++ [(i,j)]
-  where inputs = [(1, return $ -1), (1, return $ -2), (n, chooseInt (1,n-1))]

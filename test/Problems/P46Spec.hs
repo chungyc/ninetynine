@@ -1,7 +1,5 @@
-{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
-
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -16,53 +14,53 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: Functions -> String -> Spec
-properties fs name = do
-  describe name $ do
-    prop "and' iff both true" $
-      \a -> \b -> and' a b `shouldBe` toInt a + toInt b == 2
+properties fs name = describe name $ do
+  prop "and' iff both true" $
+    \a -> \b -> and' a b `shouldBe` toInt a + toInt b == 2
 
-    prop "or' iff either true" $
-      \a -> \b -> or' a b `shouldBe` toInt a + toInt b > 0
+  prop "or' iff either true" $
+    \a -> \b -> or' a b `shouldBe` toInt a + toInt b > 0
 
-    prop "nand' is not and'" $
-      \a -> \b -> nand' a b `shouldBe` not (and' a b)
+  prop "nand' is not and'" $
+    \a -> \b -> nand' a b `shouldBe` not (and' a b)
 
-    prop "nor' is not or'" $
-      \a -> \b -> nor' a b `shouldBe` not (or' a b)
+  prop "nor' is not or'" $
+    \a -> \b -> nor' a b `shouldBe` not (or' a b)
 
-    prop "xor' iff only one true" $
-      \a -> \b -> xor' a b `shouldBe` toInt a + toInt b == 1
+  prop "xor' iff only one true" $
+    \a -> \b -> xor' a b `shouldBe` toInt a + toInt b == 1
 
-    prop "impl' implies consequent is true if antecedent is true" $
-      \a -> impl' True a `shouldBe` a == True
+  prop "impl' implies consequent is true if antecedent is true" $
+    \a -> impl' True a `shouldBe` a == True
 
-    prop "impl' does not care if antecedent is false" $
-      \a -> impl' False a `shouldBe` True
+  prop "impl' does not care if antecedent is false" $
+    \a -> impl' False a `shouldBe` True
 
-    prop "equ' iff the same" $
-      \a -> \b -> equ' a b `shouldBe` a == b
+  prop "equ' iff the same" $
+    \a -> \b -> equ' a b `shouldBe` a == b
 
-    prop "table" $
-      \(Fn2 f) -> \a -> \b -> table f `shouldSatisfy` elem (a, b, f a b)
+  prop "table" $
+    \f -> \a -> \b ->
+      table (applyFun2 f)
+      `shouldSatisfy` elem (a, b, applyFun2 f a b)
 
-    where Functions
-            { getTable = table
-            , getAnd = and'
-            , getOr = or'
-            , getNand = nand'
-            , getNor = nor'
-            , getXor = xor'
-            , getImpl = impl'
-            , getEqu = equ' } = fs
-          toInt False = 0 :: Int
-          toInt True  = 1 :: Int
+  where Functions
+          { getTable = table
+          , getAnd = and'
+          , getOr = or'
+          , getNand = nand'
+          , getNor = nor'
+          , getXor = xor'
+          , getImpl = impl'
+          , getEqu = equ' } = fs
+        toInt False = 0 :: Int
+        toInt True  = 1 :: Int
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "table (\a b -> (and' a (or' a b)))" $ do
-      sort (table $ \a b -> (and' a $ or' a b))
-        `shouldBe` [(False,False,False),(False,True,False),(True,False,True),(True,True,True)]
+examples = describe "Examples" $ do
+  it "table (\a b -> (and' a (or' a b)))" $ do
+    sort (table $ \a b -> (and' a $ or' a b))
+      `shouldBe` [(False,False,False),(False,True,False),(True,False,True),(True,True,True)]
 
   where table = Problem.table
         and'  = Problem.and'

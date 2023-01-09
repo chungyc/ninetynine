@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2022 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -21,7 +21,9 @@ properties isGaussianPrime' name = describe name $ do
     isGaussianPrime' (0:+0) `shouldBe` False
 
   context "with units" $ do
-    for_ gaussianUnits $ \x -> it (show x ++ " is not prime") $ isGaussianPrime' x `shouldBe` False
+    for_ gaussianUnits $ \x ->
+      it (show x ++ " is not prime") $
+        isGaussianPrime' x `shouldBe` False
 
   prop "is false for composite Gaussian integers" $
     \x y -> all (not . shouldBeExcluded) [x,y]  ==>
