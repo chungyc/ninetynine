@@ -15,8 +15,8 @@ module Problems.P79
   , parsePostfix
   ) where
 
-import           Problems.PostfixNotation
-import qualified Solutions.P79            as Solution
+import           Problems.Monads (Element (..), Operator (..), parsePostfix)
+import qualified Solutions.P79   as Solution
 
 {- | Postfix notation, also known as reverse Polish notation,
 has operators come after their operands in mathematical expressions.

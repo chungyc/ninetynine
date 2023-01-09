@@ -1,6 +1,6 @@
 cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.35.0.
+-- This file has been generated from package.yaml by hpack version 0.35.1.
 --
 -- see: https://github.com/sol/hpack
 
@@ -71,6 +71,7 @@ library
       Problems.Graphs
       Problems.Lists
       Problems.Logic
+      Problems.Monads
       Problems.MultiwayTrees
       Problems.P01
       Problems.P02
@@ -172,7 +173,6 @@ library
       Problems.P97
       Problems.P98
       Problems.P99
-      Problems.PostfixNotation
       Solutions
       Solutions.Arithmetic
       Solutions.P01

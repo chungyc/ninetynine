@@ -1,13 +1,12 @@
 {- |
-Description: Supporting definitions for postfix notation
-Copyright: Copyright (C) 2021 Yoo Chung
+Description: Supporting definitions for monad problems
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
-Supporting definitions for using postfix notation.
-In particular, this supports "Problems.P79".
+Supporting definitions for monad problems.
 -}
-module Problems.PostfixNotation (Operator (..), Element (..), parsePostfix) where
+module Problems.Monads (Operator (..), Element (..), parsePostfix) where
 
 import           Data.Char (isDigit)
 

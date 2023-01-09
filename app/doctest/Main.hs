@@ -17,7 +17,7 @@ main = do
   doctest' [] stateful
   doctest' [] $ mapFiles ["Crosswords.hs"]
   doctest' [] $ mapFiles ["MultiwayTrees.hs"]
-  doctest' [] $ mapFiles ["PostfixNotation.hs"]
+  doctest' [] $ mapFiles ["Monads.hs"]
   doctest' ["--fast"] solutions
 
 doctest' :: [String] -> [String] -> IO ()

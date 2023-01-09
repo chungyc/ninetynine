@@ -12,7 +12,7 @@ import           Control.Monad.Identity
 import           Control.Monad.State
 import           Control.Monad.Trans.Maybe
 import           Control.Monad.Writer
-import           Problems.PostfixNotation
+import           Problems.Monads           (Element (..), Operator (..))
 
 {- | Use monad transformers to evaluate postfix notation.
 

@@ -5,11 +5,12 @@ Maintainer: dev@chungyc.org
 -}
 module Problems.P79Spec (spec) where
 
-import           Data.List                (isPrefixOf)
-import           Data.Maybe               (fromJust, isNothing)
-import qualified Problems.P79             as Problem
-import           Problems.PostfixNotation
-import qualified Solutions.P79            as Solution
+import           Data.List             (isPrefixOf)
+import           Data.Maybe            (fromJust, isNothing)
+import           Problems.Monads       (Element (..), Operator (..),
+                                        parsePostfix)
+import qualified Problems.P79          as Problem
+import qualified Solutions.P79         as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
