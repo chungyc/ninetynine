@@ -17,7 +17,7 @@ and the first and second Fibonacci numbers are 1.  I.e.,
 \[
 \begin{align}
 F(1) & = 1 \\
-F(2) & = 2 \\
+F(2) & = 1 \\
 F(n) & = F(n-1) + F(n-2)
 \end{align}
 \]
