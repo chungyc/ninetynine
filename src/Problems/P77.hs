@@ -29,7 +29,7 @@ dupli xs = do
 
 Using the list monad, implement a function which returns
 all the one-dimensional random walk paths with \(n\) steps.
-Starting from position 0, each step one can change positions by -1, 0, or 1.
+Starting from position 0, each step can change positions by -1, 0, or 1.
 Each path will be a list of positions starting from 0.
 
 === Examples
