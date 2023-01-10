@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -14,20 +14,21 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Int -> [Tree ()]) -> String -> Spec
-properties heightBalancedTrees name = do
-  describe name $ do
-    modifyMaxSize (const 6) $ modifyMaxSuccess (const 15) $ do
-      prop "has trees with expected height" $
-        \(Positive n) -> heightBalancedTrees n `shouldSatisfy` all ((==) n . treeHeight)
+properties heightBalancedTrees name = describe name $ do
+  modifyMaxSize (const 6) $ modifyMaxSuccess (const 15) $ do
+    prop "has trees with expected height" $
+      \(NonNegative n) -> heightBalancedTrees n
+                          `shouldSatisfy` all ((==) n . treeHeight)
 
-      prop "has trees which are height balanced" $
-        \(Positive n) -> heightBalancedTrees n `shouldSatisfy` all isHeightBalanced
+    prop "has trees which are height balanced" $
+      \(NonNegative n) -> heightBalancedTrees n
+                          `shouldSatisfy` all isHeightBalanced
 
-    modifyMaxSize (const 30) $ do
-      prop "includes tree if and only if it is height balanced" $
-        \t -> treeHeight t > 1 && treeHeight t <= 4 ==>  -- not trivial, and not too slow
-              classify (isHeightBalanced t) "balanced" $
-              elem t (heightBalancedTrees $ treeHeight t) `shouldBe` isHeightBalanced t
+  prop "includes arbitrary height-balanced tree" $ \t ->
+    treeHeight t <= 6 ==>  -- avoid combinatorial explosion
+    classify (isHeightBalanced t) "balanced" $
+    heightBalancedTrees (treeHeight t)
+    `shouldSatisfy` (==) (isHeightBalanced t) . elem t
 
 examples :: Spec
 examples = do
@@ -54,5 +55,4 @@ isHeightBalanced :: Tree a -> Bool
 isHeightBalanced Empty = True
 isHeightBalanced (Branch _ l r) =
   abs (treeHeight l - treeHeight r) <= 1 &&
-  isHeightBalanced l &&
-  isHeightBalanced r
+  isHeightBalanced l && isHeightBalanced r

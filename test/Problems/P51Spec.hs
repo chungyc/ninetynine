@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -21,11 +21,11 @@ properties
   (nameCorrupt, nameEncode, nameDecode) = do
   describe nameCorrupt $ do
     prop "has same length" $
-      \l -> forAll (chooseInt (0, length l)) $ \n ->
+      \(RNG gen) -> \l -> forAll (chooseInt (0, length l)) $ \n ->
         corrupt gen n l `shouldSatisfy` (==) (length l) . length
 
     prop "has expected number of errors" $
-      \l -> forAll (chooseInt (0, length l)) $ \n ->
+      \(RNG gen) -> \l -> forAll (chooseInt (0, length l)) $ \n ->
         corrupt gen n l `shouldSatisfy` (==) n . fromJust . countErrors l
 
   describe (nameEncode ++ " and " ++ nameDecode) $ do
@@ -33,9 +33,8 @@ properties
       \l -> (errorCorrectingDecode . errorCorrectingEncode) l `shouldBe` l
 
     prop "encodes and decodes back to original input with one error" $
-      \l -> (errorCorrectingDecode . corrupt gen 1 . errorCorrectingEncode) l `shouldBe` l
-
-  where gen = mkStdGen 111
+      \(RNG gen) -> \l ->
+        (errorCorrectingDecode . corrupt gen 1 . errorCorrectingEncode) l `shouldBe` l
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -77,3 +76,8 @@ countErrors (x:xs) (x':xs')
       c <- countErrors xs xs'
       return $ c+1
 countErrors _ _ = Nothing
+
+newtype RNG = RNG StdGen deriving (Show)
+
+instance Arbitrary RNG where
+  arbitrary = RNG . mkStdGen <$> arbitrary

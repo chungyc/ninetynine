@@ -1,6 +1,3 @@
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric  #-}
-
 {-|
 Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
@@ -8,23 +5,17 @@ Maintainer: dev@chungyc.org
 -}
 module Problems.P53Spec (spec) where
 
-import           Data.List             (singleton)
-import           Data.Map              (Map)
-import qualified Data.Map              as Map
-import           Problems.Logic        (Formula (..), evaluateFormula)
-import qualified Problems.P53          as Problem
-import qualified Solutions.P53         as Solution
+import           Problems.Logic            (Formula (..), evaluateFormula)
+import           Problems.Logic.Arbitrary  ()
+import           Problems.Logic.QuickCheck (assignmentsFor)
+import qualified Problems.P53              as Problem
+import qualified Solutions.P53             as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: ([Formula] -> Formula -> Bool) -> String -> Spec
-properties isTheorem name =
-  -- Avoid sizes that are too large.
-  -- An exponential number of applying the resolution rule may be necessary.
-  modifyMaxSize (const 16) $
-  describe name $ do
-
+properties isTheorem name = describe name $ modifyMaxSize (const 16) $ do
   it "trivially proves true" $ do
     isTheorem [] (Value True) `shouldBe` True
 
@@ -88,55 +79,15 @@ spec = parallel $ do
     properties Solution.isTheorem "isTheorem"
 
 -- A collection of boolean formulas forming a set of axioms.
-newtype Theory = Theory [Formula] deriving (Eq, Show)
+newtype Theory = Theory [Formula] deriving (Show)
 
 instance Arbitrary Theory where
-  arbitrary = scale (`div` 2) $ Theory <$> listOf formulas
-  shrink (Theory fs) = map Theory (shrinkList shrinkFormula fs)
+  arbitrary = scale (`div` 2) $ Theory <$> listOf arbitrary
+  shrink (Theory fs) = map Theory (shrinkList shrink fs)
 
 -- An arbitrary formula that can be used as a conjecture to prove.
-newtype Conjecture = Conjecture Formula deriving (Eq, Show)
+newtype Conjecture = Conjecture Formula deriving (Show)
 
 instance Arbitrary Conjecture where
-  arbitrary = scale (`div` 2) $ Conjecture <$> formulas
-  shrink (Conjecture c) = map Conjecture $ shrinkFormula c
-
--- Generate boolean formulas.
-formulas :: Gen Formula
-formulas = sized $ gen
-  where gen n
-          | n < 2 = frequency [ (1, Value <$> arbitrary)
-                              , (1000, Variable . singleton <$> choose ('A','Z'))
-                              , (500, Complement <$> formulas)
-                              , (100, Disjoin <$> listOf1 formulas)
-                              , (100, Conjoin <$> listOf1 formulas)
-                              ]
-          | otherwise = frequency [ (1, Value <$> arbitrary)
-                                  , (100, Variable . singleton <$> choose ('A','Z'))
-                                  , (500, scale (subtract 1) $ Complement <$> formulas)
-                                  , (1000, scale (`div` 2) $ Disjoin <$> listOf1 formulas)
-                                  , (1000, scale (`div` 2) $ Conjoin <$> listOf1 formulas)
-                                  ]
-
-shrinkFormula :: Formula -> [Formula]
-shrinkFormula (Value _)      = []
-shrinkFormula (Variable _)   = []
-shrinkFormula (Complement f) = [f] ++ map Complement (shrinkFormula f)
-shrinkFormula (Disjoin [])   = []
-shrinkFormula (Conjoin [])   = []
-shrinkFormula (Disjoin fs)   = fs ++ map Disjoin (shrinkList shrinkFormula fs)
-shrinkFormula (Conjoin fs)   = fs ++ map Conjoin (shrinkList shrinkFormula fs)
-
--- Generate variable assignments for a boolean formula.
-assignmentsFor :: Formula -> Gen (Map String Bool)
-assignmentsFor f = assign vs <$> vectorOf (length vs) arbitrary
-  where assign vars values = Map.fromList $ zip vars values
-        vs = variables f
-
--- List of all variable names in a boolean formula.
-variables :: Formula -> [String]
-variables (Value _)       = []
-variables (Variable s)    = [s]
-variables (Complement f') = variables f'
-variables (Disjoin fs)    = concatMap variables fs
-variables (Conjoin fs)    = concatMap variables fs
+  arbitrary = scale (`div` 2) $ Conjecture <$> arbitrary
+  shrink (Conjecture c) = map Conjecture $ shrink c

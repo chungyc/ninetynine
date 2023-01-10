@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -15,35 +15,34 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Int -> [Tree ()]) -> String -> Spec
-properties symmetricBalancedTrees name = modifyMaxSize (const 32) $ do
-  describe name $ do
-    prop "are all completely balanced" $
-      \(Positive n) -> symmetricBalancedTrees n `shouldSatisfy` all balanced
+properties symmetricBalancedTrees name = describe name $ modifyMaxSize (const 32) $ do
+  prop "are all completely balanced" $
+    \(NonNegative n) -> symmetricBalancedTrees n `shouldSatisfy` all balanced
 
-    prop "are all symmetric" $
-      \(Positive n) -> symmetricBalancedTrees n `shouldSatisfy` all symmetric
+  prop "are all symmetric" $
+    \(NonNegative n) -> symmetricBalancedTrees n `shouldSatisfy` all symmetric
 
-    prop "contains completely balanced trees which are symmetric" $
-      \t -> classify (balanced t) "balanced" $
-            classify (symmetric t) "symmetric" $
-            classify (balanced t && symmetric t) "balanced and symmetric" $
-            t `elem` symmetricBalancedTrees (count t) `shouldBe` balanced t && symmetric t
+  prop "contains completely balanced trees which are symmetric" $
+    \t -> classify (balanced t) "balanced" $
+          classify (symmetric t) "symmetric" $
+          classify (balanced t && symmetric t) "balanced and symmetric" $
+          symmetricBalancedTrees (treeSize t)
+          `shouldSatisfy` (==) (balanced t && symmetric t) . elem t
 
-  where count Empty          = (0 :: Int)
-        count (Branch _ t v) = 1 + count t + count v
-        balanced Empty = True
+  where balanced Empty = True
         balanced (Branch _ t v)
-          | abs (count t - count v) <= 1 = balanced t && balanced v
-          | otherwise                    = False
+          | abs (treeSize t - treeSize v) <= 1 = balanced t && balanced v
+          | otherwise = False
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "symmetricBalancedTrees 5" $ do
-      symmetricBalancedTrees 5 `shouldMatchList`
-        [ Branch () (Branch () Empty (Branch () Empty Empty)) (Branch () (Branch () Empty Empty) Empty)
-        , Branch () (Branch () (Branch () Empty Empty) Empty) (Branch () Empty (Branch () Empty Empty))
-        ]
+examples = describe "Examples" $ do
+  it "symmetricBalancedTrees 5" $ do
+    symmetricBalancedTrees 5 `shouldMatchList`
+      [ Branch () (Branch () Empty (Branch () Empty Empty))
+                  (Branch () (Branch () Empty Empty) Empty)
+      , Branch () (Branch () (Branch () Empty Empty) Empty)
+                  (Branch () Empty (Branch () Empty Empty))
+      ]
 
   where symmetricBalancedTrees = Problem.symmetricBalancedTrees
 

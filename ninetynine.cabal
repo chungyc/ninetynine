@@ -333,6 +333,8 @@ test-suite ninetynine-test
       Problems.Graphs.Arbitrary
       Problems.GraphsSpec
       Problems.Lists.Arbitrary
+      Problems.Logic.Arbitrary
+      Problems.Logic.QuickCheck
       Problems.MultiwayTrees.Arbitrary
       Problems.P01Spec
       Problems.P02Spec

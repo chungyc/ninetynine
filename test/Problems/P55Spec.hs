@@ -1,10 +1,11 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P55Spec (spec) where
 
+import           Control.Monad                  (forM_)
 import           Problems.BinaryTrees
 import           Problems.BinaryTrees.Arbitrary ()
 import qualified Problems.P55                   as Problem
@@ -14,27 +15,37 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Int -> [Tree ()]) -> String -> Spec
-properties completelyBalancedTrees name = do
-  describe name $ do
-    modifyMaxSize (const 32) $ do  -- limit combinatorial explosion
-      prop "has completely balanced trees" $
-        \(NonNegative n) -> mapM_ (flip shouldSatisfy balanced) (completelyBalancedTrees n)
+properties completelyBalancedTrees name = describe name $ do
+  modifyMaxSize (const 32) $  -- limit combinatorial explosion
+    prop "has completely balanced trees" $
+    \(NonNegative n) ->
+      conjoin $ map (\t -> t `shouldSatisfy` balanced) $
+      completelyBalancedTrees n
 
-    describe "includes all completely balanced trees" $ do
-      flip mapM_ [0..8] $ do
-        \n -> it ("with size " ++ show n) $ do
-          (let trees 0 = [Empty]
-               trees k = [Branch () l r | (l, r) <- branches k]
-               branches k = [(l, r) | (ls, rs) <- subtrees k, l <- ls, r <- rs]
-               subtrees k = [(trees i, trees j) | i <- [0..k], j <- [0..k], i + j == (k-1)]
-           in completelyBalancedTrees n `shouldMatchList` filter balanced (trees n))
+  describe "includes all completely balanced trees" $ do
+    forM_ [0..8] $ \n -> it ("with size " ++ show n) $ do
+      completelyBalancedTrees n
+        `shouldMatchList` filter balanced (trees n)
 
-  where count Empty          = (0 :: Int)
-        count (Branch _ t v) = 1 + count t + count v
-        balanced Empty = True
-        balanced (Branch _ t v)
-          | abs (count t - count v) <= 1 = balanced t && balanced v
-          | otherwise                    = False
+  where
+    -- Number of nodes in a tree.
+    count Empty          = 0 :: Int
+    count (Branch _ t v) = 1 + count t + count v
+
+    -- Whether a tree is completely balanced.
+    balanced Empty = True
+    balanced (Branch _ t v)
+      | abs (count t - count v) <= 1 = balanced t && balanced v
+      | otherwise                    = False
+
+    -- List of trees with a given number of nodes.
+    trees 0 = [Empty]
+    trees k = do
+      i <- [0..k-1]
+      let j = k - i - 1
+      l <- trees i
+      r <- trees j
+      return $ Branch () l r
 
 examples :: Spec
 examples = do
