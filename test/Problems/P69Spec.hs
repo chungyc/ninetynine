@@ -6,10 +6,10 @@ Maintainer: dev@chungyc.org
 module Problems.P69Spec (spec) where
 
 import           Problems.BinaryTrees
-import           Problems.BinaryTrees.Arbitrary ()
+import           Problems.BinaryTrees.QuickCheck
 import           Problems.P54
-import qualified Problems.P69                   as Problem
-import qualified Solutions.P69                  as Solution
+import qualified Problems.P69                    as Problem
+import qualified Solutions.P69                   as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
@@ -67,20 +67,5 @@ letters = choose ('a', 'z')
 newtype CharTree = CharTree (Tree Char) deriving (Show)
 
 instance Arbitrary CharTree where
-  arbitrary = CharTree <$> sized gen
-    where gen 0 = frequency
-                  [ (10, return Empty)
-                  , (1, Branch <$> letters <*> gen 0 <*> gen 0)
-                  ]
-
-          gen n = frequency
-                  [ (1, return Empty)
-                  , (10, Branch <$> letters <*> subtree <*> subtree)
-                  ]
-            where subtree = gen (n `div` 2)
-
-  shrink (CharTree t) = map CharTree $ shrink' t
-    where shrink' Empty = []
-          shrink' (Branch x l r) =
-            [ Empty, l, r ] ++
-            [ Branch x l' r' | l' <- shrink' l, r' <- shrink' r ]
+  arbitrary = CharTree <$> treesOf letters
+  shrink (CharTree t) = map CharTree $ shrinkTree shrinkNothing t

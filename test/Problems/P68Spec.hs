@@ -6,10 +6,11 @@ Maintainer: dev@chungyc.org
 module Problems.P68Spec (spec) where
 
 import           Problems.BinaryTrees
-import           Problems.BinaryTrees.Arbitrary ()
+import           Problems.BinaryTrees.Arbitrary  ()
+import           Problems.BinaryTrees.QuickCheck
 import           Problems.P54
-import qualified Problems.P68                   as Problem
-import qualified Solutions.P68                  as Solution
+import qualified Problems.P68                    as Problem
+import qualified Solutions.P68                   as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
@@ -72,22 +73,21 @@ newtype DistinctTree = DistinctTree (Tree Int) deriving (Show)
 instance Arbitrary DistinctTree where
   arbitrary = DistinctTree <$> do
     k <- getSize
-    xs <- shuffle [0..max 1000 (2*k)]
+    xs <- shuffle [0..(32*k)]  -- Try to use plenty of distinct values.
     gen k xs
-    where gen _ []     = return Empty
-          gen 0 (x:xs) =
-            frequency [ (10, return Empty)
-                      , (1, Branch x <$> gen 0 xs' <*> gen 0 xs'')
-                      ]
-            where (xs', xs'') = splitAt (length xs `div` 2) xs
-          gen n (x:xs) =
-            frequency [ (1, return Empty)
-                      , (10, Branch x <$> gen (n `div` 2) xs' <*> gen (n `div` 2) xs'')
-                      ]
-            where (xs', xs'') = splitAt (length xs `div` 2) xs
+    where gen _ []     = empty
+          gen 0 (x:xs) = frequency [ (10, empty), (1, tree x xs) ]
+          gen _ (x:xs) = frequency [ (1, empty), (10, tree x xs) ]
 
-  shrink (DistinctTree t) = map DistinctTree $ shrink' t
-    where shrink' Empty = []
-          shrink' (Branch x l r) =
-            [ Empty, l, r ] ++
-            [ Branch x l' r' | l' <- shrink' l, r' <- shrink' r ]
+          empty = pure Empty
+
+          tree x xs = Branch x <$> subtree xs' <*> subtree xs''
+            where subtree ys = sized $ \k -> scale (`div` 2) $ gen k ys
+                  (xs', xs'') = split xs
+
+                  split [] = ([], [])
+                  split [y] = ([y], [])
+                  split (y:y':ys) = ((y:zs), (y':zs'))
+                    where (zs, zs') = split ys
+
+  shrink (DistinctTree t) = map DistinctTree $ shrinkTree shrinkNothing t

@@ -25,22 +25,22 @@ properties heightBalancedTrees name = describe name $ do
                           `shouldSatisfy` all isHeightBalanced
 
   prop "includes arbitrary height-balanced tree" $ \t ->
-    treeHeight t <= 6 ==>  -- avoid combinatorial explosion
+    treeHeight t <= 5 ==>  -- avoid combinatorial explosion
+    classify (treeHeight t < 3) "trivial" $
     classify (isHeightBalanced t) "balanced" $
     heightBalancedTrees (treeHeight t)
     `shouldSatisfy` (==) (isHeightBalanced t) . elem t
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "heightBalancedTrees 2" $ do
-      heightBalancedTrees 2 `shouldMatchList`
-        [ Branch () (Branch () Empty Empty) Empty
-        , Branch () (Branch () Empty Empty) (Branch () Empty Empty)
-        , Branch () Empty (Branch () Empty Empty)]
+examples = describe "Examples" $ do
+  it "heightBalancedTrees 2" $ do
+    heightBalancedTrees 2 `shouldMatchList`
+      [ Branch () (Branch () Empty Empty) Empty
+      , Branch () (Branch () Empty Empty) (Branch () Empty Empty)
+      , Branch () Empty (Branch () Empty Empty)]
 
-    it "length $ heightBalancedTrees 4" $ do
-      length (heightBalancedTrees 4) `shouldBe` 315
+  it "length $ heightBalancedTrees 4" $ do
+    length (heightBalancedTrees 4) `shouldBe` 315
 
   where heightBalancedTrees = Problem.heightBalancedTrees
 

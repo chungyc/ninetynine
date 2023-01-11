@@ -22,8 +22,9 @@ properties heightBalancedTreesWithNodes name = describe name $ do
     forAll (elements $ heightBalancedTrees h) $ \t ->
     heightBalancedTreesWithNodes (treeSize t) `shouldSatisfy` elem t
 
-  modifyMaxSize (const 30) $ do
+  modifyMaxSize (const 8) $ do
     prop "includes tree only if it is height balanced" $ \t ->
+      classify (treeHeight t < 3) "trivial" $
       classify (isHeightBalanced t) "balanced" $
       heightBalancedTreesWithNodes (treeSize t)
       `shouldSatisfy` (==) (isHeightBalanced t) . elem t

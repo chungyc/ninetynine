@@ -6,9 +6,8 @@ Maintainer: dev@chungyc.org
 module Problems.P70Spec (spec) where
 
 import           Problems.MultiwayTrees
-import           Problems.MultiwayTrees.Arbitrary ()
-import qualified Problems.P70                     as Problem
-import qualified Solutions.P70                    as Solution
+import qualified Problems.P70           as Problem
+import qualified Solutions.P70          as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck

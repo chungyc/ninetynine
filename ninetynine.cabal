@@ -329,6 +329,7 @@ test-suite ninetynine-test
   main-is: Spec.hs
   other-modules:
       Problems.BinaryTrees.Arbitrary
+      Problems.BinaryTrees.QuickCheck
       Problems.BinaryTreesSpec
       Problems.Graphs.Arbitrary
       Problems.GraphsSpec
