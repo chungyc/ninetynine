@@ -1,7 +1,5 @@
-{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
-
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -25,33 +23,15 @@ properties (treeToString, stringToTree) (nameTreeToString, nameStringToTree) = d
       forAll (elements ['a'..'z']) $
         \c -> treeToString (Branch c Empty Empty) `shouldBe` [c]
 
-    prop "is node value and parenthesized subtrees for internal nodes" $
-      withTree $ \t@(~(Branch c l r)) ->
-      isInternalNode t ==>
-      treeToString t `shouldBe` [c] ++ "(" ++ treeToString l ++ "," ++ treeToString r ++ ")"
-
-    prop "is inverse of stringToTree" $
-      withString $ \s -> (treeToString . stringToTree) s `shouldBe` s
+    prop "is node value and subtrees in parentheses" $
+      forAll letters $ \c -> \(CharTree t) -> \(CharTree t') ->
+      t /= Empty || t' /= Empty ==>
+      treeToString (Branch c t t') `shouldBe`
+      [c] ++ "(" ++ treeToString t ++ "," ++ treeToString t' ++ ")"
 
   describe nameStringToTree $ do
     prop "is inverse of treeToString" $
-      withTree $ \t -> (stringToTree . treeToString) t `shouldBe` t
-
-  where
-    -- Exclude special characters.
-    withTree f = \t -> counterexample (show $ replaceSpecial t) $ f $ replaceSpecial t
-    replaceSpecial Empty = Empty
-    replaceSpecial (Branch c l r)
-      | c `elem` ['(', ')', ','] = Branch 'x' (replaceSpecial l) (replaceSpecial r)
-      | otherwise                = Branch c (replaceSpecial l) (replaceSpecial r)
-
-    -- Restrict strings to those representing binary trees
-    -- with restricted set of characters.
-    withString f = \t -> let s = treeToString $ replaceSpecial t in counterexample s $ f s
-
-    isInternalNode Empty                  = False
-    isInternalNode (Branch _ Empty Empty) = False
-    isInternalNode _                      = True
+      \(CharTree t) -> (stringToTree . treeToString) t `shouldBe` t
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -72,3 +52,30 @@ spec = parallel $ do
   examples
   describe "From solutions" $ do
     properties (Solution.treeToString, Solution.stringToTree) ("treeToString", "stringToTree")
+
+-- | Generates a letter.
+-- It will not generate the special characters '.', '(', and ')'.
+letters :: Gen Char
+letters = choose ('a', 'z')
+
+-- | A tree with character values.
+-- It should not have the special characters '.', '(', and ')'.
+newtype CharTree = CharTree (Tree Char) deriving (Show)
+
+instance Arbitrary CharTree where
+  arbitrary = CharTree <$> sized gen
+    where gen 0 = frequency
+                  [ (10, return Empty)
+                  , (1, Branch <$> letters <*> gen 0 <*> gen 0)
+                  ]
+          gen n = frequency
+                  [ (1, return Empty)
+                  , (10, Branch <$> letters <*> subtree <*> subtree)
+                  ]
+            where subtree = gen (n `div` 2)
+
+  shrink (CharTree t) = map CharTree $ shrink' t
+    where shrink' Empty = []
+          shrink' (Branch x l r) =
+            [ Empty, l, r ] ++
+            [ Branch x l' r' | l' <- shrink' l, r' <- shrink' r ]

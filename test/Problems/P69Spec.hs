@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -14,28 +14,25 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
-properties :: (String -> Tree Char, Tree Char -> String) -> (String, String) -> Spec
-properties (dotstringToTree, treeToDotstring) (nameDotstringToTree, nameTreeToDotstring) = do
+properties
+  :: (String -> Tree Char, Tree Char -> String)
+  -> (String, String)
+  -> Spec
+properties
+  (dotstringToTree, treeToDotstring)
+  (nameDotstringToTree, nameTreeToDotstring) = do
   describe nameDotstringToTree $ do
     prop "is inverse of treeToDotstring" $
-      withTree $ \t -> (dotstringToTree . treeToDotstring) t `shouldBe` t
+      \(CharTree t) -> (dotstringToTree . treeToDotstring) t `shouldBe` t
 
   describe nameTreeToDotstring $ do
     it "is dot for empty tree" $
       treeToDotstring Empty `shouldBe` "."
 
     prop "is in pre-order" $
-      \c -> c /= '.' ==> withTree $ \l -> withTree $ \r ->
-        treeToDotstring (Branch c l r) `shouldBe` [c] ++ treeToDotstring l ++ treeToDotstring r
-
-    prop "is inverse of dotstringToTree" $
-      withString $ \s -> (treeToDotstring . dotstringToTree) s `shouldBe` s
-
-  where withTree f = \t -> f $ excludeSpecial t
-        withString f = \t -> f $ treeToDotstring $ excludeSpecial t
-        excludeSpecial Empty = Empty
-        excludeSpecial (Branch '.' l r) = Branch 'x' (excludeSpecial l) (excludeSpecial r)
-        excludeSpecial (Branch x l r) = Branch x (excludeSpecial l) (excludeSpecial r)
+      forAll letters $ \c -> \(CharTree l) -> \(CharTree r) ->
+        treeToDotstring (Branch c l r) `shouldBe`
+        [c] ++ treeToDotstring l ++ treeToDotstring r
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -51,7 +48,39 @@ examples = describe "Examples" $ do
 
 spec :: Spec
 spec = parallel $ do
-  properties (Problem.dotstringToTree, Problem.treeToDotstring) ("dotstringToTree", "treeToDotstring")
+  properties
+    (Problem.dotstringToTree, Problem.treeToDotstring)
+    ("dotstringToTree", "treeToDotstring")
   examples
   describe "From solutions" $ do
-    properties (Solution.dotstringToTree, Solution.treeToDotstring) ("dotstringToTree", "treeToDotstring")
+    properties
+      (Solution.dotstringToTree, Solution.treeToDotstring)
+      ("dotstringToTree", "treeToDotstring")
+
+-- | Generates a letter.
+-- It will not generate the special character '.'.
+letters :: Gen Char
+letters = choose ('a', 'z')
+
+-- | A tree with character values.
+-- It should not have the special character '.'.
+newtype CharTree = CharTree (Tree Char) deriving (Show)
+
+instance Arbitrary CharTree where
+  arbitrary = CharTree <$> sized gen
+    where gen 0 = frequency
+                  [ (10, return Empty)
+                  , (1, Branch <$> letters <*> gen 0 <*> gen 0)
+                  ]
+
+          gen n = frequency
+                  [ (1, return Empty)
+                  , (10, Branch <$> letters <*> subtree <*> subtree)
+                  ]
+            where subtree = gen (n `div` 2)
+
+  shrink (CharTree t) = map CharTree $ shrink' t
+    where shrink' Empty = []
+          shrink' (Branch x l r) =
+            [ Empty, l, r ] ++
+            [ Branch x l' r' | l' <- shrink' l, r' <- shrink' r ]

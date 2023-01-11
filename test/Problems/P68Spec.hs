@@ -1,30 +1,39 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P68Spec (spec) where
 
 import           Problems.BinaryTrees
+import           Problems.BinaryTrees.Arbitrary ()
 import           Problems.P54
-import           Problems.P57
-import qualified Problems.P68          as Problem
-import qualified Solutions.P68         as Solution
+import qualified Problems.P68                   as Problem
+import qualified Solutions.P68                  as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
-properties :: (Tree Int -> [Int], Tree Int -> [Int], [Int] -> [Int] -> Tree Int)
-           -> (String, String, String)
-           -> Spec
-properties (inorder, preorder, ordersToTree) (nameInorder, namePreorder, nameOrdersToTree) = do
+properties
+  :: (Tree Int -> [Int], Tree Int -> [Int], [Int] -> [Int] -> Tree Int)
+  -> (String, String, String)
+  -> Spec
+properties
+  (inorder, preorder, ordersToTree)
+  (nameInorder, namePreorder, nameOrdersToTree) = do
   describe nameInorder $ do
-    prop "is in-order sequence" $
-      \(DistinctTree t) -> inorder t `shouldBe` inorderSequence t
+    it "empty tree has empty in-order sequence" $ do
+      inorder Empty `shouldBe` []
+
+    prop "is in-order sequence" $ \x -> \t -> \t' ->
+      inorder (Branch x t t') `shouldBe` inorder t ++ [x] ++ inorder t'
 
   describe namePreorder $ do
-    prop "is pre-order sequence" $
-      \(DistinctTree t) -> preorder t `shouldBe` preorderSequence t
+    it "empty tree has empty pre-order sequence" $ do
+      preorder Empty `shouldBe` []
+
+    prop "is pre-order sequence" $ \x -> \t -> \t' ->
+      preorder (Branch x t t') `shouldBe` [x] ++ preorder t ++ preorder t'
 
   describe nameOrdersToTree $ do
     prop "reconstructs binary tree from sequences" $
@@ -48,26 +57,37 @@ examples = describe "Examples" $ do
 
 spec :: Spec
 spec = parallel $ do
-  properties (Problem.inorder, Problem.preorder, Problem.ordersToTree) ("inorder", "preorder", "ordersToTree")
+  properties
+    (Problem.inorder, Problem.preorder, Problem.ordersToTree)
+    ("inorder", "preorder", "ordersToTree")
   examples
   describe "From solutions" $ do
-    properties (Solution.inorder, Solution.preorder, Solution.ordersToTree) ("inorder", "preorder", "ordersToTree")
+    properties
+      (Solution.inorder, Solution.preorder, Solution.ordersToTree)
+      ("inorder", "preorder", "ordersToTree")
 
--- | Straightforward implementation is also definition.
-inorderSequence :: Tree a -> [a]
-inorderSequence Empty          = []
-inorderSequence (Branch x l r) = inorderSequence l ++ [x] ++ inorderSequence r
-
--- | Straightforward implementation is also definition.
-preorderSequence :: Tree a -> [a]
-preorderSequence Empty = []
-preorderSequence (Branch x l r) = [x] ++ preorderSequence l ++ preorderSequence r
-
--- | Ensures that all node values are distinct.
-newtype DistinctTree = DistinctTree (Tree Int)
-  deriving (Eq, Show)
+-- | Binary tree with distinct node values.
+newtype DistinctTree = DistinctTree (Tree Int) deriving (Show)
 
 instance Arbitrary DistinctTree where
-  arbitrary = sized $ \n -> do
-    xs <- shuffle [1..n]
-    return $ DistinctTree $ construct xs
+  arbitrary = DistinctTree <$> do
+    k <- getSize
+    xs <- shuffle [0..max 1000 (2*k)]
+    gen k xs
+    where gen _ []     = return Empty
+          gen 0 (x:xs) =
+            frequency [ (10, return Empty)
+                      , (1, Branch x <$> gen 0 xs' <*> gen 0 xs'')
+                      ]
+            where (xs', xs'') = splitAt (length xs `div` 2) xs
+          gen n (x:xs) =
+            frequency [ (1, return Empty)
+                      , (10, Branch x <$> gen (n `div` 2) xs' <*> gen (n `div` 2) xs'')
+                      ]
+            where (xs', xs'') = splitAt (length xs `div` 2) xs
+
+  shrink (DistinctTree t) = map DistinctTree $ shrink' t
+    where shrink' Empty = []
+          shrink' (Branch x l r) =
+            [ Empty, l, r ] ++
+            [ Branch x l' r' | l' <- shrink' l, r' <- shrink' r ]

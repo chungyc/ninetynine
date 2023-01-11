@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -15,18 +15,24 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Tree Int -> Int -> [Int]) -> String -> Spec
-properties atLevel name = do
-  describe name $ do
-    prop "includes all nodes at specific level" $
-      \t -> forAll (chooseInt (1, treeHeight t)) $ \n ->
-        t /= Empty ==>
-        atLevel t n `shouldMatchList` map last (filter (\p -> n == levelFromPath p) $ pathsFromRoot t)
+properties atLevel name = describe name $ do
+  prop "root node is at level 1" $ \x -> \t -> \t' ->
+    atLevel (Branch x t t') 1 `shouldBe` [x]
+
+  prop "empty when level is too deep" $ \t -> \(Small level) ->
+    treeHeight t < level ==>
+    atLevel t level `shouldBe` []
+
+  prop "subtrees have one more level" $ \x -> \t -> \t' -> \(Small level) ->
+    level > 1 ==>
+    max (treeHeight t) (treeHeight t') <= level ==>
+    atLevel (Branch x t t') level `shouldMatchList`
+    atLevel t (level-1) ++ atLevel t' (level-1)
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "atLevel tree4 2" $ do
-      atLevel tree4 2 `shouldBe` [2,2]
+examples = describe "Examples" $ do
+  it "atLevel tree4 2" $ do
+    atLevel tree4 2 `shouldBe` [2,2]
 
   where atLevel = Problem.atLevel
 
@@ -36,14 +42,3 @@ spec = parallel $ do
   examples
   describe "From solutions" $ do
     properties Solution.atLevel "atLevel"
-
--- By definition.
-levelFromPath :: [a] -> Int
-levelFromPath path = length path
-
-pathsFromRoot :: Tree a -> [[a]]
-pathsFromRoot Empty = [[]]
-pathsFromRoot (Branch x Empty Empty) = [[x]]
-pathsFromRoot (Branch x l Empty) = (:) [x] $ map (x:) $ pathsFromRoot l
-pathsFromRoot (Branch x Empty r) = (:) [x] $ map (x:) $ pathsFromRoot r
-pathsFromRoot (Branch x l r) = (:) [x] $ concat $ map (map (x:) . pathsFromRoot) [l, r]

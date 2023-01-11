@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -12,33 +12,39 @@ import qualified Problems.P61                   as Problem
 import qualified Solutions.P61                  as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
+import           Test.QuickCheck
 
 leavesProp :: (Tree Int -> [Int]) -> String -> Spec
-leavesProp leaves name = do
-  describe name $ do
-    prop "are leaves" $
-      \t -> leaves t `shouldSatisfy` all (isLeaf t)
+leavesProp leaves name = describe name $ do
+  it "empty tree has no leaves" $ do
+    leaves Empty `shouldBe` []
 
-    prop "has correct number of leaves" $
-      \t -> length (leaves t) `shouldBe` countLeaves t
+  prop "has leaf" $
+    \x -> leaves (Branch x Empty Empty) `shouldBe` [x]
+
+  prop "has leaves from subtrees" $ \t -> \t' -> \x ->
+    t /= Empty || t' /= Empty ==>
+    leaves (Branch x t t') `shouldMatchList` leaves t ++ leaves t'
 
 internalsProp :: (Tree Int -> [Int]) -> String -> Spec
-internalsProp internals name = do
-  describe name $ do
-    prop "are internal nodes" $
-      \t -> internals t `shouldSatisfy` all (isInternal t)
+internalsProp internals name = describe name $ do
+  prop "empty tree has no internal node" $
+    internals Empty `shouldBe` []
 
-    prop "has correct number of internal nodes" $
-      \t -> length (internals t) `shouldBe` (treeSize t - countLeaves t)
+  prop "leaf has no internal node" $
+    \x -> internals (Branch x Empty Empty) `shouldBe` []
+
+  prop "internal nodes are itself and its subtrees" $ \t -> \t' -> \x ->
+    t /= Empty || t' /= Empty ==>
+    internals (Branch x t t') `shouldMatchList` [x] ++ internals t ++ internals t'
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "leaves tree4" $ do
-      leaves tree4 `shouldMatchList` [4,2]
+examples = describe "Examples" $ do
+  it "leaves tree4" $ do
+    leaves tree4 `shouldMatchList` [4,2]
 
-    it "internals tree4" $ do
-      internals tree4 `shouldMatchList` [2,1]
+  it "internals tree4" $ do
+    internals tree4 `shouldMatchList` [2,1]
 
   where leaves = Problem.leaves
         internals = Problem.internals
@@ -50,18 +56,4 @@ spec = parallel $ do
   examples
   describe "From solutions" $ do
     leavesProp Solution.leaves "leaves"
-
-isLeaf :: Tree Int -> Int -> Bool
-isLeaf Empty _                  = False
-isLeaf (Branch x Empty Empty) n = x == n
-isLeaf (Branch _ l r) n         = isLeaf l n || isLeaf r n
-
-isInternal :: Tree Int -> Int -> Bool
-isInternal Empty _                  = False
-isInternal (Branch _ Empty Empty) _ = False
-isInternal (Branch x l r) n         = x == n || isInternal l n || isInternal r n
-
-countLeaves :: Tree Int -> Int
-countLeaves Empty                  = 0
-countLeaves (Branch _ Empty Empty) = 1
-countLeaves (Branch _ l r)         = countLeaves l + countLeaves r
+    internalsProp Solution.internals "internals"

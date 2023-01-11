@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -11,25 +11,26 @@ import qualified Problems.P70                     as Problem
 import qualified Solutions.P70                    as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
+import           Test.QuickCheck
 
-properties :: (String -> MultiwayTree Char, MultiwayTree Char -> String) -> (String, String) -> Spec
-properties (stringToMultitree, multitreeToString) (nameStringToMultitree, nameMultitreeToString) = do
+properties
+  :: (String -> MultiwayTree Char, MultiwayTree Char -> String)
+  -> (String, String)
+  -> Spec
+properties
+  (stringToMultitree, multitreeToString)
+  (nameStringToMultitree, nameMultitreeToString) = do
   describe nameStringToMultitree $ do
-    prop "maps string to originating tree" $
-      withTree $ \t -> stringToMultitree (toString $ depthFirstSequence t) `shouldBe` t
-
     prop "is inverse of multitreeToString" $
-      withTree $ \t -> (stringToMultitree . multitreeToString) t `shouldBe` t
+      \(CharTree t) -> (stringToMultitree . multitreeToString) t `shouldBe` t
 
   describe nameMultitreeToString $ do
-    prop "maps to string according to definition" $
-      withTree $ \t -> multitreeToString t `shouldBe` (toString $ depthFirstSequence t)
+    prop "maps to string from singleton tree" $ forAll letters $ \c ->
+      multitreeToString (MultiwayTree c []) `shouldBe` [c] ++ "^"
 
-    prop "is inverse of stringToMultitree" $
-      withString $ \s -> (multitreeToString . stringToMultitree) s `shouldBe` s
-
-  where withTree f = \t -> f $ excludeSpecialCharacter t
-        withString f = withTree $ \t -> f $ toString $ depthFirstSequence t
+    prop "maps to string in depth-first order" $
+      \(CharTree t@(MultiwayTree c ts)) ->
+        multitreeToString t `shouldBe` [c] ++ concatMap multitreeToString ts ++ "^"
 
 examples :: Spec
 examples = do
@@ -45,33 +46,42 @@ examples = do
 
 spec :: Spec
 spec = parallel $ do
-  properties (Problem.stringToMultitree, Problem.multitreeToString) ("stringToMultitree", "multitreeToString")
+  properties
+    (Problem.stringToMultitree, Problem.multitreeToString)
+    ("stringToMultitree", "multitreeToString")
   examples
   describe "From solutions" $ do
-    properties (Solution.stringToMultitree, Solution.multitreeToString) ("stringToMultitree", "multitreeToString")
+    properties
+      (Solution.stringToMultitree, Solution.multitreeToString)
+      ("stringToMultitree", "multitreeToString")
 
--- | It is unavoidable that '^' in the string or tree would make the interpretation of a string ambiguous.
--- Avoid the situation in the first place by excluding it and replacing it arbitrarily with '.'.
-excludeSpecialCharacter :: MultiwayTree Char -> MultiwayTree Char
-excludeSpecialCharacter (MultiwayTree '^' ts) = MultiwayTree '.' $ map excludeSpecialCharacter ts
-excludeSpecialCharacter (MultiwayTree x ts) = MultiwayTree x $ map excludeSpecialCharacter ts
+-- | Generates a letter.
+-- It will not generate the special character '^'.
+letters :: Gen Char
+letters = choose ('a', 'z')
 
--- | A depth-first traversal sequence over a multiway tree.
-type Sequence a = [Element a]
+-- | Multiway tree with character values.
+-- No characters should be the special character '^'.
+newtype CharTree = CharTree (MultiwayTree Char) deriving (Show)
 
--- | The elements in a traversal sequence.
-data Element a
-  = Node a  -- ^ A node value in the traversal sequence.
-  | Down    -- ^ Going down the tree.
-  | Up      -- ^ Going up the tree.
+instance Arbitrary CharTree where
+  arbitrary = CharTree <$> sized gen
+    where gen 0 = frequency
+                  [ (10, MultiwayTree <$> letters <*> return [])
+                  , (1, MultiwayTree <$> letters <*> subtreeList 0)
+                  ]
+          gen n = frequency
+                  [ (1, MultiwayTree <$> letters <*> return [])
+                  , (10, MultiwayTree <$> letters <*> subtreeList n)
+                  ]
+          subtreeList n = do
+            k <- chooseInt (0, n)
+            let s = case k of 0 -> 0; _ -> n `div` k
+            vectorOf k $ gen s
 
--- | Pretty much the definition of depth-first traversal for a multiway tree.
-depthFirstSequence :: MultiwayTree a -> Sequence a
-depthFirstSequence (MultiwayTree x ts) = Down : (Node x) : concat (map depthFirstSequence ts) ++ [Up]
-
--- | The definition of how a node string is mapped from the traversal sequence.
-toString :: Sequence Char -> String
-toString []            = []
-toString (Node x : es) = x : toString es
-toString (Down : es)   = toString es
-toString (Up : es)     = '^' : toString es
+  shrink (CharTree t) = map CharTree $ shrink' t
+    where shrink' (MultiwayTree _ []) = []
+          shrink' (MultiwayTree x xs) =
+            [ MultiwayTree x [] ] ++
+            xs ++
+            map (MultiwayTree x) (shrinkList shrink' xs)
