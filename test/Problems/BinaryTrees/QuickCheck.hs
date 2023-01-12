@@ -29,4 +29,5 @@ shrinkTree _ Empty = []
 shrinkTree shrinkValue (Branch x l r) =
   [ Empty, l, r ] ++
   [ Branch y l r | y <- shrinkValue x ] ++
-  [ Branch x l' r' | l' <- shrinkTree shrinkValue l, r' <- shrinkTree shrinkValue r ]
+  [ Branch x l' r | l' <- shrinkTree shrinkValue l ] ++
+  [ Branch x l r' | r' <- shrinkTree shrinkValue r ]
