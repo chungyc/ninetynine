@@ -30,10 +30,10 @@ There may be errors with some expressions.  For example, an expression may be il
 or there may be a division by zero.  It would be useful to use the 'Maybe' monad so
 that we can return 'Nothing' if there is an error.
 
-Finally for this problem, we would like to keep track of
+Finally for this problem, we would like to keep track of changes to the stack and
 which operators are applied to which numbers.
-The function should also return a list of stack and operator pairs,
-with each entry showing the state of the stack when the operator is about to be applied.
+The function should also return a list, with each entry showing the state
+of the stack after an operand has been pushed or an operator has been applied.
 Logging each entry can be done with the t'Control.Monad.Writer.Lazy.Writer' monad.
 
 Unfortunately, it would be very cumbersome to use these monads directly together.
@@ -73,11 +73,16 @@ Just 35
 The second element in the return value should show the history of the calculation:
 
 >>> mapM_ print $ snd $ calculatePostfix $ parsePostfix "8 5 4 10 + - 3 * negate +"
-([10,4,5,8],Add)
-([14,5,8],Subtract)
-([3,-9,8],Multiply)
-([-27,8],Negate)
-([27,8],Add)
+([8],Nothing)
+([5,8],Nothing)
+([4,5,8],Nothing)
+([10,4,5,8],Nothing)
+([14,5,8],Just Add)
+([-9,8],Just Subtract)
+([3,-9,8],Nothing)
+([-27,8],Just Multiply)
+([27,8],Just Negate)
+([35],Just Add)
 
 Even if the expression is invalid, the second element should
 still show the history of the calculation until the point at which there is an error:
@@ -85,8 +90,9 @@ still show the history of the calculation until the point at which there is an e
 >>> fst $ calculatePostfix $ parsePostfix "1 2 * +"
 Nothing
 >>> mapM_ print $ snd $ calculatePostfix $ parsePostfix "1 2 * +"
-([2,1],Multiply)
-([2],Add)
+([1],Nothing)
+([2,1],Nothing)
+([2],Just Multiply)
 
 === __Hint__
 
@@ -95,5 +101,5 @@ The monad transformers for the t'Control.Monad.State.Lazy.State',
 are t'Control.Monad.State.Lazy.StateT', t'Control.Monad.Trans.Maybe.MaybeT',
 and t'Control.Monad.Writer.Lazy.WriterT', respectively.
 -}
-calculatePostfix :: [Element] -> (Maybe Integer, [([Integer], Operator)])
+calculatePostfix :: [Element] -> (Maybe Integer, [([Integer], Maybe Operator)])
 calculatePostfix = Solution.calculatePostfix

@@ -1,6 +1,6 @@
 {- |
 Description: Either monad
-Copyright: Copyright (C) 2022 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -40,5 +40,5 @@ Left "not greater than 2"
 >>> eitherGoldbach "101"
 Left "not an even number"
 -}
-eitherGoldbach :: String -> Either String (Int, (Int,Int))
+eitherGoldbach :: String -> Either String (Integer, (Integer, Integer))
 eitherGoldbach = Solution.eitherGoldbach

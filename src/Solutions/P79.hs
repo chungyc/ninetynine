@@ -18,7 +18,7 @@ import           Problems.Monads           (Element (..), Operator (..))
 
 Returns @Nothing@ when there is an error.  Also returns the history of the evaluation.
 -}
-calculatePostfix :: [Element] -> (Maybe Integer, [([Integer], Operator)])
+calculatePostfix :: [Element] -> (Maybe Integer, [([Integer], Maybe Operator)])
 calculatePostfix xs = (extract result, calculations)
   where (result, calculations) = run $ calculatePostfix' xs
         run f = runIdentity $ runWriterT $ runStateT (runMaybeT f) []
@@ -28,16 +28,18 @@ calculatePostfix xs = (extract result, calculations)
 
 type Stack = [Integer]
 
-type Calculation = MaybeT (StateT Stack (Writer [(Stack, Operator)]))
+type Calculation = MaybeT (StateT Stack (Writer [(Stack, Maybe Operator)]))
 
 calculatePostfix' :: [Element] -> Calculation ()
 calculatePostfix' (Operand n : xs) = do
   push n
+  stack <- get
+  tell [(stack, Nothing)]
   calculatePostfix' xs
 calculatePostfix' (Operator op : xs) = do
-  stack <- get
-  tell [(stack, op)]
   calculate op
+  stack <- get
+  tell [(stack, Just op)]
   calculatePostfix' xs
 calculatePostfix' [] = return ()
 
@@ -45,9 +47,6 @@ calculate :: Operator -> Calculation ()
 calculate Negate = do
   n <- pop
   push $ -n
-calculate Duplicate = do
-  n <- peek
-  push n
 calculate op = do
   b <- pop
   a <- pop
@@ -72,10 +71,4 @@ pop = do
   xs <- get
   guard $ not $ null xs
   put $ tail xs
-  return $ head xs
-
-peek :: Calculation Integer
-peek = do
-  xs <- get
-  guard $ not $ null xs
   return $ head xs

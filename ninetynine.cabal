@@ -337,6 +337,7 @@ test-suite ninetynine-test
       Problems.Logic.Arbitrary
       Problems.Logic.QuickCheck
       Problems.MultiwayTrees.Arbitrary
+      Problems.MultiwayTrees.QuickCheck
       Problems.P01Spec
       Problems.P02Spec
       Problems.P03Spec

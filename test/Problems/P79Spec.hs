@@ -1,12 +1,12 @@
 {-|
-Copyright: Copyright (C) 2022 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
-module Problems.P79Spec (spec) where
+module Problems.P79Spec where -- (spec) where
 
 import           Data.List             (isPrefixOf)
-import           Data.Maybe            (fromJust, isNothing)
+import           Data.Maybe            (fromJust, isJust, isNothing)
 import           Problems.Monads       (Element (..), Operator (..),
                                         parsePostfix)
 import qualified Problems.P79          as Problem
@@ -15,77 +15,91 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
-properties :: ([Element] -> (Maybe Integer, [([Integer],Operator)])) -> String -> Spec
+properties
+  :: ([Element] -> (Maybe Integer, [([Integer], Maybe Operator)]))
+  -> String
+  -> Spec
 properties calculatePostfix name = describe name $ do
-  it "fails calculation on empty expression" $ do
+  prop "fails calculation on empty expression" $
     calculatePostfix [] `shouldBe` (Nothing, [])
 
-  prop "trivially calculates single number" $ withMaxSuccess 10 $
-    \n -> calculatePostfix [Operand n] `shouldBe` (Just n, [])
+  prop "trivially calculates single number" $
+    \n -> calculatePostfix [Operand n]
+    `shouldBe` (Just n, [ ([n], Nothing) ])
 
-  prop "not valid with more than one number and no operators" $
-    \n -> forAll (listOf1 chooseAny) $ \l ->
-      calculatePostfix (Operand n : map Operand l) `shouldSatisfy` isNothing . fst
+  prop "is not valid with more than one number and no operators" $
+    forAll (listOf1 arbitrary) $ \l -> length l > 1 ==>
+    calculatePostfix (map Operand l) `shouldSatisfy` isNothing . fst
 
-  context "with individual operators" $ modifyMaxSuccess (const 10) $ do
-    prop "calculates expected result for negation" $
-      \n -> calculatePostfix [Operand n, Operator Negate] `shouldBe` (Just (-n), [([n], Negate)])
+  context "with results" $ do
+    prop "calculates expected result" $
+      \(Calculation { expression = expr, result = x}) ->
+        counterexample (show expr) $
+        calculatePostfix expr `shouldHaveResult` x
 
-    prop "calculates expected result for addition" $
-      \m -> \n ->
-        calculatePostfix [Operand m, Operand n, Operator Add]
-        `shouldBe` (Just (m+n), [([n,m], Add)])
+    prop "calculates negation" $
+      \(Calculation { expression = expr, result = x}) ->
+        counterexample (show $ expr ++ [Operator Negate]) $
+        calculatePostfix (expr ++ [Operator Negate]) `shouldHaveResult` -x
 
-    prop "calculates expected result for subtraction" $
-      \m -> \n ->
-        calculatePostfix [Operand m, Operand n, Operator Subtract]
-        `shouldBe` (Just (m-n), [([n,m], Subtract)])
+    context "with non-division binary operators" $
+      let test op f = prop ("calculates " ++ show op) $
+            \(Calculation { expression = expr, result = x }) ->
+            \(Calculation { expression = expr', result = x' }) ->
+              let e = expr ++ expr' ++ [Operator op]
+              in counterexample (show e) $
+                 calculatePostfix e `shouldHaveResult` f x x'
+      in do test Add (+)
+            test Subtract (-)
+            test Multiply (*)
 
-    prop "calculates expected result for multiplication" $
-      \m -> \n ->
-        calculatePostfix [Operand m, Operand n, Operator Multiply]
-        `shouldBe` (Just (m*n), [([n,m], Multiply)])
+    context "with division-based binary operators" $
+      let test op f = prop ("calculates " ++ show op) $
+            \(Calculation { expression = expr, result = x }) ->
+            \(Calculation { expression = expr', result = x' }) ->
+              x' /= 0 ==>
+              let e = expr ++ expr' ++ [Operator op]
+              in counterexample (show e) $
+                 calculatePostfix e `shouldHaveResult` f x x'
+      in do test Divide div
+            test Modulo mod
 
-    prop "calculates expected result for division" $
-      \m -> \n -> n /= 0 ==>
-      calculatePostfix [Operand m, Operand n, Operator Divide]
-      `shouldBe` (Just (m `div` n), [([n,m], Divide)])
+    context "with divisions by zero" $
+      let test op = prop ("returns nothing for " ++ show op) $
+            \(Calculation { expression = expr }) ->
+            \(Calculation { expression = expr', result = x' }) ->
+            forAll (expressionsContaining $ expr ++ expr' ++ [Operator op]) $ \e ->
+              classify (x' == 0) "expression is zero" $
+              disjoin
+                [ counterexample (show e) $
+                  x' == 0 &&
+                  isNothing (fst $ calculatePostfix e)
 
-    prop "calculates expected result for modulo" $
-      \m -> \n -> n /= 0 ==>
-      calculatePostfix [Operand m, Operand n, Operator Modulo]
-      `shouldBe` (Just (m `mod` n), [([n,m], Modulo)])
+                  -- If x' is not zero, we can still use e' to test
+                  -- division by zero in a much less general way.
+                , let e' = expr ++ [ Operand 0, Operator op]
+                  in counterexample (show e') $
+                     x' /= 0 &&
+                     isNothing (fst $ calculatePostfix e')
+                ]
+      in do test Divide
+            test Modulo
 
-    prop "fails calculation when dividing by zero" $
-      \n -> calculatePostfix [Operand n, Operand 0, Operator Divide] `shouldSatisfy` isNothing . fst
+  context "with history" $ do
+    prop "has history for calculation with no errors" $ \c ->
+      counterexample (show $ expression c) $
+      counterexample (show $ history c) $
+      calculatePostfix (expression c) `shouldSatisfy` (==) (history c) . snd
 
-    prop "fails calculation with modulo by zero" $
-      \n -> calculatePostfix [Operand n, Operand 0, Operator Modulo] `shouldSatisfy` isNothing . fst
-
-  context "with random lists" $ do
     prop "cannot have history longer than expression" $
-      forAll genList $ \e ->
+      forAll expressions $ \e ->
       calculatePostfix e `shouldSatisfy` (<= length e) . length . snd
 
     prop "has operators appear in same order in history as in expression" $
-      forAll genList $ \e ->
+      forAll expressions $ \e ->
       calculatePostfix e `shouldSatisfy`
-      (\l -> map (Operator . snd) l `isPrefixOf` filter isOperator e) . snd
-
-  context "with valid expressions" $ do
-    prop "calculates expected value" $
-      \(Complete (n, e)) -> (fromJust . fst . calculatePostfix) e `shouldBe` n
-
-    prop "has same operators in history as in expression" $
-      \(Complete (_, e)) ->
-        calculatePostfix e `shouldSatisfy`
-        (\l -> map (Operator . snd) l == filter isOperator e) . snd
-
-  where isOperator (Operator _) = True
-        isOperator _            = False
-        genList = listOf $ oneof [ Operator <$> chooseEnum (minBound, maxBound)
-                                 , Operand <$> arbitrary
-                                 ]
+      (\l -> map (Operator . fromJust . snd) (filter (isJust . snd) l)
+             `isPrefixOf` filter isOperator e) . snd
 
 examples :: Spec
 examples = do
@@ -104,17 +118,23 @@ examples = do
 
     it "calculatePostfix $ parsePostfix \"8 5 4 10 + - 3 * negate +\"" $ do
       (calculatePostfix $ parsePostfix "8 5 4 10 + - 3 * negate +") `shouldBe`
-        (Just 35, [ ([10,4,5,8], Add)
-                  , ([14,5,8], Subtract)
-                  , ([3,-9,8], Multiply)
-                  , ([-27,8], Negate)
-                  , ([27,8], Add)
+        (Just 35, [ ([8], Nothing)
+                  , ([5,8], Nothing)
+                  , ([4,5,8], Nothing)
+                  , ([10,4,5,8], Nothing)
+                  , ([14,5,8], Just Add)
+                  , ([-9,8], Just Subtract)
+                  , ([3,-9,8], Nothing)
+                  , ([-27,8], Just Multiply)
+                  , ([27,8], Just Negate)
+                  , ([35], Just Add)
                   ])
 
     it "calculatePostfix $ parsePostfix \"1 2 * +\"" $ do
       (calculatePostfix $ parsePostfix "1 2 * +") `shouldBe`
-        (Nothing, [ ([2,1], Multiply)
-                  , ([2], Add)
+        (Nothing, [ ([1], Nothing)
+                  , ([2,1], Nothing)
+                  , ([2], Just Multiply)
                   ])
 
   where calculatePostfix = Problem.calculatePostfix
@@ -126,100 +146,215 @@ spec = parallel $ do
   describe "From solutions" $ do
     properties Solution.calculatePostfix "calculatePostfix"
 
--- Type for generating a valid expression.
-newtype Complete = Complete (Integer, [Element]) deriving (Show)
+infix 1 `shouldHaveResult`
 
-instance Arbitrary Complete where
-  arbitrary = Complete <$> (extract <$> reduction `suchThat` validPartial)
-    where reduction = reduce <$>
-                      arbitrary <*>
-                      infiniteListOf (elements [Add, Subtract, Multiply, Divide, Modulo])
-          extract (Partial (Just [n], expr)) = (n, expr)
-          extract _                          = undefined
+-- Analog to shouldSatisfy specialized to calculatePostfix.
+--
+-- The return value from calculatePostfix must have a result,
+-- and the result must be what is expected
+shouldHaveResult
+  :: (Maybe Integer, [([Integer], Maybe Operator)])
+  -> Integer
+  -> Expectation
+shouldHaveResult x expected = x `shouldSatisfy` (==) expected . getResult
+  where getResult (Just n, _) = n
+        getResult _           = error "no valid result"
 
-reduce :: Partial -> [Operator] -> Partial
-reduce e@(Partial (Just [_], _)) _ = e
--- divide by zero
-reduce (Partial (Just (0:_), expr)) (Divide:_) = Partial (Nothing, expr)
--- divide by zero
-reduce (Partial (Just (0:_), expr)) (Modulo:_) = Partial (Nothing, expr)
-reduce (Partial (Just (x:x':xs), expr)) (op:ops) =
-  reduce (Partial (Just ((applyBinary x' x op) : xs), expr ++ [Operator op])) ops
-reduce _ _ = undefined
+-- | Whether the given element is an operator.
+isOperator :: Element -> Bool
+isOperator (Operator _) = True
+isOperator _            = False
 
--- Type for building up an expression.
-newtype Partial = Partial (Maybe [Integer], [Element]) deriving (Show)
+-- Whether the operator is a division-based operator, and if so,
+-- whether dividing by the given number would be dividing by zero.
+isDividesByZero :: Integer -> Operator -> Bool
+isDividesByZero 0 Divide = True
+isDividesByZero 0 Modulo = True
+isDividesByZero _ _      = False
 
-instance Arbitrary Partial where
-  arbitrary = sized $ expr
-    where expr n | n < 2 = oneof [genNumber]
-                 | otherwise = oneof [genNumber, genUnary, genBinary]
+-- | Applies a unary operator to a number.
+unaryOp :: Operator -> Integer -> Integer
+unaryOp Negate n = -n
+unaryOp _ _      = error "not an unary operator"
 
-genNumber :: Gen Partial
-genNumber = numPartial <$> arbitrary
+-- | Applies a binary operator to two numbers.
+binaryOp :: Operator -> Integer -> Integer -> Integer
+binaryOp Add x y      = x + y
+binaryOp Subtract x y = x - y
+binaryOp Multiply x y = x * y
+binaryOp Divide x y   = x `div` y
+binaryOp Modulo x y   = x `mod` y
+binaryOp _ _ _        = error "not a binary operator"
 
-numPartial :: Integer -> Partial
-numPartial n = Partial (Just [n], [Operand n])
+-- | A full calculation evaluating postfix notation.
+--
+-- The full evaluation tree is included instead of just generating
+-- an expression to conveniently shrink test cases.
+data Calculation = Calculation
+  { expression :: [Element]  -- ^ Expression being calculated.
+  , element    :: Element  -- ^ Operand or operator responsible for result.
+  , result     :: Integer  -- ^ Calculated result.
+  , inputs     :: [Calculation]  -- ^ Calculations serving as input to this one.
+  }
+  deriving Show
 
-genUnary :: Gen Partial
-genUnary = scale (subtract 1) $
-           oneof [negatePartial <$> arbitrary, duplicatePartial <$> arbitrary]
-           `suchThat` validPartial
+instance Arbitrary Calculation where
+  arbitrary = calculations
+  shrink = shrinkCalculation
 
-negatePartial :: Partial -> Partial
-negatePartial (Partial (Just (x:xs), expr)) = Partial (Just (-x:xs), expr ++ [Operator Negate])
-negatePartial (Partial (_, expr)) = Partial (Nothing, expr ++ [Operator Negate])
+-- | Generate a calculation, which will be well-formed and without error.
+--
+-- We generate expressions through generating a calculation instead
+-- of generating expressions directly according to their syntax.
+-- The latter has a very low rate of constructing an expression
+-- which will have no errors.
+calculations :: Gen Calculation
+calculations = sized gen
+  where gen 0 = num
+        gen _ = oneof [ num, unary, binary ]
 
-duplicatePartial :: Partial -> Partial
-duplicatePartial (Partial (Just (x:xs), expr)) =
-  Partial (Just (x:x:xs), expr ++ [Operator Duplicate])
-duplicatePartial (Partial (_, expr)) = Partial (Nothing, expr ++ [Operator Duplicate])
+        num = do
+          x <- arbitrary
+          let e = Operand x
+          return $ Calculation
+            { expression = [e]
+            , element = e
+            , result = x
+            , inputs = [] }
 
-genBinary :: Gen Partial
-genBinary =
-  scale (`div` 2) $
-  oneof [ binaryPartial <$> arbitrary <*> arbitrary <*> elements [Add, Subtract, Multiply]
-        , dividePartial <$> arbitrary <*> arbitrary <*> elements [Divide, Modulo]
-        -- generate expressions with the Duplicate operator
-        , binaryPartial <$> arbitrary <*> empty <*> elements [Add, Subtract, Multiply]
-        , dividePartial <$> arbitrary <*> empty <*> elements [Divide, Modulo]
-        ]
-  `suchThat` validPartial
-  where empty = elements [emptyPartial]
+        unary = scale (subtract 1) $ do
+          c@(Calculation { expression = expr, result = x }) <- calculations
+          op <- unaryOperators
+          let e = Operator op
+          return $ Calculation
+            { expression = expr ++ [e]
+            , element = e
+            , result = unaryOp op x
+            , inputs = [c]
+            }
 
-binaryPartial :: Partial -> Partial -> Operator -> Partial
-binaryPartial (Partial (Just (x:xs), expr)) (Partial (Just [x'], expr')) op =
-  Partial (Just ((applyBinary x x' op):xs), expr ++ expr' ++ [Operator op])
-binaryPartial (Partial (Just (x:x':xs), expr)) (Partial (Just [], [])) op =
-  Partial (Just ((applyBinary x' x op):xs), expr ++ [Operator op])
-binaryPartial (Partial (_, expr)) (Partial (_, expr')) op =
-  Partial (Nothing, expr ++ expr' ++ [Operator op])
+        binary = scale (`div` 2) $ do
+          c@(Calculation { expression = expr, result = x }) <- calculations
+          c'@(Calculation { expression = expr', result = x'}) <- calculations
+          op <- binaryOperators `suchThat` (not . isDividesByZero x')
+          let e = Operator op
+          return $ Calculation
+            { expression = expr ++ expr' ++ [e]
+            , element = e
+            , result = binaryOp op x x'
+            , inputs = [ c, c' ]
+            }
 
-dividePartial :: Partial -> Partial -> Operator -> Partial
--- divide by zero
-dividePartial (Partial (_, expr)) (Partial (Just (0:_), expr')) op =
-  Partial (Nothing, expr ++ expr' ++ [Operator op])
--- divide by zero
-dividePartial (Partial (Just (0:_), expr)) (Partial (Just [], [])) op =
-  Partial (Nothing, expr ++ [Operator op])
-dividePartial (Partial (Just (x:xs), expr)) (Partial (Just [x'], expr')) op =
-  Partial (Just ((applyBinary x x' op):xs), expr ++ expr' ++ [Operator op])
-dividePartial (Partial (Just (x:x':xs), expr)) (Partial (Just [], [])) op =
-  Partial (Just ((applyBinary x' x op):xs), expr ++ [Operator op])
-dividePartial (Partial (_, expr)) (Partial (_, expr')) op =
-  Partial (Nothing, expr ++ expr' ++ [Operator op])
+-- | Shrink a calculation.
+shrinkCalculation :: Calculation -> [Calculation]
+shrinkCalculation (Calculation { inputs = [] }) = []
+shrinkCalculation c@(Calculation { result = x, inputs = es }) =
+  [ toOperand x ] ++ shrinkInputs c ++ es
 
-applyBinary :: Integer -> Integer -> Operator -> Integer
-applyBinary a b Add      = a+b
-applyBinary a b Subtract = a-b
-applyBinary a b Multiply = a*b
-applyBinary a b Divide   = a `div` b
-applyBinary a b Modulo   = a `mod` b
-applyBinary _ _ _        = undefined
+  where
+    -- Replace an entire calculation with just a number.
+    toOperand y = Calculation { expression = [ Operand y ]
+                              , element = Operand y
+                              , result = y
+                              , inputs = []
+                              }
 
-emptyPartial :: Partial
-emptyPartial = Partial (Just [], [])
+    -- shrinkInputs will shrink the input calculations.
+    -- It will keep the results the same.
+    shrinkInputs (Calculation { element = Operator op
+                              , result = y
+                              , inputs = cs
+                              }) =
+      -- Replace the expression with a single number.
+      [ toOperand y ] ++
 
-validPartial :: Partial -> Bool
-validPartial (Partial (Nothing, _)) = False
-validPartial _                      = True
+      -- Shrink each of the inputs that go into this calculation.
+      [ Calculation { expression = concatMap expression cs' ++ [ Operator op ]
+                    , element = Operator op
+                    , result = y
+                    , inputs = cs'
+                    }
+      | cs' <- shrinkInputList cs ]
+
+      where
+        shrinkInputList []     = []
+        shrinkInputList [z]    = [ [z'] | z' <- shrinkInputs z ]
+        shrinkInputList (z:zs) = [ z' : zs | z' <- shrinkInputs z ] ++
+                                 [ z : zs' | zs' <- shrinkInputList zs ]
+
+    shrinkInputs _ = []
+
+-- | Generate unary operators.
+unaryOperators :: Gen Operator
+unaryOperators = pure $ Negate
+
+-- | Generate binary operators.
+binaryOperators :: Gen Operator
+binaryOperators = elements [ Add, Subtract, Multiply, Divide, Modulo ]
+
+-- | Generate random expressions, regardless of validity.
+expressions :: Gen [Element]
+expressions = listOf $ oneof [ Operator <$> elements [minBound..maxBound]
+                             , Operand <$> arbitrary
+                             ]
+
+-- | Generate an expression containing the given expression.
+--
+-- If the given expression is valid,
+-- then the generated expression will also be valid.
+expressionsContaining :: [Element] -> Gen [Element]
+expressionsContaining e = do
+  e' <- expression <$> arbitrary
+  (l, _, l') <- elements $ candidates e'
+  return $ l ++ e ++ l'
+
+  where
+    -- Candidate splits of a generated expression,
+    -- where the second element is an operand
+    -- which can be replaced by an entire expression.
+    --
+    -- A complete expression will evaluate to a single operand,
+    -- so replacing an operand with a complete expression
+    -- will always result in a well-formed expression.
+    candidates expr = map (\(l, x, l') -> (reverse l, x, l')) $ splits [] expr
+
+    -- Split list on operands.
+    -- First argument and first element in tuple are reversed.
+    splits _ []                     = []
+    splits xs (y@(Operand _) : ys') = (xs, y, ys') : splits (y : xs) ys'
+    splits xs (y : ys)              = splits (y : xs) ys
+
+-- | Reconstruct the calculation history from the calculation tree.
+history :: Calculation -> [([Integer], Maybe Operator)]
+history calc = reverse $ reconstruct calc
+  where
+    reconstruct (Calculation { element = Operand x }) = [([x], Nothing)]
+
+    reconstruct (Calculation { element = Operator Negate
+                             , result = x
+                             , inputs = [c]
+                             })
+      | h@((_ : xs, _) : _) <- reconstruct c = (x : xs, Just Negate) : h
+      | otherwise = error "no input for Negate"
+
+    reconstruct (Calculation { element = Operator op
+                             , result = x
+                             , inputs = [c, c']
+                             })
+
+      | h@((s, _) : _) <- reconstruct c
+      , h'@((_ : xs', _) : _) <- reconstruct c' =
+
+          -- Most recent stack is the result of the operator.
+          [ (x : xs', Just op) ] ++
+
+          -- The second argument to the binary operator is evaluated
+          -- while the stack from the first argument is at the bottom.
+          map (\(s', op') -> (s' ++ s, op')) h' ++
+
+          -- The history for the first argument is included as is.
+          h
+
+      | otherwise = error "no inputs for binary operator"
+
+    reconstruct c = error $ "malformed calculation " ++ show c

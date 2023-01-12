@@ -15,8 +15,6 @@ data Operator
   -- | Encodes negation.  Equivalent to an unary minus.  Unary operator.
   = Negate
   -- | Encodes duplication.  Makes another copy of its operand.  Unary operator.
-  | Duplicate
-  -- | Encodes addition.  Binary operator.
   | Add
   -- | Encodes subtraction.  Binary operator.
   | Subtract
@@ -47,8 +45,6 @@ data Element = Operator Operator | Operand Integer deriving (Eq, Show)
 -- +=============+==================+
 -- | 'Negate'    | @"negate"@       |
 -- +-------------+------------------+
--- | 'Duplicate' | @"duplicate"@    |
--- +-------------+------------------+
 -- | 'Add'       | @"+"@            |
 -- +-------------+------------------+
 -- | 'Subtract'  | @"-"@            |
@@ -66,7 +62,6 @@ parseToken :: String -> Element
 parseToken x
   | all isDigit x = Operand (read x)
   | x == "negate" = Operator Negate
-  | x == "duplicate" = Operator Duplicate
   | x == "+" = Operator Add
   | x == "-" = Operator Subtract
   | x == "*" = Operator Multiply

@@ -1,6 +1,6 @@
 {- |
 Description: Maybe monad
-Copyright: Copyright (C) 2022 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -13,7 +13,7 @@ import           Solutions.P40 (goldbach)
 import           Text.Read     (readMaybe)
 
 -- | Implementation of 'Problems.P75.maybeGoldbach'' with do notation.
-maybeGoldbach :: String -> Maybe (Int, (Int,Int))
+maybeGoldbach :: String -> Maybe (Integer, (Integer, Integer))
 maybeGoldbach s = do
   n <- readMaybe s
   guard $ n > 2

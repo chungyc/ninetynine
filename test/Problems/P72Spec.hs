@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -13,16 +13,18 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
 properties :: (MultiwayTree Int -> [Int]) -> String -> Spec
-properties postOrderSequence name = do
-  describe name $ do
-    prop "is post-order sequence" $
-      \t -> postOrderSequence t `shouldBe` naivePostOrderSequence t
+properties postOrderSequence name = describe name $ do
+  prop "is singleton sequence for singleton tree" $ \x ->
+    postOrderSequence (MultiwayTree x []) `shouldBe` [x]
+
+  prop "is post-order sequence" $ \x -> \ts ->
+    postOrderSequence (MultiwayTree x ts) `shouldBe`
+    concatMap postOrderSequence ts ++ [x]
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "postOrderSequence multitree5" $ do
-      postOrderSequence multitree5 `shouldBe` "gfcdeba"
+examples = describe "Examples" $ do
+  it "postOrderSequence multitree5" $ do
+    postOrderSequence multitree5 `shouldBe` "gfcdeba"
 
   where postOrderSequence = Problem.postOrderSequence
 
@@ -32,7 +34,3 @@ spec = parallel $ do
   examples
   describe "From solutions" $ do
     properties Solution.postOrderSequence "postOrderSequence"
-
--- The straightforward implementation is also pretty much its definition.
-naivePostOrderSequence :: MultiwayTree a -> [a]
-naivePostOrderSequence (MultiwayTree x ts) = (concat $ map naivePostOrderSequence ts) ++ [x]

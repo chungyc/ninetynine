@@ -1,6 +1,6 @@
 {- |
 Description: Maybe monad
-Copyright: Copyright (C) 2022 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -77,7 +77,7 @@ Nothing
 >>> maybeGoldbach "101"
 Nothing
 -}
-maybeGoldbach :: String -> Maybe (Int, (Int,Int))
+maybeGoldbach :: String -> Maybe (Integer, (Integer, Integer))
 maybeGoldbach = Solution.maybeGoldbach
 
 {- | Parses a string into a number and returns a tuple of the number and its Goldbach pair.
@@ -99,10 +99,10 @@ Nothing
 >>> maybeGoldbach' "101"
 Nothing
 -}
-maybeGoldbach' :: String -> Maybe (Int, (Int,Int))
+maybeGoldbach' :: String -> Maybe (Integer, (Integer, Integer))
 maybeGoldbach' s =
   case readMaybe s of
     Nothing -> Nothing
-    Just n -> if n < 2 then Nothing else
+    Just n -> if n <= 2 then Nothing else
                 if odd n then Nothing else
                   Just (n, goldbach n)
