@@ -332,6 +332,7 @@ test-suite ninetynine-test
       Problems.BinaryTrees.QuickCheck
       Problems.BinaryTreesSpec
       Problems.Graphs.Arbitrary
+      Problems.Graphs.QuickCheck
       Problems.GraphsSpec
       Problems.Lists.Arbitrary
       Problems.Logic.Arbitrary

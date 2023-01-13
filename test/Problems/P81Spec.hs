@@ -5,13 +5,13 @@ Maintainer: dev@chungyc.org
 -}
 module Problems.P81Spec (spec) where
 
-import           Data.Maybe                (fromJust)
-import qualified Data.Set                  as Set
+import           Data.Maybe                 (fromJust)
+import qualified Data.Set                   as Set
 import           Problems.Graphs
-import           Problems.Graphs.Arbitrary
+import           Problems.Graphs.QuickCheck
 import           Problems.P80
-import qualified Problems.P81              as Problem
-import qualified Solutions.P81             as Solution
+import qualified Problems.P81               as Problem
+import qualified Solutions.P81              as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck

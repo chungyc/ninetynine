@@ -1,15 +1,15 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.GraphsSpec (spec) where
 
-import           Data.Maybe                (fromJust)
-import           Data.Set                  (Set)
-import qualified Data.Set                  as Set
+import           Data.Maybe                 (fromJust)
+import           Data.Set                   (Set)
+import qualified Data.Set                   as Set
 import           Problems.Graphs
-import           Problems.Graphs.Arbitrary
+import           Problems.Graphs.QuickCheck
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
