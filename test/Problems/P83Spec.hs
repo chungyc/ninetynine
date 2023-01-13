@@ -28,6 +28,9 @@ properties
       classify (isConnectedGraph g) "connected" $
       conjoin (map (\t -> t `shouldSatisfy` isSpanningTree g) $ spanningTrees g)
 
+    prop "is idempotent" $ \g ->
+      conjoin (map (\t -> t `shouldSatisfy` (==) [t] . spanningTrees) $ spanningTrees g)
+
     modifyMaxSize (const 9) $ do
       prop "includes arbitrary spanning tree" $
         forAll trees $ \t ->
