@@ -27,7 +27,9 @@ properties paths name = describe name $ modifyMaxSize (const 25) $ do
         dst = last path
         es' = Set.union es $ pathEdges path  -- ensure path exists
         g = fromJust $ toGraph (vs, es')
-    in paths src dst g `shouldSatisfy` elem path
+    in counterexample ("from " ++ show src ++ " to " ++ show dst) $
+       counterexample (show $ toPaths g) $
+       paths src dst g `shouldSatisfy` elem path
 
   prop "does not include non-existant path" $ \(Sets (vs, es)) ->
     forAll (sublistOf $ Set.toList vs) $ \vs' ->
@@ -37,7 +39,9 @@ properties paths name = describe name $ modifyMaxSize (const 25) $ do
         dst = last path
         es' = Set.difference es $ pathEdges path  -- ensure path does not exist
         g = fromJust $ toGraph (vs, es')
-    in paths src dst g `shouldNotSatisfy` elem path
+    in counterexample ("from " ++ show src ++ " to " ++ show dst) $
+       counterexample (show $ toPaths g) $
+       paths src dst g `shouldNotSatisfy` elem path
 
   where
     -- The set of edges forming the given path.
