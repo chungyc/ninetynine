@@ -1,11 +1,10 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P83Spec (spec) where
 
-import           Control.Monad             (liftM)
 import           Data.Maybe                (fromJust)
 import           Data.Set                  (Set)
 import qualified Data.Set                  as Set
@@ -23,34 +22,28 @@ import           Test.QuickCheck
 properties :: (G -> [G], G -> Bool, G -> Bool) -> (String, String, String) -> Spec
 properties
   (spanningTrees, isTree, isConnected)
-  (nameSpanningTrees, nameIsTree, nameIsConnected) = modifyMaxSize (const 15) $ do
+  (nameSpanningTrees, nameIsTree, nameIsConnected) = modifyMaxSize (const 16) $ do
   describe nameSpanningTrees $ do
-    prop "includes only spanning trees" $
-      \g -> classify (isConnectedGraph g) "connected" $
-            conjoin (map (\t -> t `shouldSatisfy` isSpanningTree g) (spanningTrees g))
+    prop "includes only spanning trees" $ \g ->
+      classify (isConnectedGraph g) "connected" $
+      conjoin (map (\t -> t `shouldSatisfy` isSpanningTree g) $ spanningTrees g)
 
-    modifyMaxSize (\n -> ceiling $ (sqrt $ fromIntegral n :: Float)) $
-      prop "includes a spanning tree" $
-        forAll genPureTree $ \t ->
-          let spanningTree = toSpanningTree t
-              vs = vertexes spanningTree
-              vs' = Set.toList vs
-              pairs = [Edge (u, v) | u <- vs', v <- vs', u < v]
-          in forAll (sublistOf pairs) $ \es' ->
-            let es = Set.union (edges spanningTree) $ Set.fromList es'
-                g = fromJust $ toGraph (vs, es)
-            in classify (Set.size (vertexes g) <= 1) "trivial" $
-               (spanningTree, spanningTrees g) `shouldSatisfy` (\(g', gs) -> g' `elem` gs)
+    modifyMaxSize (const 9) $ do
+      prop "includes arbitrary spanning tree" $
+        forAll trees $ \t ->
+        forAll (graphsSpannedBy t) $ \g ->
+        counterexample (showGraph g) $
+        spanningTrees (graph g) `shouldSatisfy` elem (graph t)
 
   describe nameIsTree $ do
-    prop "if and only if tree" $
-      \g -> classify (isTreeGraph g) "tree" $
-            isTree g `shouldBe` isTreeGraph g
+    prop "if and only if tree" $ \g ->
+      classify (isTreeGraph g) "tree" $
+      isTree g `shouldBe` isTreeGraph g
 
   describe nameIsConnected $ do
-    prop "if and only if connected" $
-      \g -> classify (isConnectedGraph g) "connected" $
-            isConnected g `shouldBe` isConnectedGraph g
+    prop "if and only if connected" $ \g ->
+      classify (isConnectedGraph g) "connected" $
+      isConnected g `shouldBe` isConnectedGraph g
 
 examples :: Spec
 examples = do
@@ -90,6 +83,14 @@ spec = parallel $ do
       (Solution.spanningTrees, Solution.isTree, Solution.isConnected)
       ("spanningTrees", "isTree", "isConnected")
 
+-- | Conveniently create a graph representation from the vertexes and edges.
+graph :: (Set Vertex, Set Edge) -> G
+graph = fromJust . toGraph
+
+-- | Use the paths representation to show graphs.
+showGraph :: (Set Vertex, Set Edge) -> String
+showGraph g = show (fromJust $ toGraph g :: Paths)
+
 -- | Whether second graph is a spanning tree of the first.
 isSpanningTree :: G -> G -> Bool
 isSpanningTree g g' = vertexes g == vertexes g' && isTreeGraph g'
@@ -108,34 +109,32 @@ isConnectedGraph g = all (\(u, v) -> not $ null $ paths u v g) pairs
   where vs = Set.toList $ vertexes g
         pairs = [(u, v) | u <- vs, v <- vs, u < v]
 
--- | Create vertexes and edges from a structure-only tree.
--- It will be a tree which includes all vertexes, so it will be a spanning tree.
-toSpanningTree :: PureTree -> G
-toSpanningTree t = fromJust $ toGraph (vs, es)
-  where (_, vs, es) = toSpanningTree' t (1, Set.singleton 1, Set.empty)
+-- | Generates graphs which are trees.
+trees :: Gen (Set Vertex, Set Edge)
+trees = sized gen
+  where gen 0 = single
+        gen _ = frequency [ (1, single), (10, extended) ]
 
-toSpanningTree' :: PureTree -> (Vertex, Set Vertex, Set Edge) -> (Vertex, Set Vertex, Set Edge)
-toSpanningTree' (Branch ts) r@(n, _, _) = fromChildren n ts r
+        single = (\v -> (Set.singleton v, Set.empty)) <$> arbitrary
 
-fromChildren :: Vertex -> [PureTree] -> (Vertex, Set Vertex, Set Edge) -> (Vertex, Set Vertex, Set Edge)
-fromChildren _ [] r = r
-fromChildren v (t:ts) (n, vs, es) = fromChildren v ts $ toSpanningTree' t (n', vs', es')
-  where n' = n+1
-        vs' = Set.insert n' vs
-        es' = Set.insert (Edge (v, n')) es
+        extended = scale (subtract 1) $ do
+          (vs, es) <- trees
+          v <- elements $ Set.toList vs
+          v' <- arbitrary `suchThat` (\x -> not $ Set.member x vs)
 
--- | Generate a tree that is pure structure.
--- This will be turned into a graph that is a spanning tree.
-data PureTree = Branch [PureTree]
-  deriving Show
+          -- If a vertex not in a tree and an edge from a vertex in the tree
+          -- to this vertex is added, then the new graph is also a tree since
+          -- there can be only one path to any other vertex from the new vertex.
+          let vs' = Set.insert v' vs
+          let es' = Set.insert (Edge (v, v')) es
+          return (vs', es')
 
-genPureTree :: Gen PureTree
-genPureTree = sized genPureTree'
-
-genPureTree' :: Int -> Gen PureTree
-genPureTree' 0 = return $ Branch []
-genPureTree' n
-  | n > 0     = do
-      k <- choose (0, n-1)
-      liftM Branch $ vectorOf k $ genPureTree' $ (n-1) `div` (max 1 k)
-  | otherwise = undefined
+-- | Generates graphs which are spanned by the given graph.
+--
+-- I.e., the set of vertexes are the same as the given graph,
+-- and its set of edges includes at least those in the given graph.
+graphsSpannedBy :: (Set Vertex, Set Edge) -> Gen (Set Vertex, Set Edge)
+graphsSpannedBy (vs, es) = do
+  let l = Set.toList vs
+  es' <- sublistOf [ Edge (u, v) | u <- l, v <- l, u < v ]
+  return (vs, Set.union es $ Set.fromList es')
