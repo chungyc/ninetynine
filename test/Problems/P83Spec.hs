@@ -5,16 +5,16 @@ Maintainer: dev@chungyc.org
 -}
 module Problems.P83Spec (spec) where
 
-import           Data.Maybe                (fromJust)
-import           Data.Set                  (Set)
-import qualified Data.Set                  as Set
+import           Data.Maybe                 (fromJust)
+import qualified Data.Set                   as Set
 import           Problems.Graphs
-import           Problems.Graphs.Arbitrary ()
+import           Problems.Graphs.Arbitrary  ()
+import           Problems.Graphs.QuickCheck
 import           Problems.P80
 import           Problems.P81
-import           Problems.P83              (graph83)
-import qualified Problems.P83              as Problem
-import qualified Solutions.P83             as Solution
+import           Problems.P83               (graph83)
+import qualified Problems.P83               as Problem
+import qualified Solutions.P83              as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
@@ -35,8 +35,7 @@ properties
       prop "includes arbitrary spanning tree" $
         forAll trees $ \t ->
         forAll (graphsSpannedBy t) $ \g ->
-        counterexample (showGraph g) $
-        spanningTrees (graph g) `shouldSatisfy` elem (graph t)
+        spanningTrees g `shouldSatisfy` elem t
 
   describe nameIsTree $ do
     prop "if and only if tree" $ \g ->
@@ -86,14 +85,6 @@ spec = parallel $ do
       (Solution.spanningTrees, Solution.isTree, Solution.isConnected)
       ("spanningTrees", "isTree", "isConnected")
 
--- | Conveniently create a graph representation from the vertexes and edges.
-graph :: (Set Vertex, Set Edge) -> G
-graph = fromJust . toGraph
-
--- | Use the paths representation to show graphs.
-showGraph :: (Set Vertex, Set Edge) -> String
-showGraph g = show (fromJust $ toGraph g :: Paths)
-
 -- | Whether second graph is a spanning tree of the first.
 isSpanningTree :: G -> G -> Bool
 isSpanningTree g g' = vertexes g == vertexes g' && isTreeGraph g'
@@ -112,32 +103,12 @@ isConnectedGraph g = all (\(u, v) -> not $ null $ paths u v g) pairs
   where vs = Set.toList $ vertexes g
         pairs = [(u, v) | u <- vs, v <- vs, u < v]
 
--- | Generates graphs which are trees.
-trees :: Gen (Set Vertex, Set Edge)
-trees = sized gen
-  where gen 0 = single
-        gen _ = frequency [ (1, single), (10, extended) ]
-
-        single = (\v -> (Set.singleton v, Set.empty)) <$> arbitrary
-
-        extended = scale (subtract 1) $ do
-          (vs, es) <- trees
-          v <- elements $ Set.toList vs
-          v' <- arbitrary `suchThat` (\x -> not $ Set.member x vs)
-
-          -- If a vertex not in a tree and an edge from a vertex in the tree
-          -- to this vertex is added, then the new graph is also a tree since
-          -- there can be only one path to any other vertex from the new vertex.
-          let vs' = Set.insert v' vs
-          let es' = Set.insert (Edge (v, v')) es
-          return (vs', es')
-
 -- | Generates graphs which are spanned by the given graph.
 --
 -- I.e., the set of vertexes are the same as the given graph,
 -- and its set of edges includes at least those in the given graph.
-graphsSpannedBy :: (Set Vertex, Set Edge) -> Gen (Set Vertex, Set Edge)
-graphsSpannedBy (vs, es) = do
-  let l = Set.toList vs
-  es' <- sublistOf [ Edge (u, v) | u <- l, v <- l, u < v ]
-  return (vs, Set.union es $ Set.fromList es')
+graphsSpannedBy :: G -> Gen G
+graphsSpannedBy g = do
+  let vs = Set.toList $ vertexes g
+  es' <- sublistOf [ Edge (u, v) | u <- vs, v <- vs, u < v ]
+  return $ fromJust $ toGraph (vertexes g, Set.union (edges g) $ Set.fromList es')
