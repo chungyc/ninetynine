@@ -15,7 +15,7 @@ properties :: (Int -> String) -> String -> Spec
 properties fullWords name = describe name $ do
   context "with single digit" $
     let test n word =
-          it (show n ++ " is " ++ word) $ do
+          prop (show n ++ " is " ++ word) $
             fullWords n `shouldBe` word
     in do test 0 "zero"
           test 1 "one"

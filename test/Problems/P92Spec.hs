@@ -16,11 +16,10 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
 properties :: (G -> Maybe (Map Vertex Int)) -> String -> Int -> Spec
-properties gracefulTree name size = describe name $
+properties gracefulTree name size = describe name $ do
   modifyMaxSize (const size) $ do
-
-  prop "is graceful labeling" $ \(TreeGraph g) ->
-    gracefulTree g `shouldSatisfy` isGracefulLabeling g
+    prop "is graceful labeling" $ \(TreeGraph g) ->
+      gracefulTree g `shouldSatisfy` isGracefulLabeling g
 
 examples :: Spec
 examples = describe "Examples" $ do

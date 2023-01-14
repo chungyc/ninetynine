@@ -3,7 +3,7 @@ Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
-module Problems.P96Spec where
+module Problems.P96Spec (spec) where
 
 import           Data.List             (singleton)
 import qualified Problems.P96          as Problem
@@ -13,33 +13,31 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (String -> Bool) -> String -> Spec
-properties isIdentifier name = do
-  describe name $ do
-    prop "is true for legal identifiers" $
-      \(Identifier s) -> isIdentifier s `shouldBe` True
+properties isIdentifier name = describe name $ do
+  prop "is true for legal identifiers" $ \(Identifier s) ->
+    isIdentifier s `shouldBe` True
 
-    prop "is false when starting with underscore" $
-      \(Identifier s) -> isIdentifier ('_':s) `shouldBe` False
+  prop "is false when starting with underscore" $ \(Identifier s) ->
+    isIdentifier ('_':s) `shouldBe` False
 
-    prop "is false when starting with digit" $
-      \(Identifier s) -> forAll digits $ \n ->
-        isIdentifier (n:s) `shouldBe` False
+  prop "is false when starting with digit" $
+    \(Identifier s) -> forAll digits $ \n ->
+      isIdentifier (n:s) `shouldBe` False
 
-    prop "is false when ending with underscore" $
-      \(Identifier s) -> isIdentifier (s ++ "_") `shouldBe` False
+  prop "is false when ending with underscore" $ \(Identifier s) ->
+    isIdentifier (s ++ "_") `shouldBe` False
 
-    prop "is false when underscores are consecutive" $
-      \(Identifier s) -> forAll (splitsOf s) $ \(front, back) ->
-        isIdentifier (front ++ "__" ++ back) `shouldBe` False
+  prop "is false when underscores are consecutive" $
+    \(Identifier s) -> forAll (splitsOf s) $ \(front, back) ->
+      isIdentifier (front ++ "__" ++ back) `shouldBe` False
 
-    prop "is false when invalid characters are included" $
-      \(Identifier s) -> forAll (splitsOf s) $ \(front, back) -> \c ->
-        c `notElem` (['A'..'Z'] ++ ['a'..'z'] ++ ['0'..'9'] ++ ['_']) ==>
-        isIdentifier (front ++ [c] ++ back) `shouldBe` False
+  prop "is false when invalid characters are included" $
+    \(Identifier s) -> forAll (splitsOf s) $ \(front, back) -> \c ->
+      c `notElem` (['A'..'Z'] ++ ['a'..'z'] ++ ['0'..'9'] ++ ['_']) ==>
+      isIdentifier (front ++ [c] ++ back) `shouldBe` False
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
+examples = describe "Examples" $ do
     it "isIdentifier \"this_is_a_long_identifier\"" $ do
       isIdentifier "this_is_a_long_identifier" `shouldBe` True
 
@@ -67,35 +65,31 @@ spec = parallel $ do
   describe "From solutions" $ do
     properties Solution.isIdentifier "isIdentifier"
 
--- | Arbitrary legal identifiers.
+-- | Arbitrary legal identifier.
 newtype Identifier = Identifier String deriving Show
 
 instance Arbitrary Identifier where
   arbitrary = Identifier <$> identifiers
 
--- | A direct translation of the syntax diagram into generator form.
+-- | Generates a legal identifer.
+--
+-- A direct translation of the syntax diagram into generator form.
 identifiers :: Gen String
 identifiers = fromFirstLetter
 
 fromFirstLetter :: Gen String
 fromFirstLetter = do
   n <- getSize
-  frequency [ (n, (:) <$> letters <*> extended)
-            , (1, singleton <$> letters)
-            ]
+  frequency [ (n, (:) <$> letters <*> extended), (1, singleton <$> letters) ]
 
 extended :: Gen String
-extended = frequency [ (10, extended')
-                     , (1, fromUnderscore)
-                     ]
+extended = frequency [ (10, extended'), (1, fromUnderscore) ]
 
 fromUnderscore :: Gen String
 fromUnderscore = (:) '_' <$> extended'
 
 extended' :: Gen String
-extended' = frequency [ (5, fromLetter)
-                         , (1, fromDigit)
-                         ]
+extended' = frequency [ (5, fromLetter), (1, fromDigit) ]
 
 fromLetter :: Gen String
 fromLetter = (:) <$> letters <*> extended''
@@ -106,9 +100,7 @@ fromDigit = (:) <$> digits <*> extended''
 extended'' :: Gen String
 extended'' = do
   n <- getSize
-  frequency [ (n, resize (n-1) $ extended)
-            , (1, pure "")
-            ]
+  frequency [ (n, resize (n-1) $ extended), (1, pure "") ]
 
 letters :: Gen Char
 letters = elements $ ['A'..'Z'] ++ ['a'..'z']
