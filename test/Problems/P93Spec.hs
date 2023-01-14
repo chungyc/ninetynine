@@ -1,13 +1,10 @@
-{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
-
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P93Spec (spec) where
 
-import           Control.Monad
 import           Data.Ratio
 import qualified Problems.P93          as Problem
 import qualified Solutions.P93         as Solution
@@ -17,24 +14,28 @@ import           Test.QuickCheck
 
 properties :: ([Integer] -> [String]) -> String -> Spec
 properties arithmeticPuzzle name = describe name $ do
-  it "has no solution for empty list" $ do
+  prop "has no solution for empty list" $
     arithmeticPuzzle [] `shouldBe` []
 
-  prop "has no solution for singleton list" $
-    \n -> arithmeticPuzzle [n] `shouldBe` []
+  prop "has no solution for singleton list" $ \n ->
+    arithmeticPuzzle [n] `shouldBe` []
 
   prop "are valid equations" $
-    forAll chooseList $ \xs ->
+    forAll numberLists $ \xs ->
     classify (null $ arithmeticPuzzle xs) "trivial" $
-    forM_ (arithmeticPuzzle xs) $ flip shouldSatisfy (evalEquation . parseExpr)
+    conjoin $ do
+      s <- arithmeticPuzzle xs
+      return $ s `shouldSatisfy` evalEquation . parseExpr
 
   prop "includes given numbers in order" $
-    forAll chooseList $ \xs ->
+    forAll numberLists $ \xs ->
     classify (null $ arithmeticPuzzle xs) "trivial" $
-    arithmeticPuzzle xs `shouldSatisfy` all ((==) xs . extractNumbers)
+    conjoin $ do
+      s <- arithmeticPuzzle xs
+      return $ s `shouldSatisfy` (==) xs . extractNumbers
 
-  where chooseList = resize 6 $ liftM2 (:) chooseNumber $ listOf1 chooseNumber
-        chooseNumber = chooseInteger (1, 15)
+  where numberLists = resize 6 $ listOf1 numbers `suchThat` (\l -> length l > 2)
+        numbers = chooseInteger (1, 12)
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -61,6 +62,14 @@ spec = parallel $ do
   describe "From solutions" $ do
     properties Solution.arithmeticPuzzle "arithmeticPuzzle"
 
+-- | Extract the numbers from the strings containing equations.
+extractNumbers :: String -> [Integer]
+extractNumbers s = extract $ tokenize s
+  where extract []           = []
+        extract ((N n) : ps) = n : extract ps
+        extract (_:ps)       = extract ps
+
+-- | An equation in parsed form.
 data Expr = Number Integer
           | Add Expr Expr
           | Subtract Expr Expr
@@ -69,22 +78,17 @@ data Expr = Number Integer
           | Equals Expr Expr
   deriving (Eq, Show)
 
-extractNumbers :: String -> [Integer]
-extractNumbers s = extract $ tokenize s
-  where extract []           = []
-        extract ((N n) : ps) = n : extract ps
-        extract (_:ps)       = extract ps
-
+-- | Parse an equation from a string.
 parseExpr :: String -> Expr
-parseExpr s = e
-  where ([], [Ex e]) = parseExpr' (tokenize s, [])
+parseExpr s
+  | ([], [Ex e]) <- parseExpr' (tokenize s, []) = e
+  | otherwise = error $ "parse error: " ++ s
 
-data Token = N Integer | P | S | M | D | E | PS | PE
-  deriving (Eq, Show)
-
+-- | Elements on the stack for parsing the context-free grammar.
 data ParseElement = T Token | Ex Expr
   deriving (Eq, Show)
 
+-- | Manually parse the context-free grammar.
 parseExpr' :: ([Token], [ParseElement]) -> ([Token], [ParseElement])
 parseExpr' (ts, T (N n) : ps)                 = parseExpr' (ts, Ex (Number n) : ps)
 parseExpr' (M:ts, ps@(Ex _ : T P : Ex _ : _)) = parseExpr' (ts, T M : ps)
@@ -100,6 +104,11 @@ parseExpr' (t:ts, ps)                         = parseExpr' (ts, T t : ps)
 parseExpr' ([], [Ex v, T E, Ex u])            = ([], [Ex (Equals u v)])
 parseExpr' _                                  = undefined
 
+-- | Lexical tokens.
+data Token = N Integer | P | S | M | D | E | PS | PE
+  deriving (Eq, Show)
+
+-- | Parse a string into its lexical tokens.
 tokenize :: String -> [Token]
 tokenize s = reverse $ snd $ tokenize' (s, [])
 
@@ -116,6 +125,7 @@ tokenize' (')':xs,ts) = tokenize' (xs, PE:ts)
 tokenize' (xs,ts)     = tokenize' (xs', N n : ts)
   where (n, xs') = parseNumber xs
 
+-- | Parse a string into a number and the rest of the string.
 parseNumber :: String -> (Integer, String)
 parseNumber s = (n, s')
   where n = read $ takeWhile (flip elem ['0'..'9']) s
@@ -123,7 +133,7 @@ parseNumber s = (n, s')
 
 evalEquation :: Expr -> Bool
 evalEquation (Equals x y) = evalExpr x == evalExpr y
-evalEquation _            = undefined
+evalEquation e            = error $ "invalid equation: " ++ show e
 
 evalExpr :: Expr -> Ratio Integer
 evalExpr (Number x)     = fromIntegral x
@@ -131,4 +141,4 @@ evalExpr (Add x y)      = evalExpr x + evalExpr y
 evalExpr (Subtract x y) = evalExpr x - evalExpr y
 evalExpr (Multiply x y) = evalExpr x * evalExpr y
 evalExpr (Divide x y)   = evalExpr x / evalExpr y
-evalExpr _              = undefined
+evalExpr e              = error $ "invalid expression: " ++ show e
