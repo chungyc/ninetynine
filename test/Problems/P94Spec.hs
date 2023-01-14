@@ -5,7 +5,7 @@ Maintainer: dev@chungyc.org
 -}
 module Problems.P94Spec (spec) where
 
-import           Control.Monad
+import           Control.Monad         (forM_)
 import qualified Data.Set              as Set
 import           Problems.Graphs
 import qualified Problems.P94          as Problem
@@ -23,14 +23,16 @@ properties regularGraphs name = describe name $ modifyMaxSize (const 6) $ do
 
   prop "are k-regular graphs" $
     \(Positive n) -> forAll (chooseInt (1, n-1)) $ \k ->
-      regularGraphs n k `shouldSatisfy` all (\g -> all (\v -> Set.size (neighbors v g) == k) $ vertexes g)
+      regularGraphs n k `shouldSatisfy`
+      all (\g -> all (\v -> Set.size (neighbors v g) == k) $ vertexes g)
 
   prop "has non-isomorphic graphs" $
     \(Positive n) -> forAll (chooseInt (1, n-1)) $ \k ->
       regularGraphs n k `shouldSatisfy` \l ->
       all (not . uncurry isomorphic) [(l !! i, l !! j) | i <- [0..length l - 1], j <- [0..i-1]]
 
-  -- It is too expensive for a trivial algorithm to compute the number of regular graphs for a test,
+  -- It is too expensive for a trivial algorithm to compute
+  -- the number of regular graphs for a test,
   -- so we compare with known numbers of regular graphs.
   describe "has expected number of graphs" $ parallel $ do
     forM_ [ ((3,2), 1)
@@ -48,8 +50,9 @@ properties regularGraphs name = describe name $ modifyMaxSize (const 6) $ do
           , ((7,4), 2)
           , ((7,5), 0)
           , ((7,6), 1)
-          ]
-      (\((n, k), r) -> it ("with " ++ show (n,k)) (length (regularGraphs n k) `shouldBe` r))
+          ] $ \((n, k), r) ->
+      it ("with " ++ show (n,k)) $ do
+        length (regularGraphs n k) `shouldBe` r
 
 examples :: Spec
 examples = describe "Examples" $ do
