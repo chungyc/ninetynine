@@ -1,11 +1,11 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P96Spec where
 
-import           Control.Monad
+import           Data.List             (singleton)
 import qualified Problems.P96          as Problem
 import qualified Solutions.P96         as Solution
 import           Test.Hspec
@@ -22,20 +22,20 @@ properties isIdentifier name = do
       \(Identifier s) -> isIdentifier ('_':s) `shouldBe` False
 
     prop "is false when starting with digit" $
-      \(Identifier s) -> forAll (choose ('0','9')) $ \n ->
+      \(Identifier s) -> forAll digits $ \n ->
         isIdentifier (n:s) `shouldBe` False
 
     prop "is false when ending with underscore" $
       \(Identifier s) -> isIdentifier (s ++ "_") `shouldBe` False
 
     prop "is false when underscores are consecutive" $
-      \(Identifier s) -> forAll (chooseInt (0, length s - 1)) $ \k ->
-        isIdentifier (take k s ++ "__" ++ drop k s) `shouldBe` False
+      \(Identifier s) -> forAll (splitsOf s) $ \(front, back) ->
+        isIdentifier (front ++ "__" ++ back) `shouldBe` False
 
     prop "is false when invalid characters are included" $
-      \(Identifier s) -> forAll (chooseInt (0, length s - 1)) $ \k -> \c ->
+      \(Identifier s) -> forAll (splitsOf s) $ \(front, back) -> \c ->
         c `notElem` (['A'..'Z'] ++ ['a'..'z'] ++ ['0'..'9'] ++ ['_']) ==>
-        isIdentifier (take k s ++ [c] ++ drop k s) `shouldBe` False
+        isIdentifier (front ++ [c] ++ back) `shouldBe` False
 
 examples :: Spec
 examples = do
@@ -71,49 +71,53 @@ spec = parallel $ do
 newtype Identifier = Identifier String deriving Show
 
 instance Arbitrary Identifier where
-  arbitrary = liftM Identifier genIdentifier
+  arbitrary = Identifier <$> identifiers
 
 -- | A direct translation of the syntax diagram into generator form.
-genIdentifier :: Gen String
-genIdentifier = genFirstLetter
+identifiers :: Gen String
+identifiers = fromFirstLetter
 
-genFirstLetter :: Gen String
-genFirstLetter = do
-  letter <- elements letters
+fromFirstLetter :: Gen String
+fromFirstLetter = do
   n <- getSize
-  frequency [ (n, liftM ((:) letter) genExtended)
-            , (1, return $ [letter])
+  frequency [ (n, (:) <$> letters <*> extended)
+            , (1, singleton <$> letters)
             ]
 
-genExtended :: Gen String
-genExtended = frequency [ (10, genExtended')
-                        , (1, genUnderscore)
-                        ]
+extended :: Gen String
+extended = frequency [ (10, extended')
+                     , (1, fromUnderscore)
+                     ]
 
-genUnderscore :: Gen String
-genUnderscore = liftM ((:) '_') genExtended'
+fromUnderscore :: Gen String
+fromUnderscore = (:) '_' <$> extended'
 
-genExtended' :: Gen String
-genExtended' = frequency [ (5, genLetter)
-                         , (1, genDigit)
+extended' :: Gen String
+extended' = frequency [ (5, fromLetter)
+                         , (1, fromDigit)
                          ]
 
-genLetter :: Gen String
-genLetter = do
-  letter <- elements letters
-  liftM ((:) letter) genExtended''
+fromLetter :: Gen String
+fromLetter = (:) <$> letters <*> extended''
 
-genDigit :: Gen String
-genDigit = do
-  digit <- elements ['0'..'9']
-  liftM ((:) digit) genExtended''
+fromDigit :: Gen String
+fromDigit = (:) <$> digits <*> extended''
 
-genExtended'' :: Gen String
-genExtended'' = do
+extended'' :: Gen String
+extended'' = do
   n <- getSize
-  frequency [ (n, resize (n-1) $ genExtended)
-            , (1, return $ "")
+  frequency [ (n, resize (n-1) $ extended)
+            , (1, pure "")
             ]
 
-letters :: [Char]
-letters = ['A'..'Z'] ++ ['a'..'z']
+letters :: Gen Char
+letters = elements $ ['A'..'Z'] ++ ['a'..'z']
+
+digits :: Gen Char
+digits = elements ['0'..'9']
+
+-- | Generates a split into two strings for a given string.
+splitsOf :: String -> Gen (String, String)
+splitsOf s = do
+  k <- chooseInt (0, length s - 1)
+  return $ splitAt k s
