@@ -1,11 +1,10 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P98Spec (spec) where
 
-import           Control.Monad
 import           Data.List             (group, transpose)
 import           Data.Maybe            (fromJust)
 import qualified Problems.P98          as Problem
@@ -17,36 +16,31 @@ import           Test.QuickCheck
 properties :: ([[Int]] -> [[Int]] -> Maybe [[Bool]]) -> String -> Spec
 properties nonogram name = describe name $ do
   modifyMaxSize (const 15) $ do
-    prop "is consistent with puzzle" $
-      \(Bitmap b) ->
-        let b' = fromJust $ nonogram rows columns
-            rows  = getRows b
-            rows' = getRows b'
-            columns  = getColumns b
-            columns' = getColumns b'
-        in counterexample ("rows =" ++ show rows) $
-           counterexample ("rows'=" ++ show (getRows b')) $
-           counterexample ("columns =" ++ show columns) $
-           counterexample ("columns'=" ++ show (getColumns b')) $
-           (rows', columns') `shouldBe` (rows, columns)
+    prop "is consistent with puzzle" $ \(Bitmap b) ->
+      let b' = fromJust $ nonogram rows columns
+          rows  = getRows b
+          rows' = getRows b'
+          columns  = getColumns b
+          columns' = getColumns b'
+      in counterexample (show b') $
+         (rows', columns') `shouldBe` (rows, columns)
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "nonogram rows columns" $
-      let rows = [[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]]
-          columns = [[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]]
-      in nonogram rows columns `shouldBe`
-         Just [ [False,True, True, True, False,False,False,False]
-              , [True, True, False,True, False,False,False,False]
-              , [False,True, True, True, False,False,True, True ]
-              , [False,False,True, True, False,False,True, True ]
-              , [False,False,True, True, True, True, True, True ]
-              , [True, False,True, True, True, True, True, False]
-              , [True, True, True, True, True, True, False,False]
-              , [False,False,False,False,True, False,False,False]
-              , [False,False,False,True, True, False,False,False]
-              ]
+examples = describe "Examples" $ do
+  it "nonogram rows columns" $
+    let rows = [[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]]
+        columns = [[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]]
+    in nonogram rows columns `shouldBe`
+       Just [ [False,True, True, True, False,False,False,False]
+            , [True, True, False,True, False,False,False,False]
+            , [False,True, True, True, False,False,True, True ]
+            , [False,False,True, True, False,False,True, True ]
+            , [False,False,True, True, True, True, True, True ]
+            , [True, False,True, True, True, True, True, False]
+            , [True, True, True, True, True, True, False,False]
+            , [False,False,False,False,True, False,False,False]
+            , [False,False,False,True, True, False,False,False]
+            ]
 
   where nonogram = Problem.nonogram
 
@@ -68,6 +62,6 @@ newtype Bitmap = Bitmap [[Bool]] deriving (Eq, Show)
 
 instance Arbitrary Bitmap where
   arbitrary = do
-    n <- liftM (2+) $ getSize
+    n <- (2+) <$> getSize
     m <- chooseInt (2,n)
-    liftM Bitmap $ vectorOf m $ vectorOf n arbitrary
+    Bitmap <$> vectorOf m (vectorOf n arbitrary)
