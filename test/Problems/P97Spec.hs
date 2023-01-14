@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -17,40 +17,40 @@ import           Test.QuickCheck
 import           Test.QuickCheck.Gen   (Gen (MkGen))
 
 properties :: ([[Int]] -> Maybe [[Int]]) -> String -> Spec
-properties sudoku name = modifyMaxSize (const 81) $ do
-  describe name $ do
+properties sudoku name = describe name $ do
+  modifyMaxSize (const 81) $ do
     -- To generate an arbitrary puzzle with no solution, we need a working solver.
     -- If we use the solver to verify that a puzzle has no solution,
     -- the property would be a tautology, even if the solver is wrong.
     -- So we simply test that a puzzle known to have no solution returns Nothing.
-    it "does not find impossible solution" $
+    it "does not find impossible solution" $ do
       sudoku (replicate 9 [1..9]) `shouldBe` Nothing
 
-    prop "has valid numbers" $
-      \(SudokuPuzzle p) -> fromJust (sudoku p) `shouldSatisfy` all (all $ inRange (1,9))
+    prop "has valid numbers" $ \(SudokuPuzzle p) ->
+      sudoku p `shouldSatisfy` all (all $ inRange (1,9)) . fromJust
 
-    prop "has valid table size" $
-      \(SudokuPuzzle p) ->
-        conjoin [ fromJust (sudoku p) `shouldSatisfy` (==) 9 . length
-                , fromJust (sudoku p) `shouldSatisfy` all ((==) 9 . length)
-                ]
+    prop "has valid table size" $ \(SudokuPuzzle p) ->
+      conjoin [ sudoku p `shouldSatisfy` (==) 9 . length . fromJust
+              , sudoku p `shouldSatisfy` all ((==) 9 . length) . fromJust
+              ]
 
-    prop "fills in blank spots" $
-      \(SudokuPuzzle p) ->
-        let s = fromJust $ sudoku p
-            lpairs = zip p s
-            npairs = concat $ map (uncurry zip) lpairs
-        in counterexample (show s) $
-           conjoin (map (\np -> np `shouldSatisfy` (\(n, n') -> n == 0 || n == n')) npairs)
+    prop "fills in blank spots" $ \(SudokuPuzzle p) ->
+      let s = fromJust $ sudoku p
+          lpairs = zip p s
+          npairs = concat $ map (uncurry zip) lpairs
+      in counterexample (show s) $
+         conjoin $ do
+           np <- npairs
+           return $ np `shouldSatisfy` \(n, n') -> n == 0 || n == n'
 
-    prop "has each number appearing once in each row" $
-      \(SudokuPuzzle p) -> fromJust (sudoku p) `shouldSatisfy` isValidGroup . groupByRow
+    prop "has each number appearing once in each row" $ \(SudokuPuzzle p) ->
+      sudoku p `shouldSatisfy` isValidGroup . groupByRow . fromJust
 
-    prop "has each number appearing once in each column" $
-      \(SudokuPuzzle p) -> fromJust (sudoku p) `shouldSatisfy` isValidGroup . groupByColumn
+    prop "has each number appearing once in each column" $ \(SudokuPuzzle p) ->
+      sudoku p `shouldSatisfy` isValidGroup . groupByColumn . fromJust
 
-    prop "has each number appearing once in each square" $
-      \(SudokuPuzzle p) -> fromJust (sudoku p) `shouldSatisfy` isValidGroup . groupBySquare
+    prop "has each number appearing once in each square" $ \(SudokuPuzzle p) ->
+      sudoku p `shouldSatisfy` isValidGroup . groupBySquare . fromJust
 
 examples :: Spec
 examples = do
@@ -115,14 +115,18 @@ newtype SudokuPuzzle = SudokuPuzzle [[Int]]
 -- in case the solver only generates pathological test cases
 -- where they are the only ones the solver knows how to solve.
 instance Arbitrary SudokuPuzzle where
-  arbitrary = frequency [ (10, sized $ fromSolution), (1, elements sudokuPuzzles) ]
-    where fromSolution = \n -> MkGen (\r _ -> generateProblem r n)
+  arbitrary = frequency [ (10, puzzles), (1, elements knownSudokuPuzzles) ]
 
+-- | Generates an arbitrary Sudoku puzzle with a solution.
+--
 -- Test case size controls number of spots to make blank.
-generateProblem :: RandomGen g => g -> Int -> SudokuPuzzle
-generateProblem g n = SudokuPuzzle $ makeBlankSpots g' n $ fromJust $ fst $ randomSolution
-  where randomSolution = Solution.randomSudoku (replicate 9 $ replicate 9 0) g''
-        (g',g'') = split g
+puzzles :: Gen SudokuPuzzle
+puzzles = MkGen gen
+  where gen g n = SudokuPuzzle $ makeBlankSpots g' n randomSolution
+          where randomSolution = fromJust $ fst $ randomSudoku empty g''
+                empty = replicate 9 $ replicate 9 0
+                randomSudoku = Solution.randomSudoku
+                (g',g'') = split g
 
 makeBlankSpots :: RandomGen g => g -> Int -> [[Int]] -> [[Int]]
 makeBlankSpots g n p = fst $ head $ drop n $ iterate step (p, positions)
@@ -133,8 +137,8 @@ makeBlankSpots g n p = fst $ head $ drop n $ iterate step (p, positions)
         (g',g'') = split g
 
 -- Sudoku puzzles which are known to have solutions.
-sudokuPuzzles :: [SudokuPuzzle]
-sudokuPuzzles = map SudokuPuzzle
+knownSudokuPuzzles :: [SudokuPuzzle]
+knownSudokuPuzzles = map SudokuPuzzle
   [ [ [ 0, 6, 0, 1, 0, 8, 0, 0, 0 ]
     , [ 1, 0, 0, 0, 0, 4, 0, 0, 5 ]
     , [ 0, 4, 0, 3, 9, 0, 0, 7, 0 ]

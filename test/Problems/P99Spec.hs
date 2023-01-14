@@ -17,17 +17,18 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Crossword -> Maybe [[Maybe Char]]) -> String -> Spec
-properties solveCrossword name = describe name $ modifyMaxSize (const 50) $ do
-  prop "fills given grid" $ \(Puzzle p) ->
-    solveCrossword p `shouldSatisfy` isGridFilled (grid p)
+properties solveCrossword name = describe name $ do
+  modifyMaxSize (const 50) $ do
+    prop "fills given grid" $ \(Puzzle p) ->
+      solveCrossword p `shouldSatisfy` isGridFilled (grid p)
 
-  prop "uses only given words in rows" $ \(Puzzle p) ->
-    solveCrossword p `shouldSatisfy`
-    all (includesGivenWords $ word p) . fromJust
+    prop "uses only given words in rows" $ \(Puzzle p) ->
+      solveCrossword p `shouldSatisfy`
+      all (includesGivenWords $ word p) . fromJust
 
-  prop "uses only given words in columns" $ \(Puzzle p) ->
-    solveCrossword p `shouldSatisfy`
-    all (includesGivenWords $ word p) . transpose . fromJust
+    prop "uses only given words in columns" $ \(Puzzle p) ->
+      solveCrossword p `shouldSatisfy`
+      all (includesGivenWords $ word p) . transpose . fromJust
 
 examples :: Spec
 examples = describe "Examples" $ do
