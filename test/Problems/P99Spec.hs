@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -18,16 +18,16 @@ import           Test.QuickCheck
 
 properties :: (Crossword -> Maybe [[Maybe Char]]) -> String -> Spec
 properties solveCrossword name = describe name $ modifyMaxSize (const 50) $ do
-  prop "fills given grid" $
-    \(Puzzle p) -> solveCrossword p `shouldSatisfy` isGridFilled (grid p)
+  prop "fills given grid" $ \(Puzzle p) ->
+    solveCrossword p `shouldSatisfy` isGridFilled (grid p)
 
-  prop "uses only given words in rows" $
-    \(Puzzle p) -> solveCrossword p `shouldSatisfy`
-                   all (includesGivenWords $ word p) . fromJust
+  prop "uses only given words in rows" $ \(Puzzle p) ->
+    solveCrossword p `shouldSatisfy`
+    all (includesGivenWords $ word p) . fromJust
 
-  prop "uses only given words in columns" $
-    \(Puzzle p) -> solveCrossword p `shouldSatisfy`
-                   all (includesGivenWords $ word p) . transpose . fromJust
+  prop "uses only given words in columns" $ \(Puzzle p) ->
+    solveCrossword p `shouldSatisfy`
+    all (includesGivenWords $ word p) . transpose . fromJust
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -86,25 +86,27 @@ extractWords cs
         (candidate, cs'') = span isJust cs'
         str = map fromJust candidate
 
+-- | An arbitrary crossword puzzle.
 newtype Puzzle = Puzzle Crossword deriving Show
 
 instance Arbitrary Puzzle where
-  arbitrary = sized $ \n -> genPuzzle (n+2)
+  arbitrary = scale (+2) puzzles
 
-genPuzzle :: Int -> Gen Puzzle
-genPuzzle n = do
+-- | Generates a crossword puzzle.
+puzzles :: Gen Puzzle
+puzzles = sized $ \n -> do
   m <- chooseInt (1,n*n)
-  ws <- vectorOf m $ resize m $ suchThat (listOf1 $ elements ['a'..'z']) ((<) 1 . length)
+  ws <- vectorOf m $ resize m $ (listOf1 $ elements ['a'..'z']) `suchThat` ((<) 1 . length)
   xs <- vectorOf m $ chooseInt (1,n)
   ys <- vectorOf m $ chooseInt (1,n)
   zs <- vectorOf m $ choose (False,True)
   mask <- vectorOf n $ vectorOf n $ frequency [(10, return False), (1, return True)]
-  let s = constructSolution blank $ zip4 ws xs ys zs
+  let s = constructSolution (blank n) $ zip4 ws xs ys zs
   let c = Crossword { word = getWords s, grid = getGrid s mask }
   case nub (word c) == word c of
     True  -> return $ Puzzle c
-    False -> genPuzzle n  -- a word used twice; try again
-  where blank = replicate n $ replicate n Nothing
+    False -> puzzles  -- a word used twice; try again
+  where blank n = replicate n $ replicate n Nothing
 
 -- | Construct a solution from the given words and their locations and orientations.
 --
