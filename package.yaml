@@ -38,9 +38,9 @@ library:
   - array
   - containers
   - deepseq
-  - process
   - mtl
   - prettyprinter
+  - process
   - random
   - text
   - transformers
@@ -68,15 +68,17 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - ninetynine
-    - containers
-    - process
-    - random
     - hspec
     - QuickCheck
+    - containers
     - generic-random
+    - process
+    - random
+    when:
+      condition: false
+      other-modules: Examples
   examples-test:
-    main:                Main.hs
-    source-dirs:         app/doctest
+    main:                test/Examples.hs
     ghc-options:
     - -threaded
     - -rtsopts
@@ -94,7 +96,7 @@ benchmarks:
     - -with-rtsopts=-N
     dependencies:
     - ninetynine
-    - containers
-    - random
-    - deepseq
     - criterion
+    - containers
+    - deepseq
+    - random

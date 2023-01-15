@@ -311,13 +311,11 @@ executable generate-support
 
 test-suite examples-test
   type: exitcode-stdio-1.0
-  main-is: Main.hs
+  main-is: test/Examples.hs
   other-modules:
       Paths_ninetynine
   autogen-modules:
       Paths_ninetynine
-  hs-source-dirs:
-      app/doctest
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
