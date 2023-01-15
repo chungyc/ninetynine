@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -19,18 +19,16 @@ import           Test.QuickCheck
 
 properties :: (G -> Bool) -> String -> Spec
 properties bipartite name = describe name $ do
-  prop "is true for bipartite graphs" $
-    \(Positive n) -> forAll (chooseInt (1,n-1)) $ \m ->
-      let us = [1..m]
-          vs = [m+1..n]
-      in forAll (sublistOf $ map Edge [(u,v) | u <- us, v <- vs]) $
-         \es -> let g = fromJust $ toGraph (Set.fromList [1..n], Set.fromList es)
-                in counterexample (show g) $
-                   bipartite g `shouldBe` True
+  prop "is true for bipartite graphs" $ \(Positive n) ->
+    forAll (chooseInt (1,n-1)) $ \m ->
+    forAll (sublistOf $ map Edge [(u,v) | u <- [1..m], v <- [m+1..n]]) $ \es ->
+    let g = fromJust $ toGraph (Set.fromList [1..n], Set.fromList es)
+    in counterexample (show g) $
+       bipartite g `shouldBe` True
 
   modifyMaxSize (const 20) $ do
-    prop "is true if and only if graph is bipartite" $
-      \g -> bipartite g `shouldBe` isBipartite g
+    prop "is true if and only if graph is bipartite" $ \g -> bipartite g
+      `shouldBe` isBipartite g
 
 examples :: Spec
 examples = describe "Examples" $ do

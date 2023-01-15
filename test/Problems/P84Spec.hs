@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -18,8 +18,8 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (G -> Map Edge Int -> G) -> String -> Spec
-properties minimumSpanningTree name = modifyMaxSize (const 5) $ do
-  describe name $ do
+properties minimumSpanningTree name = describe name $ do
+  modifyMaxSize (const 5) $ do
     prop "is a spanning tree" $
       \g -> \(InfiniteList ws _) ->
         not (null $ vertexes g) ==>
@@ -42,8 +42,9 @@ properties minimumSpanningTree name = modifyMaxSize (const 5) $ do
 examples :: Spec
 examples = do
   describe "Examples" $ do
-    it "minimumSpanningTree graph83 weights84" $ do
-      (sum $ map (weights84 Map.!) $ Set.toList $ edges $ minimumSpanningTree graph83 weights84) `shouldBe` 33
+    it "minimumSpanningTree graph83 weights84" $
+      let t = minimumSpanningTree graph83 weights84
+      in sum (map (weights84 Map.!) $ Set.toList $ edges t) `shouldBe` 33
 
   where minimumSpanningTree = Problem.minimumSpanningTree
         weights84 = Problem.weights84

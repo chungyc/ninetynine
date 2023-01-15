@@ -1,10 +1,11 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P85Spec (spec) where
 
+import           Data.List                 (permutations)
 import           Data.Map                  (Map, (!))
 import qualified Data.Map.Lazy             as Map
 import           Data.Maybe                (fromJust)
@@ -20,16 +21,19 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (G -> G -> Bool) -> String -> Spec
-properties isomorphic name = modifyMaxSize (const 15) $ do
-  describe name $ do
-    prop "is true for permuted graphs" $
-      \g -> forAll (shuffle $ Set.toAscList $ vertexes g) $ \p ->
+properties isomorphic name = describe name $ do
+  modifyMaxSize (const 15) $ do
+    prop "is true for identical graphs" $ \g ->
+      isomorphic g g `shouldBe` True
+
+    prop "is true for permuted graphs" $ \g ->
+      forAll (shuffle $ Set.toAscList $ vertexes g) $ \p ->
       let g' = permute g p
       in counterexample (show (g, g')) $
          isomorphic g g' `shouldBe` True
 
-    prop "is not true for non-isomorphic graphs" $
-      \g -> not (Set.null $ vertexes g) ==>
+    prop "is not true for non-isomorphic graphs" $ \g ->
+      not (Set.null $ vertexes g) ==>
       let v = Set.findMin (vertexes g)
           v' = Set.findMax (vertexes g) + 1
           vs = Set.insert v' $ vertexes g
@@ -39,6 +43,9 @@ properties isomorphic name = modifyMaxSize (const 15) $ do
         let g'' = permute g' p
         in counterexample (show (g, g'')) $
            isomorphic g g'' `shouldBe` False
+
+    prop "is true if and only if graphs are isomorphic" $ \g -> \g' ->
+      isomorphic g g' `shouldBe` isomorphicByDefinition g g'
 
 examples :: Spec
 examples = do
@@ -74,3 +81,15 @@ mapVertexes translate vs = Set.map (translate !) vs
 mapEdges :: Map Vertex Vertex -> Set Edge -> Set Edge
 mapEdges translate es = Set.map (\(Edge (u, v)) -> Edge (f u, f v)) es
   where f = (!) translate
+
+isomorphicByDefinition :: G -> G -> Bool
+isomorphicByDefinition g g'
+  | length vs == length vs' = any equivalentEdges bijections
+  | otherwise = False
+  where vs = Set.toList $ vertexes g
+        vs' = Set.toList $ vertexes g'
+        equivalentEdges f = and [ edgeContainedBy (x,y) g == edgeContainedBy (x',y') g'
+                                | x <- vs, y <- vs', let x' = f x, let y' = f y]
+        edgeContainedBy (x,y) z = Set.member (Edge (x,y)) $ edges z
+        bijections = [ \x -> m ! x | m <- mappings ]
+        mappings = [ Map.fromList $ zip vs ys | ys <- permutations vs' ]

@@ -17,31 +17,32 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Vertex -> Vertex -> G -> [[Vertex]]) -> String -> Spec
-properties paths name = describe name $ modifyMaxSize (const 25) $ do
-  prop "includes path" $ \(Sets (vs, es)) ->
-    forAll (sublistOf $ Set.toList vs) $ \vs' ->
-    forAll (shuffle vs') $ \path ->
-    not (null path) ==>
-    classify (length path <= 2) "trivial" $
-    let src = head path
-        dst = last path
-        es' = Set.union es $ pathEdges path  -- ensure path exists
-        g = fromJust $ toGraph (vs, es')
-    in counterexample ("from " ++ show src ++ " to " ++ show dst) $
-       counterexample (show $ toPaths g) $
-       paths src dst g `shouldSatisfy` elem path
+properties paths name = describe name $ do
+  modifyMaxSize (const 25) $ do
+    prop "includes path" $ \(Sets (vs, es)) ->
+      forAll (sublistOf $ Set.toList vs) $ \vs' ->
+      forAll (shuffle vs') $ \path ->
+      not (null path) ==>
+      classify (length path <= 2) "trivial" $
+      let src = head path
+          dst = last path
+          es' = Set.union es $ pathEdges path  -- ensure path exists
+          g = fromJust $ toGraph (vs, es')
+      in counterexample ("from " ++ show src ++ " to " ++ show dst) $
+         counterexample (show $ toPaths g) $
+         paths src dst g `shouldSatisfy` elem path
 
-  prop "does not include non-existant path" $ \(Sets (vs, es)) ->
-    forAll (sublistOf $ Set.toList vs) $ \vs' ->
-    forAll (shuffle vs') $ \path ->
-    length path > 1 ==>
-    let src = head path
-        dst = last path
-        es' = Set.difference es $ pathEdges path  -- ensure path does not exist
-        g = fromJust $ toGraph (vs, es')
-    in counterexample ("from " ++ show src ++ " to " ++ show dst) $
-       counterexample (show $ toPaths g) $
-       paths src dst g `shouldNotSatisfy` elem path
+    prop "does not include non-existant path" $ \(Sets (vs, es)) ->
+      forAll (sublistOf $ Set.toList vs) $ \vs' ->
+      forAll (shuffle vs') $ \path ->
+      length path > 1 ==>
+      let src = head path
+          dst = last path
+          es' = Set.difference es $ pathEdges path  -- ensure path does not exist
+          g = fromJust $ toGraph (vs, es')
+      in counterexample ("from " ++ show src ++ " to " ++ show dst) $
+         counterexample (show $ toPaths g) $
+         paths src dst g `shouldNotSatisfy` elem path
 
   where
     -- The set of edges forming the given path.

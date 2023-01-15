@@ -17,30 +17,31 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Vertex -> G -> [[Vertex]]) -> String -> Spec
-properties cycles name = describe name $ modifyMaxSize (const 25) $ do
-  prop "includes cycle" $ \(Sets (vs, es)) ->
-    forAll (sublistOf $ Set.toList vs) $ \vs' ->
-    forAll (shuffle vs') $ \path ->
-    length path > 2 ==>
-    let v = head path
-        cycleEdges = Set.insert (Edge (last path, v)) $ pathEdges path
-        es' = Set.union es cycleEdges  -- ensure cycle exists
-        g = fromJust $ toGraph (vs, es')
-    in counterexample ("from " ++ show v) $
-       counterexample (show $ toPaths g) $
-       cycles v g `shouldSatisfy` elem path
+properties cycles name = describe name $ do
+  modifyMaxSize (const 25) $ do
+    prop "includes cycle" $ \(Sets (vs, es)) ->
+      forAll (sublistOf $ Set.toList vs) $ \vs' ->
+      forAll (shuffle vs') $ \path ->
+      length path > 2 ==>
+      let v = head path
+          cycleEdges = Set.insert (Edge (last path, v)) $ pathEdges path
+          es' = Set.union es cycleEdges  -- ensure cycle exists
+          g = fromJust $ toGraph (vs, es')
+      in counterexample ("from " ++ show v) $
+         counterexample (show $ toPaths g) $
+         cycles v g `shouldSatisfy` elem path
 
-  prop "does not include non-existant path" $ \(Sets (vs, es)) ->
-    forAll (sublistOf $ Set.toList vs) $ \vs' ->
-    forAll (shuffle vs') $ \path ->
-    length path > 1 ==>
-    let v = head path
-        cycleEdges = Set.insert (Edge (last path, v)) $ pathEdges path
-        es' = Set.difference es $ cycleEdges  -- ensure cycle does not exist
-        g = fromJust $ toGraph (vs, es')
-    in counterexample ("from " ++ show v) $
-       counterexample (show $ toPaths g) $
-       cycles v g `shouldNotSatisfy` elem path
+    prop "does not include non-existant path" $ \(Sets (vs, es)) ->
+      forAll (sublistOf $ Set.toList vs) $ \vs' ->
+      forAll (shuffle vs') $ \path ->
+      length path > 1 ==>
+      let v = head path
+          cycleEdges = Set.insert (Edge (last path, v)) $ pathEdges path
+          es' = Set.difference es $ cycleEdges  -- ensure cycle does not exist
+          g = fromJust $ toGraph (vs, es')
+      in counterexample ("from " ++ show v) $
+         counterexample (show $ toPaths g) $
+         cycles v g `shouldNotSatisfy` elem path
 
   where
     -- The set of edges forming the given path.

@@ -29,7 +29,9 @@ properties
       conjoin (map (\t -> t `shouldSatisfy` isSpanningTree g) $ spanningTrees g)
 
     prop "is idempotent" $ \g ->
-      conjoin (map (\t -> t `shouldSatisfy` (==) [t] . spanningTrees) $ spanningTrees g)
+      conjoin $ do
+        t <- spanningTrees g
+        return $ t `shouldSatisfy` (==) [t] . spanningTrees
 
     modifyMaxSize (const 9) $ do
       prop "includes arbitrary spanning tree" $
@@ -48,38 +50,35 @@ properties
       isConnected g `shouldBe` isConnectedGraph g
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "length $ spanningTrees graph83" $ do
-      length (spanningTrees graph83) `shouldBe` 173
+examples = describe "Examples" $ do
+  it "length $ spanningTrees graph83" $ do
+    length (spanningTrees graph83) `shouldBe` 173
 
-    it "(toG $ Paths [[1,2,4,5,6,7,8],[1,3],[5,10],[7,9]]) `elem` (spanningTrees graph83)" $ do
-      spanningTrees graph83 `shouldSatisfy` elem (toG $ Paths [[1,2,4,5,6,7,8],[1,3],[5,10],[7,9]])
+  it "(toG $ Paths [[1,2,4,5,6,7,8],[1,3],[5,10],[7,9]]) `elem` (spanningTrees graph83)" $ do
+    spanningTrees graph83 `shouldSatisfy` elem (toG $ Paths [[1,2,4,5,6,7,8],[1,3],[5,10],[7,9]])
 
-    it "isTree graph83" $ do
-      isTree graph83 `shouldBe` False
+  it "isTree graph83" $ do
+    isTree graph83 `shouldBe` False
 
-    it "isTree $ toG $ Paths [[1,2,3],[1,4,5]]" $ do
-      (isTree $ toG $ Paths [[1,2,3],[1,4,5]]) `shouldBe` True
+  it "isTree $ toG $ Paths [[1,2,3],[1,4,5]]" $ do
+    (isTree $ toG $ Paths [[1,2,3],[1,4,5]]) `shouldBe` True
 
-    it "isConnected graph83" $ do
-      isConnected graph83 `shouldBe` True
+  it "isConnected graph83" $ do
+    isConnected graph83 `shouldBe` True
 
-    it "isConnected $ toG $ Lists ([1,2,3], [])" $ do
-      (isConnected $ toG $ Lists ([1,2,3], [])) `shouldBe` False
+  it "isConnected $ toG $ Lists ([1,2,3], [])" $ do
+    (isConnected $ toG $ Lists ([1,2,3], [])) `shouldBe` False
 
-    where spanningTrees = Problem.spanningTrees
-          isTree = Problem.isTree
-          isConnected = Problem.isConnected
+  where spanningTrees = Problem.spanningTrees
+        isTree = Problem.isTree
+        isConnected = Problem.isConnected
 
 spec :: Spec
 spec = parallel $ do
   properties
     (Problem.spanningTrees, Problem.isTree, Problem.isConnected)
     ("spanningTrees", "isTree", "isConnected")
-
   examples
-
   describe "From solutions" $ do
     properties
       (Solution.spanningTrees, Solution.isTree, Solution.isConnected)

@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -20,9 +20,9 @@ import           Test.QuickCheck
 
 properties :: (G -> [[Vertex]]) -> String -> Spec
 properties connectedComponents name = describe name $ do
-  prop "has paths between connected components" $
-    \g -> connectedComponents g
-    `shouldSatisfy` all (\vs -> all (isConnected g) $ pairs vs)
+  prop "has paths between connected components" $ \g ->
+    connectedComponents g `shouldSatisfy`
+    all (\vs -> all (isConnected g) $ pairs vs)
 
   prop "does not have paths between unconnected components" $
     \(Positive n) -> \(Positive m) ->

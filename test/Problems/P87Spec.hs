@@ -1,11 +1,12 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P87Spec (spec) where
 
 import           Data.List                 (inits, nub, tails)
+import           Data.Maybe                (fromJust)
 import           Data.Set                  (Set)
 import qualified Data.Set                  as Set
 import           Problems.Graphs
@@ -18,32 +19,36 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (G -> Vertex -> [Vertex]) -> String -> Spec
-properties depthFirst name = do
-  describe name $ do
-    prop "starts from starting point" $
-      \g -> withStartFrom g $ \v ->
-      depthFirst g v `shouldSatisfy` (==) v . head
+properties depthFirst name = describe name $ do
+  prop "starts from starting point" $ \g ->
+    g /= empty ==>
+    forAll (vertexesIn g) $ \v ->
+    depthFirst g v `shouldSatisfy` (==) v . head
 
-    prop "is not cyclic" $
-      \g -> withStartFrom g $ \v ->
-      depthFirst g v `shouldSatisfy` \l -> l == nub l
+  prop "is not cyclic" $ \g ->
+    g /= empty ==>
+    forAll (vertexesIn g) $ \v ->
+    depthFirst g v `shouldSatisfy` \l -> l == nub l
 
-    prop "are reachable vertexes from starting point" $
-      \g -> withStartFrom g $ \v ->
-      depthFirst g v `shouldSatisfy` (==) (reachable g Set.empty (Set.singleton v) Set.empty) . Set.fromList
+  prop "are reachable vertexes from starting point" $ \g ->
+    g /= empty ==>
+    forAll (vertexesIn g) $ \v ->
+    depthFirst g v `shouldSatisfy`
+    (==) (reachable g Set.empty (Set.singleton v) Set.empty) . Set.fromList
 
-    prop "traverses depth first" $
-      \g -> withStartFrom g $ \v ->
-      depthFirst g v `shouldSatisfy` isDepthFirstSequence g
+  prop "traverses depth first" $ \g ->
+    g /= empty ==>
+    forAll (vertexesIn g) $ \v ->
+    depthFirst g v `shouldSatisfy` isDepthFirstSequence g
 
-  where withStartFrom g f = not (null $ vertexes g) ==> forAll (elements $ Set.toList $ vertexes g) f
+  where vertexesIn g = elements $ Set.toList $ vertexes g
+        empty = fromJust $ toGraph (Set.empty, Set.empty)
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "depthFirst (toG $ Paths [[1,2,3,4,5], [2,4], [6,7]]) 1" $ do
-      depthFirst (toG $ Paths [[1,2,3,4,5], [2,4], [6,7]]) 1
-        `shouldSatisfy` flip elem [[1,2,3,4,5], [1,2,4,5,3], [1,2,4,3,5]]
+examples = describe "Examples" $ do
+  it "depthFirst (toG $ Paths [[1,2,3,4,5], [2,4], [6,7]]) 1" $ do
+    depthFirst (toG $ Paths [[1,2,3,4,5], [2,4], [6,7]]) 1
+      `shouldSatisfy` flip elem [[1,2,3,4,5], [1,2,4,5,3], [1,2,4,3,5]]
 
   where depthFirst = Problem.depthFirst
 
