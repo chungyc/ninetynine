@@ -13,8 +13,8 @@ import           Test.QuickCheck
 
 properties :: (Integer -> Bool) -> String -> Spec
 properties isPrime name = describe name $ do
-  prop "if and only if there are exactly two divisors" $
-    \(Positive n) -> isPrime n `shouldBe` [1, n] == filter (\k -> n `mod` k == 0) [1..n]
+  prop "if and only if there are exactly two divisors" $ \(Positive n) ->
+    isPrime n `shouldBe` [1, n] == filter (\k -> n `mod` k == 0) [1..n]
 
 examples :: Spec
 examples = describe "Examples" $ do

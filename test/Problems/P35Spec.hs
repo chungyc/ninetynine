@@ -15,14 +15,14 @@ import           Test.QuickCheck
 
 properties :: (Integer -> [Integer]) -> String -> Spec
 properties primeFactors name = describe name $ do
-  prop "has product equal to original number" $
-    \(Positive n) -> primeFactors n `shouldSatisfy` (==) n . product
+  prop "has product equal to original number" $ \(Positive n) ->
+    primeFactors n `shouldSatisfy` (==) n . product
 
-  prop "has prime factors" $
-    \(Positive n) -> primeFactors n `shouldSatisfy` all isPrime
+  prop "has prime factors" $ \(Positive n) ->
+    primeFactors n `shouldSatisfy` all isPrime
 
-  prop "is in ascending order" $
-    \(Positive n) -> primeFactors n `shouldBe` sort (primeFactors n)
+  prop "is in ascending order" $ \(Positive n) ->
+    primeFactors n `shouldBe` sort (primeFactors n)
 
 examples :: Spec
 examples = describe "Examples" $ do

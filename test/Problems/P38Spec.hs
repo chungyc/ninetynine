@@ -16,29 +16,27 @@ import           Test.QuickCheck
 
 properties :: [Integer] -> String -> Spec
 properties highlyTotientNumbers name = describe name $ do
-  it "includes 1" $ do
+  prop "includes 1" $ do
     head highlyTotientNumbers `shouldBe` 1
 
   modifyMaxSize (const 14) $ do
-    prop "members have more solutions than lesser totient numbers" $
-      \(Positive k) ->
-        let n = highlyTotientNumbers !! k
-        in forAll (chooseInteger (1,n-1)) $
-           \m -> counterexample ("n=" ++ show n) $
-                 counterexample ("m=" ++ show m) $
-                 counterexample ("solutions for n=" ++ (show $ countSolutions n)) $
-                 counterexample ("solutions for m=" ++ (show $ countSolutions m)) $
-                 countSolutions n `shouldSatisfy` (<) (countSolutions m)
+    prop "members have more solutions than lesser totient numbers" $ \(Positive k) ->
+      let n = highlyTotientNumbers !! k
+      in forAll (chooseInteger (1,n-1)) $ \m ->
+         counterexample ("n=" ++ show n) $
+         counterexample ("m=" ++ show m) $
+         counterexample ("solutions for n=" ++ (show $ countSolutions n)) $
+         counterexample ("solutions for m=" ++ (show $ countSolutions m)) $
+         countSolutions n `shouldSatisfy` (<) (countSolutions m)
 
-    prop "does not skip highly totient number" $
-      \(Positive k) ->
-        let (n,n') = (zip highlyTotientNumbers $ tail highlyTotientNumbers) !! k
-        in forAll (chooseInteger (n+1,n'-1)) $
-           \m -> counterexample ("n=" ++ show n) $
-                 counterexample ("m=" ++ show m) $
-                 counterexample ("solutions for n=" ++ (show $ countSolutions n)) $
-                 counterexample ("solutions for m=" ++ (show $ countSolutions m)) $
-                 countSolutions m `shouldSatisfy` (>=) (countSolutions n)
+    prop "does not skip highly totient number" $ \(Positive k) ->
+      let (n,n') = (zip highlyTotientNumbers $ tail highlyTotientNumbers) !! k
+      in forAll (chooseInteger (n+1,n'-1)) $ \m ->
+         counterexample ("n=" ++ show n) $
+         counterexample ("m=" ++ show m) $
+         counterexample ("solutions for n=" ++ (show $ countSolutions n)) $
+         counterexample ("solutions for m=" ++ (show $ countSolutions m)) $
+         countSolutions m `shouldSatisfy` (>=) (countSolutions n)
 
 examples :: Spec
 examples = describe "Examples" $ do

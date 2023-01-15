@@ -15,16 +15,14 @@ import           Test.QuickCheck
 
 properties :: (Integer -> [(Integer, Integer)]) -> String -> Spec
 properties primeFactorsMultiplicity name = describe name $ do
-  prop "has product equal to original number" $
-    \(Positive n) -> primeFactorsMultiplicity n
-                     `shouldSatisfy` (==) n . product . map (\(p, r) -> p^r)
+  prop "has product equal to original number" $ \(Positive n) ->
+    primeFactorsMultiplicity n `shouldSatisfy` (==) n . product . map (\(p, r) -> p^r)
 
-  prop "are prime factors" $
-    \(Positive n) -> primeFactorsMultiplicity n `shouldSatisfy` all (isPrime . fst)
+  prop "are prime factors" $ \(Positive n) ->
+    primeFactorsMultiplicity n `shouldSatisfy` all (isPrime . fst)
 
-  prop "are distinct factors" $
-    \(Positive n) -> primeFactorsMultiplicity n
-                     `shouldSatisfy` all ((==) 1 . length) . group . map fst
+  prop "are distinct factors" $ \(Positive n) ->
+    primeFactorsMultiplicity n `shouldSatisfy` all ((==) 1 . length) . group . map fst
 
 examples :: Spec
 examples = describe "Examples" $ do

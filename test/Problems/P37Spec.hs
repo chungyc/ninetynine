@@ -15,8 +15,8 @@ import           Test.QuickCheck
 
 properties :: (Integer -> Integer) -> String -> Spec
 properties totient' name = describe name $ do
-  prop "is count of lesser than or equal numbers that are coprime" $
-    \(Positive n) -> totient' n `shouldBe` genericLength (filter (coprime n) [1..n])
+  prop "is count of lesser than or equal numbers that are coprime" $ \(Positive n) ->
+    totient' n `shouldBe` genericLength (filter (coprime n) [1..n])
 
 examples :: Spec
 examples = describe "Examples" $ do
