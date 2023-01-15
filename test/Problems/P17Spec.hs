@@ -13,14 +13,15 @@ import           Test.QuickCheck
 
 properties :: ([Int] -> Int -> ([Int], [Int])) -> String -> Spec
 properties split name = describe name $ do
-  prop "splits nothing" $
-    \(NonNegative n) -> split [] n `shouldBe` ([], [])
+  prop "splits nothing" $ \(NonNegative n) ->
+    split [] n `shouldBe` ([], [])
 
-  prop "splits list" $
-    \xs -> \ys -> split (xs ++ ys) (length xs) `shouldBe` (xs, ys)
+  prop "splits list" $ \xs -> \ys ->
+    split (xs ++ ys) (length xs) `shouldBe` (xs, ys)
 
   prop "does not split list with large enough given length" $
-    \xs -> \(NonNegative n) -> split xs (n + length xs) `shouldBe` (xs, [])
+    \xs -> \(NonNegative n) ->
+      split xs (n + length xs) `shouldBe` (xs, [])
 
 examples :: Spec
 examples = describe "Examples" $ do

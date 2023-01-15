@@ -13,14 +13,15 @@ import           Test.QuickCheck
 
 properties :: ([Int] -> Bool) -> String -> Spec
 properties isPalindrome name = describe name $ do
-  prop "returns true for even-length palindromes" $
-    \xs -> isPalindrome (xs ++ reverse xs) `shouldBe` True
+  prop "returns true for even-length palindromes" $ \xs ->
+    isPalindrome (xs ++ reverse xs) `shouldBe` True
 
-  prop "returns true for odd-length palindromes" $
-    \xs -> \x -> isPalindrome (xs ++ [x] ++ reverse xs) `shouldBe` True
+  prop "returns true for odd-length palindromes" $ \xs -> \x ->
+    isPalindrome (xs ++ [x] ++ reverse xs) `shouldBe` True
 
-  prop "returns false for non-palindromes" $
-    \xs -> xs /= reverse xs ==> isPalindrome xs `shouldBe` False
+  prop "returns false for non-palindromes" $ \xs ->
+    xs /= reverse xs ==>
+    isPalindrome xs `shouldBe` False
 
 examples :: Spec
 examples = describe "Examples" $ do

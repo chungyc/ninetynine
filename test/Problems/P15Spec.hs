@@ -13,12 +13,11 @@ import           Test.QuickCheck
 
 properties :: ([Int] -> Int -> [Int]) -> String -> Spec
 properties repli name = describe name $ do
-  prop "repeats nothing" $
-    \(NonNegative k) -> repli [] k `shouldBe` []
+  prop "repeats nothing" $ \(NonNegative k) ->
+    repli [] k `shouldBe` []
 
-  prop "repeats element" $
-    \xs -> \x -> \ys -> \(NonNegative k) ->
-      repli (xs ++ [x] ++ ys) k `shouldBe` repli xs k ++ replicate k x ++ repli ys k
+  prop "repeats element" $ \xs -> \x -> \ys -> \(NonNegative k) ->
+    repli (xs ++ [x] ++ ys) k `shouldBe` repli xs k ++ replicate k x ++ repli ys k
 
 examples :: Spec
 examples = describe "Examples" $ do

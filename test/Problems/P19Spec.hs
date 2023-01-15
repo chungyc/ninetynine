@@ -13,25 +13,23 @@ import           Test.QuickCheck
 
 properties :: ([Int] -> Int -> [Int]) -> String -> Spec
 properties rotate name = describe name $ do
-  prop "rotation by zero is identity" $
-    \(NonEmpty xs) -> rotate xs 0 `shouldBe` xs
+  prop "rotation by zero is identity" $ \(NonEmpty xs) ->
+    rotate xs 0 `shouldBe` xs
 
-  prop "rotates by one" $
-    \(NonEmpty xs) -> rotate xs 1 `shouldBe` tail xs ++ [head xs]
+  prop "rotates by one" $ \(NonEmpty xs) ->
+    rotate xs 1 `shouldBe` tail xs ++ [head xs]
 
-  prop "rotates by negative one" $
-    \(NonEmpty xs) -> rotate xs (-1) `shouldBe` last xs : init xs
+  prop "rotates by negative one" $ \(NonEmpty xs) ->
+    rotate xs (-1) `shouldBe` last xs : init xs
 
-  prop "rotates by n equivalent to (rotate 1) n times" $
-    \(NonEmpty xs) -> \(Positive n) ->
-      rotate xs n `shouldBe` (head $ drop n $ iterate (flip rotate 1) xs)
+  prop "rotates by n equivalent to (rotate 1) n times" $ \(NonEmpty xs) -> \(Positive n) ->
+    rotate xs n `shouldBe` (head $ drop n $ iterate (flip rotate 1) xs)
 
-  prop "rotates by -n equivalent to (rotate -1) n times" $
-    \(NonEmpty xs) -> \(Positive n) ->
-      rotate xs (-n) `shouldBe` (head $ drop n $ iterate (flip rotate $ -1) xs)
+  prop "rotates by -n equivalent to (rotate -1) n times" $ \(NonEmpty xs) -> \(Positive n) ->
+    rotate xs (-n) `shouldBe` (head $ drop n $ iterate (flip rotate $ -1) xs)
 
-  prop "rotate _ (-n) is inverse of rotate _ n" $
-    \xs -> \n -> rotate (rotate xs n) (-n) `shouldBe` xs
+  prop "rotate _ (-n) is inverse of rotate _ n" $ \xs -> \n ->
+    rotate (rotate xs n) (-n) `shouldBe` xs
 
 examples :: Spec
 examples = describe "Examples" $ do

@@ -12,12 +12,11 @@ import           Test.Hspec.QuickCheck
 
 properties :: ([Int] -> [Int]) -> String -> Spec
 properties dupli name = describe name $ do
-  it "duplicates nothing" $ do
+  prop "duplicates nothing" $
     dupli [] `shouldBe` []
 
-  prop "duplicates element" $
-    \xs -> \x -> \ys ->
-      dupli (xs ++ [x] ++ ys) `shouldBe` dupli xs ++ [x,x] ++ dupli ys
+  prop "duplicates element" $ \xs -> \x -> \ys ->
+    dupli (xs ++ [x] ++ ys) `shouldBe` dupli xs ++ [x,x] ++ dupli ys
 
 examples :: Spec
 examples = describe "Examples" $ do

@@ -13,11 +13,10 @@ import           Test.QuickCheck
 
 properties :: ([Int] -> Int -> Int) -> String -> Spec
 properties elementAt name = describe name $ do
-  prop "finds the K'th element of a list" $
-    \(Positive k) -> \x ->
-      forAll (vectorOf (k-1) arbitrary) $ \ys ->
-      forAll (listOf arbitrary) $ \zs ->
-      elementAt (ys ++ [x] ++ zs) k `shouldBe` x
+  prop "finds the K'th element of a list" $ \(Positive k) -> \x ->
+    forAll (vectorOf (k-1) arbitrary) $ \ys ->
+    forAll (listOf arbitrary) $ \zs ->
+    elementAt (ys ++ [x] ++ zs) k `shouldBe` x
 
 examples :: Spec
 examples = describe "Examples" $ do

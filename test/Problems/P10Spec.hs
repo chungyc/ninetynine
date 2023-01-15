@@ -13,8 +13,8 @@ import           Test.QuickCheck
 
 properties :: ([Int] -> [(Int, Int)]) -> String -> Spec
 properties encode name = describe name $ do
-  prop "decodes into original list" $
-    \l -> encode l `shouldSatisfy` (==) l . concatMap (uncurry replicate)
+  prop "decodes into original list" $ \l ->
+    encode l `shouldSatisfy` (==) l . concatMap (uncurry replicate)
 
   prop "encodes consecutive duplicates to single encoding" $
     \xs -> \x -> \ys -> \(Positive k) ->

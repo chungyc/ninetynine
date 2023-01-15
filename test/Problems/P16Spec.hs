@@ -13,17 +13,16 @@ import           Test.QuickCheck
 
 properties :: ([Int] -> Int -> [Int]) -> String -> Spec
 properties dropEvery name = describe name $ do
-  prop "drops nothing" $
-    \(Positive k) -> dropEvery [] k `shouldBe` []
+  prop "drops nothing" $ \(Positive k) ->
+    dropEvery [] k `shouldBe` []
 
-  prop "drops every n element" $
-    \(Positive n) -> \(Positive q) -> forAll (vectorOf (q*n-1) arbitrary) $ \xs -> \x ->
-      dropEvery (xs ++ [x]) n `shouldBe` dropEvery xs n
+  prop "drops every n element" $ \(Positive n) -> \(Positive q) ->
+    forAll (vectorOf (q*n-1) arbitrary) $ \xs -> \x ->
+    dropEvery (xs ++ [x]) n `shouldBe` dropEvery xs n
 
-  prop "does not drop other elements" $
-    \(Positive n) -> \xs -> \x ->
-      (length xs + 1) `mod` n /= 0 ==>
-      dropEvery (xs ++ [x]) n `shouldBe` dropEvery xs n ++ [x]
+  prop "does not drop other elements" $ \(Positive n) -> \xs -> \x ->
+    (length xs + 1) `mod` n /= 0 ==>
+    dropEvery (xs ++ [x]) n `shouldBe` dropEvery xs n ++ [x]
 
 examples :: Spec
 examples = describe "Examples" $ do

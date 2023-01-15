@@ -14,8 +14,8 @@ import           Test.Hspec.QuickCheck
 
 properties :: ([Encoding Int] -> [Int]) -> String -> Spec
 properties decodeModified name = describe name $ do
-  prop "restores original list from its encoding" $
-    \l -> decodeModified (encodeModified l) `shouldBe` l
+  prop "restores original list from its encoding" $ \l ->
+    decodeModified (encodeModified l) `shouldBe` l
 
 examples :: Spec
 examples = describe "Examples" $ do

@@ -12,11 +12,11 @@ import           Test.Hspec.QuickCheck
 
 properties :: ([Int] -> Int) -> String -> Spec
 properties myLength name = describe name $ do
-  it "returns zero for empty list" $ do
+  prop "returns zero for empty list" $ do
     myLength [] `shouldBe` 0
 
-  prop "satisfies induction step" $
-    \l -> myLength (1:l) `shouldBe` 1 + myLength l
+  prop "satisfies induction step" $ \l ->
+    myLength (1:l) `shouldBe` 1 + myLength l
 
 examples :: Spec
 examples = describe "Examples" $ do

@@ -14,14 +14,14 @@ import           Test.Hspec.QuickCheck
 
 properties :: (NestedList Int -> [Int]) -> String -> Spec
 properties flatten name = describe name $ do
-  prop "singleton is singleton" $
-    \x -> flatten (Elem x) `shouldBe` [x]
+  prop "singleton is singleton" $ \x ->
+    flatten (Elem x) `shouldBe` [x]
 
-  prop "flat list is flat" $
-    \xs -> flatten (List $ map Elem xs) `shouldBe` xs
+  prop "flat list is flat" $ \xs ->
+    flatten (List $ map Elem xs) `shouldBe` xs
 
-  prop "concatenates flattened items" $
-    \xs -> flatten (List xs) `shouldBe` concatMap flatten xs
+  prop "concatenates flattened items" $ \xs ->
+    flatten (List xs) `shouldBe` concatMap flatten xs
 
 examples :: Spec
 examples = describe "Examples" $ do

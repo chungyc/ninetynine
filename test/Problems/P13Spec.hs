@@ -14,8 +14,8 @@ import           Test.Hspec.QuickCheck
 
 properties :: ([Int] -> [Encoding Int]) -> String -> Spec
 properties encodeDirect name = describe name $ do
-  prop "is same as encodeModified" $
-    \l -> encodeDirect l `shouldBe` encodeModified l
+  prop "is same as encodeModified" $ \l ->
+    encodeDirect l `shouldBe` encodeModified l
 
 examples :: Spec
 examples = describe "Examples" $ do

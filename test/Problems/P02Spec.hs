@@ -12,8 +12,8 @@ import           Test.Hspec.QuickCheck
 
 properties :: ([Int] -> Int) -> String -> Spec
 properties myButLast name = describe name $ do
-  prop "finds the last but one element in list" $
-    \xs -> \x -> \y -> myButLast (xs ++ [x,y]) `shouldBe` x
+  prop "finds the last but one element in list" $ \xs -> \x -> \y ->
+    myButLast (xs ++ [x,y]) `shouldBe` x
 
 examples :: Spec
 examples = describe "Examples" $ do

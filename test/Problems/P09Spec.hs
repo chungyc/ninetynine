@@ -13,11 +13,11 @@ import           Test.QuickCheck
 
 properties :: ([Int] -> [[Int]]) -> String -> Spec
 properties pack name = describe name $ do
-  prop "sublists are packed from list" $
-    \xs -> pack xs `shouldSatisfy` (==) xs . concat
+  prop "sublists are packed from list" $ \xs ->
+    pack xs `shouldSatisfy` (==) xs . concat
 
-  prop "sublists contain identical elements" $
-    \xs -> pack xs `shouldSatisfy` all (\l -> and [ x == y | x <- l, y <- l])
+  prop "sublists contain identical elements" $ \xs ->
+    pack xs `shouldSatisfy` all (\l -> and [ x == y | x <- l, y <- l])
 
   prop "identical elements do not span consecutive sublists" $
     \xs -> \(Positive k) -> \x -> \ys ->

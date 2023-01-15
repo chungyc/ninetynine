@@ -12,8 +12,8 @@ import           Test.Hspec.QuickCheck
 
 properties :: ([Int] -> Int) -> String -> Spec
 properties myLast name = describe name $ do
-  prop "returns last element in list" $
-    \xs -> \x -> myLast (xs ++ [x]) `shouldBe` x
+  prop "returns last element in list" $ \xs -> \x ->
+    myLast (xs ++ [x]) `shouldBe` x
 
 examples :: Spec
 examples = describe "Examples" $ do
