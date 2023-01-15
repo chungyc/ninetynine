@@ -16,7 +16,7 @@ spec = describe "compare" $ do
   prop "is reflexive" $ \t ->
     leq t t `shouldBe` True
 
-  prop "is antisymmetric" $ withMaxSuccess 1000 $ \t -> \v ->
+  prop "is antisymmetric" $ \t -> \v ->
     classify (t == v) "equal" $
     eq t v `shouldBe` leq t v && leq v t
 
