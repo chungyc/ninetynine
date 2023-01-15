@@ -15,19 +15,20 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Int -> [Tree ()]) -> String -> Spec
-properties symmetricBalancedTrees name = describe name $ modifyMaxSize (const 32) $ do
-  prop "are all completely balanced" $
-    \(NonNegative n) -> symmetricBalancedTrees n `shouldSatisfy` all balanced
+properties symmetricBalancedTrees name = describe name $ do
+  modifyMaxSize (const 32) $ do
+    prop "are all completely balanced" $
+      \(NonNegative n) -> symmetricBalancedTrees n `shouldSatisfy` all balanced
 
-  prop "are all symmetric" $
-    \(NonNegative n) -> symmetricBalancedTrees n `shouldSatisfy` all symmetric
+    prop "are all symmetric" $
+      \(NonNegative n) -> symmetricBalancedTrees n `shouldSatisfy` all symmetric
 
-  prop "contains completely balanced trees which are symmetric" $
-    \t -> classify (balanced t) "balanced" $
-          classify (symmetric t) "symmetric" $
-          classify (balanced t && symmetric t) "balanced and symmetric" $
-          symmetricBalancedTrees (treeSize t)
-          `shouldSatisfy` (==) (balanced t && symmetric t) . elem t
+    prop "contains completely balanced trees which are symmetric" $ \t ->
+      classify (balanced t) "balanced" $
+      classify (symmetric t) "symmetric" $
+      classify (balanced t && symmetric t) "balanced and symmetric" $
+      symmetricBalancedTrees (treeSize t)
+      `shouldSatisfy` (==) (balanced t && symmetric t) . elem t
 
   where balanced Empty = True
         balanced (Branch _ t v)

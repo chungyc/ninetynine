@@ -15,8 +15,8 @@ import           Test.QuickCheck
 
 properties :: (Tree Int -> Bool) -> String -> Spec
 properties symmetric name = describe name $ do
-  prop "is true for trees whose structure is symmetric" $
-    \t -> forAll (valued $ Branch () t $ reflect t) $ \t' ->
+  prop "is true for trees whose structure is symmetric" $ \t ->
+    forAll (valued $ Branch () t $ reflect t) $ \t' ->
       t' `shouldSatisfy` symmetric
 
   prop "is false for non-symmetric trees" $
@@ -48,5 +48,5 @@ reflect (Branch x left right) = Branch x (reflect right) (reflect left)
 -- | Generates a tree with the same structure as the given tree,
 -- but with arbitrary values in each node.
 valued :: Arbitrary b => Tree a -> Gen (Tree b)
-valued Empty          = elements [Empty]
+valued Empty          = pure Empty
 valued (Branch _ l r) = Branch <$> arbitrary <*> valued l <*> valued r

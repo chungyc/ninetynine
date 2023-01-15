@@ -16,16 +16,16 @@ import           Test.QuickCheck
 
 properties :: (Int -> [Tree ()]) -> String -> Spec
 properties completelyBalancedTrees name = describe name $ do
-  modifyMaxSize (const 32) $  -- limit combinatorial explosion
-    prop "has completely balanced trees" $
-    \(NonNegative n) ->
-      conjoin $ map (\t -> t `shouldSatisfy` balanced) $
-      completelyBalancedTrees n
+  modifyMaxSize (const 32) $ do
+    prop "has completely balanced trees" $ \(NonNegative n) ->
+      conjoin $ do
+        t <- completelyBalancedTrees n
+        return $ t `shouldSatisfy` balanced
 
-  describe "includes all completely balanced trees" $ do
-    forM_ [0..8] $ \n -> it ("with size " ++ show n) $ do
-      completelyBalancedTrees n
-        `shouldMatchList` filter balanced (trees n)
+  describe "includes all completely balanced trees" $
+    forM_ [0..8] $ \n ->
+      it ("with size " ++ show n) $ do
+        completelyBalancedTrees n `shouldMatchList` filter balanced (trees n)
 
   where
     -- Number of nodes in a tree.
@@ -48,25 +48,24 @@ properties completelyBalancedTrees name = describe name $ do
       return $ Branch () l r
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "completelyBalancedTrees 4" $ do
-      completelyBalancedTrees 4 `shouldMatchList`
-        [ Branch ()
-          (Branch () Empty Empty)
-          (Branch () Empty
-            (Branch () Empty Empty))
-        , Branch ()
-          (Branch () Empty Empty)
-          (Branch () (Branch () Empty Empty) Empty)
-        , Branch ()
-          (Branch () Empty
-            (Branch () Empty Empty))
-          (Branch () Empty Empty)
-        , Branch ()
-          (Branch () (Branch () Empty Empty) Empty)
-          (Branch () Empty Empty)
-        ]
+examples = describe "Examples" $ do
+  it "completelyBalancedTrees 4" $ do
+    completelyBalancedTrees 4 `shouldMatchList`
+      [ Branch ()
+        (Branch () Empty Empty)
+        (Branch () Empty
+          (Branch () Empty Empty))
+      , Branch ()
+        (Branch () Empty Empty)
+        (Branch () (Branch () Empty Empty) Empty)
+      , Branch ()
+        (Branch () Empty
+          (Branch () Empty Empty))
+        (Branch () Empty Empty)
+      , Branch ()
+        (Branch () (Branch () Empty Empty) Empty)
+        (Branch () Empty Empty)
+      ]
 
   where completelyBalancedTrees = Problem.completelyBalancedTrees
 

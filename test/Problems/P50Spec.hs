@@ -19,53 +19,48 @@ import           Test.QuickCheck
 
 properties :: ([(Char,Int)] -> [(Char,String)]) -> String -> Spec
 properties huffman name = describe name $ do
-  prop "has code for all characters" $
-    \(Counts cs) ->
-      huffman cs `shouldSatisfy`
-      (==) (sort $ map fst cs) . sort . map fst
+  prop "has code for all characters" $ \(Counts cs) ->
+    huffman cs `shouldSatisfy`
+    (==) (sort $ map fst cs) . sort . map fst
 
-  prop "each character has one code" $
-    \(Counts cs) ->
-      huffman cs `shouldSatisfy`
-      all (==1) . map length . group . sort . map fst
+  prop "each character has one code" $ \(Counts cs) ->
+    huffman cs `shouldSatisfy`
+    all (==1) . map length . group . sort . map fst
 
-  prop "no code is empty" $
-    \(Counts cs) ->
-      huffman cs `shouldSatisfy`
-      all (not . null) . map snd
+  prop "no code is empty" $ \(Counts cs) ->
+    huffman cs `shouldSatisfy`
+    all (not . null) . map snd
 
-  prop "code is not longer than code for more frequent character" $
-    \(Counts cs) -> length cs > 1 ==>
-      forAll (elements $ map fst cs) $ \x ->
-      forAll (elements $ map fst cs) $ \y ->
-      retrieve x cs < retrieve y cs ==>
-      huffman cs `shouldSatisfy`
-      \e -> length (retrieve x e) >= length (retrieve y e)
+  prop "code is not longer than code for more frequent character" $ \(Counts cs) ->
+    length cs > 1 ==>
+    forAll (elements $ map fst cs) $ \x ->
+    forAll (elements $ map fst cs) $ \y ->
+    retrieve x cs < retrieve y cs ==>
+    huffman cs `shouldSatisfy`
+    \e -> length (retrieve x e) >= length (retrieve y e)
 
-  prop "has no code which is a prefix of another" $
-    \(Counts cs) -> length cs > 1 ==>
-      forAll (elements $ map fst cs) $ \x ->
-      forAll (elements $ map fst cs) $ \y ->
-      x /= y ==>
-      huffman cs `shouldSatisfy`
-      \e -> not (retrieve x e `isPrefixOf` retrieve y e)
+  prop "has no code which is a prefix of another" $ \(Counts cs) ->
+    length cs > 1 ==>
+    forAll (elements $ map fst cs) $ \x ->
+    forAll (elements $ map fst cs) $ \y ->
+    x /= y ==>
+    huffman cs `shouldSatisfy`
+    \e -> not (retrieve x e `isPrefixOf` retrieve y e)
 
-  prop "is unambiguous encoding" $
-    \s -> let counts = countCharacters s
-              table = huffman counts
-          in counterexample ("counts = " ++ show counts) $
-             counterexample ("encoding = " ++ show table) $
-             (decodeHuffman table . encodeHuffman table) s `shouldBe` s
+  prop "is unambiguous encoding" $ \s ->
+    let counts = countCharacters s
+        table = huffman counts
+    in counterexample ("counts = " ++ show counts) $
+       counterexample ("encoding = " ++ show table) $
+       (decodeHuffman table . encodeHuffman table) s `shouldBe` s
 
-  prop "does not leave shorter codes unused" $
-    \(Counts cs) ->
-      length cs > 1 ==>
-      huffman cs `shouldSatisfy` isCompact . toTree
+  prop "does not leave shorter codes unused" $ \(Counts cs) ->
+    length cs > 1 ==>
+    huffman cs `shouldSatisfy` isCompact . toTree
 
-  prop "does not have child trees that are lighter than grandchild trees" $
-    \(Counts cs) ->
-      length cs > 1 ==>
-      huffman cs `shouldSatisfy` isGreedy (Map.fromList cs) . toTree
+  prop "does not have child trees that are lighter than grandchild trees" $ \(Counts cs) ->
+    length cs > 1 ==>
+    huffman cs `shouldSatisfy` isGreedy (Map.fromList cs) . toTree
 
   where retrieve x xs = fromJust $ lookup x xs
 
@@ -144,7 +139,7 @@ isGreedy m (Branch l r) = all (\w -> all (\w' -> w >= w') grandchildWeights) chi
         subtreeWeights (Leaf _)       = []
         subtreeWeights (Branch l' r') = [weight l', weight r']
 
--- | Distinct characters and associated counts.
+-- | Arbitrary list of distinct characters and associated counts.
 newtype Counts = Counts [(Char,Int)] deriving Show
 
 instance Arbitrary Counts where

@@ -77,7 +77,7 @@ countErrors (x:xs) (x':xs')
       return $ c+1
 countErrors _ _ = Nothing
 
-newtype RNG = RNG StdGen deriving (Show)
+newtype RNG = RNG StdGen deriving Show
 
 instance Arbitrary RNG where
   arbitrary = RNG . mkStdGen <$> arbitrary

@@ -15,37 +15,29 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: ([Formula] -> Formula -> Bool) -> String -> Spec
-properties isTheorem name = describe name $ modifyMaxSize (const 16) $ do
-  it "trivially proves true" $ do
-    isTheorem [] (Value True) `shouldBe` True
+properties isTheorem name = describe name $ do
+  modifyMaxSize (const 16) $ do
+    prop "trivially proves true" $ do
+      isTheorem [] (Value True) `shouldBe` True
 
-  it "does not trivially prove false" $ do
-    isTheorem [] (Value False) `shouldBe` False
+    prop "does not trivially prove false" $ do
+      isTheorem [] (Value False) `shouldBe` False
 
-  prop "proves axiom" $
-    \(Theory theory) ->
+    prop "proves axiom" $ \(Theory theory) ->
       not (null theory) ==>
       forAll (elements theory) $ \conjecture ->
-      within timeout $
       isTheorem theory conjecture `shouldBe` True
 
-  prop "consistent axioms never prove false" $
-    \(Theory theory) -> forAll (assignmentsFor $ Conjoin theory) $ \vs ->
+    prop "consistent axioms never prove false" $ \(Theory theory) ->
+      forAll (assignmentsFor $ Conjoin theory) $ \vs ->
       evaluateFormula vs (Conjoin theory) ==>
-      within timeout $
       isTheorem theory (Value False) `shouldBe` False
 
-  prop "contradictions prove everything" $
-    \(Conjecture conjecture) ->
-      within timeout $
+    prop "contradictions prove everything" $ \(Conjecture conjecture) ->
       isTheorem [Variable "X", Complement $ Variable "X"] conjecture `shouldBe` True
 
-  prop "proves or disproves" $
-    \(Theory theory) -> \(Conjecture conjecture) ->
-      within timeout $
+    prop "proves or disproves" $ \(Theory theory) -> \(Conjecture conjecture) ->
       total $ isTheorem theory conjecture
-
-  where timeout = 10 * 1000 * 1000  -- ten seconds
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -78,15 +70,15 @@ spec = parallel $ do
   describe "From solutions" $ do
     properties Solution.isTheorem "isTheorem"
 
--- A collection of boolean formulas forming a set of axioms.
-newtype Theory = Theory [Formula] deriving (Show)
+-- Arbitrary collection of boolean formulas forming a set of axioms.
+newtype Theory = Theory [Formula] deriving Show
 
 instance Arbitrary Theory where
-  arbitrary = scale (`div` 2) $ Theory <$> listOf arbitrary
+  arbitrary = Theory <$> listOf (scale (`div` 2) arbitrary)
   shrink (Theory fs) = map Theory (shrinkList shrink fs)
 
--- An arbitrary formula that can be used as a conjecture to prove.
-newtype Conjecture = Conjecture Formula deriving (Show)
+-- Arbitrary formula that can be used as a conjecture to prove.
+newtype Conjecture = Conjecture Formula deriving Show
 
 instance Arbitrary Conjecture where
   arbitrary = scale (`div` 2) $ Conjecture <$> arbitrary

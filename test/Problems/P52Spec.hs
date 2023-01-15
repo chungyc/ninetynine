@@ -15,17 +15,15 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Formula -> Formula) -> String -> Spec
-properties toConjunctiveNormalForm name = describe name $ modifyMaxSize (const 15) $ do
-  prop "is in conjunctive normal form" $
-    \f -> label ("formula depth " ++ show (formulaDepth f)) $
-          toConjunctiveNormalForm f
-          `shouldSatisfy` isConjunctiveNormalForm
+properties toConjunctiveNormalForm name = describe name $ do
+  modifyMaxSize (const 15) $ do
+    prop "is in conjunctive normal form" $ \f ->
+      toConjunctiveNormalForm f `shouldSatisfy` isConjunctiveNormalForm
 
-  prop "is equivalent to original formula" $
-    \f -> forAll (assignmentsFor f) $ \m ->
-      label ("formula depth " ++ show (formulaDepth f)) $
-      toConjunctiveNormalForm f
-      `shouldSatisfy` (==) (evaluateFormula m f) . evaluateFormula m
+    prop "is equivalent to original formula" $ \f ->
+      forAll (assignmentsFor f) $ \m ->
+      toConjunctiveNormalForm f `shouldSatisfy`
+      (==) (evaluateFormula m f) . evaluateFormula m
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -41,13 +39,13 @@ examples = describe "Examples" $ do
   where toConjunctiveNormalForm = Problem.toConjunctiveNormalForm
 
         test name formula = describe name $ do
-          it "is conjunctiveNormalForm $ Value True" $ do
+          it "is in conjunctive normal form" $ do
             toConjunctiveNormalForm formula `shouldSatisfy` isConjunctiveNormalForm
 
-          prop "is equivalent to original formula" $ withMaxSuccess 16 $
+          prop "is equivalent to original formula" $
             forAll (assignmentsFor formula) $ \m ->
-            toConjunctiveNormalForm formula
-            `shouldSatisfy` (==) (evaluateFormula m formula) . evaluateFormula m
+            toConjunctiveNormalForm formula `shouldSatisfy`
+            (==) (evaluateFormula m formula) . evaluateFormula m
 
 spec :: Spec
 spec = parallel $ do
@@ -70,11 +68,3 @@ isLiteral (Variable _)              = True
 isLiteral (Complement (Value _))    = True
 isLiteral (Complement (Variable _)) = True
 isLiteral _                         = False
-
-formulaDepth :: Formula -> Int
-formulaDepth (Disjoin [])   = 1
-formulaDepth (Conjoin [])   = 1
-formulaDepth (Disjoin fs)   = 1 + (maximum $ map formulaDepth fs)
-formulaDepth (Conjoin fs)   = 1 + (maximum $ map formulaDepth fs)
-formulaDepth (Complement f) = formulaDepth f
-formulaDepth _              = 1

@@ -14,10 +14,10 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties
-  :: ([Int] -> Tree Int) -> String
-  -> (Int -> Tree Int -> Tree Int) -> String
+  :: ([Int] -> Tree Int, Int -> Tree Int -> Tree Int)
+  -> (String, String)
   -> Spec
-properties construct constructName addedTo addedToName = do
+properties (construct, addedTo) (constructName, addedToName) = do
   describe constructName $ do
     prop "returns a tree whose elements can be searched" $
       \(NonEmpty xs) -> forAll (elements xs) $ \x ->
@@ -70,10 +70,10 @@ examples = describe "Examples" $ do
 
 spec :: Spec
 spec = parallel $ do
-  properties Problem.construct "construct" Problem.addedTo "addedTo"
+  properties (Problem.construct, Problem.addedTo) ("construct", "addedTo")
   examples
   describe "From solutions" $ do
-    properties Solution.construct "construct" Solution.addedTo "addedTo"
+    properties (Solution.construct, Solution.addedTo) ("construct", "addedTo")
 
 -- | Binary tree search.
 search :: Ord a => a -> Tree a -> Maybe a
@@ -98,7 +98,7 @@ diff t@(Branch x l r) t'@(Branch x' l' r')
   | x /= x'= [(t, t')]
   | otherwise = diff l l' ++ diff r r'
 
--- | A binary search tree.
+-- | Arbitrary binary search tree.
 newtype SearchTree a = SearchTree (Tree a) deriving (Show)
 
 instance (Arbitrary a, Ord a) => Arbitrary (SearchTree a) where
