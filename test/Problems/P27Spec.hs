@@ -64,7 +64,7 @@ spec = parallel $ do
   describe "From solutions" $ do
     properties Solution.disjointGroups "disjointGroups"
 
--- | Generate a short list of small numbers to be used as group sizes.
+-- | Generates a short list of small numbers to be used as group sizes.
 --
 -- It will not generate group sizes whose number of groupings are much larger
 -- than the the test should handle.

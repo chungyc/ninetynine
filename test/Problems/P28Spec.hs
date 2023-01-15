@@ -11,23 +11,43 @@ import qualified Solutions.P28         as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
+properties :: ([[Int]] -> [[Int]], [[Int]] -> [[Int]]) -> (String, String) -> Spec
+properties (lsort, lfsort) (lsortName, lfsortName) = do
+  describe lsortName $ do
+    prop "is permutation of original list" $ \xs ->
+      lsort xs `shouldSatisfy` (==) (sort xs) . sort
+
+    prop "is in same order as sorted lengths" $ \xs ->
+      lsort xs `shouldSatisfy` (==) (sort $ map length xs) . map length
+
+  describe lfsortName $ do
+    prop "is permutation of original list" $ \xs ->
+      lfsort xs `shouldSatisfy` (==) (sort xs) . sort
+
+    prop "is in same order as sorted frequencies of lengths" $ \xs ->
+      lfsort xs `shouldSatisfy`  (==) (sort $ toFrequencies xs) . toFrequencies
+
+  where toFrequencies xs = map (\ys -> length $ filter ((==) (length ys) . length) xs) xs
+
+{-
 lsortProp :: ([[Int]] -> [[Int]]) -> String -> Spec
 lsortProp lsort name = describe name $ do
-  prop "is permutation of original list" $
-    \xs -> lsort xs `shouldSatisfy` (==) (sort xs) . sort
+  prop "is permutation of original list" $ \xs ->
+    lsort xs `shouldSatisfy` (==) (sort xs) . sort
 
-  prop "is in same order as sorted lengths" $
-    \xs -> lsort xs `shouldSatisfy` (==) (sort $ map length xs) . map length
+  prop "is in same order as sorted lengths" $ \xs ->
+    lsort xs `shouldSatisfy` (==) (sort $ map length xs) . map length
 
 lfsortProp :: ([[Int]] -> [[Int]]) -> String -> Spec
 lfsortProp lfsort name = describe name $ do
-  prop "is permutation of original list" $
-    \xs -> lfsort xs `shouldSatisfy` (==) (sort xs) . sort
+  prop "is permutation of original list" $ \xs ->
+    lfsort xs `shouldSatisfy` (==) (sort xs) . sort
 
-  prop "is in same order as sorted frequencies of lengths" $
-    \xs -> lfsort xs `shouldSatisfy`  (==) (sort $ toFrequencies xs) . toFrequencies
+  prop "is in same order as sorted frequencies of lengths" $ \xs ->
+    lfsort xs `shouldSatisfy`  (==) (sort $ toFrequencies xs) . toFrequencies
 
   where toFrequencies xs = map (\ys -> length $ filter ((==) (length ys) . length) xs) xs
+-}
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -42,9 +62,11 @@ examples = describe "Examples" $ do
 
 spec :: Spec
 spec = parallel $ do
-  lsortProp Problem.lsort "lsort"
-  lfsortProp Problem.lfsort "lfsort"
+  properties (Problem.lsort, Problem.lfsort) ("lsort", "lfsort")
+--  lsortProp Problem.lsort "lsort"
+--  lfsortProp Problem.lfsort "lfsort"
   examples
   describe "From solutions" $ do
-    lsortProp Solution.lsort "lsort"
-    lfsortProp Solution.lfsort "lfsort"
+    properties (Solution.lsort, Solution.lfsort) ("lsort", "lfsort")
+--    lsortProp Solution.lsort "lsort"
+--    lfsortProp Solution.lfsort "lfsort"

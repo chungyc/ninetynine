@@ -15,16 +15,16 @@ import           Test.QuickCheck
 
 properties :: ([Int] -> Int -> StdGen -> ([Int], StdGen)) -> String -> Spec
 properties randomSelect name = describe name $ do
-  prop "selects given number of elements" $
-    \xs -> forAll (chooseInt (0, length xs)) $ \n -> \seed ->
-      randomSelect xs n (mkStdGen seed) `shouldSatisfy` (==) n . length . fst
+  prop "selects given number of elements" $ \xs ->
+    forAll (chooseInt (0, length xs)) $ \n -> \seed ->
+    randomSelect xs n (mkStdGen seed) `shouldSatisfy` (==) n . length . fst
 
-  prop "selects elements from list" $
-    \xs -> forAll (chooseInt (0, length xs)) $ \n -> \seed ->
-      randomSelect xs n (mkStdGen seed)
-      `shouldSatisfy` flip isSubsequenceOf (sort xs) . sort . fst
+  prop "selects elements from list" $ \xs ->
+    forAll (chooseInt (0, length xs)) $ \n -> \seed ->
+    randomSelect xs n (mkStdGen seed)
+    `shouldSatisfy` flip isSubsequenceOf (sort xs) . sort . fst
 
-  modifyMaxSuccess (const 1) $ prop "is random and returns new random generator" $
+  prop "is random and returns new random generator" $ once $ \seed ->
     -- Make a number of selections and confirm that the selection is random by
     -- checking at least one of them is different from another.
     -- It is theoretically possible for all of them to be the same with
@@ -32,17 +32,17 @@ properties randomSelect name = describe name $ do
     --
     -- Similarly, this also tests that randomSelect returns a new random generator.
     -- If it did not, the use of the same generator would return identical selections.
-    \seed -> let selections = unfoldr (Just . randomSelect [1..100] 10) $ mkStdGen seed
-                 isRandom ls = any (\(x,y) -> x /= y) $ zip ls $ tail ls
-             in conjoin [ selections `shouldSatisfy` any isRandom
-                        , selections `shouldSatisfy` isRandom
-                        ]
+    let selections = unfoldr (Just . randomSelect [1..100] 10) $ mkStdGen seed
+        isRandom ls = any (\(x,y) -> x /= y) $ zip ls $ tail ls
+    in conjoin [ selections `shouldSatisfy` any isRandom
+               , selections `shouldSatisfy` isRandom
+               ]
 
 examples :: Spec
 examples = describe "Examples" $ do
   it "fst $ randomSelect \"abcdefgh\" 3 $ mkStdGen 111" $ do
     (fst $ randomSelect "abcdefgh" 3 $ mkStdGen 111)
-      `shouldSatisfy` (\l -> sort l `isSubsequenceOf` "abcdefgh" && length l == 3)
+      `shouldSatisfy` \l -> sort l `isSubsequenceOf` "abcdefgh" && length l == 3
 
   it "take 5 $ unfoldr (Just . randomSelect [1..100] 3) $ mkStdGen 111" $ do
     (take 5 $ unfoldr (Just . randomSelect [1..100 :: Int] 3) $ mkStdGen 111)
@@ -50,7 +50,7 @@ examples = describe "Examples" $ do
 
   it "newStdGen >>= return . fst . randomSelect \"abcdefgh\" 3" $ do
     (newStdGen >>= return . fst . randomSelect "abcdefgh" 3)
-      >>= (`shouldSatisfy` (\l -> sort l `isSubsequenceOf` "abcdefgh" && length l == 3))
+      >>= (`shouldSatisfy` \l -> sort l `isSubsequenceOf` "abcdefgh" && length l == 3)
 
   where randomSelect l n g = Problem.randomSelect l n g
 

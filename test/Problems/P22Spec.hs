@@ -13,15 +13,14 @@ import           Test.QuickCheck
 
 properties :: (Int -> Int -> [Int]) -> String -> Spec
 properties range name = describe name $ do
-  prop "contains single number" $
-    \n -> range n n `shouldMatchList` [n]
+  prop "contains single number" $ \n ->
+    range n n `shouldMatchList` [n]
 
-  prop "extends range by one" $
-    \n -> \(NonNegative k) -> range n (n+k+1) `shouldMatchList` range n (n+k) ++ [n+k+1]
+  prop "extends range by one" $ \n -> \(NonNegative k) ->
+    range n (n+k+1) `shouldMatchList` range n (n+k) ++ [n+k+1]
 
-  prop "comprised of sub-ranges" $
-    \n -> \(NonNegative k) -> \(Positive l) ->
-      range n (n+k+l) `shouldMatchList` range n (n+k) ++ range (n+k+1) (n+k+l)
+  prop "comprised of sub-ranges" $ \n -> \(NonNegative k) -> \(Positive l) ->
+    range n (n+k+l) `shouldMatchList` range n (n+k) ++ range (n+k+1) (n+k+l)
 
 examples :: Spec
 examples = describe "Examples" $ do

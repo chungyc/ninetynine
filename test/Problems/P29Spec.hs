@@ -13,14 +13,14 @@ import           Test.QuickCheck
 
 properties :: (Integer -> Integer) -> String -> Spec
 properties fibonacci name = describe name $ do
-  it "is one for first Fibonacci number" $ do
+  prop "is one for first Fibonacci number" $
     fibonacci 1 `shouldBe` 1
 
-  it "is one for second Fibonacci number" $ do
+  prop "is one for second Fibonacci number" $
     fibonacci 2 `shouldBe` 1
 
-  prop "is sum of two previous Fibonacci numbers" $
-    \(Positive n) -> n > 2 ==>
+  prop "is sum of two previous Fibonacci numbers" $ \(Positive n) ->
+    n > 2 ==>
     fibonacci n `shouldBe` fibonacci (n-1) + fibonacci (n-2)
 
 examples :: Spec

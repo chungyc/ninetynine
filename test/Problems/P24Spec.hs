@@ -15,15 +15,15 @@ import           Test.QuickCheck
 
 properties :: (Int -> Int -> StdGen -> ([Int], StdGen)) -> String -> Spec
 properties randomDraw name = describe name $ do
-  prop "draws given number of numbers" $
-    \(Positive m) -> forAll (chooseInt (0, m)) $ \n -> \seed ->
-      randomDraw n m (mkStdGen seed) `shouldSatisfy` (==) n . length . fst
+  prop "draws given number of numbers" $ \(Positive m) ->
+    forAll (chooseInt (0, m)) $ \n -> \seed ->
+    randomDraw n m (mkStdGen seed) `shouldSatisfy` (==) n . length . fst
 
-  prop "draws number from given range" $
-    \(Positive m) -> forAll (chooseInt (0, m)) $ \n -> \seed ->
-      randomDraw n m (mkStdGen seed) `shouldSatisfy` flip isSubsequenceOf [1..m] . sort . fst
+  prop "draws number from given range" $ \(Positive m) ->
+    forAll (chooseInt (0, m)) $ \n -> \seed ->
+    randomDraw n m (mkStdGen seed) `shouldSatisfy` flip isSubsequenceOf [1..m] . sort . fst
 
-  modifyMaxSuccess (const 1) $ prop "is random and returns new random generator" $
+  prop "is random and returns new random generator" $ once $ \seed ->
     -- Make a number of draws and confirm that they are random by
     -- checking at least one of them is different from another.
     -- It is theoretically possible for all of them to be the same with
@@ -31,17 +31,17 @@ properties randomDraw name = describe name $ do
     --
     -- Similarly, this also tests that randomDraw returns a new random generator.
     -- If it did not, the use of the same generator would return identical draws.
-    \seed -> let draws = unfoldr (Just . randomDraw 10 1000) $ mkStdGen seed
-                 isRandom ls = any (\(x,y) -> x /= y) $ zip ls $ tail ls
-             in conjoin [ draws `shouldSatisfy` any isRandom
-                        , draws `shouldSatisfy` isRandom
-                        ]
+    let draws = unfoldr (Just . randomDraw 10 1000) $ mkStdGen seed
+        isRandom ls = any (\(x,y) -> x /= y) $ zip ls $ tail ls
+    in conjoin [ draws `shouldSatisfy` any isRandom
+               , draws `shouldSatisfy` isRandom
+               ]
 
 examples :: Spec
 examples = describe "Examples" $ do
   it "fst $ randomDraw 6 49 $ mkStdGen 111" $ do
     (fst $ randomDraw 6 49 $ mkStdGen 111)
-      `shouldSatisfy` (\l -> sort l `isSubsequenceOf` [1..49] && length l == 6)
+      `shouldSatisfy` \l -> sort l `isSubsequenceOf` [1..49] && length l == 6
 
   it "take 5 $ unfoldr (Just . randomDraw 3 100) $ mkStdGen 111" $ do
     (take 5 $ unfoldr (Just . randomDraw 3 100) $ mkStdGen 111)
@@ -49,7 +49,7 @@ examples = describe "Examples" $ do
 
   it "newStdGen >>= return . fst . randomDraw 6 49" $ do
     (newStdGen >>= return . fst . randomDraw 6 49)
-      >>= (`shouldSatisfy` (\l -> sort l `isSubsequenceOf` [1..49] && length l == 6))
+      >>= (`shouldSatisfy` \l -> sort l `isSubsequenceOf` [1..49] && length l == 6)
 
   where randomDraw n m g = Problem.randomDraw n m g
 

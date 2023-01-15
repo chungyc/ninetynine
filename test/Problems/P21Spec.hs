@@ -12,9 +12,8 @@ import           Test.Hspec.QuickCheck
 
 properties :: (Int -> [Int] -> Int -> [Int]) -> String -> Spec
 properties insertAt name = describe name $ do
-  prop "inserts at given position" $
-    \xs -> \ys -> \z ->
-      insertAt z (xs ++ ys) (length xs + 1) `shouldBe` xs ++ [z] ++ ys
+  prop "inserts at given position" $ \xs -> \ys -> \z ->
+    insertAt z (xs ++ ys) (length xs + 1) `shouldBe` xs ++ [z] ++ ys
 
 examples :: Spec
 examples = describe "Examples" $ do

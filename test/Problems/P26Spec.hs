@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -13,17 +13,18 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Int -> [Int] -> [[Int]]) -> String -> Spec
-properties combinations name = modifyMaxSize (const 20) $ describe name $ do
-  prop "are of expected length" $
-    \xs -> forAll (chooseInt (0, length xs)) $ \n ->
+properties combinations name = describe name $ do
+  modifyMaxSize (const 20) $ do
+    prop "are of expected length" $ \xs ->
+      forAll (chooseInt (0, length xs)) $ \n ->
       combinations n xs `shouldSatisfy` all ((==) n . length)
 
-  prop "are combinations" $
-    \xs -> forAll (chooseInt (0, length xs)) $ \n ->
+    prop "are combinations" $ \xs ->
+      forAll (chooseInt (0, length xs)) $ \n ->
       combinations n xs `shouldSatisfy` all (flip isSubsequenceOf (sort xs) . sort)
 
-  prop "includes arbitrary combinations" $
-    \xs -> forAll (sublistOf xs) $ \xs' ->
+    prop "includes arbitrary combinations" $ \xs ->
+      forAll (sublistOf xs) $ \xs' ->
       combinations (length xs') xs `shouldSatisfy` elem (sort xs') . map sort
 
 examples :: Spec
