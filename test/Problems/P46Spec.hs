@@ -15,34 +15,32 @@ import           Test.QuickCheck
 
 properties :: Functions -> String -> Spec
 properties fs name = describe name $ do
-  prop "and' iff both true" $
-    \a -> \b -> and' a b `shouldBe` toInt a + toInt b == 2
+  prop "and' iff both true" $ \a -> \b ->
+    and' a b `shouldBe` toInt a + toInt b == 2
 
-  prop "or' iff either true" $
-    \a -> \b -> or' a b `shouldBe` toInt a + toInt b > 0
+  prop "or' iff either true" $ \a -> \b ->
+    or' a b `shouldBe` toInt a + toInt b > 0
 
-  prop "nand' is not and'" $
-    \a -> \b -> nand' a b `shouldBe` not (and' a b)
+  prop "nand' is not and'" $ \a -> \b ->
+    nand' a b `shouldBe` not (and' a b)
 
-  prop "nor' is not or'" $
-    \a -> \b -> nor' a b `shouldBe` not (or' a b)
+  prop "nor' is not or'" $ \a -> \b ->
+    nor' a b `shouldBe` not (or' a b)
 
-  prop "xor' iff only one true" $
-    \a -> \b -> xor' a b `shouldBe` toInt a + toInt b == 1
+  prop "xor' iff only one true" $ \a -> \b ->
+    xor' a b `shouldBe` toInt a + toInt b == 1
 
-  prop "impl' implies consequent is true if antecedent is true" $
-    \a -> impl' True a `shouldBe` a == True
+  prop "impl' implies consequent is true if antecedent is true" $ \a ->
+    impl' True a `shouldBe` a == True
 
-  prop "impl' does not care if antecedent is false" $
-    \a -> impl' False a `shouldBe` True
+  prop "impl' does not care if antecedent is false" $ \a ->
+    impl' False a `shouldBe` True
 
-  prop "equ' iff the same" $
-    \a -> \b -> equ' a b `shouldBe` a == b
+  prop "equ' iff the same" $ \a -> \b ->
+    equ' a b `shouldBe` a == b
 
-  prop "table" $
-    \f -> \a -> \b ->
-      table (applyFun2 f)
-      `shouldSatisfy` elem (a, b, applyFun2 f a b)
+  prop "table" $ \f -> \a -> \b ->
+    table (applyFun2 f) `shouldSatisfy` elem (a, b, applyFun2 f a b)
 
   where Functions
           { getTable = table

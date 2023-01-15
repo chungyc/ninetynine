@@ -17,23 +17,23 @@ import           Test.QuickCheck
 
 properties :: (Complex Integer -> Bool) -> String -> Spec
 properties isGaussianPrime name = describe name $ do
-  it "zero is not prime" $ do
+  prop "zero is not prime" $
     isGaussianPrime (0:+0) `shouldBe` False
 
   context "with units" $ do
     for_ gaussianUnits $ \x ->
-      it (show x ++ " is not prime") $ do
+      prop (show x ++ " is not prime") $
         isGaussianPrime x `shouldBe` False
 
-  prop "is false for composite Gaussian integers" $
-    \x y -> all (not . shouldBeExcluded) [x,y]  ==>
+  prop "is false for composite Gaussian integers" $ \x y ->
+    all (not . shouldBeExcluded) [x,y]  ==>
     counterexample (concat [show $ gaussianMultiply x y, " = ", show x, " * ", show y]) $
     isGaussianPrime (x `gaussianMultiply` y) `shouldBe` False
 
-  prop "does not have non-unit proper divisor when prime" $ withMaxSuccess 10000 $
-    \x y -> all (not . shouldBeExcluded) [x,y] ==>
-            not (isAssociate x y) ==>
-            isGaussianPrime x ==>
+  prop "does not have non-unit proper divisor when prime" $ \x y ->
+    all (not . shouldBeExcluded) [x,y] ==>
+    not (isAssociate x y) ==>
+    isGaussianPrime x ==>
     x `gaussianDividesBy` y `shouldBe` False
 
   where shouldBeExcluded x = x == (0 :+ 0) || x `elem` gaussianUnits

@@ -15,22 +15,19 @@ import           Test.QuickCheck
 
 properties :: (Int -> ([Bool] -> Bool) -> [[Bool]]) -> String -> Spec
 properties tablen name = describe name $ do
-  prop "satisfies logical expression" $
-    \f -> \(Tiny n) ->
-      tablen n (applyFun f)
-      `shouldSatisfy` all (\xs -> applyFun f (init xs) == last xs)
+  prop "satisfies logical expression" $ \f -> \(Tiny n) ->
+    tablen n (applyFun f)
+    `shouldSatisfy` all (\xs -> applyFun f (init xs) == last xs)
 
-  prop "assigns expected number of variables" $
-    \f -> \(Tiny n) ->
-      tablen n (applyFun f)
-      `shouldSatisfy` all (\x -> length x == n + 1)
+  prop "assigns expected number of variables" $ \f -> \(Tiny n) ->
+    tablen n (applyFun f)
+    `shouldSatisfy` all (\x -> length x == n + 1)
 
-  prop "assigns all values to variables" $
-    \f -> \(Tiny n) ->
-      tablen n (applyFun f)
-      `shouldSatisfy` (==) (2^n) . length . nub . map init
-      -- There are 2^n combinations of n booleans,
-      -- so there should be 2^n distinct variable assignments.
+  prop "assigns all values to variables" $ \f -> \(Tiny n) ->
+    tablen n (applyFun f)
+    `shouldSatisfy` (==) (2^n) . length . nub . map init
+    -- There are 2^n combinations of n booleans,
+    -- so there should be 2^n distinct variable assignments.
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -38,7 +35,7 @@ examples = describe "Examples" $ do
     sort (tablen 3 $
            \x -> case x of
              [a,b,c] -> a `and'` (b `or'` c) `equ'` a `and'` b `or'` a `and'` c
-             _       -> undefined)
+             _       -> error $ "not three parameters: " ++ show x)
       `shouldMatchList` [ [False, False, False, False]
                         , [False, False, True,  False]
                         , [False, True,  False, False]

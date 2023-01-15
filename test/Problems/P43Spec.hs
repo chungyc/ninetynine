@@ -16,21 +16,20 @@ import           Test.QuickCheck
 
 properties :: (Complex Integer -> Complex Integer -> Bool) -> String -> Spec
 properties gaussianDividesBy name = describe name $ do
-  prop "does not divide by zero" $ withMaxSuccess 10 $
-    \x -> x `gaussianDividesBy` (0 :+ 0) `shouldBe` False
+  prop "does not divide by zero" $ \x ->
+    x `gaussianDividesBy` (0 :+ 0) `shouldBe` False
 
   context "with units" $ do
     for_ gaussianUnits $ \unit ->
-      prop ("divided by " ++ show unit) $ withMaxSuccess 10 $
-        \x -> x `gaussianDividesBy` unit `shouldBe` True
+      prop ("divided by " ++ show unit) $ \x ->
+        x `gaussianDividesBy` unit `shouldBe` True
 
-  prop "divides multiple of divisor by divisor" $
-    \x y -> y /= (0 :+ 0) ==>
+  prop "divides multiple of divisor by divisor" $ \x y ->
+    y /= (0 :+ 0) ==>
     (x `gaussianMultiply` y) `gaussianDividesBy` y `shouldBe` True
 
-  prop "no z such that x=y*z exists when x is not divided by y" $
-    withMaxSuccess 10000 $
-    \x y z -> not (x `gaussianDividesBy` y) && y /= (0 :+ 0) ==>
+  prop "no z such that x=y*z exists when x is not divided by y" $ \x y z ->
+    not (x `gaussianDividesBy` y) && y /= (0 :+ 0) ==>
     y `gaussianMultiply` z `shouldSatisfy` (/=) x
 
 examples :: Spec

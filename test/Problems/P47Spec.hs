@@ -31,21 +31,19 @@ properties (evaluateCircuit, buildCircuit) (nameEvaluateCircuit, nameBuildCircui
             eval i    = evaluateCircuit (trim c i) x y
         in evaluateCircuit c x y `shouldBe` nand (eval l) (eval r)
 
-    prop "is inverse of buildCircuit" $
-      \f -> \x -> \y ->
+    prop "is inverse of buildCircuit" $ \f -> \x -> \y ->
         evaluateCircuit (buildCircuit $ applyFun2 f) x y `shouldBe` applyFun2 f x y
 
   describe nameBuildCircuit $ do
-    prop "builds logic circuits for binary boolean functions" $
-      \f -> buildCircuit (applyFun2 f)
-            `shouldSatisfy` (==) (table $ applyFun2 f) . table . evaluateCircuit
+    prop "builds logic circuits for binary boolean functions" $ \f ->
+      buildCircuit (applyFun2 f)
+      `shouldSatisfy` (==) (table $ applyFun2 f) . table . evaluateCircuit
 
-    prop "is almost inverse of evaluateCircuit" $
-      \(Circuit c) -> \x -> \y ->
-        evaluateCircuit (buildCircuit $ evaluateCircuit c) x y
-        `shouldBe` evaluateCircuit c x y
-        -- It should build a circuit with equivalent output,
-        -- but it does not have to be the same circuit.
+    prop "is almost inverse of evaluateCircuit" $ \(Circuit c) -> \x -> \y ->
+      evaluateCircuit (buildCircuit $ evaluateCircuit c) x y
+      `shouldBe` evaluateCircuit c x y
+      -- It should build a circuit with equivalent output,
+      -- but it does not have to be the same circuit.
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -106,6 +104,7 @@ trim c i = take i c
 table :: (Bool -> Bool -> Bool) -> (Bool,Bool,Bool,Bool)
 table f = (f False False, f False True, f True False, f True True)
 
+-- | Arbitrary logic circuit.
 newtype Circuit = Circuit [(Int,Int)] deriving Show
 
 instance Arbitrary Circuit where

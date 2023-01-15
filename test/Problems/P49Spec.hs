@@ -12,14 +12,14 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Int -> [String]) -> String -> Spec
-properties gray name = describe name $ modifyMaxSize (const 15) $ do
-  it "constructs 1-bit gray code" $ do
-    gray 0 `shouldBe` [""]
+properties gray name = describe name $ do
+  modifyMaxSize (const 15) $ do
+    prop "constructs 0-bit gray code" $ do
+      gray 0 `shouldBe` [""]
 
-  prop "constructs n-bit gray code" $
-    \(Positive n) ->
-    gray n `shouldBe`
-    map ('0':) (gray $ n-1) ++ map ('1':) (reverse $ gray $ n-1)
+    prop "constructs n-bit gray code" $ \(Positive n) ->
+      gray n `shouldBe`
+      map ('0':) (gray $ n-1) ++ map ('1':) (reverse $ gray $ n-1)
 
 examples :: Spec
 examples = describe "Examples" $ do
