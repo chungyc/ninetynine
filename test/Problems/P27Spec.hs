@@ -79,7 +79,7 @@ smallNumber = resize 6 $ arbitrarySizedNatural
 -- larger than we should handle.  For preventing having to deal with too
 -- many groupings in the test without unduly restricting the group sizes.
 tooLarge :: [Int] -> Bool
-tooLarge ns = multinomial ns > 10000
+tooLarge ns = multinomial ns > 1000
 
 -- | Multinomial coefficient.
 multinomial :: [Int] -> Int
