@@ -22,11 +22,11 @@ properties
   (dotstringToTree, treeToDotstring)
   (nameDotstringToTree, nameTreeToDotstring) = do
   describe nameDotstringToTree $ do
-    prop "is inverse of treeToDotstring" $
-      \(CharTree t) -> (dotstringToTree . treeToDotstring) t `shouldBe` t
+    prop "is inverse of treeToDotstring" $ \(CharTree t) ->
+      (dotstringToTree . treeToDotstring) t `shouldBe` t
 
   describe nameTreeToDotstring $ do
-    it "is dot for empty tree" $
+    prop "is dot for empty tree" $
       treeToDotstring Empty `shouldBe` "."
 
     prop "is in pre-order" $
@@ -57,14 +57,16 @@ spec = parallel $ do
       (Solution.dotstringToTree, Solution.treeToDotstring)
       ("dotstringToTree", "treeToDotstring")
 
--- | Generates a letter.
+-- | Generates letters.
+--
 -- It will not generate the special character '.'.
 letters :: Gen Char
 letters = choose ('a', 'z')
 
--- | A tree with character values.
+-- | Arbitrary tree with character values.
+--
 -- It should not have the special character '.'.
-newtype CharTree = CharTree (Tree Char) deriving (Show)
+newtype CharTree = CharTree (Tree Char) deriving Show
 
 instance Arbitrary CharTree where
   arbitrary = CharTree <$> treesOf letters

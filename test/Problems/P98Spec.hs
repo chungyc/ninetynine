@@ -58,7 +58,7 @@ getRows rs = map lengths rs
 getColumns :: [[Bool]] -> [[Int]]
 getColumns cs = getRows $ transpose cs
 
-newtype Bitmap = Bitmap [[Bool]] deriving (Eq, Show)
+newtype Bitmap = Bitmap [[Bool]] deriving Show
 
 instance Arbitrary Bitmap where
   arbitrary = do

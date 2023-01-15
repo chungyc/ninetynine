@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -16,44 +16,42 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Tree Char -> Tree (Char, (Int, Int))) -> String -> Spec
-properties layoutCompact name = do
-  describe name $ do
-    prop "is compact" $
-      \t -> layoutCompact t `shouldSatisfy` isCompact
+properties layoutCompact name = describe name $ do
+  prop "is compact" $ \t ->
+    layoutCompact t `shouldSatisfy` isCompact
 
-    prop "does not overlap subtrees" $
-      \t -> layoutCompact t `shouldSatisfy` not . overlaps
+  prop "does not overlap subtrees" $ \t ->
+    layoutCompact t `shouldSatisfy` not . overlaps
 
-    prop "has symmetrical horizontal distances from parent node to child nodes" $
-      \t -> layoutCompact t `shouldSatisfy` isSymmetric . toDistanceTree
+  prop "has symmetrical horizontal distances from parent node to child nodes" $ \t ->
+    layoutCompact t `shouldSatisfy` isSymmetric . toDistanceTree
 
-    prop "has leftmost node at correct horizontal position" $
-      \t -> t /= Empty ==>
-            layoutCompact t `shouldSatisfy` (==) (Just 1) . minPosX
+  prop "has leftmost node at correct horizontal position" $ \t ->
+    t /= Empty ==>
+    layoutCompact t `shouldSatisfy` (==) (Just 1) . minPosX
 
-    prop "vertical location is depth" $
-      \t -> layoutCompact t `shouldSatisfy` verticalIsDepth
+  prop "vertical location is depth" $ \t ->
+    layoutCompact t `shouldSatisfy` verticalIsDepth
 
-    prop "keeps original values" $
-      \t -> layoutCompact t `shouldSatisfy` hasSameValuesAs t
+  prop "keeps original values" $ \t ->
+    layoutCompact t `shouldSatisfy` hasSameValuesAs t
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "layoutCompact tree65" $ do
-      layoutCompact tree65 `shouldBe`
-        Branch ('n',(5,1))
-        (Branch ('k',(3,2))
-         (Branch ('c',(2,3))
-          (Branch ('a',(1,4)) Empty Empty)
-          (Branch ('e',(3,4))
-           (Branch ('d',(2,5)) Empty Empty)
-           (Branch ('g',(4,5)) Empty Empty)))
-          (Branch ('m',(4,3)) Empty Empty))
-        (Branch ('u',(7,2))
-         (Branch ('p',(6,3)) Empty
-          (Branch ('q',(7,4)) Empty Empty))
-          Empty)
+examples = describe "Examples" $ do
+  it "layoutCompact tree65" $ do
+    layoutCompact tree65 `shouldBe`
+      Branch ('n',(5,1))
+      (Branch ('k',(3,2))
+       (Branch ('c',(2,3))
+        (Branch ('a',(1,4)) Empty Empty)
+        (Branch ('e',(3,4))
+         (Branch ('d',(2,5)) Empty Empty)
+         (Branch ('g',(4,5)) Empty Empty)))
+        (Branch ('m',(4,3)) Empty Empty))
+      (Branch ('u',(7,2))
+       (Branch ('p',(6,3)) Empty
+        (Branch ('q',(7,4)) Empty Empty))
+        Empty)
 
   where layoutCompact = Problem.layoutCompact
 

@@ -99,8 +99,7 @@ isValidGroup :: [[Int]] -> Bool
 isValidGroup ls = map sort ls == replicate 9 [1..9]
 
 -- | Arbitrary Sudoku puzzles.  Will always have at least one solution.
-newtype SudokuPuzzle = SudokuPuzzle [[Int]]
-  deriving (Eq, Show)
+newtype SudokuPuzzle = SudokuPuzzle [[Int]] deriving Show
 
 -- Ordinarily one would not use the code being tested to generate test cases.
 -- However, very simple methods to generate Sudoku test cases are too slow.

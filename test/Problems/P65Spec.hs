@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -14,45 +14,43 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties :: (Tree Char -> Tree (Char, (Int, Int))) -> String -> Spec
-properties layoutLevelConstant name = do
-  describe name $ do
-    prop "has symmetrical horizontal distances from parent node to child nodes" $
-      \t -> layoutLevelConstant t `shouldSatisfy` isSymmetric . toDistanceTree
+properties layoutLevelConstant name = describe name $ do
+  prop "has symmetrical horizontal distances from parent node to child nodes" $ \t ->
+    layoutLevelConstant t `shouldSatisfy` isSymmetric . toDistanceTree
 
-    prop "has distances halve with each level" $
-      \t -> counterexample (show $ toDistanceTree $ layoutLevelConstant t) $
-            layoutLevelConstant t `shouldSatisfy` isHalved . toDistanceTree
+  prop "has distances halve with each level" $ \t ->
+    counterexample (show $ toDistanceTree $ layoutLevelConstant t) $
+    layoutLevelConstant t `shouldSatisfy` isHalved . toDistanceTree
 
-    prop "has mininum horizontal distance of 1 between parent and child" $
-      \t -> treeHeight t > 1 ==>
-            layoutLevelConstant t `shouldSatisfy` (==) (Just 1) . minDistance . toDistanceTree
+  prop "has mininum horizontal distance of 1 between parent and child" $ \t ->
+    treeHeight t > 1 ==>
+    layoutLevelConstant t `shouldSatisfy` (==) (Just 1) . minDistance . toDistanceTree
 
-    prop "has leftmost node at correct horizontal position" $
-      \t -> t /= Empty ==>
-            layoutLevelConstant t `shouldSatisfy` (==) (Just 1) . minPosX
+  prop "has leftmost node at correct horizontal position" $ \t ->
+    t /= Empty ==>
+    layoutLevelConstant t `shouldSatisfy` (==) (Just 1) . minPosX
 
-    prop "vertical location is depth" $
-      \t -> layoutLevelConstant t `shouldSatisfy` verticalIsDepth
+  prop "vertical location is depth" $ \t ->
+    layoutLevelConstant t `shouldSatisfy` verticalIsDepth
 
-    prop "keeps original values" $
-      \t -> layoutLevelConstant t `shouldSatisfy` hasSameValuesAs t
+  prop "keeps original values" $ \t ->
+    layoutLevelConstant t `shouldSatisfy` hasSameValuesAs t
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "layoutLevelConstant tree65" $ do
-      layoutLevelConstant tree65 `shouldBe`
-        Branch ('n',(15,1)) (Branch ('k',(7,2))
-                             (Branch ('c',(3,3))
-                              (Branch ('a',(1,4)) Empty Empty)
-                              (Branch ('e',(5,4))
-                               (Branch ('d',(4,5)) Empty Empty)
-                               (Branch ('g',(6,5)) Empty Empty)))
-                             (Branch ('m',(11,3)) Empty Empty))
-                            (Branch ('u',(23,2))
-                             (Branch ('p',(19,3))
-                              Empty
-                              (Branch ('q',(21,4)) Empty Empty)) Empty)
+examples = describe "Examples" $ do
+  it "layoutLevelConstant tree65" $ do
+    layoutLevelConstant tree65 `shouldBe`
+      Branch ('n',(15,1)) (Branch ('k',(7,2))
+                           (Branch ('c',(3,3))
+                            (Branch ('a',(1,4)) Empty Empty)
+                            (Branch ('e',(5,4))
+                             (Branch ('d',(4,5)) Empty Empty)
+                             (Branch ('g',(6,5)) Empty Empty)))
+                           (Branch ('m',(11,3)) Empty Empty))
+                          (Branch ('u',(23,2))
+                           (Branch ('p',(19,3))
+                            Empty
+                            (Branch ('q',(21,4)) Empty Empty)) Empty)
 
   where layoutLevelConstant = Problem.layoutLevelConstant
         tree65 = Problem.tree65

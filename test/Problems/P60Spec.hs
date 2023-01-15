@@ -36,7 +36,7 @@ examples = describe "Examples" $ do
 
   it "map heightBalancedTreesWithNode [0..3]" $ do
     -- Sort for each height to remove unnecessary order senstivity.
-    map sort (map heightBalancedTreesWithNodes [0..3]) `shouldBe`
+    map sort (map heightBalancedTreesWithNodes [0..3]) `shouldMatchList`
       map sort [ [ Empty ]
                , [ Branch () Empty Empty ]
                , [ Branch () Empty (Branch () Empty Empty)

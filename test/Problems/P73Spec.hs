@@ -74,7 +74,7 @@ letters = choose ('a', 'z')
 -- | Arbitrary multiway tree with character values.
 --
 -- It should not have the special characters ' ', '(', and ')'.
-newtype CharTree = CharTree (MultiwayTree Char) deriving (Show)
+newtype CharTree = CharTree (MultiwayTree Char) deriving Show
 
 instance Arbitrary CharTree where
   arbitrary = CharTree <$> multiwayTreesOf letters

@@ -16,7 +16,7 @@ import           Test.QuickCheck
 properties :: (Tree Char -> String, String -> Tree Char) -> (String, String) -> Spec
 properties (treeToString, stringToTree) (nameTreeToString, nameStringToTree) = do
   describe nameTreeToString $ do
-    it "is empty string for empty tree" $ do
+    prop "is empty string for empty tree" $
       treeToString Empty `shouldBe` ""
 
     prop "is single character for leaf" $ do
@@ -54,13 +54,15 @@ spec = parallel $ do
     properties (Solution.treeToString, Solution.stringToTree) ("treeToString", "stringToTree")
 
 -- | Generates a letter.
+--
 -- It will not generate the special characters '.', '(', and ')'.
 letters :: Gen Char
 letters = choose ('a', 'z')
 
--- | A tree with character values.
+-- | Arbitrary tree with character values.
+--
 -- It should not have the special characters '.', '(', and ')'.
-newtype CharTree = CharTree (Tree Char) deriving (Show)
+newtype CharTree = CharTree (Tree Char) deriving Show
 
 instance Arbitrary CharTree where
   arbitrary = CharTree <$> treesOf letters

@@ -76,7 +76,7 @@ data Expr = Number Integer
           | Multiply Expr Expr
           | Divide Expr Expr
           | Equals Expr Expr
-  deriving (Eq, Show)
+  deriving Show
 
 -- | Parse an equation from a string.
 parseExpr :: String -> Expr
@@ -85,8 +85,7 @@ parseExpr s
   | otherwise = error $ "parse error: " ++ s
 
 -- | Elements on the stack for parsing the context-free grammar.
-data ParseElement = T Token | Ex Expr
-  deriving (Eq, Show)
+data ParseElement = T Token | Ex Expr deriving Show
 
 -- | Manually parse the context-free grammar.
 parseExpr' :: ([Token], [ParseElement]) -> ([Token], [ParseElement])

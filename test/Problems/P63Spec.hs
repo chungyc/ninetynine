@@ -18,7 +18,7 @@ properties
   (completeBinaryTree, isCompleteBinaryTree)
   (completeBinaryTreeName, isCompleteBinaryTreeName) = do
   describe completeBinaryTreeName $ do
-    it "is empty with zero nodes" $ do
+    prop "is empty with zero nodes" $
       completeBinaryTree 0 `shouldBe` Empty
 
     prop "has equal complete subtrees" $ \(Tiny k) ->
@@ -40,7 +40,7 @@ properties
       \(NonNegative n) -> completeBinaryTree n `shouldSatisfy` (==) n . treeSize
 
   describe isCompleteBinaryTreeName $ do
-    it "is true for empty tree" $ do
+    prop "is true for empty tree" $
       isCompleteBinaryTree Empty `shouldBe` True
 
     prop "is true for singleton tree" $
@@ -82,8 +82,8 @@ stripValue :: Tree a -> Tree ()
 stripValue Empty          = Empty
 stripValue (Branch _ l r) = Branch () (stripValue l) (stripValue r)
 
--- | For small non-negative integers to prevent combinatorial explosion.
-newtype Tiny = Tiny Int deriving (Show)
+-- | Tiny arbitrary non-negative integers to prevent combinatorial explosion.
+newtype Tiny = Tiny Int deriving Show
 
 instance Arbitrary Tiny where
   arbitrary = Tiny <$> resize 15 arbitrarySizedNatural

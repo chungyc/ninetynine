@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -13,30 +13,28 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
 properties :: (Tree Char -> Tree (Char, (Int, Int))) -> String -> Spec
-properties layoutInorder name = do
-  describe name $ do
-    prop "horizontal location is position in in-order sequence" $
-      \t -> layoutInorder t `shouldSatisfy` (==) [1..(treeSize t)] . inorderSequence
+properties layoutInorder name = describe name $ do
+  prop "horizontal location is position in in-order sequence" $ \t ->
+    layoutInorder t `shouldSatisfy` (==) [1..(treeSize t)] . inorderSequence
 
-    prop "vertical location is depth" $
-      \t -> layoutInorder t `shouldSatisfy` verticalIsDepth
+  prop "vertical location is depth" $ \t ->
+    layoutInorder t `shouldSatisfy` verticalIsDepth
 
-    prop "keeps original values" $
-      \t -> layoutInorder t `shouldSatisfy` hasSameValuesAs t
+  prop "keeps original values" $ \t ->
+    layoutInorder t `shouldSatisfy` hasSameValuesAs t
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "layoutInorder tree64" $ do
-      layoutInorder tree64 `shouldBe`
-        Branch ('n',(8,1))
-        (Branch ('k',(6,2))
-          (Branch ('c',(2,3))
-            (Branch ('a',(1,4)) Empty Empty)
-            (Branch ('h',(5,4)) (Branch ('g',(4,5)) (Branch ('e',(3,6)) Empty Empty) Empty) Empty))
-          (Branch ('m',(7,3)) Empty Empty))
-        (Branch ('u',(12,2)) (Branch ('p',(9,3)) Empty
-                              (Branch ('s',(11,4)) (Branch ('q',(10,5)) Empty Empty) Empty)) Empty)
+examples = describe "Examples" $ do
+  it "layoutInorder tree64" $ do
+    layoutInorder tree64 `shouldBe`
+      Branch ('n',(8,1))
+      (Branch ('k',(6,2))
+        (Branch ('c',(2,3))
+          (Branch ('a',(1,4)) Empty Empty)
+          (Branch ('h',(5,4)) (Branch ('g',(4,5)) (Branch ('e',(3,6)) Empty Empty) Empty) Empty))
+        (Branch ('m',(7,3)) Empty Empty))
+      (Branch ('u',(12,2)) (Branch ('p',(9,3)) Empty
+                            (Branch ('s',(11,4)) (Branch ('q',(10,5)) Empty Empty) Empty)) Empty)
 
   where layoutInorder = Problem.layoutInorder
         tree64 = Problem.tree64

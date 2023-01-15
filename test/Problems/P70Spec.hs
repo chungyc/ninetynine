@@ -63,7 +63,7 @@ letters = choose ('a', 'z')
 -- | Arbitrary multiway tree with character values.
 --
 -- No characters should be the special character '^'.
-newtype CharTree = CharTree (MultiwayTree Char) deriving (Show)
+newtype CharTree = CharTree (MultiwayTree Char) deriving Show
 
 instance Arbitrary CharTree where
   arbitrary = CharTree <$> multiwayTreesOf letters

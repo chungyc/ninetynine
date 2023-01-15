@@ -23,14 +23,14 @@ properties
   (inorder, preorder, ordersToTree)
   (nameInorder, namePreorder, nameOrdersToTree) = do
   describe nameInorder $ do
-    it "empty tree has empty in-order sequence" $ do
+    prop "empty tree has empty in-order sequence" $ do
       inorder Empty `shouldBe` []
 
     prop "is in-order sequence" $ \x -> \t -> \t' ->
       inorder (Branch x t t') `shouldBe` inorder t ++ [x] ++ inorder t'
 
   describe namePreorder $ do
-    it "empty tree has empty pre-order sequence" $ do
+    prop "empty tree has empty pre-order sequence" $ do
       preorder Empty `shouldBe` []
 
     prop "is pre-order sequence" $ \x -> \t -> \t' ->
@@ -67,8 +67,8 @@ spec = parallel $ do
       (Solution.inorder, Solution.preorder, Solution.ordersToTree)
       ("inorder", "preorder", "ordersToTree")
 
--- | Binary tree with distinct node values.
-newtype DistinctTree = DistinctTree (Tree Int) deriving (Show)
+-- | Arbitrary binary tree with distinct node values.
+newtype DistinctTree = DistinctTree (Tree Int) deriving Show
 
 instance Arbitrary DistinctTree where
   arbitrary = DistinctTree <$> do
