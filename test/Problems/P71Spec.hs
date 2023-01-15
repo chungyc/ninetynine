@@ -14,8 +14,8 @@ import           Test.Hspec.QuickCheck
 
 properties :: (MultiwayTree Int -> Int) -> String -> Spec
 properties internalPathLength name = describe name $ do
-  prop "is sum of all path lengths starting from root" $
-    \t -> internalPathLength t `shouldBe` sum (map pathLength $ pathsFromRoot t)
+  prop "is sum of all path lengths starting from root" $ \t ->
+    internalPathLength t `shouldBe` sum (map pathLength $ pathsFromRoot t)
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -39,4 +39,4 @@ pathLength path = length path - 1
 
 pathsFromRoot :: MultiwayTree a -> [[a]]
 pathsFromRoot (MultiwayTree x []) = [[x]]
-pathsFromRoot (MultiwayTree x ts) = (:) [x] $ concat $ map (map (x:) . pathsFromRoot) ts
+pathsFromRoot (MultiwayTree x ts) = ([x]:) $ concat $ map (map (x:) . pathsFromRoot) ts

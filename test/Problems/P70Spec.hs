@@ -21,16 +21,16 @@ properties
   (stringToMultitree, multitreeToString)
   (nameStringToMultitree, nameMultitreeToString) = do
   describe nameStringToMultitree $ do
-    prop "is inverse of multitreeToString" $
-      \(CharTree t) -> (stringToMultitree . multitreeToString) t `shouldBe` t
+    prop "is inverse of multitreeToString" $ \(CharTree t) ->
+      (stringToMultitree . multitreeToString) t `shouldBe` t
 
   describe nameMultitreeToString $ do
-    prop "maps to string from singleton tree" $ forAll letters $ \c ->
+    prop "maps to string from singleton tree" $
+      forAll letters $ \c ->
       multitreeToString (MultiwayTree c []) `shouldBe` [c] ++ "^"
 
-    prop "maps to string in depth-first order" $
-      \(CharTree t@(MultiwayTree c ts)) ->
-        multitreeToString t `shouldBe` [c] ++ concatMap multitreeToString ts ++ "^"
+    prop "maps to string in depth-first order" $ \(CharTree t@(MultiwayTree c ts)) ->
+      multitreeToString t `shouldBe` [c] ++ concatMap multitreeToString ts ++ "^"
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -54,12 +54,14 @@ spec = parallel $ do
       (Solution.stringToMultitree, Solution.multitreeToString)
       ("stringToMultitree", "multitreeToString")
 
--- | Generates a letter.
+-- | Generates letters.
+--
 -- It will not generate the special character '^'.
 letters :: Gen Char
 letters = choose ('a', 'z')
 
--- | Multiway tree with character values.
+-- | Arbitrary multiway tree with character values.
+--
 -- No characters should be the special character '^'.
 newtype CharTree = CharTree (MultiwayTree Char) deriving (Show)
 

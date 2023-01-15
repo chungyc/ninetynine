@@ -3,7 +3,7 @@ Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
-module Problems.P79Spec where -- (spec) where
+module Problems.P79Spec (spec) where
 
 import           Data.List             (isPrefixOf)
 import           Data.Maybe            (fromJust, isJust, isNothing)
@@ -102,40 +102,39 @@ properties calculatePostfix name = describe name $ do
              `isPrefixOf` filter isOperator e) . snd
 
 examples :: Spec
-examples = do
-  describe "Examples" $ do
-    it "calculatePostfix [Operand 8, Operand 5, Operator Subtract]" $ do
-      (fst . calculatePostfix) [Operand 8, Operand 5, Operator Subtract] `shouldBe` Just 3
+examples = describe "Examples" $ do
+  it "calculatePostfix [Operand 8, Operand 5, Operator Subtract]" $ do
+    (fst . calculatePostfix) [Operand 8, Operand 5, Operator Subtract] `shouldBe` Just 3
 
-    it "calculatePostfix [Operand 8, Operand 6]" $ do
-      (fst . calculatePostfix) [Operand 8, Operand 6] `shouldBe` Nothing
+  it "calculatePostfix [Operand 8, Operand 6]" $ do
+    (fst . calculatePostfix) [Operand 8, Operand 6] `shouldBe` Nothing
 
-    it "calculatePostfix [Operand 8, Operator Negate]" $ do
-      (fst . calculatePostfix) [Operand 8, Operator Negate] `shouldBe` Just (-8)
+  it "calculatePostfix [Operand 8, Operator Negate]" $ do
+    (fst . calculatePostfix) [Operand 8, Operator Negate] `shouldBe` Just (-8)
 
-    it "calculatePostfix [Operand 8, Operator Add]" $ do
-      (fst . calculatePostfix) [Operand 8, Operator Add] `shouldBe` Nothing
+  it "calculatePostfix [Operand 8, Operator Add]" $ do
+    (fst . calculatePostfix) [Operand 8, Operator Add] `shouldBe` Nothing
 
-    it "calculatePostfix $ parsePostfix \"8 5 4 10 + - 3 * negate +\"" $ do
-      (calculatePostfix $ parsePostfix "8 5 4 10 + - 3 * negate +") `shouldBe`
-        (Just 35, [ ([8], Nothing)
-                  , ([5,8], Nothing)
-                  , ([4,5,8], Nothing)
-                  , ([10,4,5,8], Nothing)
-                  , ([14,5,8], Just Add)
-                  , ([-9,8], Just Subtract)
-                  , ([3,-9,8], Nothing)
-                  , ([-27,8], Just Multiply)
-                  , ([27,8], Just Negate)
-                  , ([35], Just Add)
-                  ])
+  it "calculatePostfix $ parsePostfix \"8 5 4 10 + - 3 * negate +\"" $ do
+    (calculatePostfix $ parsePostfix "8 5 4 10 + - 3 * negate +") `shouldBe`
+      (Just 35, [ ([8], Nothing)
+                , ([5,8], Nothing)
+                , ([4,5,8], Nothing)
+                , ([10,4,5,8], Nothing)
+                , ([14,5,8], Just Add)
+                , ([-9,8], Just Subtract)
+                , ([3,-9,8], Nothing)
+                , ([-27,8], Just Multiply)
+                , ([27,8], Just Negate)
+                , ([35], Just Add)
+                ])
 
-    it "calculatePostfix $ parsePostfix \"1 2 * +\"" $ do
-      (calculatePostfix $ parsePostfix "1 2 * +") `shouldBe`
-        (Nothing, [ ([1], Nothing)
-                  , ([2,1], Nothing)
-                  , ([2], Just Multiply)
-                  ])
+  it "calculatePostfix $ parsePostfix \"1 2 * +\"" $ do
+    (calculatePostfix $ parsePostfix "1 2 * +") `shouldBe`
+      (Nothing, [ ([1], Nothing)
+                , ([2,1], Nothing)
+                , ([2], Just Multiply)
+                ])
 
   where calculatePostfix = Problem.calculatePostfix
 

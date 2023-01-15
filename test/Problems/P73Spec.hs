@@ -32,8 +32,8 @@ properties
         treeToSexp t `shouldBe` "(" ++ (intercalate " " $ [x] : map treeToSexp ts) ++ ")"
 
   describe nameSexpToTree $ do
-    prop "is inverse of treeToSexp" $
-      \(CharTree t) -> (sexpToTree . treeToSexp) t `shouldBe` t
+    prop "is inverse of treeToSexp" $ \(CharTree t) ->
+      (sexpToTree . treeToSexp) t `shouldBe` t
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -71,7 +71,7 @@ spec = parallel $ do
 letters :: Gen Char
 letters = choose ('a', 'z')
 
--- | A multiway tree with character values.
+-- | Arbitrary multiway tree with character values.
 --
 -- It should not have the special characters ' ', '(', and ')'.
 newtype CharTree = CharTree (MultiwayTree Char) deriving (Show)

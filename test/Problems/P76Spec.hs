@@ -16,12 +16,12 @@ import           Text.Read             (readMaybe)
 
 properties :: (String -> Either String (Integer, (Integer, Integer))) -> String -> Spec
 properties eitherGoldbach name = describe name $ do
-  prop "fails with non-number input" $
-    \s -> (isNothing (readMaybe s :: Maybe Integer)) ==>
+  prop "fails with non-number input" $ \s ->
+    isNothing (readMaybe s :: Maybe Integer) ==>
     eitherGoldbach s `shouldBe` Left "not a number"
 
-  prop "fails with number less than or equal to 2" $
-    \n -> (n :: Integer) <= 2 ==>
+  prop "fails with number less than or equal to 2" $ \n ->
+    (n :: Integer) <= 2 ==>
     eitherGoldbach (show n) `shouldBe` Left "not greater than 2"
 
   prop "fails with odd number" $
@@ -32,7 +32,7 @@ properties eitherGoldbach name = describe name $ do
     forAll (evenNumbers `suchThat` (>2)) $ \n ->
     eitherGoldbach (show n) `shouldBe` Right (n, goldbach n)
 
-  where oddNumbers = (\n -> n*2+1) <$> arbitrarySizedNatural :: Gen Integer
+  where oddNumbers = (1+) . (2*) <$> arbitrarySizedNatural :: Gen Integer
         evenNumbers = (2*) <$> arbitrarySizedNatural
 
 examples :: Spec

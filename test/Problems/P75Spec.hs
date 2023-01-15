@@ -17,21 +17,22 @@ import           Text.Read             (readMaybe)
 properties :: (String -> Maybe (Integer, (Integer, Integer))) -> String -> Spec
 properties maybeGoldbach name = describe name $ do
   prop "fails with non-number input" $ \s ->
-    (isNothing (readMaybe s :: Maybe Integer)) ==>
+    isNothing (readMaybe s :: Maybe Integer) ==>
     maybeGoldbach s `shouldBe` Nothing
 
-  prop "fails with number less than or equal to 2" $
-    \n -> (n :: Integer) <= 2 ==>
+  prop "fails with number less than or equal to 2" $ \n ->
+    (n :: Integer) <= 2 ==>
     maybeGoldbach (show n) `shouldBe` Nothing
 
   prop "fails with odd number" $
-    forAll oddNumbers $ \n -> maybeGoldbach (show n) `shouldBe` Nothing
+    forAll oddNumbers $ \n ->
+    maybeGoldbach (show n) `shouldBe` Nothing
 
   prop "is same as goldbach with even number" $
     forAll (evenNumbers `suchThat` (>2)) $ \n ->
     maybeGoldbach (show n) `shouldBe` Just (n, goldbach n)
 
-  where oddNumbers = (\n -> n*2+1) <$> arbitrarySizedNatural :: Gen Integer
+  where oddNumbers = (1+) . (2*) <$> arbitrarySizedNatural :: Gen Integer
         evenNumbers = (2*) <$> arbitrarySizedNatural
 
 examples :: Spec
