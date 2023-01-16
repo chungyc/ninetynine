@@ -11,6 +11,9 @@ module Problems.P73 (treeToSexp,sexpToTree) where
 import           Problems.MultiwayTrees
 import qualified Solutions.P73          as Solution
 
+-- $setup
+-- >>> import Problems.MultiwayTrees
+
 -- | An [s-expression](https://en.wikipedia.org/wiki/S-expression) is
 -- commonly represented as a list of items between parentheses.
 -- In particular, s-expressions can be nested, e.g., @(a b (c d) e (f g))@.

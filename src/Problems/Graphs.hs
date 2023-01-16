@@ -13,7 +13,7 @@ module Problems.Graphs (
   Graph (vertexes, edges, sets, neighbors, adjacent, toGraph, isValidGraph),
   Vertex,
   Edge (Edge),
-  Var,
+  Var (Var),
   Lists (Lists),
   Adjacency (Adjacency),
   Paths (Paths),

@@ -6,77 +6,113 @@ Maintainer: dev@chungyc.org
 -}
 module Main (main) where
 
-import           Data.List             (isInfixOf)
+import           Data.List                     (isInfixOf)
 import           System.Console.GetOpt
-import           System.Environment
-import           Test.DocTest          (doctest)
-
+import           System.Environment            (getArgs)
+import           Test.DocTest                  (mainFromCabalWithConfig)
+import           Test.DocTest.Internal.Options (Config (..), ModuleName,
+                                                defaultConfig)
 main :: IO ()
 main = do
-  doctest' ["--fast"] stateless
-  doctest' [] stateful
-  doctest' [] $ mapFiles ["Crosswords.hs"]
-  doctest' [] $ mapFiles ["MultiwayTrees.hs"]
-  doctest' [] $ mapFiles ["Monads.hs"]
-  doctest' ["--fast"] solutions
-
-doctest' :: [String] -> [String] -> IO ()
-doctest' flags filenames = do
   args <- getArgs
   match <- matchOptions args
-  doctest $ flags ++ (match filenames)
+  let modules' = match modules
+  let config =  defaultConfig { cfgModules = modules' }
+  mainFromCabalWithConfig "ninetynine" config
 
-data Flag = Match String deriving Show
-
-options :: [OptDescr Flag]
-options = [ Option [] ["match"] (ReqArg Match "match") "substring match on file name" ]
-
--- | Support @--match@ option that is also supported by Hspec.
-matchOptions :: [String] -> IO ([String] -> [String])
-matchOptions argv =
-  case getOpt Permute options argv of
-    ([Match m], _, _) -> return $ filter $ isInfixOf m
-    _                 -> return $ id
-
-mapFiles :: [String] -> [String]
-mapFiles = map ("src/Problems/" ++)
-
--- | Deterministic examples with no state or local definitions to reset.
-stateless :: [String]
-stateless = mapFiles
-  [ "P01.hs", "P02.hs", "P03.hs", "P04.hs", "P05.hs"
-  , "P06.hs", "P07.hs", "P08.hs", "P09.hs", "P10.hs"
-  , "P11.hs", "P12.hs", "P13.hs", "P14.hs", "P15.hs"
-  , "P16.hs", "P17.hs", "P18.hs", "P19.hs", "P20.hs"
-  , "P21.hs", "P22.hs"
-  , "P28.hs", "P29.hs", "P30.hs"
-  , "P31.hs", "P32.hs", "P33.hs", "P34.hs", "P35.hs"
-  , "P36.hs", "P38.hs", "P39.hs", "P40.hs"
-  , "P42.hs", "P43.hs", "P44.hs", "P45.hs"
-  , "P46.hs", "P47.hs", "P49.hs"
-  , "P53.hs", "P54.hs", "P55.hs"
-  , "P56.hs", "P57.hs", "P59.hs", "P60.hs"
-  , "P63.hs", "P64.hs", "P65.hs"
-  , "P67.hs", "P70.hs"
-  , "P71.hs", "P72.hs", "P73.hs", "P74.hs", "P75.hs"
-  , "P76.hs", "P77.hs", "P78.hs", "P79.hs"
-  , "P83.hs", "P85.hs"
-  , "P89.hs"
-  , "P94.hs"
-  , "P95.hs", "P96.hs", "P97.hs", "P98.hs", "P99.hs"
-  ]
-
--- | Deterministic examples with local definitions to reset.
-stateful :: [String]
-stateful = mapFiles [ "P26.hs", "P27.hs", "P48.hs", "P57.hs"
-                    , "P61.hs", "P62.hs", "P66.hs", "P68.hs", "P69.hs"
-                    , "P81.hs", "P82.hs", "P84.hs", "P87.hs", "P88.hs", "P90.hs"
-                    , "P93.hs"
-                    ]
-
--- Examples in solutions.
-solutions :: [String]
-solutions = map ("src/Solutions/" ++) $ [ "P49.hs" ]
+-- | Modules with examples to be tested.
+modules :: [ModuleName]
+modules = [ "Problems.Crosswords"
+          , "Problems.Graphs"
+          , "Problems.MultiwayTrees"
+          , "Problems.Monads"
+          , "Problems.P01"
+          , "Problems.P02"
+          , "Problems.P03"
+          , "Problems.P04"
+          , "Problems.P05"
+          , "Problems.P06"
+          , "Problems.P07"
+          , "Problems.P08"
+          , "Problems.P09"
+          , "Problems.P10"
+          , "Problems.P11"
+          , "Problems.P12"
+          , "Problems.P13"
+          , "Problems.P14"
+          , "Problems.P15"
+          , "Problems.P16"
+          , "Problems.P17"
+          , "Problems.P18"
+          , "Problems.P19"
+          , "Problems.P20"
+          , "Problems.P21"
+          , "Problems.P22"
+          , "Problems.P26"
+          , "Problems.P27"
+          , "Problems.P28"
+          , "Problems.P29"
+          , "Problems.P30"
+          , "Problems.P31"
+          , "Problems.P32"
+          , "Problems.P33"
+          , "Problems.P34"
+          , "Problems.P35"
+          , "Problems.P36"
+          , "Problems.P38"
+          , "Problems.P39"
+          , "Problems.P40"
+          , "Problems.P42"
+          , "Problems.P43"
+          , "Problems.P44"
+          , "Problems.P45"
+          , "Problems.P46"
+          , "Problems.P47"
+          , "Problems.P48"
+          , "Problems.P49"
+          , "Problems.P53"
+          , "Problems.P55"
+          , "Problems.P56"
+          , "Problems.P57"
+          , "Problems.P58"
+          , "Problems.P59"
+          , "Problems.P60"
+          , "Problems.P61"
+          , "Problems.P62"
+          , "Problems.P63"
+          , "Problems.P64"
+          , "Problems.P65"
+          , "Problems.P66"
+          , "Problems.P67"
+          , "Problems.P68"
+          , "Problems.P69"
+          , "Problems.P70"
+          , "Problems.P71"
+          , "Problems.P72"
+          , "Problems.P73"
+          , "Problems.P74"
+          , "Problems.P75"
+          , "Problems.P76"
+          , "Problems.P77"
+          , "Problems.P78"
+          , "Problems.P79"
+          , "Problems.P81"
+          , "Problems.P82"
+          , "Problems.P83"
+          , "Problems.P84"
+          , "Problems.P85"
+          , "Problems.P87"
+          , "Problems.P88"
+          , "Problems.P89"
+          , "Problems.P90"
+          , "Problems.P93"
+          , "Problems.P94"
+          , "Problems.P95"
+          , "Problems.P96"
+          , "Problems.P97"
+          , "Problems.P98"
+          , "Problems.P99"
+          ]
 
 {-
 Examples in the following problems are intentionally omitted from testing.
@@ -101,12 +137,16 @@ Examples in the following problems are intentionally omitted from testing.
 
 * P92 : The graceful labeling is not unique.
   It is difficult to deal with this without making the example less illustrative.
-
-Examples in the following modules are also intentionally omitted from testing.
-
-* Problems.Graphs : The module and examples themselves are fine.
-  However, doctest fails on the examples here for some unknown reason.
-  This is likely related to changes in GHC; it used to succeed in older versions.
-  doctest does succeed with a standalone manual run
-  (`stack exec doctest src/Problems/Graphs.hs`).
 -}
+
+data Flag = Match String deriving Show
+
+options :: [OptDescr Flag]
+options = [ Option [] ["match"] (ReqArg Match "match") "substring match on file name" ]
+
+-- | Support @--match@ option that is also supported by Hspec.
+matchOptions :: [String] -> IO ([String] -> [String])
+matchOptions argv =
+  case getOpt Permute options argv of
+    ([Match m], _, _) -> return $ filter $ isInfixOf m
+    _                 -> return $ id

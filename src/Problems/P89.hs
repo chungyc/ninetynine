@@ -12,6 +12,7 @@ import           Problems.Graphs
 import qualified Solutions.P89   as Solution
 
 -- $setup
+-- >>> import Problems.Graphs
 -- >>> import Problems.P80
 
 -- | Write a function that finds out whether a given graph is bipartite.

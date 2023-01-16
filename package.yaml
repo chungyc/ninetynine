@@ -30,7 +30,7 @@ description: |
   For more information, see <https://github.com/chungyc/ninetynine>.
 
 dependencies:
-- base >= 4.7 && < 5
+- base
 
 library:
   source-dirs: src
@@ -84,7 +84,8 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - doctest
+    - ninetynine
+    - doctest-parallel
 
 benchmarks:
   ninetynine-bench:

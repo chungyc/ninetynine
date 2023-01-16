@@ -11,6 +11,9 @@ module Problems.P72 (postOrderSequence) where
 import           Problems.MultiwayTrees
 import qualified Solutions.P72          as Solution
 
+-- $setup
+-- >>> import Problems.MultiwayTrees
+
 -- | Construct the post-order sequence of the tree nodes.
 --
 -- === Examples

@@ -6,10 +6,13 @@ Maintainer: dev@chungyc.org
 
 Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P99".
 -}
-module Problems.P99 (solveCrossword, crosswordPuzzle, crosswordPuzzle') where
+module Problems.P99 (solveCrossword, Crossword (..), crosswordPuzzle, crosswordPuzzle') where
 
 import           Problems.Crosswords
 import qualified Solutions.P99       as Solution
+
+-- $setup
+-- >>> import Problems.Crosswords
 
 {- |
 Given an empty, or almost empty, crossword puzzle grid and a set of words,

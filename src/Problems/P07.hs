@@ -6,7 +6,7 @@ Maintainer: dev@chungyc.org
 
 Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P07".
 -}
-module Problems.P07 (flatten) where
+module Problems.P07 (flatten, NestedList (..)) where
 
 import           Problems.Lists
 import qualified Solutions.P07  as Solution

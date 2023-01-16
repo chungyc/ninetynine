@@ -11,6 +11,9 @@ module Problems.P63 (completeBinaryTree, isCompleteBinaryTree) where
 import           Problems.BinaryTrees
 import qualified Solutions.P63        as Solution
 
+-- $setup
+-- >>> import Problems.BinaryTrees
+
 {- |
 A complete binary tree with height \(h\) is defined as follows:
 

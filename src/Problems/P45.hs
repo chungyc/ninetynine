@@ -11,6 +11,9 @@ module Problems.P45 (isGaussianPrime') where
 import           Data.Complex
 import qualified Solutions.P45 as Solution
 
+-- $setup
+-- >>> import Data.Complex
+
 {- | Using Fermat's two-square theorem, it can be shown that a Gaussian integer \(a+bi\) is prime
 if and only if it falls into one of the following categories:
 

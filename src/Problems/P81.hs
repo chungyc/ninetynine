@@ -13,6 +13,7 @@ import qualified Solutions.P81   as Solution
 
 -- $setup
 -- >>> import Data.List
+-- >>> import Problems.Graphs
 -- >>> import Problems.P80
 
 -- | Write a function that, given two vertexes @a@ and @b@ in a graph,

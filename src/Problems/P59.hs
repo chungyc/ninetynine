@@ -11,6 +11,9 @@ module Problems.P59 (heightBalancedTrees) where
 import           Problems.BinaryTrees
 import qualified Solutions.P59        as Solution
 
+-- $setup
+-- >>> import Problems.BinaryTrees
+
 -- | In a height-balanced binary tree, the following property holds for every node:
 -- The height of its left subtree and the height of its right subtree are almost equal,
 -- which means their difference is not greater than one.

@@ -13,6 +13,7 @@ import qualified Solutions.P88   as Solution
 
 -- $setup
 -- >>> import Data.List (sort)
+-- >>> import Problems.Graphs
 -- >>> import Problems.P80
 
 -- | Write a function that splits a graph into its connected components.

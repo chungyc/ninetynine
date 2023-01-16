@@ -282,7 +282,7 @@ library
       src
   build-depends:
       array
-    , base >=4.7 && <5
+    , base
     , containers
     , deepseq
     , mtl
@@ -303,7 +303,7 @@ executable generate-support
       app/support
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      base
     , filepath
     , ninetynine
     , process
@@ -318,8 +318,9 @@ test-suite examples-test
       Paths_ninetynine
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
-    , doctest
+      base
+    , doctest-parallel
+    , ninetynine
   default-language: Haskell2010
 
 test-suite ninetynine-test
@@ -445,7 +446,7 @@ test-suite ninetynine-test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       QuickCheck
-    , base >=4.7 && <5
+    , base
     , containers
     , generic-random
     , hspec
@@ -557,7 +558,7 @@ benchmark ninetynine-bench
       bench
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      base
     , containers
     , criterion
     , deepseq

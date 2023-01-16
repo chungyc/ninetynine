@@ -12,6 +12,7 @@ import           Problems.BinaryTrees
 import qualified Solutions.P57        as Solution
 
 -- $setup
+-- >>> import Problems.BinaryTrees
 -- >>> import Problems.P56
 
 -- | Write an 'addedTo' function which adds an element to

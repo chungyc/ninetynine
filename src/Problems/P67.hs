@@ -11,6 +11,9 @@ module Problems.P67 (treeToString, stringToTree) where
 import           Problems.BinaryTrees
 import qualified Solutions.P67        as Solution
 
+-- $setup
+-- >>> import Problems.BinaryTrees
+
 {- |
 Somebody represents binary trees as strings of the following form:
 

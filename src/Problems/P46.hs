@@ -24,6 +24,9 @@ module Problems.P46 (
 import           Problems.Logic
 import qualified Solutions.P46  as Solution
 
+-- $setup
+-- >>> import Problems.Logic
+
 -- | Truth tables for logical expressions with two operands.
 --
 -- The truth table will be a list of @('Bool', 'Bool', 'Bool')@ tuples.

@@ -12,6 +12,7 @@ import           Problems.Graphs
 import qualified Solutions.P87   as Solution
 
 -- $setup
+-- >>> import Problems.Graphs
 -- >>> import Problems.P80
 
 -- | Write a function that generates a depth-first order graph traversal sequence.

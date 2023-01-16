@@ -21,6 +21,9 @@ import qualified Solutions.P74  as Solution
 import           System.IO
 import           System.Process (createPipe)
 
+-- $setup
+-- >>> import System.IO
+
 {- |
 We would like to implement a function which reads an even number from standard input,
 finds two prime numbers which add up to the number (see 'Problems.P40.goldbach'),

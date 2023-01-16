@@ -11,6 +11,9 @@ module Problems.P60 (heightBalancedTreesWithNodes) where
 import           Problems.BinaryTrees
 import qualified Solutions.P60        as Solution
 
+-- $setup
+-- >>> import Problems.BinaryTrees
+
 -- | Construct all the height-balanced binary trees with a given number of nodes.
 --
 -- === Examples

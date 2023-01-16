@@ -11,6 +11,9 @@ module Problems.P43 (gaussianDividesBy) where
 import           Data.Complex
 import qualified Solutions.P43 as Solution
 
+-- $setup
+-- >>> import Data.Complex
+
 {- | A Gaussian integer is a complex number where both the real and imaginary parts are integers.
 If \(x\) and \(y\) are Gaussian integers where \(y \neq 0\),
 then \(x\) is said to be divisible by \(y\)

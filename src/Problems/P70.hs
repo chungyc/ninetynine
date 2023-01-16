@@ -11,6 +11,9 @@ module Problems.P70 (stringToMultitree, multitreeToString) where
 import           Problems.MultiwayTrees
 import qualified Solutions.P70          as Solution
 
+-- $setup
+-- >>> import Problems.MultiwayTrees
+
 -- | We suppose that the nodes of a multiway tree contain single characters.
 -- The characters in the node string are in depth-first order of the tree.
 -- The special character @^@ is inserted whenever the move is

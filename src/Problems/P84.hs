@@ -14,6 +14,7 @@ import           Problems.Graphs
 import qualified Solutions.P84   as Solution
 
 -- $setup
+-- >>> import Problems.Graphs
 -- >>> import Problems.P83
 
 -- | Write a function which constructs the minimum spanning tree of a given weighted graph.

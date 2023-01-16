@@ -13,6 +13,7 @@ import qualified Solutions.P82   as Solution
 
 -- $setup
 -- >>> import Data.List
+-- >>> import Problems.Graphs
 -- >>> import Problems.P80
 
 -- | A cycle is a path in a graph whose first and last vertexes are the same vertex.

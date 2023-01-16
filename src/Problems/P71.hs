@@ -11,6 +11,9 @@ module Problems.P71 (internalPathLength) where
 import           Problems.MultiwayTrees
 import qualified Solutions.P71          as Solution
 
+-- $setup
+-- >>> import Problems.MultiwayTrees
+
 -- | Determine the internal path length of a tree.
 --
 -- We define the internal path length of a multiway tree as

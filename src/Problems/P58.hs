@@ -11,6 +11,9 @@ module Problems.P58 (symmetricBalancedTrees) where
 import           Problems.BinaryTrees
 import qualified Solutions.P58        as Solution
 
+-- $setup
+-- >>> import Problems.BinaryTrees
+
 -- | Construct all symmetric, completely balanced binary trees with a given number of nodes.
 --
 -- === Examples

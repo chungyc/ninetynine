@@ -12,6 +12,10 @@ import           Problems.Graphs
 import           Problems.P80
 import qualified Solutions.P83   as Solution
 
+-- $setup
+-- >>> import Problems.Graphs
+-- >>> import Problems.P80
+
 -- | Mathematically, a tree is a graph with exactly one path between any two vertexes.
 -- A spanning tree of a graph is a tree which includes all vertexes of the graph.
 --

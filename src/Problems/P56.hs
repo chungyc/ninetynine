@@ -11,6 +11,9 @@ module Problems.P56 (symmetric) where
 import           Problems.BinaryTrees
 import qualified Solutions.P56        as Solution
 
+-- $setup
+-- >>> import Problems.BinaryTrees
+
 -- | Let us call a binary tree symmetric if you can draw a vertical line through the root node
 -- and then the right subtree is the mirror image of the left subtree.
 -- Write a function 'symmetric' to check whether a given binary tree is symmetric.
