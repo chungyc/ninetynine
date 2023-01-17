@@ -1,6 +1,6 @@
 {- |
 Description: An arithmetic puzzle
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -25,7 +25,7 @@ arithmeticPuzzle []  = []
 arithmeticPuzzle [_] = []
 arithmeticPuzzle xs  = nub $ map formatEquation es
   where ts = toTrees xs
-        es = concat $ map findEquations ts
+        es = concatMap findEquations ts
 
 -- | Form all binary trees that can be formed from the list of integers,
 -- where all internal nodes are 'Nothing', which is the placeholder for arithmetic operations,
@@ -33,8 +33,8 @@ arithmeticPuzzle xs  = nub $ map formatEquation es
 toTrees :: [Integer] -> [Tree (Maybe Integer)]
 toTrees []  = [Empty]
 toTrees [x] = [Branch (Just x) Empty Empty]
-toTrees xs  = concat $ map (\(ls,rs) -> [Branch Nothing l r | l <- toTrees ls, r <- toTrees rs]) splits
-  where splits = filter (\(ls,rs) -> length ls > 0 && length rs > 0) $ zip (inits xs) (tails xs)
+toTrees xs  = concatMap (\(ls,rs) -> [Branch Nothing l r | l <- toTrees ls, r <- toTrees rs]) splits
+  where splits = filter (\(ls,rs) -> not (null ls) && not (null rs)) $ zip (inits xs) (tails xs)
 
 -- | Arithmetic operations which are internal node values for an expression tree.
 data Op = Add | Subtract | Multiply | Divide | Equals
@@ -42,7 +42,7 @@ data Op = Add | Subtract | Multiply | Divide | Equals
 -- | Find all equations that can be formed from the binary tree structure.
 -- Both sides must be equal to each other.
 findEquations :: Tree (Maybe Integer) -> [Tree (Either Op Integer)]
-findEquations (Branch Nothing l r) = concat $ map toEquations common
+findEquations (Branch Nothing l r) = concatMap toEquations common
   where ls = findExpressions l
         rs = findExpressions r
         common = Set.toList $ Set.intersection (Map.keysSet ls) (Map.keysSet rs)
@@ -52,7 +52,7 @@ findEquations _ = undefined  -- need two sides for an equation
 -- | Find all expression trees that can be formed from the given binary tree structure.
 -- Return a map from their values to the trees.
 findExpressions :: Tree (Maybe Integer) -> Map (Ratio Integer) [Tree (Either Op Integer)]
-findExpressions t = Map.fromListWith (++) $ mapMaybe (\t' -> assoc $ (evalTree t', t')) $ permuteTree t
+findExpressions t = Map.fromListWith (++) $ mapMaybe (\t' -> assoc (evalTree t', t')) $ permuteTree t
   where assoc (Nothing, _) = Nothing
         assoc (Just x, t') = Just (x, [t'])
 
@@ -65,7 +65,7 @@ evalTree (Branch (Left Divide) l r) = do
   l' <- evalTree l
   r' <- evalTree r
   case r' of 0 -> Nothing
-             _ -> return $ evaluate Divide l' r'
+             _ -> return $ l' / r'
 
 evalTree (Branch (Left op) l r) = do
   l' <- evalTree l

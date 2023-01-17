@@ -1,6 +1,6 @@
 {- |
 Description: Tree construction from a node string
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -22,14 +22,14 @@ stringToMultitree = fst . toNode
 
 toNode :: String -> (MultiwayTree Char, String)
 toNode (x:xs) = (MultiwayTree x ts, remaining)
-  where (ts, remaining) = toList ([], xs)
+  where (ts, remaining) = toTreeList ([], xs)
 toNode [] = undefined
 
-toList :: ([MultiwayTree Char], String) -> ([MultiwayTree Char], String)
-toList (ts, '^':xs) = (reverse ts, xs)
-toList (ts, s) = toList (node : ts, remaining)
+toTreeList :: ([MultiwayTree Char], String) -> ([MultiwayTree Char], String)
+toTreeList (ts, '^':xs) = (reverse ts, xs)
+toTreeList (ts, s) = toTreeList (node : ts, remaining)
   where (node, remaining) = toNode s
 
 -- | Construct the node string from a 'MultiwayTree'.
 multitreeToString :: MultiwayTree Char -> String
-multitreeToString (MultiwayTree x ts) = x : (concat $ map multitreeToString ts) ++ "^"
+multitreeToString (MultiwayTree x ts) = x : concatMap multitreeToString ts ++ "^"

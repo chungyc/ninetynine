@@ -1,6 +1,6 @@
 {- |
 Description: Graph isomorphism
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -11,6 +11,7 @@ module Solutions.P85 (isomorphic, isomorphic', isomorphic'') where
 import           Data.List       (permutations, sortOn)
 import           Data.Map        (Map, (!))
 import qualified Data.Map        as Map
+import           Data.Ord        (Down (..))
 import           Data.Set        (Set)
 import qualified Data.Set        as Set
 import           Problems.Graphs
@@ -32,7 +33,7 @@ isomorphic g g'
 
 -- | From the given non-empty set of vertexes, returns the vertex with the largest degree.
 maxDegreeVertex :: G -> Set Vertex -> Vertex
-maxDegreeVertex g vs = head $ reverse $ sortOn (Set.size . flip neighbors g) $ Set.toList $ vs
+maxDegreeVertex g vs = head $ sortOn (Down . Set.size . flip neighbors g) $ Set.toList vs
 
 expand :: Map Vertex Vertex -> Set Vertex -> (G, Set Vertex) -> (G, Set Vertex) -> Bool
 expand bijection frontier (g, vs) (g', vs')
@@ -84,10 +85,10 @@ permute (vs, es) vl vl' = (vs', es')
         es' = mapEdges translate es
 
 mapVertexes :: Map Vertex Vertex -> Set Vertex -> Set Vertex
-mapVertexes translate vs = Set.map (translate !) vs
+mapVertexes translate = Set.map (translate !)
 
 mapEdges :: Map Vertex Vertex -> Set Edge -> Set Edge
-mapEdges translate es = Set.map (\(Edge (u, v)) -> Edge (f u, f v)) es
+mapEdges translate = Set.map (\(Edge (u, v)) -> Edge (f u, f v))
   where f = (!) translate
 
 -- | Determine whether two graphs are isomorphic.
@@ -113,6 +114,6 @@ permute' (vs, es) p = (vs', es')
 
 combineLists :: [[Vertex]] -> [[Vertex]] -> [[(Vertex,Vertex)]]
 combineLists [] [] = [[]]
-combineLists (l:ls) (l':ls') = concat $ map (\p -> map (\b -> b ++ p) bijections) $ combineLists ls ls'
+combineLists (l:ls) (l':ls') = concatMap (\p -> map (++ p) bijections) $ combineLists ls ls'
   where bijections = map (zip l) $ permutations l'
 combineLists _ _ = undefined

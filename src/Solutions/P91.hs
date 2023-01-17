@@ -1,6 +1,6 @@
 {- |
 Description: Knight's tour
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -35,7 +35,7 @@ tour n path remaining
         next = sortOn (\pos -> availableMoves (Set.delete pos remaining) pos) $ nextMoves remaining $ head path
 
 nextMoves :: Set (Int,Int) -> (Int,Int) -> [(Int,Int)]
-nextMoves remaining (x,y) = filter (\pos -> Set.member pos remaining) $
+nextMoves remaining (x,y) = filter (`Set.member` remaining) $
   [(x+xd,y+yd) | xd <- [1,-1], yd <- [2,-2]] ++ [(x+xd,y+yd) | xd <- [2,-2], yd <- [1,-1]]
 
 availableMoves :: Set (Int,Int) -> (Int,Int) -> Int

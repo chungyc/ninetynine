@@ -1,6 +1,6 @@
 {- |
 Description: Bipartite graphs
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -32,7 +32,7 @@ partition g (remaining, boundary, us, vs)
     -- The neighbors of vertexes that are slated to be added to us.
     -- These neighbors will be added to the set which includes vs;
     -- don't revisit those already visited.
-    boundary' = Set.difference (Set.unions $ Set.map (flip neighbors g) boundary) vs
+    boundary' = Set.difference (Set.unions $ Set.map (`neighbors` g) boundary) vs
     -- The remaining vertexes that are neither in us' or vs' yet.
     remaining' = Set.difference remaining boundary
     -- Switch roles between us and vs.

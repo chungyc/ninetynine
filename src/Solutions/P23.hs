@@ -1,6 +1,6 @@
 {- |
 Description: Select random elements from a list
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -17,7 +17,7 @@ import           System.Random
 -- Also return a new random number generator so that callers
 -- can avoid reusing a sequence of random numbers.
 randomSelect :: RandomGen g => [a] -> Int -> g -> ([a], g)
-randomSelect xs n g = select (Set.fromList $ map Indexed $ zip [1..] xs) n [] g
+randomSelect xs n = select (Set.fromList $ zipWith (curry Indexed) [1..] xs) n []
 
 -- | For storing an arbitrary type in 'Set'.
 newtype Indexed a = Indexed (Int, a)

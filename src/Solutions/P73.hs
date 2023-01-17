@@ -1,6 +1,6 @@
 {- |
 Description: Tree representation with s-expressions
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -8,7 +8,6 @@ Some solutions to "Problems.P73" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P73 (treeToSexp,sexpToTree) where
 
-import           Data.List              (intercalate)
 import           Problems.MultiwayTrees
 
 -- | An [s-expression](https://en.wikipedia.org/wiki/S-expression) is
@@ -26,7 +25,7 @@ import           Problems.MultiwayTrees
 -- of a multiway tree as a string.
 treeToSexp :: MultiwayTree Char -> String
 treeToSexp (MultiwayTree x []) = [x]
-treeToSexp (MultiwayTree x ts) = "(" ++ [x] ++ " " ++ (intercalate " " $ map treeToSexp ts) ++ ")"
+treeToSexp (MultiwayTree x ts) = "(" ++ [x] ++ " " ++ unwords (map treeToSexp ts) ++ ")"
 
 -- | Write a function which will convert an s-expression, representing
 -- a multiway tree as in 'treeToSexp', into a 'MultiwayTree'.

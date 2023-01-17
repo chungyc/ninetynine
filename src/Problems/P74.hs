@@ -41,7 +41,7 @@ askGoldbach hIn hOut = do
   hPutStr hOut "="
   hPutStr hOut $ show a
   hPutStr hOut "+"
-  hPutStrLn hOut $ show b
+  hPrint hOut b
 @
 
 Implement the function without do notation.

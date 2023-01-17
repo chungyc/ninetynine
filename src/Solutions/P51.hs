@@ -17,14 +17,14 @@ Flip a given number of boolean values in the boolean list randomly.
 corrupt :: RandomGen g => g -> Int -> [Bool] -> [Bool]
 corrupt gen n s = corrupt' 0 positions s
   where n' = min n $ length s
-        positions = sort $ take n' $ nub $ randomRs (0, (length s) - 1) gen
+        positions = sort $ take n' $ nub $ randomRs (0, length s - 1) gen
 
 corrupt' :: Int -> [Int] -> [Bool] -> [Bool]
 corrupt' _ _ [] = []
 corrupt' _ [] s = s
 corrupt' offset ps@(n:ns) (c:cs)
-  | n == offset = (not c) : (corrupt' (offset+1) ns cs)
-  | otherwise   = c : (corrupt' (offset+1) ps cs)
+  | n == offset = not c : corrupt' (offset+1) ns cs
+  | otherwise   = c : corrupt' (offset+1) ps cs
 
 {- |
 Construct an error-correcting encoding of the given Boolean list.
@@ -44,8 +44,8 @@ There could be an error in the encoding.
 errorCorrectingDecode :: [Bool] -> [Bool]
 errorCorrectingDecode []        = []
 errorCorrectingDecode (a:b:c:l) = vote (a,b,c) : errorCorrectingDecode l
-errorCorrectingDecode (a:b:[])  = [vote (a,b,False)]  -- arbitrarily bias to False when bit missing
-errorCorrectingDecode (a:[])    = [a]
+errorCorrectingDecode [a,b]     = [vote (a,b,False)]  -- arbitrarily bias to False when bit missing
+errorCorrectingDecode [a]       = [a]
 
 vote :: (Bool, Bool, Bool) -> Bool
 vote (a, b, c)

@@ -13,7 +13,7 @@ import           Problems.P59
 
 -- | Construct all the height-balanced binary trees with a given number of nodes.
 heightBalancedTreesWithNodes :: Int -> [Tree ()]
-heightBalancedTreesWithNodes n = concat $ map treesWithHeight [minHeight n..maxHeight n]
+heightBalancedTreesWithNodes n = concatMap treesWithHeight [minHeight n..maxHeight n]
   where treesWithHeight h = filter ((==) n . treeSize) $ heightBalancedTrees h
 
 -- | Minimum number of nodes in a height-balanced tree of height @h@.

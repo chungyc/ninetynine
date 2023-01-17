@@ -49,7 +49,7 @@ but this is relatively simple without having to worry whether a prime factor \(q
 is equal to a prime factor \(p_i\) of \(x\), or whether it is a prime factor of a \(p_i - 1\).
 -}
 tally :: Integral a => a -> a
-tally n = genericLength $ filter ((==) n) $ genericTake bound totients
+tally n = genericLength $ filter (n ==) $ genericTake bound totients
   where bound = product $ map (1+) $ 1 : primeFactors n
 
 totients :: Integral a => [a]

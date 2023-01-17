@@ -19,6 +19,7 @@ randomWalkPaths' 0 = [[0]]
 randomWalkPaths' n = do
   path <- randomWalkPaths' (n-1)
   step <- [-1,0,1]
-  return (path' path step)
-  where path' []       _ = []
-        path' xs@(x:_) s = (x+s):xs
+  let path' = extend path step
+  return path'
+  where extend []       _ = []
+        extend xs@(x:_) s = (x+s):xs

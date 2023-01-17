@@ -1,6 +1,6 @@
 {- |
 Description: Syntax checking
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -54,4 +54,4 @@ isLetter x = Set.member x letters
 
 isDigit :: Char -> Bool
 isDigit x = Set.member x digits
-  where digits = Set.fromList $ ['0'..'9']
+  where digits = Set.fromList ['0'..'9']

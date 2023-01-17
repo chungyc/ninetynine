@@ -1,6 +1,6 @@
 {- |
 Description: Sudoku
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -15,7 +15,7 @@ import           Data.List     (sortOn)
 import qualified Data.List     as List
 import           Data.Map.Lazy (Map)
 import qualified Data.Map.Lazy as Map
-import           Data.Maybe    (fromJust, isJust, isNothing)
+import           Data.Maybe    (isNothing, mapMaybe)
 import           Data.Set      (Set)
 import qualified Data.Set      as Set
 import           System.Random
@@ -57,7 +57,7 @@ randomSudoku puzzle gen
   where (solution, gen') = solve board pending gen
         (board, pending) = toBoard puzzle
         valid = validNumbers && validSize && validateConflicts board pending
-        validSize = (length puzzle == 9) && (all ((==) 9 . length) puzzle)
+        validSize = (length puzzle == 9) && all ((9 ==) . length) puzzle
         validNumbers = all (all $ inRange (0,9)) puzzle
 
 -- | Stores the definite value for each position that has one.
@@ -80,7 +80,7 @@ toBoard p = (array ((1,1), (9,9)) list, toPending list)
 
 -- | Converts to association list for use by toBoard.
 toBoardList :: [[Int]] -> [((Int, Int), Maybe Int)]
-toBoardList p = concat $ map (\(i, l) -> map (\(j, n) -> ((i, j), maybeN n)) l) indexed
+toBoardList p = concatMap (\(i, l) -> map (\(j, n) -> ((i, j), maybeN n)) l) indexed
   where indexed = zip [1..9] $ map (zip [1..9]) p
         maybeN 0 = Nothing
         maybeN n = Just n
@@ -160,7 +160,7 @@ definiteInSquare b p e = getDefinite b p $ squarePositions Map.! e
 
 -- | Collects the definite values from the given positions.
 getDefinite :: Board -> Pending -> [(Int,Int)] -> Set Int
-getDefinite b p l = Set.fromList $ map fromJust $ filter isJust $ map (lookupDefinite b p) l
+getDefinite b p l = Set.fromList $ mapMaybe (lookupDefinite b p) l
 
 -- | Returns a definite value from a position.
 -- If the position does not have a definite value, returns Nothing.
@@ -175,22 +175,22 @@ lookupDefinite b p e = onBoard (b Array.! e)
 
 -- | For each position, maps the other positions which reside in the same row.
 rowPositions :: Map (Int,Int) [(Int,Int)]
-rowPositions =  Map.fromList $ map (\pos -> (pos, row pos)) locations
+rowPositions =  Map.fromList $ map (\pos -> (pos, row pos)) boardLocations
   where row (x,y) = zip (repeat x) $ List.delete y [1..9]
-        locations = [(x,y) | x <- [1..9], y <- [1..9]]
 
 -- | For each position, maps the other positions which reside in the same column.
 columnPositions :: Map (Int,Int) [(Int,Int)]
-columnPositions = Map.fromList $ map (\pos -> (pos, column pos)) locations
+columnPositions = Map.fromList $ map (\pos -> (pos, column pos)) boardLocations
   where column (x,y) = zip (List.delete x [1..9]) $ repeat y
-        locations = [(x,y) | x <- [1..9], y <- [1..9]]
 
 -- | For each position, maps the other positions which reside in the same square.
 squarePositions :: Map (Int,Int) [(Int,Int)]
-squarePositions = Map.fromList $ map (\pos -> (pos, xys pos)) locations
+squarePositions = Map.fromList $ map (\pos -> (pos, xys pos)) boardLocations
   where xys (x,y) = [(x',y') | x' <- bucket x, y' <- bucket y, (x',y') /= (x,y)]
         bucket z = [3 * ((z-1) `div` 3) + 1 .. 3 * ((z-1) `div` 3) + 3]
-        locations = [(x,y) | x <- [1..9], y <- [1..9]]
+
+boardLocations :: [(Int,Int)]
+boardLocations = [(x,y) | x <- [1..9], y <- [1..9]]
 
 -- | When pruning no longer works, try guessing through possibilities at a random position.
 guess :: RandomGen g => Board -> Pending -> g -> (Maybe Board, g)
@@ -201,7 +201,7 @@ guess b p g = guessWithPosition b' p' candidate g''
     -- Pick a position with the smallest number of possibilities to constrain the search space more.
     candidate = fst $ head $ sortOn snd candidates
     -- Associate each position with a random number as well.  It will serve as a random tiebreaker.
-    candidates = map (\((e, s), r) -> ((e, s), (Set.size s, r))) $ zip (Map.toList p') $ (randoms g' :: [Int])
+    candidates = zipWith (curry (\((e, s), r) -> ((e, s), (Set.size s, r)))) (Map.toList p') (randoms g' :: [Int])
     (g', g'') = split g
 
 -- | Guess the definite value for a particular position which will result in a solution.
