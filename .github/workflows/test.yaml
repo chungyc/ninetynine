@@ -5,8 +5,13 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: haskell/actions/setup@v2
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup
+        uses: haskell/actions/setup@v2
         with:
           enable-stack: true
-      - run: stack build --test --bench --no-run-benchmarks
+      - name: Build
+        run: stack build --test --bench --no-run-tests --no-run-benchmarks
+      - name: Test
+        run: stack build --test --bench --no-run-benchmarks
