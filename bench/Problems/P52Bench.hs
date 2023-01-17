@@ -20,7 +20,7 @@ group = bgroup "P52"
 formula :: Formula
 formula = Disjoin [ Complement $ Disjoin [ x
                                      , y
-                                     , Complement $ z
+                                     , Complement z
                                      , Complement $ Disjoin [u, Complement v]
                                      ]
                   , u
