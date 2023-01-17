@@ -16,8 +16,8 @@ group = bgroup "P38"
     [ subgroup "highlyTotientNumbers" Solution.highlyTotientNumbers ]
   ]
 
-subgroup :: String -> ([Integer]) -> Benchmark
+subgroup :: String -> [Integer] -> Benchmark
 subgroup name highlyTotientNumbers = bgroup name
-  [ bench "take 5"  $ nf (\xs -> take 5 xs)  highlyTotientNumbers
-  , bench "take 10" $ nf (\xs -> take 10 xs) highlyTotientNumbers
+  [ bench "take 5"  $ nf (take 5)  highlyTotientNumbers
+  , bench "take 10" $ nf (take 10) highlyTotientNumbers
   ]
