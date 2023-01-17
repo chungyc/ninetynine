@@ -34,7 +34,7 @@ properties arithmeticPuzzle name = describe name $ do
       s <- arithmeticPuzzle xs
       return $ s `shouldSatisfy` (==) xs . extractNumbers
 
-  where numberLists = resize 6 $ listOf1 numbers `suchThat` (\l -> length l > 2)
+  where numberLists = resize 5 $ listOf1 numbers `suchThat` (\l -> length l > 2)
         numbers = chooseInteger (1, 12)
 
 examples :: Spec

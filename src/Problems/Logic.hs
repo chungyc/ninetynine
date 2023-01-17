@@ -23,7 +23,7 @@ module Problems.Logic (
   ) where
 
 import           Control.DeepSeq
-import           Data.List       (intercalate, sort)
+import           Data.List       (sort)
 import           Data.Map        (Map, (!))
 import           GHC.Generics    (Generic)
 
@@ -70,7 +70,7 @@ printTable ts = mapM_ (putStrLn . showRow) $ sort ts
 -- Given the same pair of truth tables except for order, the output will be the same.
 printTablen :: [[Bool]] -> IO ()
 printTablen t = mapM_ (putStrLn . showRow) $ sort t
-  where showRow xs = intercalate " " $ map showBool xs
+  where showRow xs = unwords $ map showBool xs
         showBool a = if a then "True " else "False"
 
 -- | Set of functions grouped together.
@@ -106,5 +106,5 @@ evaluateFormula :: Map String Bool -> Formula -> Bool
 evaluateFormula _ (Value x)      = x
 evaluateFormula m (Variable s)   = m ! s
 evaluateFormula m (Complement f) = not $ evaluateFormula m f
-evaluateFormula m (Disjoin fs)   = or $ map (evaluateFormula m) fs
-evaluateFormula m (Conjoin fs)   = and $ map (evaluateFormula m) fs
+evaluateFormula m (Disjoin fs)   = any (evaluateFormula m) fs
+evaluateFormula m (Conjoin fs)   = all (evaluateFormula m) fs

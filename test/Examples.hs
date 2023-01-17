@@ -18,7 +18,9 @@ main = do
   match <- matchOptions args
   let modules' = match modules
   let config =  defaultConfig { cfgModules = modules' }
-  mainFromCabalWithConfig "ninetynine" config
+  if null modules'
+    then return ()
+    else mainFromCabalWithConfig "ninetynine" config
 
 -- | Modules with examples to be tested.
 modules :: [ModuleName]
@@ -148,5 +150,5 @@ options = [ Option [] ["match"] (ReqArg Match "match") "substring match on file 
 matchOptions :: [String] -> IO ([String] -> [String])
 matchOptions argv =
   case getOpt Permute options argv of
-    ([Match m], _, _) -> return $ filter $ isInfixOf m
+    ([Match m], _, _) -> return $ filter (isInfixOf m)
     _                 -> return $ id

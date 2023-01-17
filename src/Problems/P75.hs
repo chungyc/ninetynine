@@ -100,9 +100,6 @@ Nothing
 Nothing
 -}
 maybeGoldbach' :: String -> Maybe (Integer, (Integer, Integer))
-maybeGoldbach' s =
-  case readMaybe s of
-    Nothing -> Nothing
-    Just n -> if n <= 2 then Nothing else
-                if odd n then Nothing else
-                  Just (n, goldbach n)
+maybeGoldbach' s
+  | Just n <- readMaybe s, n > 2, even n = Just (n, goldbach n)
+  | otherwise = Nothing

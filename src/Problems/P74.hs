@@ -1,6 +1,6 @@
 {- |
 Description: IO monad without do notation
-Copyright: Copyright (C) 2022 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -130,7 +130,7 @@ askGoldbach' hIn hOut = do
   hPutStr hOut "="
   hPutStr hOut $ show a
   hPutStr hOut "+"
-  hPutStrLn hOut $ show b
+  hPrint hOut b
 
 {- |
 Given a string and an output handle,

@@ -79,7 +79,7 @@ encodeHuffman' _ "" encoded = reverse encoded
 encodeHuffman' table (c:string) encoded =
   case Map.lookup c table of
     Nothing -> undefined
-    Just e  -> encodeHuffman' table string $ (reverse e) ++ encoded
+    Just e  -> encodeHuffman' table string $ reverse e ++ encoded
 
 -- | Given an encoding table and a string, decode the string.
 --
@@ -91,7 +91,7 @@ decodeHuffman table string = decodeHuffman' (Map.fromList $ map (\(x,y) -> (reve
 decodeHuffman' :: Map String Char -> String -> String -> String -> String
 decodeHuffman' _ "" "" decoded = reverse decoded
 decodeHuffman' table code encoded decoded =
-  case (Map.lookup code table) of
+  case Map.lookup code table of
     Nothing -> case encoded of
       (c:encoded') -> decodeHuffman' table (c:code) encoded' decoded
       ""           -> undefined
