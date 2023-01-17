@@ -15,12 +15,14 @@ jobs:
           enable-stack: true
 
       - name: Cache dependencies
+        id: cache-dependencies
         uses: actions/cache@v3
         with:
           path: ~/.stack
           key: stack-${{ runner.os }}-${{ hashFiles('package.yaml', 'stack.yaml') }}
 
-      - name: Build dependencies
+      - if: ${{ steps.cache-dependencies.outputs.cache-hit != 'true' }}
+        name: Build dependencies
         run: stack build --test --bench --only-dependencies --no-run-tests --no-run-benchmarks
 
       - name: Build
