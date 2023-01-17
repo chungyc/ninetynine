@@ -1,7 +1,5 @@
-{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
-
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -21,5 +19,7 @@ group = bgroup "P48"
 
 subgroup :: String -> (Int -> ([Bool] -> Bool) -> [[Bool]]) -> Benchmark
 subgroup name tablen = bench name $
-  nf (tablen 10) (\[a,b,c,d,e,f,g,h,i,j] ->
-                    (a `impl'` (b `and'` c) `equ'` d `nor'` (e `nand'` (f `xor'` g `impl'` h) `equ'` (i `or'` j))))
+  nf (tablen 10) $ \x -> case x of
+  [a,b,c,d,e,f,g,h,i,j] ->
+    a `impl'` (b `and'` c) `equ'` d `nor'` (e `nand'` (f `xor'` g `impl'` h) `equ'` (i `or'` j))
+  _ -> error "unexpected number of parameters"
