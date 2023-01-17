@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -43,7 +43,7 @@ subgroup name flatten = bgroup name
 
 -- | Gets n'th element in list.  Indexing is 0-based.
 get :: Int -> [NestedList Int] -> NestedList Int
-get n xs = head $ drop n xs
+get n xs = xs !! n
 
 -- [List [], List [Elem 1], List [Elem 1, Elem 1], List [Elem 1, Elem 1, Elem 1], ...]
 flatLists :: [NestedList Int]
@@ -76,4 +76,4 @@ listify (List x)   = x
 
 combine :: Bool -> [NestedList Int] -> [NestedList Int] -> NestedList Int
 combine False xs ys = List $ xs ++ ys
-combine True xs ys  = List $ (List xs) : ys
+combine True xs ys  = List $ List xs : ys

@@ -1,5 +1,5 @@
 {-|
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
@@ -25,8 +25,8 @@ subgroup name compress = bgroup name
   , bench "replicate 10 1"   $ nf compress $ replicate 10 1
   , bench "replicate 100 1"  $ nf compress $ replicate 100 1
   , bench "replicate 1000 1" $ nf compress $ replicate 1000 1
-  , bench "concat $ map (replicate 10) [1..10]" $
-    nf compress $ concat $ map (replicate 10) [1..10]
-  , bench "concat $ map (replicate 10) [1..100]" $
-    nf compress $ concat $ map (replicate 10) [1..100]
+  , bench "concatMap (replicate 10) [1..10]" $
+    nf compress $ concatMap (replicate 10) [1..10]
+  , bench "concatMap (replicate 10) [1..100]" $
+    nf compress $ concatMap (replicate 10) [1..100]
   ]
