@@ -14,6 +14,12 @@ jobs:
         with:
           enable-stack: true
 
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.stack
+          key: stack-${{ runner.os }}-${{ steps.setup.stack-exe }}-${{ hashFiles('package.yaml', 'stack.yaml') }}
+
       - name: Build dependencies
         run: stack build --test --bench --only-dependencies --no-run-tests --no-run-benchmarks
 
