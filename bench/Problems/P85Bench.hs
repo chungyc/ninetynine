@@ -36,18 +36,18 @@ subgroup name isomorphic = bgroup name
         g8' = generate (mkStdGen 34) 8
         rg8  = fromJust $ toGraph
                (Set.fromList [1..8],
-                Set.fromList $ map Edge $ [ (1,2), (1,3), (1,4), (1,5)
-                                          , (2,3), (2,4), (2,5), (3,6)
-                                          , (3,7), (4,6), (4,8), (5,7)
-                                          , (5,8), (6,7), (6,8), (7,8)
-                                          ])
+                Set.fromList $ map Edge [ (1,2), (1,3), (1,4), (1,5)
+                                        , (2,3), (2,4), (2,5), (3,6)
+                                        , (3,7), (4,6), (4,8), (5,7)
+                                        , (5,8), (6,7), (6,8), (7,8)
+                                        ])
         rg8' = fromJust $ toGraph
                (Set.fromList [1..8],
-                Set.fromList $ map Edge $ [ (8,7), (8,6), (8,5), (8,4)
-                                          , (7,6), (7,5), (7,4), (6,3)
-                                          , (6,2), (5,3), (5,1), (4,2)
-                                          , (4,1), (3,2), (3,1), (2,1)
-                                          ])
+                Set.fromList $ map Edge [ (8,7), (8,6), (8,5), (8,4)
+                                        , (7,6), (7,5), (7,4), (6,3)
+                                        , (6,2), (5,3), (5,1), (4,2)
+                                        , (4,1), (3,2), (3,1), (2,1)
+                                        ])
 
 -- | Generate an arbitrary but fixed graph with the given number of vertexes.
 generate :: RandomGen r => r -> Int -> G
