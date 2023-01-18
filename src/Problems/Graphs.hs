@@ -204,7 +204,7 @@ instance Graph Lists where
   isValidGraph (Lists (vs, es)) = areValidGraphSets (Set.fromList vs, Set.fromList $ map Edge es)
 
 instance Eq Lists where
-  (==) g g' = equals g g'
+  (==) = equals
 
 -- | A common approach to representing graphs are with /adjacency lists/.
 -- As the name implies, for each vertex it lists its adjacent vertexes
@@ -241,7 +241,7 @@ instance Graph Adjacency where
       symmetric = isValidGraph $ G $ Map.fromList $ map (\(v, vs) -> (v, Set.fromList vs)) ls
 
 instance Eq Adjacency where
-  (==) g g' = equals g g'
+  (==) = equals
 
 -- | The previous approaches can be verbose and error-prone for humans to use.
 --
@@ -309,13 +309,13 @@ extractPath v (g@(G m), p)
 
 deleteEdge :: Vertex -> Vertex -> G -> G
 deleteEdge u v (G m) = G $ delete u v $ delete v u m
-  where delete u' v' m' = Map.update (toMaybe . Set.delete v') u' m'
+  where delete u' v' = Map.update (toMaybe . Set.delete v') u'
         toMaybe vs
           | Set.null vs = Nothing
           | otherwise   = Just vs
 
 instance Eq Paths where
-  (==) g g' = equals g g'
+  (==) = equals
 
 -- | Represents a graph with a map where a vertex is a key and the set of its neighbors is the value.
 --
@@ -337,7 +337,7 @@ instance Graph G where
 
   edges (G m) = Map.foldlWithKey addVertex Set.empty m
     where addVertex s v vs = Set.union s $ toEdges v vs
-          toEdges v vs = Set.map (\u -> Edge (v, u)) vs
+          toEdges v = Set.map (\u -> Edge (v, u))
 
   neighbors v (G m) = Map.findWithDefault Set.empty v m
 
@@ -348,10 +348,10 @@ instance Graph G where
     | otherwise                  = Nothing
     where fromVertexes = Map.fromSet (const Set.empty) vs
           insertEdge m (Edge (u, v)) = insertNeighbor u v $ insertNeighbor v u m
-          insertNeighbor u v m = Map.insertWith Set.union u (Set.singleton v) m
+          insertNeighbor u v = Map.insertWith Set.union u (Set.singleton v)
 
   isValidGraph (G m) = Map.foldlWithKey (\r v vs -> r && symmetric v vs) True m
-    where symmetric v vs = Set.foldl (\r' v' -> r' && converse v v') True vs
+    where symmetric v = Set.foldl (\r' v' -> r' && converse v v') True
           converse v v' = v `inside` Map.lookup v' m
           inside _ Nothing   = False  -- edge has vertex not in set of vertexes
           inside v (Just vs) = Set.member v vs

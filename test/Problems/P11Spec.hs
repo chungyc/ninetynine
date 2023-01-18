@@ -40,7 +40,7 @@ examples = describe "Examples" $ do
     encodeModified "aaaabccaadeeee" `shouldBe`
       [Multiple 4 'a',Single 'b',Multiple 2 'c', Multiple 2 'a',Single 'd',Multiple 4 'e']
 
-  where encodeModified l = Problem.encodeModified l
+  where encodeModified = Problem.encodeModified
 
 spec :: Spec
 spec = parallel $ do

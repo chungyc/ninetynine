@@ -53,7 +53,7 @@ examples = describe "Examples" $ do
       (`shouldSatisfy` \l -> sort l `isSubsequenceOf` "abcdefgh" && length l == 3)
       . fst . randomSelect "abcdefgh" 3
 
-  where randomSelect l n g = Problem.randomSelect l n g
+  where randomSelect = Problem.randomSelect
 
 spec :: Spec
 spec = parallel $ do

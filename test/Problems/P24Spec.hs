@@ -52,7 +52,7 @@ examples = describe "Examples" $ do
       (`shouldSatisfy` \l -> sort l `isSubsequenceOf` [1..49] && length l == 6)
       . fst . randomDraw 6 49
 
-  where randomDraw n m g = Problem.randomDraw n m g
+  where randomDraw = Problem.randomDraw
 
 spec :: Spec
 spec = parallel $ do

@@ -79,7 +79,7 @@ parseCrossword spec
 
 parseGrid :: [String] -> [[Either Bool Char]]
 parseGrid ls = padRows $ map parseLine ls
-  where parseLine l = map parseSpot l
+  where parseLine = map parseSpot
         parseSpot ' ' = Left False
         parseSpot '.' = Left True
         parseSpot c   = Right c

@@ -277,7 +277,7 @@ affixWord p i w = foldl fill p' $ crossovers $ sites p' ! i
             Nothing -> q
             Just w' -> let w'' = take pos' w' ++ [Just $ w !! pos] ++ drop (pos'+1) w'
                        in q { partialWords = Map.insert i' w'' $ partialWords q }
-        remove ws = Map.map (delete w) ws
+        remove = Map.map (delete w)
 
 -- | If no further sites can be definitely filled,
 -- pick a site and guess a word to fill it with,

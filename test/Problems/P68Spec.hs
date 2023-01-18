@@ -52,9 +52,9 @@ examples = describe "Examples" $ do
   it "ordersToTree \"dbeacgf\" \"abdecfg\"" $ do
     ordersToTree "dbeacgf" "abdecfg" `shouldBe` tree1
 
-  where inorder t = Problem.inorder t
-        preorder t = Problem.preorder t
-        ordersToTree xs ys = Problem.ordersToTree xs ys
+  where inorder = Problem.inorder
+        preorder = Problem.preorder
+        ordersToTree = Problem.ordersToTree
 
 spec :: Spec
 spec = parallel $ do

@@ -45,7 +45,7 @@ examples = describe "Examples" $ do
   it "fst . randomPermute \"abcdef\" <$> newStdGen" $ do
     newStdGen >>= (`shouldSatisfy` (==) "abcdef" . sort) . fst . randomPermute "abcdef"
 
-  where randomPermute l g = Problem.randomPermute l g
+  where randomPermute = Problem.randomPermute
 
 spec :: Spec
 spec = parallel $ do

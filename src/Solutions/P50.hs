@@ -47,4 +47,4 @@ build m | Map.size m < 2 = m
 codes :: HuffmanTree -> [(Char,String)]
 codes (Leaf c) = [(c,"")]
 codes (Branch l r) = prepend '0' (codes l) ++ prepend '1' (codes r)
-  where prepend b es = map (\(c,e) -> (c, b:e)) es
+  where prepend b = map (\(c,e) -> (c, b:e))

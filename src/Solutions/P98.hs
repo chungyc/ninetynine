@@ -168,13 +168,13 @@ fillLine xs line
     -- infer that they are definite.
     definiteBits = foldl1 merge possibleLines
     possibleLines = filter (isConsistent xs) $ fillLine' 1 xs bits
-    merge us vs = zipWith combine us vs
+    merge = zipWith combine
     combine (Just u) (Just v) | u == v    = Just u
                               | otherwise = Nothing
     combine _ _ = Nothing
 
     -- For incorporating definite bits into the line.
-    incorporate l p = zipWith set l p
+    incorporate = zipWith set
     set Nothing v  = v
     set u Nothing  = u
     set _ (Just u) = Just u

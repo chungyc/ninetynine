@@ -26,15 +26,13 @@ properties isPalindrome name = describe name $ do
 examples :: Spec
 examples = describe "Examples" $ do
   it "isPalindrome [1,2,3]" $ do
-    isPalindrome [1,2,3 :: Int] `shouldBe` False
+    Problem.isPalindrome [1,2,3 :: Int] `shouldBe` False
 
   it "isPalindrome \"madamimadam\"" $ do
-    isPalindrome "madamimadam" `shouldBe` True
+    Problem.isPalindrome "madamimadam" `shouldBe` True
 
   it "isPalindrome [1,2,4,8,16,8,4,2,1]" $ do
-    isPalindrome [1,2,4,8,16,8,4,2,1 :: Int] `shouldBe` True
-
-  where isPalindrome l = Problem.isPalindrome l
+    Problem.isPalindrome [1,2,4,8,16,8,4,2,1 :: Int] `shouldBe` True
 
 spec :: Spec
 spec = parallel $ do

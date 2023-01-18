@@ -12,6 +12,7 @@
 - ignore: {name: "Use tuple-section"}
 - ignore: {name: "Use if"}
 - ignore: {name: "Use record patterns"}
+- ignore: {name: "Use map"}
 
 
 # Specify additional command line arguments
