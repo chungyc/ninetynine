@@ -127,8 +127,8 @@ tokenize' (xs,ts)     = tokenize' (xs', N n : ts)
 -- | Parse a string into a number and the rest of the string.
 parseNumber :: String -> (Integer, String)
 parseNumber s = (n, s')
-  where n = read $ takeWhile (flip elem ['0'..'9']) s
-        s' = dropWhile (flip elem ['0'..'9']) s
+  where n = read $ takeWhile (`elem` ['0'..'9']) s
+        s' = dropWhile (`elem` ['0'..'9']) s
 
 evalEquation :: Expr -> Bool
 evalEquation (Equals x y) = evalExpr x == evalExpr y

@@ -28,10 +28,9 @@ properties fullWords name = describe name $ do
           test 8 "eight"
           test 9 "nine"
 
-  prop "concatenates from smaller numbers" $
-    \(Positive x) -> \(NonNegative y) ->
-      counterexample (show $ concatenate x y) $
-      fullWords (concatenate x y) `shouldBe` fullWords x ++ "-" ++ fullWords y
+  prop "concatenates from smaller numbers" $ \(Positive x) (NonNegative y) ->
+    counterexample (show $ concatenate x y) $
+    fullWords (concatenate x y) `shouldBe` fullWords x ++ "-" ++ fullWords y
 
 examples :: Spec
 examples = describe "Examples" $ do

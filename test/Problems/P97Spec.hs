@@ -37,7 +37,7 @@ properties sudoku name = describe name $ do
     prop "fills in blank spots" $ \(SudokuPuzzle p) ->
       let s = fromJust $ sudoku p
           lpairs = zip p s
-          npairs = concat $ map (uncurry zip) lpairs
+          npairs = concatMap (uncurry zip) lpairs
       in counterexample (show s) $
          conjoin $ do
            np <- npairs
@@ -128,10 +128,10 @@ puzzles = MkGen gen
                 (g',g'') = split g
 
 makeBlankSpots :: RandomGen g => g -> Int -> [[Int]] -> [[Int]]
-makeBlankSpots g n p = fst $ head $ drop n $ iterate step (p, positions)
+makeBlankSpots g n p = fst $ iterate step (p, positions) !! n
   where step (p', positions') = (remove (head positions') p', tail positions')
         positions = zip (randomRs (1,9) g') (randomRs (1,9) g'')  -- random positions
-        remove (x,y) p' = take (x-1) p' ++ [removey y $ head $ drop (x-1) p'] ++ drop x p'
+        remove (x,y) p' = take (x-1) p' ++ [removey y $ p' !! (x-1)] ++ drop x p'
         removey y ns = take (y-1) ns ++ [0] ++ drop y ns
         (g',g'') = split g
 

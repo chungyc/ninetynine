@@ -27,7 +27,7 @@ import qualified Solutions.P90 as Solution
 -- >>> length (queens 8)
 -- 92
 --
--- >>> head $ sort $ queens 8
+-- >>> minimum $ queens 8
 -- [1,5,8,6,3,7,2,4]
 queens :: Int -> [[Int]]
 queens = Solution.queens

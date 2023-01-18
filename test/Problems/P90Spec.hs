@@ -26,7 +26,7 @@ properties queens name = describe name $ do
 
     prop "includes queens which do not attack each other" $
       \(Positive n) -> forAll (shuffle [1..n]) $ \s ->
-        classify (n < 4 || (not $ peaceful n s)) "trivial" $
+        classify (n < 4 || not (peaceful n s)) "trivial" $
         peaceful n s `shouldBe` elem s (queens n)
 
   describe "includes all solutions" $ do
@@ -36,7 +36,7 @@ properties queens name = describe name $ do
 
   where
     -- confirms that no queens attack each other
-    peaceful n s = all (not . attacks) (pairs $ expand n s)
+    peaceful n s = not $ any attacks (pairs $ expand n s)
     expand n = zip [1..n]  -- maps from row to (column, row)
     pairs positions = [(a, b) | a <- positions, b <- positions, a /= b]
 
@@ -53,8 +53,8 @@ examples = describe "Examples" $ do
   it "length (queens 8)" $ do
     length (queens 8) `shouldBe` 92
 
-  it "head $ sort $ queens 8" $ do
-    head (sort $ queens 8) `shouldBe` [1,5,8,6,3,7,2,4]
+  it "minimum $ queens 8" $ do
+   minimum (queens 8) `shouldBe` [1,5,8,6,3,7,2,4]
 
   where queens = Problem.queens
 

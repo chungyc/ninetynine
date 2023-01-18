@@ -97,7 +97,7 @@ instance Arbitrary Puzzle where
 puzzles :: Gen Puzzle
 puzzles = sized $ \n -> do
   m <- chooseInt (1,n*n)
-  ws <- vectorOf m $ resize m $ (listOf1 $ elements ['a'..'z']) `suchThat` ((<) 1 . length)
+  ws <- vectorOf m $ resize m $ listOf1 (elements ['a'..'z']) `suchThat` ((<) 1 . length)
   xs <- vectorOf m $ chooseInt (1,n)
   ys <- vectorOf m $ chooseInt (1,n)
   zs <- vectorOf m $ choose (False,True)
@@ -126,7 +126,7 @@ addToSolution g (w,x,y,False)
   | x + length w > length g = g
   | otherwise               = g'
   where front = take (y-1) g
-        row = head $ drop (y-1) g
+        row = g !! (y-1)
         row' = take x row ++ map Just w ++ drop (x + length w) row
         back = drop y g
         g' = front ++ [row'] ++ back
@@ -148,8 +148,8 @@ getWords g = horizontal ++ vertical
         vertical = Set.toList $ Set.unions $ map extractWords $ transpose g
 
 getGrid :: [[Maybe Char]] -> [[Bool]] -> [[Either Bool Char]]
-getGrid g mask = map toRow $ zip g mask
-  where toRow (r, m) = map toSpot $ zip r m
+getGrid = zipWith (curry toRow)
+  where toRow (r, m) = zipWith (curry toSpot) r m
         toSpot (Nothing, _)    = Left False
         toSpot (Just _, False) = Left True
         toSpot (Just c, True)  = Right c
