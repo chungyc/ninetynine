@@ -15,15 +15,15 @@ import           Test.QuickCheck
 properties :: (Integer -> Integer -> [Integer], [Integer]) -> (String, String) -> Spec
 properties (primesR, primes) (namePrimesR, namePrimes) = do
   describe namePrimesR $ do
-    prop "includes prime numbers in range" $ \(Positive n) -> \(NonNegative k) ->
+    prop "includes prime numbers in range" $ \(Positive n) (NonNegative k) ->
       primesR n (n+k) `shouldBe` filter isPrime [n..n+k]
 
   describe namePrimes $ do
     prop "is not bounded" $ \(Positive n) ->
       take n primes `shouldSatisfy` (==) n . length
 
-    prop "is in sorted order" $ \(Positive n) -> \(Positive k) ->
-      (primes !! n, primes !! n+k) `shouldSatisfy` \(x,y) -> x < y
+    prop "is in sorted order" $ \(Positive n) (Positive k) ->
+      (primes !! n, primes !! n+k) `shouldSatisfy` uncurry (<)
 
     prop "includes prime numbers" $ \(Positive n) ->
       isPrime n ==>
@@ -31,7 +31,7 @@ properties (primesR, primes) (namePrimesR, namePrimes) = do
 
     prop "does not include numbers which are not prime" $ \(Positive n) ->
       not (isPrime n) ==>
-      takeWhile (<=n) primes `shouldSatisfy` not . elem n
+      takeWhile (<=n) primes `shouldSatisfy` notElem n
 
 examples :: Spec
 examples = describe "Examples" $ do

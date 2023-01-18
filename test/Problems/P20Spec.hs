@@ -12,7 +12,7 @@ import           Test.Hspec.QuickCheck
 
 properties :: (Int -> [Int] -> (Int,[Int])) -> String -> Spec
 properties removeAt name = describe name $ do
-  prop "removes k'th element from list" $ \xs -> \y -> \zs ->
+  prop "removes k'th element from list" $ \xs y zs ->
     removeAt (length xs + 1) (xs ++ [y] ++ zs) `shouldBe` (y, xs ++ zs)
 
 examples :: Spec

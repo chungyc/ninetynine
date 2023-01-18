@@ -29,10 +29,10 @@ properties
     prop "is dot for empty tree" $
       treeToDotstring Empty `shouldBe` "."
 
-    prop "is in pre-order" $
-      forAll letters $ \c -> \(CharTree l) -> \(CharTree r) ->
-        treeToDotstring (Branch c l r) `shouldBe`
-        [c] ++ treeToDotstring l ++ treeToDotstring r
+    prop "is in pre-order" $ \(CharTree l) (CharTree r) ->
+      forAll letters $ \c ->
+      treeToDotstring (Branch c l r) `shouldBe`
+      [c] ++ treeToDotstring l ++ treeToDotstring r
 
 examples :: Spec
 examples = describe "Examples" $ do

@@ -16,14 +16,14 @@ import           Test.QuickCheck
 
 properties :: (Tree Int -> Int -> [Int]) -> String -> Spec
 properties atLevel name = describe name $ do
-  prop "root node is at level 1" $ \x -> \t -> \t' ->
+  prop "root node is at level 1" $ \x t t' ->
     atLevel (Branch x t t') 1 `shouldBe` [x]
 
-  prop "empty when level is too deep" $ \t -> \(Small level) ->
+  prop "empty when level is too deep" $ \t (Small level) ->
     treeHeight t < level ==>
     atLevel t level `shouldBe` []
 
-  prop "subtrees have one more level" $ \x -> \t -> \t' -> \(Small level) ->
+  prop "subtrees have one more level" $ \x t t' (Small level) ->
     level > 1 ==>
     max (treeHeight t) (treeHeight t') <= level ==>
     atLevel (Branch x t t') level `shouldMatchList`

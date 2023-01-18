@@ -12,10 +12,10 @@ import           Test.Hspec.QuickCheck
 
 properties :: ([Int] -> [Int]) -> String -> Spec
 properties myReverse name = describe name $ do
-  prop "front becomes back" $ \l -> \x ->
+  prop "front becomes back" $ \l x ->
     myReverse (x:l) `shouldBe` myReverse l ++ [x]
 
-  prop "back becomes front" $ \l -> \x ->
+  prop "back becomes front" $ \l x ->
     myReverse (l ++ [x]) `shouldBe` x : myReverse l
 
   prop "is inverse of itself" $ \l ->

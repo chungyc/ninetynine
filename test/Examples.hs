@@ -141,7 +141,7 @@ Examples in the following problems are intentionally omitted from testing.
   It is difficult to deal with this without making the example less illustrative.
 -}
 
-data Flag = Match String deriving Show
+newtype Flag = Match String deriving Show
 
 options :: [OptDescr Flag]
 options = [ Option [] ["match"] (ReqArg Match "match") "substring match on file name" ]
@@ -151,4 +151,4 @@ matchOptions :: [String] -> IO ([String] -> [String])
 matchOptions argv =
   case getOpt Permute options argv of
     ([Match m], _, _) -> return $ filter (isInfixOf m)
-    _                 -> return $ id
+    _                 -> return id

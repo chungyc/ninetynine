@@ -46,7 +46,7 @@ properties paths name = describe name $ do
 
   where
     -- The set of edges forming the given path.
-    pathEdges path = Set.fromList $ map Edge $ zip path (tail path)
+    pathEdges path = Set.fromList $ zipWith (curry Edge) path (tail path)
 
 examples :: Spec
 examples = describe "Examples" $ do

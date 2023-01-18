@@ -14,19 +14,19 @@ import           Problems.Graphs.QuickCheck
 import           Test.QuickCheck
 
 instance Arbitrary Lists where
-  arbitrary = (fromJust . toGraph . fromSets) <$> arbitrary
+  arbitrary = fromJust . toGraph . fromSets <$> arbitrary
   shrink g = map (fromJust . toGraph . fromSets) $ shrink $ Sets $ sets g
 
 instance Arbitrary Adjacency where
-  arbitrary = (fromJust . toGraph . fromSets) <$> arbitrary
+  arbitrary = fromJust . toGraph . fromSets <$> arbitrary
   shrink g = map (fromJust . toGraph . fromSets) $ shrink $ Sets $ sets g
 
 instance Arbitrary Paths where
-  arbitrary = (fromJust . toGraph . fromSets) <$> arbitrary
+  arbitrary = fromJust . toGraph . fromSets <$> arbitrary
   shrink g = map (fromJust . toGraph . fromSets) $ shrink $ Sets $ sets g
 
 instance Arbitrary G where
-  arbitrary = (fromJust . toGraph . fromSets) <$> arbitrary
+  arbitrary = fromJust . toGraph . fromSets <$> arbitrary
   shrink g = map (fromJust . toGraph . fromSets) $ shrink $ Sets $ sets g
 
 fromSets :: Sets -> (Set Vertex, Set Edge)

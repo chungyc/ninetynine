@@ -25,11 +25,10 @@ properties huffman name = describe name $ do
 
   prop "each character has one code" $ \(Counts cs) ->
     huffman cs `shouldSatisfy`
-    all (==1) . map length . group . sort . map fst
+    all ((==1) . length) . group . sort . map fst
 
   prop "no code is empty" $ \(Counts cs) ->
-    huffman cs `shouldSatisfy`
-    all (not . null) . map snd
+    huffman cs `shouldSatisfy` not . any (null . snd)
 
   prop "code is not longer than code for more frequent character" $ \(Counts cs) ->
     length cs > 1 ==>
@@ -68,7 +67,7 @@ examples :: Spec
 examples = describe "Examples" $ do
   it "huffman [('a',45),('b',13),('c',12),('d',16),('e',9),('f',5)]" $
     let counts = [('a',45),('b',13),('c',12),('d',16),('e',9),('f',5)]
-        string = concat $ map (\(c,n) -> replicate n c) counts
+        string = concatMap (\(c,n) -> replicate n c) counts
         t = huffman counts
     in do
       length (encodeHuffman t string) `shouldBe` 224
@@ -105,7 +104,7 @@ data HuffmanTree = Branch HuffmanTree HuffmanTree | Leaf (Maybe Char)
 
 -- | Builds up a Huffman tree based on the given encoding table.
 toTree :: [(Char,String)] -> HuffmanTree
-toTree table = foldl incorporate (Leaf Nothing) table
+toTree = foldl incorporate (Leaf Nothing)
 
 -- | Incorporate a character and its encoding into a Huffman tree
 incorporate :: HuffmanTree -> (Char,String) -> HuffmanTree
@@ -130,7 +129,7 @@ isCompact (Branch l r)   = isCompact l && isCompact r
 -- should not be lighter than any of the grandchild subtrees.
 isGreedy :: Map Char Int -> HuffmanTree -> Bool
 isGreedy _ (Leaf _)     = True
-isGreedy m (Branch l r) = all (\w -> all (\w' -> w >= w') grandchildWeights) childWeights
+isGreedy m (Branch l r) = all (\w -> all (w >=) grandchildWeights) childWeights
   where weight (Leaf (Just c)) = m ! c
         weight (Branch l' r')  = weight l' + weight r'
         weight _               = undefined

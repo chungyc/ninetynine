@@ -39,4 +39,4 @@ pathLength path = length path - 1
 
 pathsFromRoot :: MultiwayTree a -> [[a]]
 pathsFromRoot (MultiwayTree x []) = [[x]]
-pathsFromRoot (MultiwayTree x ts) = ([x]:) $ concat $ map (map (x:) . pathsFromRoot) ts
+pathsFromRoot (MultiwayTree x ts) = ([x]:) $ concatMap (map (x:) . pathsFromRoot) ts

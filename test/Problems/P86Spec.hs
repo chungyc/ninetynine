@@ -45,5 +45,5 @@ shouldBeVertexColoringFor cs g =
     e <- es
     return $ e `shouldSatisfy` areDistinctColors
   where es = Set.toList $ edges g
-        coloring = Map.fromList $ cs
+        coloring = Map.fromList cs
         areDistinctColors (Edge (u,v)) = (coloring ! u) /= (coloring ! v)

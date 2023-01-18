@@ -22,15 +22,15 @@ properties :: (G -> [[Vertex]]) -> String -> Spec
 properties connectedComponents name = describe name $ do
   prop "has paths between connected components" $ \g ->
     connectedComponents g `shouldSatisfy`
-    all (\vs -> all (isConnected g) $ pairs vs)
+    all (all (isConnected g) . pairs)
 
   prop "does not have paths between unconnected components" $
-    \(Positive n) -> \(Positive m) ->
+    \(Positive n) (Positive m) ->
       forAll (sublistOf [Edge (u,v) | u <- [1..n], v <- [u+1..n]]) $ \es ->
       forAll (sublistOf [Edge (u,v) | u <- [n+1..n+m], v <- [u+1..n+m]]) $ \es' ->
       let g = fromJust $ toGraph (Set.fromList [1..n+m], Set.fromList $ es ++ es')
       in counterexample (show g) $
-         connectedComponents g `shouldSatisfy` all (not . isConnected g) . pairs . map head
+         connectedComponents g `shouldSatisfy` not . any (isConnected g) . pairs . map head
          -- connectivity is transitive; checks against from only one vertex from each component
 
   where isConnected g (u,v) = elem v $ depthFirst g u

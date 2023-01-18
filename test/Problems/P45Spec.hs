@@ -26,12 +26,12 @@ properties isGaussianPrime' name = describe name $ do
         isGaussianPrime' x `shouldBe` False
 
   prop "is false for composite Gaussian integers" $ \x y ->
-    all (not . shouldBeExcluded) [x,y]  ==>
+    not (any shouldBeExcluded [x,y])  ==>
     counterexample (concat [show $ gaussianMultiply x y, " = ", show x, " * ", show y]) $
     isGaussianPrime' (x `gaussianMultiply` y) `shouldBe` False
 
   prop "does not have non-unit proper divisor when prime" $ \x y ->
-    all (not . shouldBeExcluded) [x,y] ==>
+    not (any shouldBeExcluded [x,y]) ==>
     not (isAssociate x y) ==>
     isGaussianPrime' x ==>
     x `gaussianDividesBy` y `shouldBe` False

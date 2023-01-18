@@ -19,35 +19,32 @@ properties
   -> Spec
 properties (construct, addedTo) (constructName, addedToName) = do
   describe constructName $ do
-    prop "returns a tree whose elements can be searched" $
-      \(NonEmpty xs) -> forAll (elements xs) $ \x ->
-        construct xs `shouldSatisfy ` (x `isContainedBy`)
+    prop "returns a tree whose elements can be searched" $ \(NonEmpty xs) ->
+      forAll (elements xs) $ \x ->
+      construct xs `shouldSatisfy ` (x `isContainedBy`)
 
-    prop "does not have elements beyond input list" $
-      \xs -> \x -> not (x `elem` xs) ==>
+    prop "does not have elements beyond input list" $ \xs x ->
+      x `notElem` xs ==>
       construct xs `shouldNotSatisfy` (x `isContainedBy`)
 
-    prop "should add elements from front to back of list" $
-      \xs -> construct xs `shouldBe` foldl (flip addedTo) Empty xs
+    prop "should add elements from front to back of list" $ \xs ->
+      construct xs `shouldBe` foldl (flip addedTo) Empty xs
 
   describe addedToName $ do
-    prop "returns a tree from which the element can be searched" $
-      \(SearchTree t) -> \x ->
-        x `addedTo` t `shouldSatisfy` (x `isContainedBy`)
+    prop "returns a tree from which the element can be searched" $ \(SearchTree t) x ->
+      x `addedTo` t `shouldSatisfy` (x `isContainedBy`)
 
-    prop "previous elements should still be searchable" $
-      \(NonEmpty xs) -> forAll (elements xs) $ \x -> \y ->
-        y `addedTo` (construct xs) `shouldSatisfy` (x `isContainedBy`)
+    prop "previous elements should still be searchable" $ \(NonEmpty xs) ->
+      forAll (elements xs) $ \x y ->
+      y `addedTo` construct xs `shouldSatisfy` (x `isContainedBy`)
 
-    prop "does not add extra elements" $
-      \(SearchTree t) -> \x -> \y ->
-        x /= y ==>
-        not (y `isContainedBy` t) ==>
-        x `addedTo` t `shouldNotSatisfy` (y `isContainedBy`)
+    prop "does not add extra elements" $ \(SearchTree t) x y ->
+      x /= y ==>
+      not (y `isContainedBy` t) ==>
+      x `addedTo` t `shouldNotSatisfy` (y `isContainedBy`)
 
-    prop "is same as input tree except for new leaf" $
-      \(SearchTree t) -> \x ->
-        x `addedTo` t `shouldSatisfy` (==) [(Empty, Branch x Empty Empty)] . diff t
+    prop "is same as input tree except for new leaf" $ \(SearchTree t) x ->
+      x `addedTo` t `shouldSatisfy` (==) [(Empty, Branch x Empty Empty)] . diff t
 
 examples :: Spec
 examples = describe "Examples" $ do

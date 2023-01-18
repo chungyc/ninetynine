@@ -22,13 +22,13 @@ properties rotate name = describe name $ do
   prop "rotates by negative one" $ \(NonEmpty xs) ->
     rotate xs (-1) `shouldBe` last xs : init xs
 
-  prop "rotates by n equivalent to (rotate 1) n times" $ \(NonEmpty xs) -> \(Positive n) ->
-    rotate xs n `shouldBe` (head $ drop n $ iterate (flip rotate 1) xs)
+  prop "rotates by n equivalent to (rotate 1) n times" $ \(NonEmpty xs) (Positive n) ->
+    rotate xs n `shouldBe` (iterate (`rotate` 1) xs !! n)
 
-  prop "rotates by -n equivalent to (rotate -1) n times" $ \(NonEmpty xs) -> \(Positive n) ->
-    rotate xs (-n) `shouldBe` (head $ drop n $ iterate (flip rotate $ -1) xs)
+  prop "rotates by -n equivalent to (rotate -1) n times" $ \(NonEmpty xs) (Positive n) ->
+    rotate xs (-n) `shouldBe` (iterate (`rotate` (-1)) xs !! n)
 
-  prop "rotate _ (-n) is inverse of rotate _ n" $ \xs -> \n ->
+  prop "rotate _ (-n) is inverse of rotate _ n" $ \xs n ->
     rotate (rotate xs n) (-n) `shouldBe` xs
 
 examples :: Spec

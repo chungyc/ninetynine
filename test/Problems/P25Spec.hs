@@ -15,7 +15,7 @@ import           Test.QuickCheck
 
 properties :: ([Int] -> StdGen -> ([Int], StdGen)) -> String -> Spec
 properties randomPermute name = describe name $ do
-  prop "is permutation of list" $ \xs -> \seed ->
+  prop "is permutation of list" $ \xs seed ->
     randomPermute xs (mkStdGen seed) `shouldSatisfy` (==) (sort xs) . sort . fst
 
   prop "is random and returns new random generator" $ once $ \seed ->
@@ -27,7 +27,7 @@ properties randomPermute name = describe name $ do
     -- Similarly, this also tests that randomPermute returns a new random generator.
     -- If it did not, the use of the same generator would return identical selections.
     let permutations = unfoldr (Just . randomPermute [1..100]) $ mkStdGen seed
-        isRandom ls = any (\(x,y) -> x /= y) $ zip ls $ tail ls
+        isRandom ls = any (uncurry (/=)) $ zip ls $ tail ls
     in conjoin [ permutations `shouldSatisfy` any isRandom
                , permutations `shouldSatisfy` isRandom
                ]
@@ -35,16 +35,15 @@ properties randomPermute name = describe name $ do
 examples :: Spec
 examples = describe "Examples" $ do
   it "fst $ randomPermute [1..10] $ mkStdGen 111" $ do
-    (fst $ randomPermute [1..10 :: Int] $ mkStdGen 111)
+    fst (randomPermute [1..10 :: Int] $ mkStdGen 111)
       `shouldSatisfy` (==) [1..10] . sort
 
   it "take 5 $ unfoldr (Just . randomPermute ['a'..'d']) $ mkStdGen 111" $ do
-    (take 5 $ unfoldr (Just . randomPermute ['a'..'d']) $ mkStdGen 111)
+    take 5 (unfoldr (Just . randomPermute ['a'..'d']) $ mkStdGen 111)
       `shouldSatisfy` all ((==) ['a'..'d'] . sort)
 
-  it "newStdGen >>= return . fst . randomPermute \"abcdef\"" $ do
-    (newStdGen >>= return . fst . randomPermute "abcdef")
-      >>= (`shouldSatisfy` (==) "abcdef" . sort)
+  it "fst . randomPermute \"abcdef\" <$> newStdGen" $ do
+    newStdGen >>= (`shouldSatisfy` (==) "abcdef" . sort) . fst . randomPermute "abcdef"
 
   where randomPermute l g = Problem.randomPermute l g
 

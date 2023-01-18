@@ -13,7 +13,7 @@ import           Test.QuickCheck
 
 properties :: (Integer -> Integer -> Bool) -> String -> Spec
 properties coprime name = describe name $ do
-  prop "if greatest common divisor is 1" $ \(Positive n) -> \(Positive m) ->
+  prop "if greatest common divisor is 1" $ \(Positive n) (Positive m) ->
     coprime n m `shouldBe` gcd n m == 1
 
 examples :: Spec

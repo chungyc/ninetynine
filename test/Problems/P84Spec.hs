@@ -20,24 +20,22 @@ import           Test.QuickCheck
 properties :: (G -> Map Edge Int -> G) -> String -> Spec
 properties minimumSpanningTree name = describe name $ do
   modifyMaxSize (const 5) $ do
-    prop "is a spanning tree" $
-      \g -> \(InfiniteList ws _) ->
-        not (null $ vertexes g) ==>
-        isConnected g ==>
-        let weights = Map.fromList $ zip (Set.toList $ edges g) ws
-        in minimumSpanningTree g weights `shouldSatisfy` flip elem (spanningTrees g)
+    prop "is a spanning tree" $ \g (InfiniteList ws _) ->
+      not (null $ vertexes g) ==>
+      isConnected g ==>
+      let weights = Map.fromList $ zip (Set.toList $ edges g) ws
+      in minimumSpanningTree g weights `shouldSatisfy` flip elem (spanningTrees g)
 
-    prop "has minimum weight sum for spanning trees" $
-      \g -> \(InfiniteList ws _) ->
-        not (null $ vertexes g) ==>
-        isConnected g ==>
-        let weights = Map.fromList $ zip (Set.toList $ edges g) ws
-            weightSum g' = sum $ map (\e -> Map.findWithDefault 0 e weights) $ Set.toList $ edges g'
-            minimumWeightSum = minimum $ map weightSum $ spanningTrees g
-        in counterexample ("weighted graph: " ++ show (g, weights)) $
-           counterexample ("spanning tree edges: " ++ show (map edges $ spanningTrees g)) $
-           counterexample ("spanning tree weights: " ++ show (map weightSum $ spanningTrees g)) $
-           weightSum (minimumSpanningTree g weights) `shouldBe` minimumWeightSum
+    prop "has minimum weight sum for spanning trees" $ \g (InfiniteList ws _) ->
+      not (null $ vertexes g) ==>
+      isConnected g ==>
+      let weights = Map.fromList $ zip (Set.toList $ edges g) ws
+          weightSum g' = sum $ map (\e -> Map.findWithDefault 0 e weights) $ Set.toList $ edges g'
+          minimumWeightSum = minimum $ map weightSum $ spanningTrees g
+      in counterexample ("weighted graph: " ++ show (g, weights)) $
+         counterexample ("spanning tree edges: " ++ show (map edges $ spanningTrees g)) $
+         counterexample ("spanning tree weights: " ++ show (map weightSum $ spanningTrees g)) $
+         weightSum (minimumSpanningTree g weights) `shouldBe` minimumWeightSum
 
 examples :: Spec
 examples = do

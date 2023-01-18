@@ -20,21 +20,20 @@ properties
   (corrupt, errorCorrectingEncode, errorCorrectingDecode)
   (nameCorrupt, nameEncode, nameDecode) = do
   describe nameCorrupt $ do
-    prop "has same length" $
-      \(RNG gen) -> \l -> forAll (chooseInt (0, length l)) $ \n ->
-        corrupt gen n l `shouldSatisfy` (==) (length l) . length
+    prop "has same length" $ \(RNG gen) l ->
+      forAll (chooseInt (0, length l)) $ \n ->
+      corrupt gen n l `shouldSatisfy` (==) (length l) . length
 
-    prop "has expected number of errors" $
-      \(RNG gen) -> \l -> forAll (chooseInt (0, length l)) $ \n ->
-        corrupt gen n l `shouldSatisfy` (==) n . fromJust . countErrors l
+    prop "has expected number of errors" $ \(RNG gen) l ->
+      forAll (chooseInt (0, length l)) $ \n ->
+      corrupt gen n l `shouldSatisfy` (==) n . fromJust . countErrors l
 
   describe (nameEncode ++ " and " ++ nameDecode) $ do
-    prop "encodes and decodes back to original input" $
-      \l -> (errorCorrectingDecode . errorCorrectingEncode) l `shouldBe` l
+    prop "encodes and decodes back to original input" $ \l ->
+      (errorCorrectingDecode . errorCorrectingEncode) l `shouldBe` l
 
-    prop "encodes and decodes back to original input with one error" $
-      \(RNG gen) -> \l ->
-        (errorCorrectingDecode . corrupt gen 1 . errorCorrectingEncode) l `shouldBe` l
+    prop "encodes and decodes back to original input with one error" $ \(RNG gen) l ->
+      (errorCorrectingDecode . corrupt gen 1 . errorCorrectingEncode) l `shouldBe` l
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -47,7 +46,7 @@ examples = describe "Examples" $ do
       `shouldBe` [False, False, True, False]
 
   it "errorCorrectingDecode $ corrupt (mkStdGen 111) 1 $ errorCorrectingEncode [True, False, False, True, False]" $ do
-    (errorCorrectingDecode $ corrupt (mkStdGen 111) 1 $ errorCorrectingEncode [True, False, False, True, False])
+    errorCorrectingDecode (corrupt (mkStdGen 111) 1 $ errorCorrectingEncode [True, False, False, True, False])
       `shouldBe` [True, False, False, True, False]
 
   where corrupt = Problem.corrupt

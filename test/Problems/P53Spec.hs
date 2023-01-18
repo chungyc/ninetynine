@@ -36,7 +36,7 @@ properties isTheorem name = describe name $ do
     prop "contradictions prove everything" $ \(Conjecture conjecture) ->
       isTheorem [Variable "X", Complement $ Variable "X"] conjecture `shouldBe` True
 
-    prop "proves or disproves" $ \(Theory theory) -> \(Conjecture conjecture) ->
+    prop "proves or disproves" $ \(Theory theory) (Conjecture conjecture) ->
       total $ isTheorem theory conjecture
 
 examples :: Spec

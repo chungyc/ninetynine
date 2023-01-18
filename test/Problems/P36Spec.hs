@@ -16,7 +16,7 @@ import           Test.QuickCheck
 properties :: (Integer -> [(Integer, Integer)]) -> String -> Spec
 properties primeFactorsMultiplicity name = describe name $ do
   prop "has product equal to original number" $ \(Positive n) ->
-    primeFactorsMultiplicity n `shouldSatisfy` (==) n . product . map (\(p, r) -> p^r)
+    primeFactorsMultiplicity n `shouldSatisfy` (==) n . product . map (uncurry (^))
 
   prop "are prime factors" $ \(Positive n) ->
     primeFactorsMultiplicity n `shouldSatisfy` all (isPrime . fst)

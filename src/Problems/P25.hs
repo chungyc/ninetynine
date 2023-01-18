@@ -24,7 +24,7 @@ import           System.Random
 -- >>> take 5 $ unfoldr (Just . randomPermute ['a'..'d']) $ mkStdGen 111
 -- ["cbad","abdc","abdc","acdb","cdba"]
 --
--- >>> newStdGen >>= return . fst . randomPermute "abcdef"
+-- >>> fst . randomPermute "abcdef" <$> newStdGen
 -- "dcaebf"
 randomPermute :: RandomGen g => [a] -> g -> ([a], g)
 randomPermute = Solution.randomPermute

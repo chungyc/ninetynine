@@ -16,11 +16,10 @@ properties split name = describe name $ do
   prop "splits nothing" $ \(NonNegative n) ->
     split [] n `shouldBe` ([], [])
 
-  prop "splits list" $ \xs -> \ys ->
+  prop "splits list" $ \xs ys ->
     split (xs ++ ys) (length xs) `shouldBe` (xs, ys)
 
-  prop "does not split list with large enough given length" $
-    \xs -> \(NonNegative n) ->
+  prop "does not split list with large enough given length" $ \xs (NonNegative n) ->
       split xs (n + length xs) `shouldBe` (xs, [])
 
 examples :: Spec

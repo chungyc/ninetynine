@@ -21,7 +21,7 @@ import           System.Random
 -- >>> take 5 $ unfoldr (Just . randomDraw 3 100) $ mkStdGen 111
 -- [[11,19,76],[63,49,10],[75,42,12],[20,48,78],[40,94,86]]
 --
--- >>> newStdGen >>= return . fst . randomDraw 6 49
+-- >>> fst . randomDraw 6 49 <$> newStdGen
 -- [17,7,1,18,13,3]
 randomDraw :: RandomGen g => Int -> Int -> g -> ([Int], g)
 randomDraw = Solution.randomDraw

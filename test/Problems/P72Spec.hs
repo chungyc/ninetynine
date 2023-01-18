@@ -17,7 +17,7 @@ properties postOrderSequence name = describe name $ do
   prop "is singleton sequence for singleton tree" $ \x ->
     postOrderSequence (MultiwayTree x []) `shouldBe` [x]
 
-  prop "is post-order sequence" $ \x -> \ts ->
+  prop "is post-order sequence" $ \x ts ->
     postOrderSequence (MultiwayTree x ts) `shouldBe`
     concatMap postOrderSequence ts ++ [x]
 
