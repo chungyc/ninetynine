@@ -173,6 +173,7 @@ library
       Problems.P97
       Problems.P98
       Problems.P99
+      Problems.Tutorial
       Solutions
       Solutions.Arithmetic
       Solutions.P01
@@ -274,6 +275,7 @@ library
       Solutions.P97
       Solutions.P98
       Solutions.P99
+      Solutions.Tutorial
   other-modules:
       Paths_ninetynine
   autogen-modules:
