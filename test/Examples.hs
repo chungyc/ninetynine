@@ -114,6 +114,7 @@ modules = [ "Problems.Crosswords"
           , "Problems.P97"
           , "Problems.P98"
           , "Problems.P99"
+          , "Problems.Tutorial"
           ]
 
 {-

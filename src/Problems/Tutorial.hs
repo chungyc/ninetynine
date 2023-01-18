@@ -10,5 +10,14 @@ module Problems.Tutorial (sumNumbers) where
 
 import qualified Solutions.Tutorial as Solution
 
+{- |
+
+>>> sumNumbers 5 == 1 + 2 + 3 + 4 + 5
+True
+
+>>> sumNumbers 100
+5050
+
+-}
 sumNumbers :: Integer -> Integer
 sumNumbers = Solution.sumNumbers
