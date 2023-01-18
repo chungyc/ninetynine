@@ -439,6 +439,7 @@ test-suite ninetynine-test
       Problems.P97Spec
       Problems.P98Spec
       Problems.P99Spec
+      Problems.TutorialSpec
       Solutions.ArithmeticSpec
       Paths_ninetynine
   autogen-modules:
@@ -553,6 +554,7 @@ benchmark ninetynine-bench
       Problems.P97Bench
       Problems.P98Bench
       Problems.P99Bench
+      Problems.TutorialBench
       Paths_ninetynine
   autogen-modules:
       Paths_ninetynine
