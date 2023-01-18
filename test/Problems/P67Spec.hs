@@ -19,19 +19,19 @@ properties (treeToString, stringToTree) (nameTreeToString, nameStringToTree) = d
     prop "is empty string for empty tree" $
       treeToString Empty `shouldBe` ""
 
-    prop "is single character for leaf" $ do
-      forAll (elements ['a'..'z']) $
-        \c -> treeToString (Branch c Empty Empty) `shouldBe` [c]
+    prop "is single character for leaf" $
+      forAll (elements ['a'..'z']) $ \c ->
+      treeToString (Branch c Empty Empty) `shouldBe` [c]
 
-    prop "is node value and subtrees in parentheses" $
-      forAll letters $ \c -> \(CharTree t) -> \(CharTree t') ->
+    prop "is node value and subtrees in parentheses" $ \(CharTree t) (CharTree t') ->
+      forAll letters $ \c ->
       t /= Empty || t' /= Empty ==>
       treeToString (Branch c t t') `shouldBe`
       [c] ++ "(" ++ treeToString t ++ "," ++ treeToString t' ++ ")"
 
   describe nameStringToTree $ do
-    prop "is inverse of treeToString" $
-      \(CharTree t) -> (stringToTree . treeToString) t `shouldBe` t
+    prop "is inverse of treeToString" $ \(CharTree t) ->
+      (stringToTree . treeToString) t `shouldBe` t
 
 examples :: Spec
 examples = describe "Examples" $ do

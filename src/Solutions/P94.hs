@@ -1,6 +1,6 @@
 {- |
 Description: Regular graphs
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -29,7 +29,7 @@ regularGraphs n k = nubBy isomorphic $ buildGraphs k [1..n] emptyGraph
 -- and neither is there a need to try different orders of vertexes.
 buildGraphs :: Int -> [Vertex] -> G -> [G]
 buildGraphs _ [] g = [g]
-buildGraphs k (v:vs) g = concat $ map (buildGraphs k vs) gs
+buildGraphs k (v:vs) g = concatMap (buildGraphs k vs) gs
   where gs = expand k g v vs
 
 -- | Expand the graph to all possible graphs that have edges added
@@ -40,7 +40,7 @@ expand k g v vs = map (addEdges g v) candidates
         candidates = filter (all $ \v' -> Set.size (neighbors v' g) < k) $ combinations k' vs
 
 addEdges :: G -> Vertex -> [Vertex] -> G
-addEdges g v vs = foldl (addEdge v) g vs
+addEdges g v = foldl (addEdge v) g
 
 addEdge :: Vertex -> G -> Vertex -> G
 addEdge v (G g) v' = G $ Map.adjust (Set.insert v) v' $ Map.adjust (Set.insert v') v g

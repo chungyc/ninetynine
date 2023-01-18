@@ -26,14 +26,14 @@ properties
     prop "empty tree has empty in-order sequence" $ do
       inorder Empty `shouldBe` []
 
-    prop "is in-order sequence" $ \x -> \t -> \t' ->
+    prop "is in-order sequence" $ \x t t' ->
       inorder (Branch x t t') `shouldBe` inorder t ++ [x] ++ inorder t'
 
   describe namePreorder $ do
     prop "empty tree has empty pre-order sequence" $ do
       preorder Empty `shouldBe` []
 
-    prop "is pre-order sequence" $ \x -> \t -> \t' ->
+    prop "is pre-order sequence" $ \x t t' ->
       preorder (Branch x t t') `shouldBe` [x] ++ preorder t ++ preorder t'
 
   describe nameOrdersToTree $ do
@@ -87,7 +87,7 @@ instance Arbitrary DistinctTree where
 
                   split [] = ([], [])
                   split [y] = ([y], [])
-                  split (y:y':ys) = ((y:zs), (y':zs'))
+                  split (y:y':ys) = (y:zs, y':zs')
                     where (zs, zs') = split ys
 
   shrink (DistinctTree t) = map DistinctTree $ shrinkTree shrinkNothing t

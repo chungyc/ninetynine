@@ -27,6 +27,6 @@ subgroup name encodeDirect = bgroup name
   , bench "replicate 10 1" $ nf encodeDirect   $ replicate 10 1
   , bench "replicate 100 1" $ nf encodeDirect  $ replicate 100 1
   , bench "replicate 1000 1" $ nf encodeDirect $ replicate 1000 1
-  , bench "concat $ map (replicate 10) [1..10]"  $ nf encodeDirect $ concat $ map (replicate 10) [1..10]
-  , bench "concat $ map (replicate 10) [1..100]" $ nf encodeDirect $ concat $ map (replicate 10) [1..100]
+  , bench "concatMap (replicate 10) [1..10]"  $ nf encodeDirect $ concatMap (replicate 10) [1..10]
+  , bench "concatMap (replicate 10) [1..100]" $ nf encodeDirect $ concatMap (replicate 10) [1..100]
   ]

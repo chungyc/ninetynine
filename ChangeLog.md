@@ -6,6 +6,8 @@ See https://github.com/chungyc/ninetynine.
 
 *   Improvements in testing.
 
+*   Improve code hygiene with HLint.
+
 *   Rename `Problems.PostfixNotation` to `Problems.Monads` to be consistent
     with other supporting modules.
 

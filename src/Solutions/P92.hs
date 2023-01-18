@@ -2,7 +2,7 @@
 
 {- |
 Description: Graceful tree labeling
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -10,12 +10,14 @@ Some solutions to "Problems.P92" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P92 (gracefulTree, gracefulTree') where
 
-import           Data.List       (permutations, sort, sortOn)
-import           Data.Map.Lazy   (Map, (!))
-import qualified Data.Map.Lazy   as Map
-import           Data.Maybe      (fromJust)
-import           Data.Set        (Set)
-import qualified Data.Set        as Set
+import           Control.Applicative ((<|>))
+import           Data.List           (permutations, sort, sortOn)
+import           Data.Map.Lazy       (Map, (!))
+import qualified Data.Map.Lazy       as Map
+import           Data.Maybe          (fromJust)
+import           Data.Ord            (Down (..))
+import           Data.Set            (Set)
+import qualified Data.Set            as Set
 import           Problems.Graphs
 import           Problems.P81
 
@@ -49,11 +51,11 @@ data Partial = Partial
 -- | Trying vertexes with higher degrees first might constrain labeling more,
 -- i.e, prune the search space more.
 vertexesByDegree :: G -> [Vertex]
-vertexesByDegree g = reverse $ sortOn (\v -> Set.size $ neighbors v g) $ Set.toList $ vertexes g
+vertexesByDegree g = sortOn (\v -> Down $ Set.size $ neighbors v g) $ Set.toList $ vertexes g
 
 -- | Label one more vertex.
 expand :: Partial -> Maybe (Map Vertex Int)
-expand (Partial { labeling = lbls, remainingVertexes = [] }) = Just lbls
+expand Partial{ labeling = lbls, remainingVertexes = [] } = Just lbls
 expand p = labelVertex p' v ls
   where (v:vs) = remainingVertexes p
         ls = remainingVertexLabels p
@@ -62,7 +64,7 @@ expand p = labelVertex p' v ls
 -- | Try labeling a particular vertex with the given label candidates.
 labelVertex :: Partial -> Vertex -> Set Int -> Maybe (Map Vertex Int)
 labelVertex p v ls | Set.null ls = Nothing
-                   | disjoint    = maybe next Just $ expand p'
+                   | disjoint    = expand p' <|> next
                    | otherwise   = next
   where l = Set.findMin ls  -- choose label to try arbitrarily
         e = edgeDiffs p v l
@@ -80,7 +82,7 @@ edgeDiffs :: Partial -> Vertex -> Int -> Maybe (Set Int)
 edgeDiffs p v l | bijected  = Just diffs
                 | otherwise = Nothing
   where ls = labeling p
-        vs = Set.filter (\v' -> Map.member v' ls) $ neighbors v $ graph p
+        vs = Set.filter (`Map.member` ls) $ neighbors v $ graph p
         diffs = Set.map (\v' -> abs $ l - ls ! v') vs
         bijected = Set.size diffs == Set.size vs
 

@@ -25,17 +25,17 @@ properties highlyTotientNumbers name = describe name $ do
       in forAll (chooseInteger (1,n-1)) $ \m ->
          counterexample ("n=" ++ show n) $
          counterexample ("m=" ++ show m) $
-         counterexample ("solutions for n=" ++ (show $ countSolutions n)) $
-         counterexample ("solutions for m=" ++ (show $ countSolutions m)) $
+         counterexample ("solutions for n=" ++ show (countSolutions n)) $
+         counterexample ("solutions for m=" ++ show (countSolutions m)) $
          countSolutions n `shouldSatisfy` (<) (countSolutions m)
 
     prop "does not skip highly totient number" $ \(Positive k) ->
-      let (n,n') = (zip highlyTotientNumbers $ tail highlyTotientNumbers) !! k
+      let (n,n') = zip highlyTotientNumbers (tail highlyTotientNumbers) !! k
       in forAll (chooseInteger (n+1,n'-1)) $ \m ->
          counterexample ("n=" ++ show n) $
          counterexample ("m=" ++ show m) $
-         counterexample ("solutions for n=" ++ (show $ countSolutions n)) $
-         counterexample ("solutions for m=" ++ (show $ countSolutions m)) $
+         counterexample ("solutions for n=" ++ show (countSolutions n)) $
+         counterexample ("solutions for m=" ++ show (countSolutions m)) $
          countSolutions m `shouldSatisfy` (>=) (countSolutions n)
 
 examples :: Spec

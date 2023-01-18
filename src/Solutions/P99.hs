@@ -1,6 +1,6 @@
 {- |
 Description: Crossword puzzles
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -81,7 +81,7 @@ data CrossoverPoint = CrossoverPoint Int Int Int
 
 -- | Translate the crossword puzzle into a form used internally to solve the puzzle.
 toPartial :: Crossword -> Partial
-toPartial (Crossword { word = ws, grid = g }) =
+toPartial Crossword{ word = ws, grid = g } =
   Partial { sizes = (length g, maximum $ map length g)
           , sites = ss
           , candidates = Map.map (\s -> Map.findWithDefault [] (size s) sizedWords) ss
@@ -101,7 +101,7 @@ toSites g = (markCrossovers indexedSites, indexedWords)
 
 -- | From the rows in the grid, find the sites and their prefilled characters.
 findSites :: [[Either Bool Char]] -> Orientation -> [(Site, [Maybe Char])]
-findSites g orient = concat $ map (\l -> evalState find $ initial l) $ zip [0..] g
+findSites g orient = concatMap (evalState find . initial) $ zip [0..] g
   where
     find = do
       s <- gets fssSpots
@@ -174,7 +174,7 @@ markCrossovers sitesMap = Map.foldlWithKey mark sitesMap crossoverSpots
   where taggedSpots = tagSpots sitesMap
         crossoverSpots = Map.filter ((<) 1 . length) taggedSpots
         mark sitesMap' pos siteIndexes = Map.unionWith mergeSite (markedSites sitesMap' pos siteIndexes) sitesMap'
-        mergeSite s@(Site { crossovers = c }) (Site { crossovers = c' }) = s { crossovers = c ++ c' }
+        mergeSite s@Site{ crossovers = c } Site{ crossovers = c' } = s { crossovers = c ++ c' }
         markedSites m p is = Map.fromList $ map (markSite m p is) is
         markSite m pos indexes index =
           let site = m ! index
@@ -183,13 +183,13 @@ markCrossovers sitesMap = Map.foldlWithKey mark sitesMap crossoverSpots
           in (index, site { crossovers = cs })
         getCrossover m (row,column) site index =
           let otherSite = m ! index
-              offset (Site {position = (_,c), orientation = Horizontal}) = column - c
-              offset (Site {position = (r,_), orientation = Vertical})   = row - r
+              offset Site {position = (_,c), orientation = Horizontal} = column - c
+              offset Site {position = (r,_), orientation = Vertical}   = row - r
           in CrossoverPoint (offset site) (offset otherSite) index
 
 -- | Tag each spot in the grid with the sites located on the spot.
 tagSpots :: Map Int Site -> Map (Int,Int) [Int]
-tagSpots sitesMap = Map.foldlWithKey tag Map.empty sitesMap
+tagSpots = Map.foldlWithKey tag Map.empty
   where tag taggedSpots index site = Map.unionWith (++) taggedSpots $ siteSpots index site
         siteSpots index site = Map.fromList $ zip (positions site) $ repeat [index]
         positions Site { size = n, position = pos, orientation = o } = getPositions n pos o
@@ -199,7 +199,7 @@ tagSpots sitesMap = Map.foldlWithKey tag Map.empty sitesMap
 -- | Convert the internal form used for solving the puzzle to the form returned by 'solveCrossword'.
 fromPartial :: Maybe Partial -> Maybe [[Maybe Char]]
 fromPartial Nothing  = Nothing
-fromPartial (Just s) = Just $ g'
+fromPartial (Just s) = Just g'
   where (rowCount, columnCount) = sizes s
         blank = replicate rowCount $ replicate columnCount Nothing
         wordSites = zip (Map.elems $ sites s) (Map.elems $ fullWords s)
@@ -233,7 +233,7 @@ High-level driving function for solving the crossword puzzle.
 -}
 build :: RandomGen g => Partial -> g -> (Maybe Partial, g)
 build partial gen
-  | Map.null $ pws         = (Just partial, gen)
+  | Map.null pws           = (Just partial, gen)
   | isNothing maybePartial = (Nothing, gen)
   | isUnchanged            = guess partial gen
   | otherwise              = build partial' gen
@@ -283,12 +283,12 @@ affixWord p i w = foldl fill p' $ crossovers $ sites p' ! i
 -- pick a site and guess a word to fill it with,
 -- and continue to definitely fill the puzzle.
 guess :: RandomGen g => Partial -> g -> (Maybe Partial, g)
-guess p gen = runState (guess' p) gen
+guess p = runState (guess' p)
 
 guess' :: RandomGen g => Partial -> State g (Maybe Partial)
 guess' p = do
   tiebreakers <- do gen <- state split
-                    return $ (randoms gen :: [Int])
+                    return (randoms gen :: [Int])
   let siteIndex = snd $ head $ sortOn count $ zip tiebreakers $ Map.keys $ candidates p
   wordList <- state $ randomPermute $ candidates p ! siteIndex
   state $ tryGuesses p siteIndex wordList

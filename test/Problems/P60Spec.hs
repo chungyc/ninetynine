@@ -32,11 +32,11 @@ properties heightBalancedTreesWithNodes name = describe name $ do
 examples :: Spec
 examples = describe "Examples" $ do
   it "length $ heightBalancedTreesWithNode 15" $ do
-    (length $ heightBalancedTreesWithNodes 15) `shouldBe` 1553
+    length (heightBalancedTreesWithNodes 15) `shouldBe` 1553
 
   it "map heightBalancedTreesWithNode [0..3]" $ do
     -- Sort for each height to remove unnecessary order senstivity.
-    map sort (map heightBalancedTreesWithNodes [0..3]) `shouldMatchList`
+    map (sort . heightBalancedTreesWithNodes) [0..3] `shouldMatchList`
       map sort [ [ Empty ]
                , [ Branch () Empty Empty ]
                , [ Branch () Empty (Branch () Empty Empty)

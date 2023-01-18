@@ -27,7 +27,7 @@ properties
   describe nameMultitreeToString $ do
     prop "maps to string from singleton tree" $
       forAll letters $ \c ->
-      multitreeToString (MultiwayTree c []) `shouldBe` [c] ++ "^"
+      multitreeToString (MultiwayTree c []) `shouldBe` c : "^"
 
     prop "maps to string in depth-first order" $ \(CharTree t@(MultiwayTree c ts)) ->
       multitreeToString t `shouldBe` [c] ++ concatMap multitreeToString ts ++ "^"

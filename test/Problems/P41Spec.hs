@@ -15,13 +15,13 @@ import           Test.QuickCheck
 
 properties :: (Integer -> Integer -> [(Integer, Integer)]) -> String -> Spec
 properties goldbachList name = describe name $ do
-  prop "are sums of primes" $ \(Positive m) -> \(NonNegative n) ->
+  prop "are sums of primes" $ \(Positive m) (NonNegative n) ->
     goldbachList m (m+n) `shouldSatisfy` all (\(x,y) -> isPrime x && isPrime y)
 
   -- It might be possible there is an even number without a Goldbach pair,
   -- but it's really unlikely we'll encounter it with the test.
   prop "includes sums of all non-prime even natural numbers in range" $
-    \(Positive n) -> \(NonNegative k) ->
+    \(Positive n) (NonNegative k) ->
       goldbachList n (n+k) `shouldSatisfy`
       (==) [x | x <- [n..n+k], x > 2 && even x] . sort . map (uncurry (+))
 

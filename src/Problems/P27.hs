@@ -30,7 +30,7 @@ under the term [/multinomial coefficients/](https://brilliant.org/wiki/multinomi
 === Examples
 
 >>> let names = ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
->>> head $ sort $ map (map sort) $ disjointGroups [2,3,4] names
+>>> minimum $ map (map sort) $ disjointGroups [2,3,4] names
 [["aldo","beat"],["carla","david","evi"],["flip","gary","hugo","ida"]]
 
 >>> length $ disjointGroups [2,3,4] names

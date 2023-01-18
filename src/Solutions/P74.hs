@@ -1,6 +1,6 @@
 {- |
 Description: IO monad without do notation
-Copyright: Copyright (C) 2022 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -21,4 +21,4 @@ askGoldbach hIn hOut =
                          (\_ -> (>>=) (hPutStr hOut "=")
                                       (\_ -> (>>=) (hPutStr hOut $ show a)
                                                    (\_ -> (>>=) (hPutStr hOut "+")
-                                                                (\_ -> (hPutStrLn hOut $ show b))))))
+                                                                (const $ hPrint hOut b)))))

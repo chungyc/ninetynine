@@ -20,9 +20,9 @@ properties pack name = describe name $ do
     pack xs `shouldSatisfy` all (\l -> and [ x == y | x <- l, y <- l])
 
   prop "identical elements do not span consecutive sublists" $
-    \xs -> \(Positive k) -> \x -> \ys ->
-      length xs == 0 || last xs /= x ==>
-      length ys == 0 || head ys /= x ==>
+    \xs (Positive k) x ys ->
+      null xs || last xs /= x ==>
+      null ys || head ys /= x ==>
       pack (xs ++ replicate k x ++ ys)
       `shouldBe` pack xs ++ [replicate k x] ++ pack ys
 

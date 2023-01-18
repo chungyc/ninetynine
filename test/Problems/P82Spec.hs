@@ -37,7 +37,7 @@ properties cycles name = describe name $ do
       length path > 1 ==>
       let v = head path
           cycleEdges = Set.insert (Edge (last path, v)) $ pathEdges path
-          es' = Set.difference es $ cycleEdges  -- ensure cycle does not exist
+          es' = Set.difference es cycleEdges  -- ensure cycle does not exist
           g = fromJust $ toGraph (vs, es')
       in counterexample ("from " ++ show v) $
          counterexample (show $ toPaths g) $
@@ -45,7 +45,7 @@ properties cycles name = describe name $ do
 
   where
     -- The set of edges forming the given path.
-    pathEdges path = Set.fromList $ map Edge $ zip path (tail path)
+    pathEdges path = Set.fromList $ zipWith (curry Edge) path (tail path)
 
 examples :: Spec
 examples = describe "examples" $ do

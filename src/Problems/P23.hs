@@ -24,7 +24,7 @@ import           System.Random
 -- >>> take 5 $ unfoldr (Just . randomSelect [1..100] 3) $ mkStdGen 111
 -- [[11,19,76],[63,49,10],[75,42,12],[20,48,78],[40,94,86]]
 --
--- >>> newStdGen >>= return . fst . randomSelect "abcdefgh" 3
+-- >>> fst . randomSelect "abcdefgh" 3 <$> newStdGen
 -- "ebf"
 randomSelect :: RandomGen g => [a] -> Int -> g -> ([a], g)
 randomSelect = Solution.randomSelect

@@ -8,7 +8,6 @@ Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P97".
 -}
 module Problems.P97 (sudoku, sudokuPuzzle, printSudoku) where
 
-import           Data.List     (intercalate)
 import qualified Solutions.P97 as Solution
 
 {- |
@@ -96,6 +95,6 @@ sudokuPuzzle =
 printSudoku :: Maybe [[Int]] -> IO ()
 printSudoku Nothing = return ()
 printSudoku (Just solution) = mapM_ putStrLn outputLines
-  where outputLines = map (intercalate " " . map showInt) solution
+  where outputLines = map (unwords . map showInt) solution
         showInt 0 = "."
         showInt n = show n

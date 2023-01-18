@@ -96,7 +96,7 @@ toGridSVG (w, h) = E "g" [A "stroke" "black"] $ xlines ++ ylines
 
 -- | The circle and label for the nodes.
 toNodeSVG :: [(Text, (Int,Int))] -> XML
-toNodeSVG ns = E "g" [] $ [circles, labels]
+toNodeSVG ns = E "g" [] [circles, labels]
   where circles = E "g" [A "fill" "white",
                          A "stroke" "black",
                          A "stroke-width" "3"] $ map circle ns
@@ -148,9 +148,9 @@ c x = show $ 100 * x
 prettyXML :: XML -> Doc ann
 prettyXML (T t) = pretty t
 prettyXML (E name attributes []) =
-  sep $ [pretty $ "<" ++ name, prettyAttributes attributes, pretty "/>"]
+  sep [pretty $ "<" ++ name, prettyAttributes attributes, pretty "/>"]
 prettyXML (E name attributes xs) =
-  cat $ [ nest 2 $ cat [startTag attributes, prettyContent xs], endTag ]
+  cat [ nest 2 $ cat [startTag attributes, prettyContent xs], endTag ]
   where startTag []    = angles $ pretty name
         startTag attrs = angles $ pretty name <+> prettyAttributes attrs
         endTag = pretty $ "</" ++ name ++ ">"

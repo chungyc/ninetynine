@@ -15,7 +15,7 @@ properties dupli name = describe name $ do
   prop "duplicates nothing" $
     dupli [] `shouldBe` []
 
-  prop "duplicates element" $ \xs -> \x -> \ys ->
+  prop "duplicates element" $ \xs x ys ->
     dupli (xs ++ [x] ++ ys) `shouldBe` dupli xs ++ [x,x] ++ dupli ys
 
 examples :: Spec

@@ -1,6 +1,6 @@
 {- |
 Description: Random permutation of a list
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -16,4 +16,4 @@ import           System.Random
 
 -- | Generate a random permutation of the elements of a list.
 randomPermute :: RandomGen g => [a] -> g -> ([a], g)
-randomPermute xs g = randomSelect xs (length xs) g
+randomPermute xs = randomSelect xs (length xs)

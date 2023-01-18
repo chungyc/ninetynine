@@ -3,7 +3,7 @@
 
 {- |
 Description: Supporting definitions for multiway tree problems
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -95,4 +95,4 @@ multitree5 = MultiwayTree 'a'
 -- to avoid a numbering conflict with the somewhat unrelated problem 70 in the original list,
 -- which is more interesting.
 multitreeSize :: MultiwayTree a -> Int
-multitreeSize (MultiwayTree _ ts) = 1 + (sum $ map multitreeSize ts)
+multitreeSize (MultiwayTree _ ts) = 1 + sum (map multitreeSize ts)

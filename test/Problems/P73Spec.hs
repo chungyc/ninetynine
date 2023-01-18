@@ -5,7 +5,6 @@ Maintainer: dev@chungyc.org
 -}
 module Problems.P73Spec (spec) where
 
-import           Data.List                         (intercalate)
 import           Problems.MultiwayTrees
 import           Problems.MultiwayTrees.QuickCheck
 import qualified Problems.P73                      as Problem
@@ -26,10 +25,9 @@ properties
       forAll letters $ \x ->
       treeToSexp (MultiwayTree x []) `shouldBe` [x]
 
-    prop "is list of node value and subtrees" $
-      \(CharTree t@(MultiwayTree x ts)) ->
-        not (null ts) ==>
-        treeToSexp t `shouldBe` "(" ++ (intercalate " " $ [x] : map treeToSexp ts) ++ ")"
+    prop "is list of node value and subtrees" $ \(CharTree t@(MultiwayTree x ts)) ->
+      not (null ts) ==>
+      treeToSexp t `shouldBe` "(" ++ unwords ([x] : map treeToSexp ts) ++ ")"
 
   describe nameSexpToTree $ do
     prop "is inverse of treeToSexp" $ \(CharTree t) ->

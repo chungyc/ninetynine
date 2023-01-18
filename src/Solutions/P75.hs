@@ -18,4 +18,4 @@ maybeGoldbach s = do
   n <- readMaybe s
   guard $ n > 2
   guard $ even n
-  return $ (n, goldbach n)
+  return (n, goldbach n)

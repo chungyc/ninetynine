@@ -21,7 +21,7 @@ properties :: (G -> Bool) -> String -> Spec
 properties bipartite name = describe name $ do
   prop "is true for bipartite graphs" $ \(Positive n) ->
     forAll (chooseInt (1,n-1)) $ \m ->
-    forAll (sublistOf $ map Edge [(u,v) | u <- [1..m], v <- [m+1..n]]) $ \es ->
+    forAll (sublistOf [Edge (u,v) | u <- [1..m], v <- [m+1..n]]) $ \es ->
     let g = fromJust $ toGraph (Set.fromList [1..n], Set.fromList es)
     in counterexample (show g) $
        bipartite g `shouldBe` True

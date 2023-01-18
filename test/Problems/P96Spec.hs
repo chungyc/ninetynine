@@ -31,10 +31,10 @@ properties isIdentifier name = describe name $ do
     \(Identifier s) -> forAll (splitsOf s) $ \(front, back) ->
       isIdentifier (front ++ "__" ++ back) `shouldBe` False
 
-  prop "is false when invalid characters are included" $
-    \(Identifier s) -> forAll (splitsOf s) $ \(front, back) -> \c ->
-      c `notElem` (['A'..'Z'] ++ ['a'..'z'] ++ ['0'..'9'] ++ ['_']) ==>
-      isIdentifier (front ++ [c] ++ back) `shouldBe` False
+  prop "is false when invalid characters are included" $ \(Identifier s) c ->
+    forAll (splitsOf s) $ \(front, back) ->
+    c `notElem` (['A'..'Z'] ++ ['a'..'z'] ++ ['0'..'9'] ++ ['_']) ==>
+    isIdentifier (front ++ [c] ++ back) `shouldBe` False
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -100,7 +100,7 @@ fromDigit = (:) <$> digits <*> extended''
 extended'' :: Gen String
 extended'' = do
   n <- getSize
-  frequency [ (n, resize (n-1) $ extended), (1, pure "") ]
+  frequency [ (n, resize (n-1) extended), (1, pure "") ]
 
 letters :: Gen Char
 letters = elements $ ['A'..'Z'] ++ ['a'..'z']

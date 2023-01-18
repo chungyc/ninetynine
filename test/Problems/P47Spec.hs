@@ -11,27 +11,25 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
-properties :: (([(Int,Int)] -> Bool -> Bool -> Bool), (Bool -> Bool -> Bool) -> [(Int,Int)])
+properties :: ([(Int,Int)] -> Bool -> Bool -> Bool, (Bool -> Bool -> Bool) -> [(Int,Int)])
            -> (String, String)
            -> Spec
 properties (evaluateCircuit, buildCircuit) (nameEvaluateCircuit, nameBuildCircuit) = do
   describe nameEvaluateCircuit $ do
-    prop "feeds outputs from indexed input gates into a gate" $
-      \(Circuit c) -> \x -> \y ->
-        let eval (-1) = x
-            eval (-2) = y
-            eval i    = case c !! (i-1) of (j,k) -> eval j `nand` eval k
-        in evaluateCircuit c x y `shouldBe` eval (length c)
+    prop "feeds outputs from indexed input gates into a gate" $ \(Circuit c) x y ->
+      let eval (-1) = x
+          eval (-2) = y
+          eval i    = case c !! (i-1) of (j,k) -> eval j `nand` eval k
+      in evaluateCircuit c x y `shouldBe` eval (length c)
 
-    prop "has output from last gate" $
-      \(Circuit c) -> \x -> \y ->
-        let (l,r) = last c
-            eval (-1) = x
-            eval (-2) = y
-            eval i    = evaluateCircuit (trim c i) x y
-        in evaluateCircuit c x y `shouldBe` nand (eval l) (eval r)
+    prop "has output from last gate" $ \(Circuit c) x y ->
+      let (l,r) = last c
+          eval (-1) = x
+          eval (-2) = y
+          eval i    = evaluateCircuit (trim c i) x y
+      in evaluateCircuit c x y `shouldBe` nand (eval l) (eval r)
 
-    prop "is inverse of buildCircuit" $ \f -> \x -> \y ->
+    prop "is inverse of buildCircuit" $ \f x y ->
         evaluateCircuit (buildCircuit $ applyFun2 f) x y `shouldBe` applyFun2 f x y
 
   describe nameBuildCircuit $ do
@@ -39,7 +37,7 @@ properties (evaluateCircuit, buildCircuit) (nameEvaluateCircuit, nameBuildCircui
       buildCircuit (applyFun2 f)
       `shouldSatisfy` (==) (table $ applyFun2 f) . table . evaluateCircuit
 
-    prop "is almost inverse of evaluateCircuit" $ \(Circuit c) -> \x -> \y ->
+    prop "is almost inverse of evaluateCircuit" $ \(Circuit c) x y ->
       evaluateCircuit (buildCircuit $ evaluateCircuit c) x y
       `shouldBe` evaluateCircuit c x y
       -- It should build a circuit with equivalent output,

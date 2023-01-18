@@ -23,7 +23,7 @@ properties askGoldbach name = describe name $ do
     `shouldReturn` printExpr (n, goldbach n)
 
   where evenNumber = (2*) <$> arbitrarySizedNatural :: Gen Integer
-        printExpr (n, (a,b)) = (show n) ++ "=" ++ (show a) ++ "+" ++ (show b)
+        printExpr (n, (a,b)) = show n ++ "=" ++ show a ++ "+" ++ show b
 
 examples :: Spec
 examples = describe "Examples" $ do

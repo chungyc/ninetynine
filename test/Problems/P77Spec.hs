@@ -23,7 +23,7 @@ properties randomWalkPaths name = describe name $ do
     prop "has paths with expected length" $ \(NonNegative n) ->
       randomWalkPaths n `shouldSatisfy` all ((==) (n+1) . length)
 
-  where addToPaths ps = concat $ map (\p -> [ p ++ [last p + s] | s <- [-1,0,1] ]) ps
+  where addToPaths ps = concatMap (\p -> [ p ++ [last p + s] | s <- [-1,0,1] ]) ps
 
 examples :: Spec
 examples = describe "Examples" $ do

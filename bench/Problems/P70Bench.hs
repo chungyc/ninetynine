@@ -24,7 +24,7 @@ stringToMultitreeGroup :: (String -> MultiwayTree Char) -> String -> Benchmark
 stringToMultitreeGroup stringToMultitree name = bgroup name
   [ bench "string length 500" $ nf stringToMultitree (replicate 100 'a' ++
                                                       replicate 50 '^' ++
-                                                      (concat $ replicate 50 "bc^d^^") ++
+                                                      concat (replicate 50 "bc^d^^") ++
                                                       replicate 50 '^') ]
 
 multitreeToStringGroup :: (MultiwayTree Char -> String) -> String -> Benchmark

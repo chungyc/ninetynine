@@ -8,7 +8,7 @@ Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P98".
 -}
 module Problems.P98 (nonogram, printNonogramPuzzle, printNonogramSolution, nonogramPuzzle) where
 
-import           Data.List     (group, intercalate, transpose)
+import           Data.List     (group, transpose)
 import qualified Solutions.P98 as Solution
 
 {- |
@@ -143,13 +143,13 @@ printNonogram (r:rows) columns (Just (c:cells)) = do
 printNonogram _ _ _ = undefined
 
 printRowCells :: [Maybe Bool] -> IO ()
-printRowCells c = mapM_ (putStr . format) c
+printRowCells = mapM_ (putStr . format)
   where format Nothing      = " □"
         format (Just False) = "  "
         format (Just True)  = " ■"
 
 printRowLengths :: [Int] -> IO ()
-printRowLengths r = mapM_ (putStr . (' ':) . show) r
+printRowLengths = mapM_ (putStr . (' ':) . show)
 
 printColumns :: [[Int]] -> IO ()
 printColumns columns = mapM_ printLine ls
@@ -160,7 +160,7 @@ printColumns columns = mapM_ printLine ls
 
 formatColumns :: [[Int]] -> [String]
 formatColumns columns = transpose texts'
-  where texts = map (intercalate " " . map show) columns
+  where texts = map (unwords . map show) columns
         -- make all strings the same length
         texts' = map (\t -> t ++ replicate (l - length t) ' ') texts
         l = maximum $ map length texts

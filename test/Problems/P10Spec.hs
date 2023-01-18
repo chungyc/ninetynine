@@ -16,12 +16,11 @@ properties encode name = describe name $ do
   prop "decodes into original list" $ \l ->
     encode l `shouldSatisfy` (==) l . concatMap (uncurry replicate)
 
-  prop "encodes consecutive duplicates to single encoding" $
-    \xs -> \x -> \ys -> \(Positive k) ->
-      length xs == 0 || last xs /= x ==>
-      length ys == 0 || head ys /= x ==>
-      encode (xs ++ replicate k x ++ ys)
-      `shouldBe` encode xs ++ [(k,x)] ++ encode ys
+  prop "encodes consecutive duplicates to single encoding" $ \xs x ys (Positive k) ->
+    null xs || last xs /= x ==>
+    null ys || head ys /= x ==>
+    encode (xs ++ replicate k x ++ ys)
+    `shouldBe` encode xs ++ [(k,x)] ++ encode ys
 
 examples :: Spec
 examples = describe "Examples" $ do

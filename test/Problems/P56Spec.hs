@@ -17,10 +17,10 @@ properties :: (Tree Int -> Bool) -> String -> Spec
 properties symmetric name = describe name $ do
   prop "is true for trees whose structure is symmetric" $ \t ->
     forAll (valued $ Branch () t $ reflect t) $ \t' ->
-      t' `shouldSatisfy` symmetric
+    t' `shouldSatisfy` symmetric
 
-  prop "is false for non-symmetric trees" $
-    \t -> \t' -> t /= reflect t' ==>
+  prop "is false for non-symmetric trees" $ \t t' ->
+    t /= reflect t' ==>
     forAll (valued $ Branch () t t') $ \t'' ->
     t'' `shouldNotSatisfy` symmetric
 

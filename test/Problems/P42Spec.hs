@@ -15,13 +15,12 @@ import           Test.QuickCheck
 
 properties :: (Integer -> Integer -> Maybe Integer) -> String -> Spec
 properties multiplicativeInverse name = describe name $ do
-  prop "is multiplicative inverse" $ \(Positive a) -> \(Positive n) ->
+  prop "is multiplicative inverse" $ \(Positive a) (Positive n) ->
     n > 1 ==>
     coprime a n ==>
-    multiplicativeInverse a n `shouldSatisfy` \x -> a * (fromJust x) `mod` n == 1
+    multiplicativeInverse a n `shouldSatisfy` \x -> a * fromJust x `mod` n == 1
 
-  prop "has no multiplicative inverse when not coprime" $
-    \(Positive a) -> \(Positive n) ->
+  prop "has no multiplicative inverse when not coprime" $ \(Positive a) (Positive n) ->
       n > 1 ==>
       not (coprime a n) ==>
       multiplicativeInverse a n `shouldBe` Nothing

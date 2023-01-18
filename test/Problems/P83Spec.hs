@@ -61,13 +61,13 @@ examples = describe "Examples" $ do
     isTree graph83 `shouldBe` False
 
   it "isTree $ toG $ Paths [[1,2,3],[1,4,5]]" $ do
-    (isTree $ toG $ Paths [[1,2,3],[1,4,5]]) `shouldBe` True
+    isTree (toG $ Paths [[1,2,3],[1,4,5]]) `shouldBe` True
 
   it "isConnected graph83" $ do
     isConnected graph83 `shouldBe` True
 
   it "isConnected $ toG $ Lists ([1,2,3], [])" $ do
-    (isConnected $ toG $ Lists ([1,2,3], [])) `shouldBe` False
+    isConnected (toG $ Lists ([1,2,3], [])) `shouldBe` False
 
   where spanningTrees = Problem.spanningTrees
         isTree = Problem.isTree
@@ -91,16 +91,12 @@ isSpanningTree g g' = vertexes g == vertexes g' && isTreeGraph g'
 -- | Checking whether a graph is a tree in the most straightforward way.
 -- I.e., that there is exactly one path between any two vertexes.
 isTreeGraph :: G -> Bool
-isTreeGraph g = all (\(u, v) -> (length $ paths u v g) == 1) pairs
-  where vs = Set.toList $ vertexes g
-        pairs = [(u, v) | u <- vs, v <- vs, u < v]
+isTreeGraph g = all (\(u, v) -> length (paths u v g) == 1) $ pairs g
 
 -- | Checking whether a graph is connected in the most straightforward way.
 -- I.e., that there is some path between any two vertexes.
 isConnectedGraph :: G -> Bool
-isConnectedGraph g = all (\(u, v) -> not $ null $ paths u v g) pairs
-  where vs = Set.toList $ vertexes g
-        pairs = [(u, v) | u <- vs, v <- vs, u < v]
+isConnectedGraph g = all (\(u, v) -> not $ null $ paths u v g) $ pairs g
 
 -- | Generates graphs which are spanned by the given graph.
 --
@@ -108,6 +104,9 @@ isConnectedGraph g = all (\(u, v) -> not $ null $ paths u v g) pairs
 -- and its set of edges includes at least those in the given graph.
 graphsSpannedBy :: G -> Gen G
 graphsSpannedBy g = do
-  let vs = Set.toList $ vertexes g
-  es' <- sublistOf [ Edge (u, v) | u <- vs, v <- vs, u < v ]
+  es' <- sublistOf $ map Edge $ pairs g
   return $ fromJust $ toGraph (vertexes g, Set.union (edges g) $ Set.fromList es')
+
+pairs :: G -> [(Vertex, Vertex)]
+pairs g = [ (u, v) | u <- vs, v <- vs, u < v ]
+  where vs = Set.toList $ vertexes g

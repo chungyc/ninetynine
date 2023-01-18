@@ -1,6 +1,6 @@
 {- |
 Description: Knight's tour
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -8,7 +8,6 @@ Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.P91".
 -}
 module Problems.P91 (knightsTour, closedKnightsTour, printKnightsTour) where
 
-import           Data.List       (intercalate)
 import qualified Data.Map.Strict as Map
 import qualified Solutions.P91   as Solution
 
@@ -59,10 +58,10 @@ closedKnightsTour = Solution.closedKnightsTour
 -- | Print order of knight's tour on an \(N \times N\) board.
 printKnightsTour :: Maybe [(Int,Int)] -> IO ()
 printKnightsTour Nothing = return ()
-printKnightsTour (Just path) = mapM_ (\y -> putStrLn $ line y) [1..n]
+printKnightsTour (Just path) = mapM_ (putStrLn . line) [1..n]
   where order = Map.fromList $ zip path [1..(n*n)]
-        line y = intercalate " " $ map showInt $ map (\x -> order Map.! (x,y)) [1..n]
-        showInt k = replicate (width - (length $ show k)) ' ' ++ (show k)
+        line y = unwords $ map (showInt . (\x -> order Map.! (x,y))) [1..n]
+        showInt k = replicate (width - length (show k)) ' ' ++ show k
         width = length (show $ n*n)
         l = length path
         n = head $ takeWhile (\k -> k*k == l) $ dropWhile (\k -> k*k < l) [1..]

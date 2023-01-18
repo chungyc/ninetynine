@@ -44,7 +44,7 @@ properties isomorphic name = describe name $ do
         in counterexample (show (g, g'')) $
            isomorphic g g'' `shouldBe` False
 
-    prop "is true if and only if graphs are isomorphic" $ \g -> \g' ->
+    prop "is true if and only if graphs are isomorphic" $ \g g' ->
       isomorphic g g' `shouldBe` isomorphicByDefinition g g'
 
 examples :: Spec
@@ -76,10 +76,10 @@ permute g p = fromJust $ toGraph (vs', es')
         es' = mapEdges translate $ edges g
 
 mapVertexes :: Map Vertex Vertex -> Set Vertex -> Set Vertex
-mapVertexes translate vs = Set.map (translate !) vs
+mapVertexes translate = Set.map (translate !)
 
 mapEdges :: Map Vertex Vertex -> Set Edge -> Set Edge
-mapEdges translate es = Set.map (\(Edge (u, v)) -> Edge (f u, f v)) es
+mapEdges translate = Set.map (\(Edge (u, v)) -> Edge (f u, f v))
   where f = (!) translate
 
 isomorphicByDefinition :: G -> G -> Bool
@@ -89,7 +89,7 @@ isomorphicByDefinition g g'
   where vs = Set.toList $ vertexes g
         vs' = Set.toList $ vertexes g'
         equivalentEdges f = and [ edgeContainedBy (x,y) g == edgeContainedBy (x',y') g'
-                                | x <- vs, y <- vs', let x' = f x, let y' = f y]
+                                | x <- vs, let x' = f x, y <- vs', let y' = f y]
         edgeContainedBy (x,y) z = Set.member (Edge (x,y)) $ edges z
-        bijections = [ \x -> m ! x | m <- mappings ]
+        bijections = [ (m !) | m <- mappings ]
         mappings = [ Map.fromList $ zip vs ys | ys <- permutations vs' ]

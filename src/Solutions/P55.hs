@@ -14,9 +14,9 @@ import           Problems.BinaryTrees
 completelyBalancedTrees :: Int -> [Tree ()]
 completelyBalancedTrees 0 = [Empty]
 completelyBalancedTrees n
-  | n `mod` 2 == 0 = generate (n `div` 2) ((n `div` 2) - 1) ++
-                     generate ((n `div` 2) - 1) (n `div` 2)
-  | otherwise      = generate (n `div` 2) (n `div` 2)
+  | even n    = generate (n `div` 2) ((n `div` 2) - 1) ++
+                generate ((n `div` 2) - 1) (n `div` 2)
+  | otherwise = generate (n `div` 2) (n `div` 2)
 
 generate :: Int -> Int -> [Tree ()]
 generate m n = [Branch () l r | l <- ltrees, r <- rtrees]

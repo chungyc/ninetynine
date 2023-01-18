@@ -13,7 +13,7 @@ import           Test.QuickCheck
 
 -- Generate boolean formulas.
 formulas :: Gen Formula
-formulas = sized $ gen
+formulas = sized gen
   where gen n
           | n < 2 = frequency [ (1, Value <$> arbitrary)
                               , (1000, Variable . singleton <$> choose ('A','Z'))
@@ -32,7 +32,7 @@ formulas = sized $ gen
 shrinkFormula :: Formula -> [Formula]
 shrinkFormula (Value _)      = []
 shrinkFormula (Variable _)   = []
-shrinkFormula (Complement f) = [f] ++ map Complement (shrinkFormula f)
+shrinkFormula (Complement f) = f : map Complement (shrinkFormula f)
 shrinkFormula (Disjoin [])   = []
 shrinkFormula (Conjoin [])   = []
 shrinkFormula (Disjoin fs)   = fs ++ map Disjoin (shrinkList shrinkFormula fs)

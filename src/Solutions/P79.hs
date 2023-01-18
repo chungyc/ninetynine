@@ -23,7 +23,7 @@ calculatePostfix xs = (extract result, calculations)
   where (result, calculations) = run $ calculatePostfix' xs
         run f = runIdentity $ runWriterT $ runStateT (runMaybeT f) []
         extract (Nothing, _)   = Nothing
-        extract (Just (), [x]) = Just $ x
+        extract (Just (), [x]) = Just x
         extract _              = Nothing
 
 type Stack = [Integer]

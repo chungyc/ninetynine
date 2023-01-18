@@ -3,7 +3,7 @@
 
 {- |
 Description: Supporting definitions for graph problems
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -91,7 +91,7 @@ class Graph g where
 -- I.e., the vertexes in edges must be in the set of vertexes.
 areValidGraphSets :: (Set Vertex, Set Edge) -> Bool
 areValidGraphSets (vs, es) = Set.isSubsetOf vs' vs
-  where vs' = Set.foldl (\s -> \(Edge (u, v)) -> Set.insert u $ Set.insert v s) Set.empty es
+  where vs' = Set.foldl (\s (Edge (u, v)) -> Set.insert u $ Set.insert v s) Set.empty es
 
 -- | A vertex in a graph.
 --
@@ -180,7 +180,7 @@ data Var a = Var a [Var a]
 instance Eq a => Eq (Var a) where
   (==) (Var v vs) (Var v' vs')
     | v /= v'   = False
-    | otherwise = any (vs ==) (permutations vs')
+    | otherwise = elem vs $ permutations vs'
 
 -- | Graphs can also be represented by the lists of its vertexes and edges.
 -- This is close to the standard mathematical definition of a graph.
@@ -219,7 +219,7 @@ newtype Adjacency = Adjacency [(Vertex, [Vertex])]
 instance Graph Adjacency where
   vertexes (Adjacency vs) = Set.fromList $ map fst vs
 
-  edges (Adjacency vs) = Set.fromList $ concat $ map (\(v, es) -> [Edge (v, e) | e <- es]) vs
+  edges (Adjacency vs) = Set.fromList $ concatMap (\(v, es) -> [Edge (v, e) | e <- es]) vs
 
   neighbors v (Adjacency vs) = Set.fromList $ snd $ head $ filter ((==) v . fst) vs
 
@@ -272,7 +272,7 @@ newtype Paths = Paths [[Vertex]]
 instance Graph Paths where
   vertexes (Paths ps) = Set.fromList $ concat ps
 
-  edges (Paths ps) = Set.fromList $ concat $ map toEdges ps
+  edges (Paths ps) = Set.fromList $ concatMap toEdges ps
     where toEdges []             = []
           toEdges [_]            = []
           toEdges (u : vs@(v:_)) = Edge (u, v) : toEdges vs
@@ -350,8 +350,8 @@ instance Graph G where
           insertEdge m (Edge (u, v)) = insertNeighbor u v $ insertNeighbor v u m
           insertNeighbor u v m = Map.insertWith Set.union u (Set.singleton v) m
 
-  isValidGraph (G m) = Map.foldlWithKey (\r -> \v -> \vs -> r && symmetric v vs) True m
-    where symmetric v vs = Set.foldl (\r' -> \v' -> r' && converse v v') True vs
+  isValidGraph (G m) = Map.foldlWithKey (\r v vs -> r && symmetric v vs) True m
+    where symmetric v vs = Set.foldl (\r' v' -> r' && converse v v') True vs
           converse v v' = v `inside` Map.lookup v' m
           inside _ Nothing   = False  -- edge has vertex not in set of vertexes
           inside v (Just vs) = Set.member v vs

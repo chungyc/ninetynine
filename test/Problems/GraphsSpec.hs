@@ -58,7 +58,7 @@ general name toGraph' = do
       withGraph $ \g -> isValidGraph g
 
     prop "does not build graph with invalid sets of vertexes and edges" $
-      \(Sets (_, es)) -> \l ->
+      \(Sets (_, es)) l ->
         let vs = Set.fromList l
             toSet (Edge (u, v)) = Set.fromList [u, v]
             doesNotInclude vs' e = not $ toSet e `Set.isSubsetOf` vs'

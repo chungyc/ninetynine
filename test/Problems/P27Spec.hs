@@ -15,17 +15,17 @@ import           Test.QuickCheck
 properties :: ([Int] -> [Int] -> [[[Int]]]) -> String -> Spec
 properties disjointGroups name = describe name $ do
   prop "has expected group sizes" $
-    forAll (smallNumberList) $ \ns ->
+    forAll smallNumberList $ \ns ->
     forAll (vectorOf (sum ns) arbitrary) $ \xs ->
     disjointGroups ns xs `shouldSatisfy` all ((==) ns . map length)
 
   prop "each grouping makes up original list" $
-    forAll (smallNumberList) $ \ns ->
+    forAll smallNumberList $ \ns ->
     forAll (vectorOf (sum ns) arbitrary) $ \xs ->
     disjointGroups ns xs `shouldSatisfy` all ((==) (sort xs) . sort . concat)
 
   prop "has expected number of groupings" $
-    forAll (smallNumberList) $ \ns ->
+    forAll smallNumberList $ \ns ->
     forAll (vectorOf (sum ns) arbitrary) $ \xs ->
     disjointGroups ns xs `shouldSatisfy` (==) (multinomial ns) . length
 
@@ -44,8 +44,8 @@ properties disjointGroups name = describe name $ do
 
 examples :: Spec
 examples = describe "Examples" $ do
-  it "head $ sort $ map (map sort) $ disjointGroups [2,3,4] names" $ do
-    head (sort $ map (map sort) $ disjointGroups [2,3,4] names) `shouldBe`
+  it "minimum $ map (map sort) $ disjointGroups [2,3,4] names" $ do
+    minimum (map (map sort) $ disjointGroups [2,3,4] names) `shouldBe`
       [["aldo","beat"],["carla","david","evi"],["flip","gary","hugo","ida"]]
 
   it "length $ disjointGroups [2,3,4] names" $ do
@@ -73,7 +73,7 @@ smallNumberList = (resize 6 . listOf) smallNumber `suchThat` (not . tooLarge)
 
 -- | Generates a small number for inclusion in group sizes.
 smallNumber :: Gen Int
-smallNumber = resize 6 $ arbitrarySizedNatural
+smallNumber = resize 6 arbitrarySizedNatural
 
 -- | Whether a list of groups sizes will result in a number of groupings
 -- larger than we should handle.  For preventing having to deal with too

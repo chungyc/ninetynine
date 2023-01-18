@@ -23,7 +23,7 @@ properties (leaves, internals) (leavesName, internalsName) = do
     prop "has leaf" $ \x ->
       leaves (Branch x Empty Empty) `shouldBe` [x]
 
-    prop "has leaves from subtrees" $ \t -> \t' -> \x ->
+    prop "has leaves from subtrees" $ \t t' x ->
       t /= Empty || t' /= Empty ==>
       leaves (Branch x t t') `shouldMatchList` leaves t ++ leaves t'
 
@@ -31,10 +31,10 @@ properties (leaves, internals) (leavesName, internalsName) = do
     prop "empty tree has no internal node" $
       internals Empty `shouldBe` []
 
-    prop "leaf has no internal node" $
-      \x -> internals (Branch x Empty Empty) `shouldBe` []
+    prop "leaf has no internal node" $ \x ->
+      internals (Branch x Empty Empty) `shouldBe` []
 
-    prop "internal nodes are itself and its subtrees" $ \t -> \t' -> \x ->
+    prop "internal nodes are itself and its subtrees" $ \t t' x ->
       t /= Empty || t' /= Empty ==>
       internals (Branch x t t') `shouldMatchList` [x] ++ internals t ++ internals t'
 

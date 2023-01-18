@@ -13,16 +13,15 @@ import           Test.QuickCheck
 
 properties :: ([Int] -> Int -> Int -> [Int]) -> String -> Spec
 properties slice name = describe name $ do
-  prop "extracts slice" $ \xs -> \ys -> \zs ->
+  prop "extracts slice" $ \xs ys zs ->
     not (null ys) ==>
     slice (xs ++ ys ++ zs) (1 + length xs) (length xs + length ys) `shouldBe` ys
 
-  prop "extracts slice when upper bound too large" $ \xs -> \ys -> \(Positive k) ->
+  prop "extracts slice when upper bound too large" $ \xs ys (Positive k) ->
     not (null ys) ==>
     slice (xs ++ ys) (1 + length xs) (k + length xs + length ys) `shouldBe` ys
 
-  prop "extracts nothing when lower bound too large" $
-    \xs -> \(Positive k) -> \(NonNegative l) ->
+  prop "extracts nothing when lower bound too large" $ \xs (Positive k) (NonNegative l) ->
       slice xs (k + length xs) (k + l + length xs) `shouldBe` []
 
 examples :: Spec

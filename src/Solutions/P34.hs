@@ -1,6 +1,6 @@
 {- |
 Description: Euler's totient function
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -25,4 +25,4 @@ totient m = accumulate m 0
 --
 -- Filters through numbers that are coprime and count them.
 totientFiltered :: Integral a => a -> a
-totientFiltered m = genericLength $ filter (coprime m) $ [1..m]
+totientFiltered m = genericLength $ filter (coprime m) [1..m]

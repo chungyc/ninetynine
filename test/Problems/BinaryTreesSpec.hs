@@ -16,15 +16,15 @@ spec = describe "compare" $ do
   prop "is reflexive" $ \t ->
     leq t t `shouldBe` True
 
-  prop "is antisymmetric" $ \t -> \v ->
+  prop "is antisymmetric" $ \t v ->
     classify (t == v) "equal" $
     eq t v `shouldBe` leq t v && leq v t
 
-  prop "is transitive" $ \t -> \v -> \u ->
+  prop "is transitive" $ \t v u ->
     leq t v && leq v u ==> leq t u `shouldBe` True
 
-  prop "is total" $ \t -> \v ->
+  prop "is total" $ \t v ->
     leq t v || leq v t `shouldBe` True
 
-  where eq t v = compare t (v :: Tree Int) == EQ
-        leq t v = compare t (v :: Tree Int) == LT || compare t v == EQ
+  where eq t v = t == (v :: Tree Int)
+        leq t v = t < (v :: Tree Int) || t == v

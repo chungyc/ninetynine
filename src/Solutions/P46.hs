@@ -1,6 +1,6 @@
 {- |
 Description: Truth tables for logical expressions
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -25,7 +25,7 @@ import           Problems.Logic
 
 -- | Truth tables for logical expressions with two operands.
 table :: BoolFunc -> [(Bool, Bool, Bool)]
-table f = map (\(a, b) -> (a, b, f a b)) [(a, b) | a <- [False, True], b <- [False, True]]
+table f = [(a, b, f a b) | a <- [False, True], b <- [False, True]]
 
 -- | Logical conjunction.
 -- I.e., @(and' a b)@ is true if and only if both @a@ and @b@ are true.

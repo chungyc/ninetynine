@@ -1,6 +1,6 @@
 {- |
 Description: Nonograms
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -84,16 +84,16 @@ fillBitmap rows columns remainingRows remainingColumns picture gen
 
 isConsistentWithPuzzle :: Bitmap -> [[Int]] -> [[Int]] -> Bool
 isConsistentWithPuzzle picture rows columns = withRows && withColumns
-  where withRows = rows == map (\r -> lengths $ getRow picture r) [1..getRowSize picture]
-        withColumns = columns == map (\c -> lengths $ getColumn picture c) [1..getColumnSize picture]
+  where withRows = rows == map (lengths . getRow picture) [1..getRowSize picture]
+        withColumns = columns == map (lengths . getColumn picture) [1..getColumnSize picture]
         lengths = map length . filter head . group . map fromJust . Array.elems
 
 fillRows :: [[Int]] -> [Int] -> Bitmap -> Maybe Bitmap
-fillRows rows remainingRows p = foldlM (\p' -> \i -> fill p' i $ rows !! (i-1)) p remainingRows
+fillRows rows remainingRows p = foldlM (\p' i -> fill p' i $ rows !! (i-1)) p remainingRows
   where fill picture row lengths = replaceRow picture row $ fillLine lengths $ getRow picture row
 
 fillColumns :: [[Int]] -> [Int] -> Bitmap -> Maybe Bitmap
-fillColumns columns remainingColumns p = foldlM (\p' -> \i -> fill p' i $ columns !! (i-1)) p remainingColumns
+fillColumns columns remainingColumns p = foldlM (\p' i -> fill p' i $ columns !! (i-1)) p remainingColumns
   where fill picture column lengths = replaceColumn picture column $ fillLine lengths $ getColumn picture column
 
 getRow :: Bitmap -> Int -> Line
@@ -117,8 +117,8 @@ replaceColumn picture column (Just line) = Just $ picture // cells
 -- | When there are no more bits that can be inferred to be definite,
 -- pick a bit at random and see what happens if we pretend it's definite.
 guess :: RandomGen g => [[Int]] -> [[Int]] -> [Int] -> [Int] -> Bitmap -> g -> (Maybe Bitmap, g)
-guess rows columns remainingRows remainingColumns picture gen =
-  runState (guess' rows columns remainingRows remainingColumns picture) gen
+guess rows columns remainingRows remainingColumns picture =
+  runState (guess' rows columns remainingRows remainingColumns picture)
 
 guess' :: RandomGen g => [[Int]] -> [[Int]] -> [Int] -> [Int] -> Bitmap -> State g (Maybe Bitmap)
 guess' rows columns remainingRows remainingColumns picture = do
@@ -137,8 +137,8 @@ guess' rows columns remainingRows remainingColumns picture = do
 -- when we set a definite value for a position, i.e., prunes the search space much more.
 countIndefiniteNeighbors :: Bitmap -> ((Int,Int),Int) -> (Int,Int)
 countIndefiniteNeighbors picture ((row,column),rx) = (rowCount + columnCount,rx)
-  where rowCount = sum $ map toInt [picture ! (row, c) | c <- [1..getColumnSize picture]]
-        columnCount = sum $ map toInt [picture ! (r, column) | r <- [1..getRowSize picture]]
+  where rowCount = sum [toInt $ picture ! (row, c) | c <- [1..getColumnSize picture]]
+        columnCount = sum [toInt $ picture ! (r, column) | r <- [1..getRowSize picture]]
         toInt Nothing = 1
         toInt _       = 0
 
@@ -158,7 +158,7 @@ fillLine xs line
   | isConsistent xs line'    = Just $ toArray line'
   | null possibleLines       = Nothing
   | isDone && isInconsistent = Nothing
-  | otherwise                = Just $ toArray $ incorporated
+  | otherwise                = Just $ toArray incorporated
   where
     bits = Array.elems line
     toArray l = listArray (1,length l) l
@@ -168,13 +168,13 @@ fillLine xs line
     -- infer that they are definite.
     definiteBits = foldl1 merge possibleLines
     possibleLines = filter (isConsistent xs) $ fillLine' 1 xs bits
-    merge us vs = map (uncurry combine) $ zip us vs
+    merge us vs = zipWith combine us vs
     combine (Just u) (Just v) | u == v    = Just u
                               | otherwise = Nothing
     combine _ _ = Nothing
 
     -- For incorporating definite bits into the line.
-    incorporate l p = map (uncurry set) $ zip l p
+    incorporate l p = zipWith set l p
     set Nothing v  = v
     set u Nothing  = u
     set _ (Just u) = Just u
@@ -184,13 +184,13 @@ fillLine xs line
     isInconsistent = not $ isConsistent xs incorporated
 
 isConsistent :: [Int] -> [Maybe Bool] -> Bool
-isConsistent [] line = all ((==) (Just False)) line
+isConsistent [] line = all (Just False ==) line
 isConsistent xs line = xs == xs'
   where xs' = map length $ filter ((==) (Just True) . head) $ group line
 
 fillLine' :: Int -> [Int] -> [Maybe Bool] -> [[Maybe Bool]]
 fillLine' _ [] line         = [line]
-fillLine' start (x:xs) line = concat $ map (fillSegment line xs x) positions
+fillLine' start (x:xs) line = concatMap (fillSegment line xs x) positions
   where positions = [start..length line - x + 1]
 
 -- | With the given length and position,
@@ -202,7 +202,7 @@ fillSegment line xs len pos
   | any isNothing line'     = []
   | otherwise               = fillLine' (pos+len+1) xs $ map fromJust line'
   where segment = replicate (pos-1) Nothing ++ replicate len (Just True) ++ [Just False] ++ repeat Nothing
-        line' = map (uncurry combineCell) $ zip line segment
+        line' = zipWith combineCell line segment
 
 combineCell :: Maybe Bool -> Maybe Bool -> Maybe (Maybe Bool)
 combineCell Nothing Nothing = Just Nothing

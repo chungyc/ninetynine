@@ -71,10 +71,10 @@ isDepthFirstSequence g xs = all check splits
 -- By definition, back must start with all vertexes reachable from v,
 -- except for those which are only reachable through vertexes in front.
 isDepthFirst :: G -> [Vertex] -> Vertex -> [Vertex] -> Bool
-isDepthFirst g front v back = reached == (Set.fromList backprefix)
+isDepthFirst g front v back = reached == Set.fromList backprefix
   where reached = Set.delete v $ reachable g vs (Set.singleton v) Set.empty
         backprefix = take (Set.size reached) back
-        vs = Set.fromList $ front
+        vs = Set.fromList front
 
 -- | Returns set of vertexes reachable from those in vs,
 -- except through paths going through vertexes in excluded.

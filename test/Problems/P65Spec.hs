@@ -83,7 +83,7 @@ isHalved :: Tree (Maybe Int, Maybe Int) -> Bool
 isHalved Empty = True
 isHalved (Branch (ld, rd) l r) = ld `halvesTo` dist l && rd `halvesTo` dist r
   where halvesTo Nothing  (Just _)  = False
-        halvesTo (Just d) (Just d') = abs d == 2 * (abs d')
+        halvesTo (Just d) (Just d') = abs d == 2 * abs d'
         halvesTo _        _         = True
         dist (Branch (_, Just d) _ _) = Just d
         dist (Branch (Just d, _) _ _) = Just d

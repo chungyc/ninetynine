@@ -52,11 +52,11 @@ spec = parallel $ do
     properties Solution.nonogram "nonogram"
 
 getRows :: [[Bool]] -> [[Int]]
-getRows rs = map lengths rs
+getRows = map lengths
   where lengths bs = map length $ filter head $ group bs
 
 getColumns :: [[Bool]] -> [[Int]]
-getColumns cs = getRows $ transpose cs
+getColumns = getRows . transpose
 
 newtype Bitmap = Bitmap [[Bool]] deriving Show
 

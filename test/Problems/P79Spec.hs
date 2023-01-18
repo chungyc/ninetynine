@@ -23,29 +23,29 @@ properties calculatePostfix name = describe name $ do
   prop "fails calculation on empty expression" $
     calculatePostfix [] `shouldBe` (Nothing, [])
 
-  prop "trivially calculates single number" $
-    \n -> calculatePostfix [Operand n]
-    `shouldBe` (Just n, [ ([n], Nothing) ])
+  prop "trivially calculates single number" $ \n ->
+    calculatePostfix [Operand n] `shouldBe` (Just n, [ ([n], Nothing) ])
 
   prop "is not valid with more than one number and no operators" $
-    forAll (listOf1 arbitrary) $ \l -> length l > 1 ==>
+    forAll (listOf1 arbitrary) $ \l ->
+    length l > 1 ==>
     calculatePostfix (map Operand l) `shouldSatisfy` isNothing . fst
 
   context "with results" $ do
     prop "calculates expected result" $
-      \(Calculation { expression = expr, result = x}) ->
+      \Calculation { expression = expr, result = x} ->
         counterexample (show expr) $
         calculatePostfix expr `shouldHaveResult` x
 
     prop "calculates negation" $
-      \(Calculation { expression = expr, result = x}) ->
+      \Calculation{ expression = expr, result = x} ->
         counterexample (show $ expr ++ [Operator Negate]) $
         calculatePostfix (expr ++ [Operator Negate]) `shouldHaveResult` -x
 
     context "with non-division binary operators" $
       let test op f = prop ("calculates " ++ show op) $
-            \(Calculation { expression = expr, result = x }) ->
-            \(Calculation { expression = expr', result = x' }) ->
+            \Calculation{ expression = expr, result = x }
+             Calculation{ expression = expr', result = x' } ->
               let e = expr ++ expr' ++ [Operator op]
               in counterexample (show e) $
                  calculatePostfix e `shouldHaveResult` f x x'
@@ -55,8 +55,8 @@ properties calculatePostfix name = describe name $ do
 
     context "with division-based binary operators" $
       let test op f = prop ("calculates " ++ show op) $
-            \(Calculation { expression = expr, result = x }) ->
-            \(Calculation { expression = expr', result = x' }) ->
+            \Calculation{ expression = expr, result = x }
+             Calculation{ expression = expr', result = x' } ->
               x' /= 0 ==>
               let e = expr ++ expr' ++ [Operator op]
               in counterexample (show e) $
@@ -66,8 +66,8 @@ properties calculatePostfix name = describe name $ do
 
     context "with divisions by zero" $
       let test op = prop ("returns nothing for " ++ show op) $
-            \(Calculation { expression = expr }) ->
-            \(Calculation { expression = expr', result = x' }) ->
+            \Calculation{ expression = expr }
+             Calculation{ expression = expr', result = x' } ->
             forAll (expressionsContaining $ expr ++ expr' ++ [Operator op]) $ \e ->
               classify (x' == 0) "expression is zero" $
               disjoin
@@ -116,7 +116,7 @@ examples = describe "Examples" $ do
     (fst . calculatePostfix) [Operand 8, Operator Add] `shouldBe` Nothing
 
   it "calculatePostfix $ parsePostfix \"8 5 4 10 + - 3 * negate +\"" $ do
-    (calculatePostfix $ parsePostfix "8 5 4 10 + - 3 * negate +") `shouldBe`
+    calculatePostfix (parsePostfix "8 5 4 10 + - 3 * negate +") `shouldBe`
       (Just 35, [ ([8], Nothing)
                 , ([5,8], Nothing)
                 , ([4,5,8], Nothing)
@@ -130,7 +130,7 @@ examples = describe "Examples" $ do
                 ])
 
   it "calculatePostfix $ parsePostfix \"1 2 * +\"" $ do
-    (calculatePostfix $ parsePostfix "1 2 * +") `shouldBe`
+    calculatePostfix (parsePostfix "1 2 * +") `shouldBe`
       (Nothing, [ ([1], Nothing)
                 , ([2,1], Nothing)
                 , ([2], Just Multiply)
@@ -222,7 +222,7 @@ calculations = sized gen
             , inputs = [] }
 
         unary = scale (subtract 1) $ do
-          c@(Calculation { expression = expr, result = x }) <- calculations
+          c@Calculation{ expression = expr, result = x } <- calculations
           op <- unaryOperators
           let e = Operator op
           return $ Calculation
@@ -233,8 +233,8 @@ calculations = sized gen
             }
 
         binary = scale (`div` 2) $ do
-          c@(Calculation { expression = expr, result = x }) <- calculations
-          c'@(Calculation { expression = expr', result = x'}) <- calculations
+          c@Calculation{ expression = expr, result = x } <- calculations
+          c'@Calculation{ expression = expr', result = x'} <- calculations
           op <- binaryOperators `suchThat` (not . isDividesByZero x')
           let e = Operator op
           return $ Calculation
@@ -246,8 +246,8 @@ calculations = sized gen
 
 -- | Shrink a calculation.
 shrinkCalculation :: Calculation -> [Calculation]
-shrinkCalculation (Calculation { inputs = [] }) = []
-shrinkCalculation c@(Calculation { result = x, inputs = es }) =
+shrinkCalculation Calculation{ inputs = [] } = []
+shrinkCalculation c@Calculation{ result = x, inputs = es } =
   [ toOperand x ] ++ shrinkInputs c ++ es
 
   where
@@ -260,12 +260,12 @@ shrinkCalculation c@(Calculation { result = x, inputs = es }) =
 
     -- shrinkInputs will shrink the input calculations.
     -- It will keep the results the same.
-    shrinkInputs (Calculation { element = Operator op
-                              , result = y
-                              , inputs = cs
-                              }) =
+    shrinkInputs Calculation{ element = Operator op
+                            , result = y
+                            , inputs = cs
+                            } =
       -- Replace the expression with a single number.
-      [ toOperand y ] ++
+      toOperand y :
 
       -- Shrink each of the inputs that go into this calculation.
       [ Calculation { expression = concatMap expression cs' ++ [ Operator op ]
@@ -285,7 +285,7 @@ shrinkCalculation c@(Calculation { result = x, inputs = es }) =
 
 -- | Generate unary operators.
 unaryOperators :: Gen Operator
-unaryOperators = pure $ Negate
+unaryOperators = pure Negate
 
 -- | Generate binary operators.
 binaryOperators :: Gen Operator
@@ -327,19 +327,19 @@ expressionsContaining e = do
 history :: Calculation -> [([Integer], Maybe Operator)]
 history calc = reverse $ reconstruct calc
   where
-    reconstruct (Calculation { element = Operand x }) = [([x], Nothing)]
+    reconstruct Calculation{ element = Operand x } = [([x], Nothing)]
 
-    reconstruct (Calculation { element = Operator Negate
-                             , result = x
-                             , inputs = [c]
-                             })
+    reconstruct Calculation{ element = Operator Negate
+                           , result = x
+                           , inputs = [c]
+                           }
       | h@((_ : xs, _) : _) <- reconstruct c = (x : xs, Just Negate) : h
       | otherwise = error "no input for Negate"
 
-    reconstruct (Calculation { element = Operator op
-                             , result = x
-                             , inputs = [c, c']
-                             })
+    reconstruct Calculation{ element = Operator op
+                           , result = x
+                           , inputs = [c, c']
+                           }
 
       | h@((s, _) : _) <- reconstruct c
       , h'@((_ : xs', _) : _) <- reconstruct c' =

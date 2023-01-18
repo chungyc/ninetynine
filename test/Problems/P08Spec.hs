@@ -22,19 +22,19 @@ properties compress name = describe name $ do
   prop "is idempotent" $ \xs ->
     compress (compress xs) `shouldBe` compress xs
 
-  prop "does not discard element" $ \xs -> \x -> \xs' ->
+  prop "does not discard element" $ \xs x xs' ->
     compress (xs ++ [x] ++ xs') `shouldSatisfy` elem x
 
   prop "removes consecutive duplicates" $
-    \xs -> \(Positive k) -> \x -> \ys ->
-      length xs == 0 || last xs /= x ==>
-      length ys == 0 || head ys /= x ==>
+    \xs (Positive k) x ys ->
+      null xs || last xs /= x ==>
+      null ys || head ys /= x ==>
       compress (xs ++ replicate k x ++ ys)
       `shouldBe` compress xs ++ [x] ++ compress ys
 
-  prop "maintains order" $ \xs -> \xs' ->
-    length xs > 0 ==>
-    length xs' > 0 ==>
+  prop "maintains order" $ \xs xs' ->
+    not (null xs) ==>
+    not (null xs') ==>
     counterexample (show $ xs ++ xs') $
     case last xs == head xs' of
       True -> compress (xs ++ xs') `shouldBe` compress xs ++ tail (compress xs')

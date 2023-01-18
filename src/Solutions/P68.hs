@@ -34,7 +34,7 @@ preorder t = preorderGather t []
 -- so traverse in reverse order.
 preorderGather :: Tree a -> [a] -> [a]
 preorderGather Empty xs          = xs
-preorderGather (Branch x l r) xs = x : (preorderGather l $ preorderGather r xs)
+preorderGather (Branch x l r) xs = x : preorderGather l (preorderGather r xs)
 
 {- |
 Given the in-order and pre-order sequences of a binary tree, return the original binary tree.

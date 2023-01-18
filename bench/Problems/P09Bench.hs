@@ -27,6 +27,6 @@ subgroup name pack = bgroup name
   , bench "replicate 10 1"   $ nf pack $ replicate 10 1
   , bench "replicate 100 1"  $ nf pack $ replicate 100 1
   , bench "replicate 1000 1" $ nf pack $ replicate 1000 1
-  , bench "concat $ map (replicate 10) [1..10]"  $ nf pack $ concat $ map (replicate 10) [1..10]
-  , bench "concat $ map (replicate 10) [1..100]" $ nf pack $ concat $ map (replicate 10) [1..100]
+  , bench "concatMap (replicate 10) [1..10]"  $ nf pack $ concatMap (replicate 10) [1..10]
+  , bench "concatMap (replicate 10) [1..100]" $ nf pack $ concatMap (replicate 10) [1..100]
   ]

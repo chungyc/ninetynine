@@ -30,7 +30,7 @@ properties regularGraphs name = describe name $ do
     prop "has non-isomorphic graphs" $
       \(Positive n) -> forAll (chooseInt (1, n-1)) $ \k ->
         regularGraphs n k `shouldSatisfy` \l ->
-        all (not . uncurry isomorphic) [ (g, g') | g <- l, g' <- l, g /= g' ]
+        not (any (uncurry isomorphic) [ (g, g') | g <- l, g' <- l, g /= g' ])
 
   -- It is too expensive for a trivial algorithm to compute
   -- the number of regular graphs for a test,

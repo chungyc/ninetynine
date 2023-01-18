@@ -1,6 +1,6 @@
 {- |
 Description: Primality checking
-Copyright: Copyright (C) 2021 Yoo Chung
+Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -17,7 +17,7 @@ import           Solutions.Arithmetic
 isPrime :: Integral a => a -> Bool
 isPrime n
   | n == 2         = True
-  | n > 2          = null $ filter (n `dividesBy`) $ 2 : odds
+  | n > 2          = not $ any (n `dividesBy`) $ 2 : odds
   | otherwise      = False
   where odds = takeWhile (\k -> k*k <= n) $ iterate (2+) 3
 
@@ -30,7 +30,7 @@ isPrime' :: Integral a => a -> Bool
 isPrime' n
   | n == 2    = True
   | even n    = False
-  | n > 2     = not $ any (n `dividesBy`) $ ps
+  | n > 2     = not $ any (n `dividesBy`) ps
   | otherwise = False
   where ps = sieve (takeWhile (\k -> k*k <= n) $ iterate (2+) 3)
 

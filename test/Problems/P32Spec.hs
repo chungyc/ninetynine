@@ -13,10 +13,10 @@ import           Test.QuickCheck
 
 properties :: (Integer -> Integer -> Integer) -> String -> Spec
 properties myGCD name = describe name $ do
-  prop "divides both integers" $ \(NonZero a) -> \(NonZero b) ->
+  prop "divides both integers" $ \(NonZero a) (NonZero b) ->
     myGCD a b `shouldSatisfy` \c -> a `mod` c == 0 && b `mod` c == 0
 
-  prop "has no greater common divisor" $ \(NonZero a) -> \(NonZero b) ->
+  prop "has no greater common divisor" $ \(NonZero a) (NonZero b) ->
     [(1 + myGCD a b)..(min (abs a) (abs b))]
     `shouldSatisfy` all (\k -> a `mod` k /= 0 || b `mod` k /= 0)
 
