@@ -21,8 +21,13 @@ properties sumNumbers name = describe name $ do
 
 examples :: Spec
 examples = describe "Examples" $ do
-  it "is pending" $ do
-    pending
+  it "sumNumbers 5 == 1 + 2 + 3 + 4 + 5" $ do
+    sumNumbers 5 == 1 + 2 + 3 + 4 + 5 `shouldBe` True
+
+  it "sumNumbers 100" $ do
+    sumNumbers 100 `shouldBe` 5050
+
+  where sumNumbers = Problem.sumNumbers
 
 spec :: Spec
 spec = parallel $ do
