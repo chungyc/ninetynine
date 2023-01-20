@@ -24,7 +24,7 @@ import qualified Solutions.P90 as Solution
 --
 -- === Examples
 --
--- >>> length (queens 8)
+-- >>> length $ queens 8
 -- 92
 --
 -- >>> minimum $ queens 8

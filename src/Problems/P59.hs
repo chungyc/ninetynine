@@ -25,7 +25,7 @@ import qualified Solutions.P59        as Solution
 -- >>> printTreeList $ heightBalancedTrees 2
 -- [ Branch () (Branch () Empty Empty) Empty
 -- , Branch () (Branch () Empty Empty) (Branch () Empty Empty)
--- , Branch () Empty (Branch () Empty Empty)]
+-- , Branch () Empty (Branch () Empty Empty) ]
 --
 -- >>> length $ heightBalancedTrees 4
 -- 315

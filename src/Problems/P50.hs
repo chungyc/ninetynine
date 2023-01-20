@@ -52,12 +52,10 @@ or the length of the more standard ASCII encoding with 8 bits:
 
 Huffman coding is unambiguous, so we can get back the original text:
 
->>> :{
-let table = huffman $ countCharacters text
-    encodedText = encodeHuffman table text
-    decodedText = decodeHuffman table encodedText
-in decodedText == text
-:}
+>>> let table = huffman $ countCharacters text
+>>> let encodedText = encodeHuffman table text
+>>> let decodedText = decodeHuffman table encodedText
+>>> decodedText == text
 True
 -}
 huffman :: [(Char,Int)] -> [(Char,String)]

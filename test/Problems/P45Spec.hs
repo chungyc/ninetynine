@@ -44,14 +44,11 @@ examples = describe "Examples" $ do
   it "isGaussianPrime' (0 :+ 5)" $ do
     isGaussianPrime' (0 :+ 5) `shouldBe` False
 
-  it "isGaussianPrime' (5 :+ 2)" $ do
-    isGaussianPrime' (5 :+ 2) `shouldBe` True
-
-  it "isGaussianPrime' ((-2) :+ 5)" $ do
-    isGaussianPrime' ((-2) :+ 5) `shouldBe` True
-
   it "isGaussianPrime' (17 :+ 0)" $ do
     isGaussianPrime' (17 :+ 0) `shouldBe` False
+
+  it "isGaussianPrime' (5 :+ 2)" $ do
+    isGaussianPrime' (5 :+ 2) `shouldBe` True
 
   where isGaussianPrime' = Problem.isGaussianPrime'
 

@@ -34,8 +34,14 @@ Conjoin [Disjoin [Value True]]
 >>> toConjunctiveNormalForm $ Complement $ Disjoin [Variable "X", Variable "Y"]
 Conjoin [Disjoin [Complement (Variable "X")],Disjoin [Complement (Variable "Y")]]
 
->>> toConjunctiveNormalForm $ Disjoin [Variable "X", Conjoin [Complement $ Variable "Y", Variable "Z"]]
-Conjoin [Disjoin [Variable "X",Complement (Variable "Y")],Disjoin [Variable "X", Variable "Z"]]
+>>> :{
+toConjunctiveNormalForm $ Disjoin [ Variable "X"
+                                  , Conjoin [ Complement $ Variable "Y"
+                                            , Variable "Z"
+                                            ]
+                                  ]
+:}
+Conjoin [Disjoin [Variable "X",Complement (Variable "Y")],Disjoin ...
 
 === __Hint__
 

@@ -35,7 +35,7 @@ import           GHC.Generics    (Generic)
 --
 -- A logical expression in two variables can then be written as in the following example:
 --
--- > \a -> \b -> and' (or' a b) (nand' a b)
+-- > \a b -> and' (or' a b) (nand' a b)
 --
 -- Write a function 'Problems.P46.table' which returns
 -- the truth table of a given logical expression in two variables.

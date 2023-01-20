@@ -26,6 +26,6 @@ import qualified Solutions.P55        as Solution
 -- [ Branch () (Branch () (Branch () Empty Empty) Empty) (Branch () Empty Empty)
 -- , Branch () (Branch () Empty Empty) (Branch () (Branch () Empty Empty) Empty)
 -- , Branch () (Branch () Empty Empty) (Branch () Empty (Branch () Empty Empty))
--- , Branch () (Branch () Empty (Branch () Empty Empty)) (Branch () Empty Empty)]
+-- , Branch () (Branch () Empty (Branch () Empty Empty)) (Branch () Empty Empty) ]
 completelyBalancedTrees :: Int -> [Tree ()]
 completelyBalancedTrees = Solution.completelyBalancedTrees

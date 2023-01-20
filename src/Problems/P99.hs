@@ -12,6 +12,7 @@ import           Problems.Crosswords
 import qualified Solutions.P99       as Solution
 
 -- $setup
+-- >>> import Data.Maybe (fromJust)
 -- >>> import Problems.Crosswords
 
 {- |
@@ -28,7 +29,7 @@ Try to solve the \(25 \times 25\) crossword puzzle in 'crosswordPuzzle''.
 === Examples
 
 >>> :{
-crosswordPuzzle ==  Crossword
+crosswordPuzzle == Crossword
   { word = ["ALPHA", "ARES", "POPPY"]
   , grid = [ [ Left False, Left False, Left True,  Left False, Left False ]
            , [ Left False, Left False, Left True,  Left False, Left False ]
@@ -41,7 +42,7 @@ crosswordPuzzle ==  Crossword
 :}
 True
 
->>> head $ (\(Just p) -> p) $ solveCrossword crosswordPuzzle
+>>> head $ fromJust $ solveCrossword crosswordPuzzle
 [Nothing,Nothing,Just 'P',Nothing,Nothing]
 
 >>> printCrossword $ solveCrossword crosswordPuzzle

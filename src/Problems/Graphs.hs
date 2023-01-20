@@ -30,6 +30,10 @@ import           Data.Set        (Set)
 import qualified Data.Set        as Set
 import           GHC.Generics    (Generic)
 
+-- $setup
+-- >>> import qualified Data.Map as Map
+-- >>> import qualified Data.Set as Set
+
 -- | A graph is mathematically defined as a set of vertexes and a set of edges,
 -- where an edge is a set of two elements from the set of vertexes.
 -- I.e., if \(G = (V, E)\), where \(E \subseteq \{ \{v_1, v_2\} \,|\, v_1 \in V, v_2 \in V\}\),
@@ -325,9 +329,15 @@ instance Eq Paths where
 --
 -- For example, the example graph can be represented as:
 --
--- >>> import qualified Data.Map as M
--- >>> import qualified Data.Set as S
--- >>> G $ M.map S.fromList $ M.fromList [(1, [2, 4]), (2, [1, 3, 4]), (3, [2, 4]), (4, [1, 2, 3, 5]), (5, [4])]
+-- >>> :{
+-- G $ Map.map Set.fromList $ Map.fromList
+--   [ (1, [2, 4])
+--   , (2, [1, 3, 4])
+--   , (3, [2, 4])
+--   , (4, [1, 2, 3, 5])
+--   , (5, [4])
+--   ]
+-- :}
 -- G ...
 newtype G = G (Map Vertex (Set Vertex))
   deriving (Eq, Show, Generic, NFData)

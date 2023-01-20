@@ -69,5 +69,5 @@ encodeTree (Branch x left right) trail =
 --
 -- Not intended to support solving problems.
 printTreeList :: (Show a, Ord a) => [Tree a] -> IO ()
-printTreeList ts = putStrLn $ "[ " ++ content ++ "]"
+printTreeList ts = putStrLn $ "[ " ++ content ++ " ]"
   where content = intercalate "\n, " $ map show (sort ts)

@@ -15,16 +15,15 @@ import qualified Solutions.P77 as Solution
 
 {- | A list is also a monad.
 
-For example, 'Problems.P14.dupli' could have been implemented with the list monad:
+For example, 'Problems.P14.dupli' in 'Problems.P14'
+could have been implemented with the list monad:
 
 >>> :{
-dupli :: [a] -> [a]
-dupli xs = do
-  x <- xs
-  [x, x]
+let dupli xs = do
+                 x <- xs
+                 [x, x]
+in dupli [1, 2, 3]
 :}
-
->>> dupli [1, 2, 3]
 [1,1,2,2,3,3]
 
 Using the list monad, implement a function which returns
@@ -49,9 +48,9 @@ we can get the possible results as follows:
 
 >>> :{
 do
-  x <- [2,3]
-  y <- [5,6]
-  return (x*y :: Int)
+  x <- [2,3] :: [Int]
+  y <- [5,6] :: [Int]
+  return $ x*y
 :}
 [10,12,15,18]
 -}

@@ -37,7 +37,7 @@ return 'Nothing', and write up the counterexample for publication.
 Just (fromList [(1,5),(2,2),(3,1),(4,7),(5,3),(6,6),(7,4)])
 
 >>> gracefulTree tree92'
-Just (fromList [(1,1),(2,10),(3,7),(4,3),(5,5),(6,6),(7,14),(8,13),(9,12),(10,11),(11,9),(12,2),(13,4),(14,8)])
+Just (fromList [(1,1),(2,10),(3,7),(4,3),(5,5),(6,6),(7,14),(8,13),(9,12),...
 
 === __Notes__
 

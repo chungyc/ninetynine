@@ -18,7 +18,7 @@ import qualified Solutions.P18 as Solution
 --
 -- === Examples
 --
--- >>> slice ['a','b','c','d','e','f','g','h','i','k'] 3 7
+-- >>> slice "abcdefghijk" 3 7
 -- "cdefg"
 slice :: [a] -> Int -> Int -> [a]
 slice = Solution.slice

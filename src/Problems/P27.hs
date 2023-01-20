@@ -32,10 +32,8 @@ under the term [/multinomial coefficients/](https://brilliant.org/wiki/multinomi
 >>> let names = ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
 >>> minimum $ map (map sort) $ disjointGroups [2,3,4] names
 [["aldo","beat"],["carla","david","evi"],["flip","gary","hugo","ida"]]
-
 >>> length $ disjointGroups [2,3,4] names
 1260
-
 >>> length $ disjointGroups [2,2,5] names
 756
 -}
