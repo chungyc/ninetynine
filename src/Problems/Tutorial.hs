@@ -14,7 +14,15 @@ import qualified Solutions.Tutorial as Solution
 
 -- ** Solving a problem
 
-{- |
+-- $
+-- Problems are given in the form of function documentation.
+-- They will explain what is expected to be implemented for the problem.
+-- They will also usually include examples for what the implemented functions should return.
+-- For example, we can have a problem such as the following:
+
+{- | Add the integers from 1 to a given number @n@.
+
+=== Examples
 
 >>> sumNumbers 5 == 1 + 2 + 3 + 4 + 5
 True
@@ -22,15 +30,25 @@ True
 >>> sumNumbers 100
 5050
 
-=== __Hints__
-
-There can be hints.
-
-=== __Notes__
-
+>>> sumNumbers 1000000
+500000500000
 -}
 sumNumbers :: Integer -> Integer
 sumNumbers = Solution.sumNumbers
+
+-- $
+-- If you look at the source, you will see something like this:
+--
+-- > {- | Add the integers from 1 to a given number @n@.
+-- > ...
+-- > -}
+-- > sumNumbers :: Integer -> Integer
+-- > sumNumbers = Solutions.sumNumbers
+--
+-- This is the function you would be implementing for the problem.
+
+-- $
+-- There are a few solutions implemented in "Solutions.Tutorial".
 
 -- ** Trying multiple solutions
 
@@ -39,3 +57,9 @@ sumNumbers = Solution.sumNumbers
 -- *** Benchmarks
 
 -- ** Advanced topics
+
+-- $
+-- The tests are implemented using [Hspec](https://hspec.github.io/),
+-- with unit tests based on [HUnit](https://hackage.haskell.org/package/HUnit)
+-- and property-based tests based on [QuickCheck](https://hackage.haskell.org/package/QuickCheck).
+-- The benchmarks are implemented using [criterion](https://hackage.haskell.org/package/criterion).
