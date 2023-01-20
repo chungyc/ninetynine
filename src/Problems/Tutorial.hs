@@ -4,11 +4,15 @@ Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
-Part of Ninety-Nine Haskell "Problems".  Some solutions are in "Solutions.Tutorial".
+Tutorial for solving "Problems".
 -}
-module Problems.Tutorial (sumNumbers) where
+module Problems.Tutorial where
 
 import qualified Solutions.Tutorial as Solution
+
+-- * Tutorial
+
+-- ** Solving a problem
 
 {- |
 
@@ -18,6 +22,20 @@ True
 >>> sumNumbers 100
 5050
 
+=== __Hints__
+
+There can be hints.
+
+=== __Notes__
+
 -}
 sumNumbers :: Integer -> Integer
 sumNumbers = Solution.sumNumbers
+
+-- ** Trying multiple solutions
+
+-- *** Tests
+
+-- *** Benchmarks
+
+-- ** Advanced topics
