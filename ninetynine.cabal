@@ -16,11 +16,11 @@ description:    Ninety-Nine Haskell Problems.
                 Based on the Ninety-Nine Haskell problems on [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
                 For more information, see <https://github.com/chungyc/ninetynine>.
 category:       Education
-homepage:       http://github.com/chungyc/ninetynine
+homepage:       https://ninetynine.haskell.chungyc.org/
 bug-reports:    https://github.com/chungyc/ninetynine/issues
 author:         Yoo Chung
 maintainer:     dev@chungyc.org
-copyright:      Copyright (C) 2022 Yoo Chung
+copyright:      Copyright (C) 2023 Yoo Chung
 license:        GPL-3.0-or-later
 license-file:   LICENSE
 build-type:     Simple
