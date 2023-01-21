@@ -73,13 +73,13 @@ smallNumberList = (resize 6 . listOf) smallNumber `suchThat` (not . tooLarge)
 
 -- | Generates a small number for inclusion in group sizes.
 smallNumber :: Gen Int
-smallNumber = resize 6 arbitrarySizedNatural
+smallNumber = resize 6 $ arbitrarySizedNatural
 
 -- | Whether a list of groups sizes will result in a number of groupings
 -- larger than we should handle.  For preventing having to deal with too
 -- many groupings in the test without unduly restricting the group sizes.
 tooLarge :: [Int] -> Bool
-tooLarge ns = multinomial ns > 1000
+tooLarge ns = sum ns > 25 || multinomial ns > 100000
 
 -- | Multinomial coefficient.
 multinomial :: [Int] -> Int

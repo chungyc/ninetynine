@@ -176,12 +176,12 @@ lookupDefinite b p e = onBoard (b Array.! e)
 -- | For each position, maps the other positions which reside in the same row.
 rowPositions :: Map (Int,Int) [(Int,Int)]
 rowPositions =  Map.fromList $ map (\pos -> (pos, row pos)) boardLocations
-  where row (x,y) = zip (repeat x) $ List.delete y [1..9]
+  where row (x,y) = map (x,) $ List.delete y [1..9]
 
 -- | For each position, maps the other positions which reside in the same column.
 columnPositions :: Map (Int,Int) [(Int,Int)]
 columnPositions = Map.fromList $ map (\pos -> (pos, column pos)) boardLocations
-  where column (x,y) = zip (List.delete x [1..9]) $ repeat y
+  where column (x,y) = map (,y) $ List.delete x [1..9]
 
 -- | For each position, maps the other positions which reside in the same square.
 squarePositions :: Map (Int,Int) [(Int,Int)]

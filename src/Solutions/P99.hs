@@ -191,7 +191,7 @@ markCrossovers sitesMap = Map.foldlWithKey mark sitesMap crossoverSpots
 tagSpots :: Map Int Site -> Map (Int,Int) [Int]
 tagSpots = Map.foldlWithKey tag Map.empty
   where tag taggedSpots index site = Map.unionWith (++) taggedSpots $ siteSpots index site
-        siteSpots index site = Map.fromList $ zip (positions site) $ repeat [index]
+        siteSpots index site = Map.fromList $ map (,[index]) $ positions site
         positions Site { size = n, position = pos, orientation = o } = getPositions n pos o
         getPositions n (row,column) Horizontal = [(row, column+i) | i <- [0..n-1]]
         getPositions n (row,column) Vertical   = [(row+i, column) | i <- [0..n-1]]
