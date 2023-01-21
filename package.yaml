@@ -75,7 +75,6 @@ tests:
     - hspec
     - QuickCheck
     - containers
-    - generic-random
     - process
     - random
     when:

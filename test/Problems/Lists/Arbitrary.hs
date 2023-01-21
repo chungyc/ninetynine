@@ -7,10 +7,15 @@ Maintainer: dev@chungyc.org
 -}
 module Problems.Lists.Arbitrary (Arbitrary) where
 
-import           Generic.Random
 import           Problems.Lists
 import           Test.QuickCheck
 
 instance Arbitrary a => Arbitrary (NestedList a) where
-  arbitrary = genericArbitraryRec uniform `withBaseCase` (Elem <$> arbitrary)
+  arbitrary = gen
+    where gen = sized $ \n -> case n of
+            0 -> Elem <$> arbitrary
+            _ -> oneof [ Elem <$> arbitrary
+                       , List <$> scale (`div` 2) (listOf gen)
+                       ]
+
   shrink = genericShrink

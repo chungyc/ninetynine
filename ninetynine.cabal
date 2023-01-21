@@ -460,7 +460,6 @@ test-suite ninetynine-test
       QuickCheck
     , base
     , containers
-    , generic-random
     , hspec
     , ninetynine
     , process
