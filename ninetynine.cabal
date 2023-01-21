@@ -282,7 +282,7 @@ library
       src
   default-extensions:
       DeriveAnyClass
-      DeriveGeneric
+      DerivingStrategies
   build-depends:
       array
     , base
@@ -294,7 +294,7 @@ library
     , random
     , text
     , transformers
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable generate-support
   main-is: Main.hs
@@ -306,14 +306,14 @@ executable generate-support
       app/support
   default-extensions:
       DeriveAnyClass
-      DeriveGeneric
+      DerivingStrategies
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base
     , filepath
     , ninetynine
     , process
-  default-language: Haskell2010
+  default-language: GHC2021
 
 test-suite examples-test
   type: exitcode-stdio-1.0
@@ -324,13 +324,13 @@ test-suite examples-test
       Paths_ninetynine
   default-extensions:
       DeriveAnyClass
-      DeriveGeneric
+      DerivingStrategies
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base
     , doctest-parallel
     , ninetynine
-  default-language: Haskell2010
+  default-language: GHC2021
 
 test-suite ninetynine-test
   type: exitcode-stdio-1.0
@@ -454,7 +454,7 @@ test-suite ninetynine-test
       test
   default-extensions:
       DeriveAnyClass
-      DeriveGeneric
+      DerivingStrategies
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       QuickCheck
@@ -464,7 +464,7 @@ test-suite ninetynine-test
     , ninetynine
     , process
     , random
-  default-language: Haskell2010
+  default-language: GHC2021
 
 benchmark ninetynine-bench
   type: exitcode-stdio-1.0
@@ -569,7 +569,7 @@ benchmark ninetynine-bench
       bench
   default-extensions:
       DeriveAnyClass
-      DeriveGeneric
+      DerivingStrategies
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base
@@ -578,4 +578,4 @@ benchmark ninetynine-bench
     , deepseq
     , ninetynine
     , random
-  default-language: Haskell2010
+  default-language: GHC2021

@@ -191,7 +191,8 @@ instance Eq a => Eq (Var a) where
 -- >>> Lists ([1, 2, 3, 4, 5], [(1, 2), (1, 4), (2, 3), (2, 4), (3, 4), (4, 5)])
 -- Lists ...
 newtype Lists = Lists ([Vertex], [(Vertex, Vertex)])
-  deriving (Show, Generic, NFData)
+  deriving (Show, Generic)
+  deriving anyclass NFData
 
 instance Graph Lists where
   vertexes (Lists (vs, _)) = Set.fromList vs
@@ -215,7 +216,8 @@ instance Eq Lists where
 -- >>> Adjacency [(1, [2, 4]), (2, [1, 3, 4]), (3, [2, 4]), (4, [1, 2, 3, 5]), (5, [4])]
 -- Adjacency ...
 newtype Adjacency = Adjacency [(Vertex, [Vertex])]
-  deriving (Show, Generic, NFData)
+  deriving (Show, Generic)
+  deriving anyclass NFData
 
 instance Graph Adjacency where
   vertexes (Adjacency vs) = Set.fromList $ map fst vs
@@ -268,7 +270,8 @@ instance Eq Adjacency where
 -- >   2 -- 4
 -- > }
 newtype Paths = Paths [[Vertex]]
-  deriving (Show, Generic, NFData)
+  deriving (Show, Generic)
+  deriving anyclass NFData
 
 instance Graph Paths where
   vertexes (Paths ps) = Set.fromList $ concat ps
@@ -337,7 +340,8 @@ instance Eq Paths where
 -- :}
 -- G ...
 newtype G = G (Map Vertex (Set Vertex))
-  deriving (Eq, Show, Generic, NFData)
+  deriving (Eq, Show, Generic)
+  deriving anyclass NFData
 
 instance Graph G where
   vertexes (G m) = Map.keysSet m
