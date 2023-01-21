@@ -1,7 +1,9 @@
 # Ninety-Nine Haskell Problems
 
-This is an implementation of the [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
-In a way, this is a buildable version of the list of problems with tests and benchmarks.
+This is an implementation of
+the [Ninety-Nine Haskell Problems](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
+In a way, this is a buildable version of
+the [list of problems](https://ninetynine.haskell.chungyc.org/) with tests and benchmarks.
 
 Each problem is provided a skeleton where you can implement your own solutions.
 For example, the module `Problems.P11` provides a skeleton in which you can
@@ -97,7 +99,8 @@ the Free Software Foundation, either version 3 of the License,
 or (at your option) any later version.
 
 For more permissive use of the problems themselves, refer back to the original list of
-Ninety-Nine Haskell Problems on the [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
+Ninety-Nine Haskell Problems on
+the [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
 
 ## Notes
 

@@ -5,8 +5,8 @@ license:             GPL-3.0-or-later
 license-file:        LICENSE
 author:              "Yoo Chung"
 maintainer:          "dev@chungyc.org"
-copyright:           "Copyright (C) 2022 Yoo Chung"
-homepage:            "http://github.com/chungyc/ninetynine"
+copyright:           "Copyright (C) 2023 Yoo Chung"
+homepage:            "https://ninetynine.haskell.chungyc.org/"
 
 extra-source-files:
 - README.md
