@@ -9,10 +9,8 @@
 # Warnings currently triggered by your code
 - ignore: {name: "Use lambda-case"}
 - ignore: {name: "Use second"}
-- ignore: {name: "Use tuple-section"}
 - ignore: {name: "Use if"}
 - ignore: {name: "Use record patterns"}
-- ignore: {name: "Use map"}
 
 
 # Specify additional command line arguments
