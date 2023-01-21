@@ -1,6 +1,3 @@
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric  #-}
-
 {- |
 Description: Supporting definitions for binary tree problems
 Copyright: Copyright (C) 2021 Yoo Chung

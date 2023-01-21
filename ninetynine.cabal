@@ -280,6 +280,9 @@ library
       Paths_ninetynine
   hs-source-dirs:
       src
+  default-extensions:
+      DeriveAnyClass
+      DeriveGeneric
   build-depends:
       array
     , base
@@ -301,6 +304,9 @@ executable generate-support
       Paths_ninetynine
   hs-source-dirs:
       app/support
+  default-extensions:
+      DeriveAnyClass
+      DeriveGeneric
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base
@@ -316,6 +322,9 @@ test-suite examples-test
       Paths_ninetynine
   autogen-modules:
       Paths_ninetynine
+  default-extensions:
+      DeriveAnyClass
+      DeriveGeneric
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base
@@ -443,6 +452,9 @@ test-suite ninetynine-test
       Paths_ninetynine
   hs-source-dirs:
       test
+  default-extensions:
+      DeriveAnyClass
+      DeriveGeneric
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       QuickCheck
@@ -556,6 +568,9 @@ benchmark ninetynine-bench
       Paths_ninetynine
   hs-source-dirs:
       bench
+  default-extensions:
+      DeriveAnyClass
+      DeriveGeneric
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base

@@ -29,6 +29,10 @@ description: |
   Based on the Ninety-Nine Haskell problems on [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
   For more information, see <https://github.com/chungyc/ninetynine>.
 
+default-extensions:
+- DeriveAnyClass
+- DeriveGeneric
+
 dependencies:
 - base
 

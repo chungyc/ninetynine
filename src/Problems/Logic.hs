@@ -1,6 +1,3 @@
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric  #-}
-
 {- |
 Description: Supporting definitions for logic and code problems
 Copyright: Copyright (C) 2023 Yoo Chung
