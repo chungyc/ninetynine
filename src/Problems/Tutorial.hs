@@ -12,6 +12,9 @@ import qualified Solutions.Tutorial as Solution
 
 -- * Tutorial
 
+-- $
+-- The "Problems" module contains exactly 99 Haskell problems which you can try to solve.
+
 -- ** Solving a problem
 
 -- $
@@ -43,12 +46,49 @@ sumNumbers = Solution.sumNumbers
 -- > ...
 -- > -}
 -- > sumNumbers :: Integer -> Integer
--- > sumNumbers = Solutions.sumNumbers
+-- > sumNumbers = Solution.sumNumbers
 --
 -- This is the function you would be implementing for the problem.
-
--- $
--- There are a few solutions implemented in "Solutions.Tutorial".
+-- Initially, it will point to a function which already solves the problem.
+-- You will be replacing this with your own solution.
+-- Let's say that you decide to implement a recursive solution which
+-- adds numbers as they are counted down:
+--
+-- > sumNumbers :: Integer -> Integer
+-- > sumNumbers 1 = 1
+-- > sumNumbers n = n + sumNumbers (n-1)
+--
+-- You can then run tests to verify whether the solution is correct.
+-- This can be done by passing a @--match@ flag with the problem number
+-- to @stack test@ inside a @--test-arguments@ flag.  For instance,
+-- with the problem in the @Problems.P01@ module, you could pass in @--match=P01@.
+-- The problem in this tutorial is in the @Problems.Tutorial@ module, so its tests
+-- can be executed as follows:
+--
+-- > $ stack test --test-arguments="--match=Tutorial"
+-- > ...
+-- > ninetynine> test (suite: examples-test, args: --match=Tutorial)
+-- >
+-- > Examples: 3  Tried: 3  Errors: 0  Unexpected output: 0
+-- >
+-- > ninetynine> Test suite examples-test passed
+-- > ninetynine> test (suite: ninetynine-test, args: --match=Tutorial)
+-- >
+-- >
+-- > Problems.Tutorial
+-- >   sumNumbers
+-- >     is one when adding just one [✔]
+-- >       +++ OK, passed 1 test.
+-- >     adds a number to the sum [✔]
+-- >       +++ OK, passed 100 tests.
+-- >   Examples
+-- >     sumNumbers 5 == 1 + 2 + 3 + 4 + 5 [✔]
+-- >     sumNumbers 100 [✔]
+-- > ...
+-- > 10 examples, 0 failures
+-- >
+-- > ninetynine> Test suite ninetynine-test passed
+-- > Completed 2 action(s).
 
 -- ** Trying multiple solutions
 
