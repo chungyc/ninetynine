@@ -73,7 +73,7 @@ smallNumberList = (resize 6 . listOf) smallNumber `suchThat` (not . tooLarge)
 
 -- | Generates a small number for inclusion in group sizes.
 smallNumber :: Gen Int
-smallNumber = resize 6 $ arbitrarySizedNatural
+smallNumber = resize 6 arbitrarySizedNatural
 
 -- | Whether a list of groups sizes will result in a number of groupings
 -- larger than we should handle.  For preventing having to deal with too
