@@ -6,6 +6,9 @@ See https://github.com/chungyc/ninetynine.
 
 *   Improvements in testing.
 
+*   Use Parsec for parsing in non-solution code
+    instead of using manually crafted parsers.
+
 *   Improve code hygiene with HLint.
 
 *   Rename `Problems.PostfixNotation` to `Problems.Monads` to be consistent
