@@ -5,12 +5,16 @@ Maintainer: dev@chungyc.org
 -}
 module Problems.P93Spec (spec) where
 
+import           Data.Maybe            (catMaybes)
 import           Data.Ratio
 import qualified Problems.P93          as Problem
 import qualified Solutions.P93         as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
+import           Text.Parsec
+import           Text.Parsec.Language  (emptyDef)
+import qualified Text.Parsec.Token     as Token
 
 properties :: ([Integer] -> [String]) -> String -> Spec
 properties arithmeticPuzzle name = describe name $ do
@@ -64,10 +68,17 @@ spec = parallel $ do
 
 -- | Extract the numbers from the strings containing equations.
 extractNumbers :: String -> [Integer]
+extractNumbers s | Right l <- parse numbers "" s = catMaybes l
+                 | otherwise = undefined
+  where numbers = many $ (Just <$> natural) <|> (anyChar >> return Nothing)
+        natural = Token.natural $ Token.makeTokenParser emptyDef
+
+{-
 extractNumbers s = extract $ tokenize s
   where extract []           = []
         extract ((N n) : ps) = n : extract ps
         extract (_:ps)       = extract ps
+-}
 
 -- | An equation in parsed form.
 data Expr = Number Integer
