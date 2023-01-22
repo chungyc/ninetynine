@@ -29,26 +29,6 @@ properties (lsort, lfsort) (lsortName, lfsortName) = do
 
   where toFrequencies xs = map (\ys -> length $ filter ((==) (length ys) . length) xs) xs
 
-{-
-lsortProp :: ([[Int]] -> [[Int]]) -> String -> Spec
-lsortProp lsort name = describe name $ do
-  prop "is permutation of original list" $ \xs ->
-    lsort xs `shouldSatisfy` (==) (sort xs) . sort
-
-  prop "is in same order as sorted lengths" $ \xs ->
-    lsort xs `shouldSatisfy` (==) (sort $ map length xs) . map length
-
-lfsortProp :: ([[Int]] -> [[Int]]) -> String -> Spec
-lfsortProp lfsort name = describe name $ do
-  prop "is permutation of original list" $ \xs ->
-    lfsort xs `shouldSatisfy` (==) (sort xs) . sort
-
-  prop "is in same order as sorted frequencies of lengths" $ \xs ->
-    lfsort xs `shouldSatisfy`  (==) (sort $ toFrequencies xs) . toFrequencies
-
-  where toFrequencies xs = map (\ys -> length $ filter ((==) (length ys) . length) xs) xs
--}
-
 examples :: Spec
 examples = describe "Examples" $ do
   it "lsort [\"xxx\",\"xx\",\"xxx\",\"xx\",\"xxxx\",\"xx\",\"x\"]" $ do
