@@ -22,11 +22,11 @@ import qualified Solutions.P60        as Solution
 -- 1553
 --
 -- >>> mapM_ printTreeList $ map heightBalancedTreesWithNodes [0..3]
--- [ Empty]
--- [ Branch () Empty Empty]
+-- [ Empty ]
+-- [ Branch () Empty Empty ]
 -- [ Branch () (Branch () Empty Empty) Empty
--- , Branch () Empty (Branch () Empty Empty)]
--- [ Branch () (Branch () Empty Empty) (Branch () Empty Empty)]
+-- , Branch () Empty (Branch () Empty Empty) ]
+-- [ Branch () (Branch () Empty Empty) (Branch () Empty Empty) ]
 --
 -- === __Hint__
 --

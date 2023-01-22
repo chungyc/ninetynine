@@ -5,8 +5,8 @@ license:             GPL-3.0-or-later
 license-file:        LICENSE
 author:              "Yoo Chung"
 maintainer:          "dev@chungyc.org"
-copyright:           "Copyright (C) 2022 Yoo Chung"
-homepage:            "http://github.com/chungyc/ninetynine"
+copyright:           "Copyright (C) 2023 Yoo Chung"
+homepage:            "https://ninetynine.haskell.chungyc.org/"
 
 extra-source-files:
 - README.md
@@ -28,6 +28,12 @@ description: |
   .
   Based on the Ninety-Nine Haskell problems on [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
   For more information, see <https://github.com/chungyc/ninetynine>.
+
+language: GHC2021
+
+default-extensions:
+- DeriveAnyClass
+- DerivingStrategies
 
 dependencies:
 - base
@@ -71,7 +77,6 @@ tests:
     - hspec
     - QuickCheck
     - containers
-    - generic-random
     - process
     - random
     when:

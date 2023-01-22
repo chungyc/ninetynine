@@ -40,7 +40,7 @@ expandFront g@(G m) front (vs, es)
   where tendrilsSet = Set.filter notPassed $ Set.filter (notVisited . snd) border
         notVisited v = not $ Set.member v vs
         notPassed e = not $ Set.member (Edge e) es
-        border = Set.unions $ Set.map (\v -> Set.map (\v' -> (v,v')) $ neighbors v g) front
+        border = Set.unions $ Set.map (\v -> Set.map (v,) $ neighbors v g) front
         expandTendrils tendrils = expandFront g (Set.map snd tendrils) (incorporateTendrils tendrils)
         incorporateTendrils tendrils = (Set.union vs $ Set.map snd tendrils, Set.union es $ Set.map Edge tendrils)
 

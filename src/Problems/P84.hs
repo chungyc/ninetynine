@@ -14,6 +14,8 @@ import           Problems.Graphs
 import qualified Solutions.P84   as Solution
 
 -- $setup
+-- >>> import Data.Map ((!))
+-- >>> import qualified Data.Set as Set
 -- >>> import Problems.Graphs
 -- >>> import Problems.P83
 
@@ -23,10 +25,8 @@ import qualified Solutions.P84   as Solution
 --
 -- === Examples
 --
--- >>> import Data.Map.Lazy ((!))
--- >>> import qualified Data.Set as S
 -- >>> let t = minimumSpanningTree graph83 weights84
--- >>> sum $ map (weights84 !) $ S.toList $ edges t
+-- >>> Set.foldr (\e w -> w + weights84 ! e) 0 $ edges t
 -- 33
 --
 -- === __Hint__

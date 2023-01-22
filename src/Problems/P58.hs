@@ -20,6 +20,6 @@ import qualified Solutions.P58        as Solution
 --
 -- >>> printTreeList $ symmetricBalancedTrees 5
 -- [ Branch () (Branch () (Branch () Empty Empty) Empty) (Branch () Empty (Branch () Empty Empty))
--- , Branch () (Branch () Empty (Branch () Empty Empty)) (Branch () (Branch () Empty Empty) Empty)]
+-- , Branch () (Branch () Empty (Branch () Empty Empty)) (Branch () (Branch () Empty Empty) Empty) ]
 symmetricBalancedTrees :: Int -> [Tree ()]
 symmetricBalancedTrees = Solution.symmetricBalancedTrees

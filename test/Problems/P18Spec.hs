@@ -26,8 +26,8 @@ properties slice name = describe name $ do
 
 examples :: Spec
 examples = describe "Examples" $ do
-  it "slice ['a','b','c','d','e','f','g','h','i','k'] 3 7" $ do
-    slice ['a','b','c','d','e','f','g','h','i','k'] 3 7 `shouldBe` "cdefg"
+  it "slice \"abcdefghijk\"" $ do
+    slice "abcdefghijk" 3 7 `shouldBe` "cdefg"
 
   where slice = Problem.slice
 

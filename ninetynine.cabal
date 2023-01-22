@@ -16,11 +16,11 @@ description:    Ninety-Nine Haskell Problems.
                 Based on the Ninety-Nine Haskell problems on [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
                 For more information, see <https://github.com/chungyc/ninetynine>.
 category:       Education
-homepage:       http://github.com/chungyc/ninetynine
+homepage:       https://ninetynine.haskell.chungyc.org/
 bug-reports:    https://github.com/chungyc/ninetynine/issues
 author:         Yoo Chung
 maintainer:     dev@chungyc.org
-copyright:      Copyright (C) 2022 Yoo Chung
+copyright:      Copyright (C) 2023 Yoo Chung
 license:        GPL-3.0-or-later
 license-file:   LICENSE
 build-type:     Simple
@@ -282,6 +282,9 @@ library
       Paths_ninetynine
   hs-source-dirs:
       src
+  default-extensions:
+      DeriveAnyClass
+      DerivingStrategies
   build-depends:
       array
     , base
@@ -293,7 +296,7 @@ library
     , random
     , text
     , transformers
-  default-language: Haskell2010
+  default-language: GHC2021
 
 executable generate-support
   main-is: Main.hs
@@ -303,13 +306,16 @@ executable generate-support
       Paths_ninetynine
   hs-source-dirs:
       app/support
+  default-extensions:
+      DeriveAnyClass
+      DerivingStrategies
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base
     , filepath
     , ninetynine
     , process
-  default-language: Haskell2010
+  default-language: GHC2021
 
 test-suite examples-test
   type: exitcode-stdio-1.0
@@ -318,12 +324,15 @@ test-suite examples-test
       Paths_ninetynine
   autogen-modules:
       Paths_ninetynine
+  default-extensions:
+      DeriveAnyClass
+      DerivingStrategies
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base
     , doctest-parallel
     , ninetynine
-  default-language: Haskell2010
+  default-language: GHC2021
 
 test-suite ninetynine-test
   type: exitcode-stdio-1.0
@@ -446,17 +455,19 @@ test-suite ninetynine-test
       Paths_ninetynine
   hs-source-dirs:
       test
+  default-extensions:
+      DeriveAnyClass
+      DerivingStrategies
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       QuickCheck
     , base
     , containers
-    , generic-random
     , hspec
     , ninetynine
     , process
     , random
-  default-language: Haskell2010
+  default-language: GHC2021
 
 benchmark ninetynine-bench
   type: exitcode-stdio-1.0
@@ -560,6 +571,9 @@ benchmark ninetynine-bench
       Paths_ninetynine
   hs-source-dirs:
       bench
+  default-extensions:
+      DeriveAnyClass
+      DerivingStrategies
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base
@@ -568,4 +582,4 @@ benchmark ninetynine-bench
     , deepseq
     , ninetynine
     , random
-  default-language: Haskell2010
+  default-language: GHC2021

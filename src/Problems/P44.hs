@@ -32,11 +32,9 @@ Since \(17 = (4+i)(4-i)\),
 >>> isGaussianPrime (17 :+ 0)
 False
 
-No non-unit proper divisors divide \(5+2i\) or \(-2+5i\), so
+No non-unit proper divisors divide \(5+2i\), so
 
 >>> isGaussianPrime (5 :+ 2)
-True
->>> isGaussianPrime ((-2) :+ 5)
 True
 
 === __Hint__

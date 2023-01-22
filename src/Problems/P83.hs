@@ -28,7 +28,7 @@ import qualified Solutions.P83   as Solution
 -- >>> length $ spanningTrees graph83
 -- 173
 --
--- >>> (toG $ Paths [[1,2,4,5,6,7,8],[1,3],[5,10],[7,9]]) `elem` (spanningTrees graph83)
+-- >>> toG (Paths [[1,2,4,5,6,7,8],[1,3],[5,10],[7,9]]) `elem` spanningTrees graph83
 -- True
 spanningTrees :: G -> [G]
 spanningTrees = Solution.spanningTrees
