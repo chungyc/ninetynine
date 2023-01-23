@@ -1,0 +1,23 @@
+on:
+  schedule:
+    - cron: '38 7 26 * *'
+  workflow_dispatch
+
+name: Test (nightly snapshot)
+
+jobs:
+  test:
+    name: Test with nightly snapshot
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup
+        uses: haskell/actions/setup@v2
+        with:
+          enable-stack: true
+
+      - name: Test
+        run: stack build --test --bench --no-run-benchmarks --resolver nightly
