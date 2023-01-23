@@ -51,9 +51,6 @@ sumNumbers = Solution.sumNumbers
 If you look at the source, you will see something like this:
 
 @
-{- | Add the integers from 1 to a given number @n@.
-...
--}
 sumNumbers :: Integer -> Integer
 sumNumbers = Solution.sumNumbers
 @
@@ -61,7 +58,7 @@ sumNumbers = Solution.sumNumbers
 This is the function you would be implementing for the problem.
 Initially, it will point to a function which already solves the problem.
 You will be replacing this with your own solution.
-Let's say that we decide to implement a recursive solution which
+Let's say that you decide to implement a recursive solution which
 adds numbers as they are counted down:
 
 @
@@ -70,10 +67,10 @@ sumNumbers 1 = 0
 sumNumbers n = n + sumNumbers (n-1)
 @
 
-We can then run tests to verify whether the solution is correct.
+You can then run tests to verify whether the solution is correct.
 This can be done by passing a @--match@ flag with the problem number
 to @stack test@ inside a @--test-arguments@ flag.  For instance,
-with the problem in the @Problems.P01@ module, we could pass in @--match=P01@.
+with the problem in the @Problems.P01@ module, you could pass in @--match=P01@.
 The problem in this tutorial is in the @Problems.Tutorial@ module, so its tests
 can be executed as follows:
 
@@ -96,7 +93,7 @@ Problems.Tutorial
 @
 
 Uh-oh, tests fail.  Turns out @sumNumbers 1@ should have been 1, not 0,
-so we can fix it to:
+so you can fix it to:
 
 @
 sumNumbers :: Integer -> Integer
@@ -127,51 +124,98 @@ ninetynine> Test suite ninetynine-test passed
 Completed 2 action(s).
 @
 
-We have implemented a solution to this problem.
-Now we can move on to another one in another problem module such as "Problems.P01".
+You have now correctly implemented a solution to this problem.
+Now you can move on to another one, such as "Problems.P01".
 If you are only interested in implementing a single solution for each problem,
 you can stop reading the tutorial here.
 -}
 
 -- ** Trying multiple solutions
 
+{- $
+There may be times when you would like to try more than one solution to a problem.
+For example, you may have remembered the apocryphal story of Gauss figuring
+out how to quickly calculate the sum of the numbers from 1 to 100,
+thwarting his math teacher who wanted to take a break while
+the students spent their time on a menial calculation.
+Let's say you would like to compare this approach to the naive approach of adding numbers one by one.
+So in addition to the @sumNumbers@ function above, you implement the @sumNumbers'@ function:
+
+@
+sumNumbers' :: Integer -> Integer
+sumNumbers' n = n * (n+1) \`div\` 2
+@
+
+We can test this function as well without removing the @sumNumbers@ function.
+We can also run benchmarks to compare how the two functions perform.
+-}
+
 -- *** Tests
+
+{- $
+The tests for this tutorial problem is in the @Problems.TutorialSpec@ module.
+If you inspect the source, you will see this function:
+
+@
+spec :: Spec
+spec = parallel $ do
+  properties Problem.sumNumbers \"sumNumbers\"
+  examples
+  ...
+@
+
+You can update this function to also test @sumNumbers'@ by adding another line:
+
+@
+spec :: Spec
+spec = parallel $ do
+  properties Problem.sumNumbers \"sumNumbers\"
+  __properties Problem.sumNumbers' \"sumNumbers'\"__
+  examples
+  ...
+@
+-}
 
 -- *** Benchmarks
 
--- ** Advanced topics
-
 {- $
-The tests are implemented using [Hspec](https://hspec.github.io/),
-with unit tests based on [HUnit](https://hackage.haskell.org/package/HUnit)
-and property-based tests based on [QuickCheck](https://hackage.haskell.org/package/QuickCheck).
-The benchmarks are implemented using [criterion](https://hackage.haskell.org/package/criterion).
-Most of the examples in the documentation are tested
-using [doctest-parallel](https://hackage.haskell.org/package/doctest-parallel).
+Benchmarks are provided for most problem modules.
+For this tutorial problem, you can add a benchmark for @sumNumbers'@
+by adding another line to the @Problems.TutorialBench@ module:
 
-The test modules for each problem have the same name as the problem modules,
-except for ending with @Spec@.
-They are structured as follows:
+@
+group = bgroup \"Tutorial\"
+  [ subgroup \"sumNumbers\" Problem.sumNumbers
+  __, subgroup \"sumNumbers'\" Problem.sumNumbers'__
+  , bgroup \"Solutions\"
+@
 
-* Parameterized property tests.
+You can run the benchmarks for a problem
+by including the problem number in the benchmark arguments.
+For example, you would run the benchmarks for the tutorial problem by
+including "@Tutorial@" in the benchmark arguments, after which you may
+see output such as this:
 
-* Example tests.
+@
+$ stack bench --benchmark-arguments=\"Tutorial\"
+...
+benchmarking Tutorial\/sumNumbers\/1000000
+time                 222.9 ms   (206.2 ms .. 237.9 ms)
+...
+benchmarking Tutorial\/sumNumbers'\/1000000
+time                 56.75 ns   (56.43 ns .. 57.06 ns)
+...
+@
 
-* Test specification.
+From this, you can see that @sumNumbers'@ is much faster than @sumNumbers@
+when adding the numbers from 1 to 1,000,000.
 
-* Functions that support the tests, if any.
+For another example of running benchmarks, execute the following command to
+run the benchmarks for "Problems.P11":
 
-The benchmark modules for each problem have the same name as the problem modules,
-except for ending with @Bench@.
-They are structured as follows:
-
-* Overall benchmark group definition.
-
-* Parameterized benchmark group.
-
-* Functions that support the benchmarks, if any.
-
-An @Examples@ module is responsible for testing the examples in the documentation.
+@
+$ stack bench --benchmark-arguments=\"P11\"
+@
 -}
 
 -- ** In conclusion
@@ -179,7 +223,7 @@ An @Examples@ module is responsible for testing the examples in the documentatio
 {- $
 This is not an exam;
 you do not have to use this set of problems in any particular way.
-Feel free to solve problems in any order.
+Feel free to solve problems in any order, or skip those you find uninteresting.
 You can implement solutions from scratch using nothing but the most
 basic functions that Haskell provides, or almost trivially by using
 a sophisticated library to do most of the work.
