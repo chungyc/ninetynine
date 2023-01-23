@@ -16,6 +16,8 @@ compared to a simpler one.
 
 Some solutions to these problems are in the "Solutions" module.
 The number of shruggies (&#129335;) indicate difficulty level.
+For a tutorial as to how one might solve problems,
+see the "Problems.Tutorial" module.
 
 These are based on the Ninety-Nine Haskell Problems on
 the [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).

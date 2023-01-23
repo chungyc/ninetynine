@@ -4,14 +4,16 @@
 
 See https://github.com/chungyc/ninetynine.
 
-*   Improvements in testing.
+## v1.1.0
 
-*   Use Parsec for parsing in non-solution code
-    instead of using manually crafted parsers.
+*   Improvements in testing.
 
 *   Improve code hygiene with HLint.
 
 *   Add a tutorial problem to walk through the process of solving a problem.
+
+*   Use Parsec for parsing in non-solution code
+    instead of using manually crafted parsers.
 
 *   Rename `Problems.PostfixNotation` to `Problems.Monads` to be consistent
     with other supporting modules.
