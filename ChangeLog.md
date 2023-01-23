@@ -11,6 +11,8 @@ See https://github.com/chungyc/ninetynine.
 
 *   Improve code hygiene with HLint.
 
+*   Add a tutorial problem to walk through the process of solving a problem.
+
 *   Rename `Problems.PostfixNotation` to `Problems.Monads` to be consistent
     with other supporting modules.
 
