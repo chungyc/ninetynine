@@ -1,0 +1,48 @@
+name: Build
+concurrency: build
+
+on:
+  workflow_call:
+    inputs:
+      resolver:
+        required: false
+        type: string
+
+env:
+  extra_stack_args:
+  extra_key_part:
+
+jobs:
+  test:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set environment
+        if: ${{ inputs.resolver != '' }}
+        run: |
+          echo "extra_stack_args='--resolver ${{ inputs.resolver }}'" >> $GITHUB_ENV
+          echo "extra_key_part='-resolver-${{ inputs.resolver }}'" >> $GITHUB_ENV
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup
+        uses: haskell/actions/setup@v2
+        with:
+          enable-stack: true
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.stack
+          key: stack${{ env.extra_key_part }}-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('package.yaml', 'stack.yaml') }}
+
+      - name: Cache build artifacts
+        uses: actions/cache@v3
+        with
+          path: .stack-work
+          key: stack${{ env.extra_key_part}}-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('app/**', 'bench/**', 'src/**', 'test/**') }}
+
+      - name: Build and test
+        run: stack build --test --bench --no-run-benchmarks ${{ env.extra_stack_args }}
