@@ -1,0 +1,12 @@
+name: Continuous Integration
+
+on:
+  schedule:
+    - cron: '38 7 26 * *'
+  workflow_dispatch:
+
+jobs:
+  test:
+    uses: ./.github/workflows/build.yaml
+    with:
+      resolver: nightly

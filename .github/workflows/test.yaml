@@ -1,39 +1,13 @@
+name: Test
+
 on:
   push:
     branches:
       - 'main'
     tags:
       - 'v[1-9]**'
-
-name: Test
+  workflow_dispatch:
 
 jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup
-        uses: haskell/actions/setup@v2
-        with:
-          enable-stack: true
-
-      - name: Cache dependencies
-        id: cache-dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.stack
-          key: stack-${{ runner.os }}-${{ hashFiles('package.yaml', 'stack.yaml') }}
-
-      - if: ${{ steps.cache-dependencies.outputs.cache-hit != 'true' }}
-        name: Build dependencies
-        run: stack build --test --bench --only-dependencies --no-run-tests --no-run-benchmarks
-
-      - name: Build
-        run: stack build --test --bench --no-run-tests --no-run-benchmarks
-
-      - name: Test
-        run: stack build --test --bench --no-run-benchmarks
+  build:
+    uses: ./.github/workflows/build.yaml
