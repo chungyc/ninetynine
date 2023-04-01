@@ -61,12 +61,15 @@ jobs:
         run: stack build --test --bench --no-run-benchmarks ${{ env.extra_stack_args }}
 
       - name: Coverage
+        id: coverage
         if: ${{ inputs.coverage }}
-        run: stack build --test --bench --no-run-benchmarks ${{ env.extra_stack_args }} --coverage
+        run: |
+          stack build --test --bench --no-run-benchmarks ${{ env.extra_stack_args }} --coverage
+          echo "coverage-report=$(stack path --local-hpc-root)" >> $GITHUB_OUTPUT
 
       - name: Upload coverage report
         if: ${{ inputs.coverage }}
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: .stack-work/install/**/hpc/
+          path: ${{ steps.coverage.outputs.coverage-report }}
