@@ -1,5 +1,9 @@
-on: [push]
 name: Lint
+
+on:
+  push:
+    paths:
+      - '**.hs'
 
 jobs:
   lint:
