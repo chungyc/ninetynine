@@ -1,6 +1,9 @@
 name: Coverage
 
 on:
+  schedule:
+    - cron: '23 1 4 * *'
+
   workflow_dispatch:
 
 jobs:
