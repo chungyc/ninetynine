@@ -13,6 +13,9 @@ on:
       resolver:
         required: false
         type: string
+      coverage:
+        required: false
+        type: boolean
 
   workflow_dispatch:
 
@@ -54,3 +57,14 @@ jobs:
 
       - name: Build and test
         run: stack build --test --bench --no-run-benchmarks ${{ env.extra_stack_args }}
+
+      - name: Coverage
+        if: ${{ inputs.coverage }}
+        run: stack build --test --bench --no-run-benchmarks ${{ env.extra_stack_args }} --coverage
+
+      - name: Upload coverage report
+        if: ${{ inputs.coverage }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: .stack-work/install/**/hpc/
