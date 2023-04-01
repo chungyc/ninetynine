@@ -21,7 +21,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.stack
-          key: coverage-${{ runner.os }}-${{ hashFiles('package.yaml', 'stack.yaml') }}
+          key: coverage-${{ hashFiles('package.yaml', 'stack.yaml') }}
 
       - name: Coverage
         run: stack test --coverage
