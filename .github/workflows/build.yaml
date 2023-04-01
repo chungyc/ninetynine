@@ -17,8 +17,6 @@ on:
         required: false
         type: boolean
 
-  workflow_dispatch:
-
 env:
   extra_stack_args:
   extra_key_part:
