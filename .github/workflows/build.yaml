@@ -50,6 +50,7 @@ jobs:
           key: stack${{ env.extra_key_part }}-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('package.yaml', 'stack.yaml') }}
 
       - name: Cache build artifacts
+        if: ${{ !inputs.coverage }}
         uses: actions/cache@v3
         with:
           path: .stack-work
