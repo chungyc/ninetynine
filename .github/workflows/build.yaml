@@ -2,11 +2,19 @@ name: Build
 concurrency: build
 
 on:
+  push:
+    branches:
+      - 'main'
+    tags:
+      - 'v[1-9]**'
+
   workflow_call:
     inputs:
       resolver:
         required: false
         type: string
+
+  workflow_dispatch:
 
 env:
   extra_stack_args:
