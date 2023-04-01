@@ -21,8 +21,8 @@ jobs:
       - name: Set environment
         if: ${{ inputs.resolver != '' }}
         run: |
-          echo "extra_stack_args='--resolver ${{ inputs.resolver }}'" >> $GITHUB_ENV
-          echo "extra_key_part='-resolver-${{ inputs.resolver }}'" >> $GITHUB_ENV
+          echo "extra_stack_args=--resolver ${{ inputs.resolver }}" >> $GITHUB_ENV
+          echo "extra_key_part=-resolver-${{ inputs.resolver }}" >> $GITHUB_ENV
 
       - name: Checkout
         uses: actions/checkout@v3
