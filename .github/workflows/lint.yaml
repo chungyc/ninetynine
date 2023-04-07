@@ -6,8 +6,8 @@ on:
       - '**.hs'
 
 jobs:
-  lint:
-    name: Lint
+  status:
+    name: Status checking
     runs-on: ubuntu-latest
 
     steps:
@@ -22,3 +22,10 @@ jobs:
         with:
           path: '["src/", "test/", "bench/", "app/"]'
           fail-on: warning
+
+  scan:
+    name: Code scanning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: haskell-actions/hlint-scan@v0
