@@ -15,9 +15,12 @@ import qualified Solutions.P01 as Solution
 -- === Examples
 --
 -- >>> myLast [1,2,3,4]
--- 4
+-- Just 4
 --
 -- >>> myLast ['x','y','z']
--- 'z'
-myLast :: [a] -> a
+-- Just 'z'
+--
+-- >>> myLast []
+-- Nothing
+myLast :: [a] -> Maybe a
 myLast = Solution.myLast
