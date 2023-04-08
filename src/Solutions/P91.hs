@@ -9,7 +9,7 @@ Some solutions to "Problems.P91" of Ninety-Nine Haskell "Problems".
 module Solutions.P91 (knightsTour,closedKnightsTour) where
 
 import           Data.List  (sortOn)
-import           Data.Maybe (isJust)
+import           Data.Maybe (mapMaybe)
 import           Data.Set   (Set)
 import qualified Data.Set   as Set
 
@@ -30,7 +30,7 @@ tour n path remaining
   | otherwise          = path'
   where path' | null paths = Nothing
               | otherwise  = head paths
-        paths = filter isJust $ map (\pos -> tour n (pos:path) $ Set.delete pos remaining) next
+        paths = map Just $ mapMaybe (\pos -> tour n (pos:path) $ Set.delete pos remaining) next
         -- Apply Warnsdorff's heuristic.
         next = sortOn (\pos -> availableMoves (Set.delete pos remaining) pos) $ nextMoves remaining $ head path
 
@@ -62,5 +62,5 @@ closedTour n path remaining
   | otherwise          = path'
   where path' | null paths = Nothing
               | otherwise  = head paths
-        paths = filter isJust $ map (\pos -> tour n (pos:path) $ Set.delete pos remaining) next
+        paths = map Just $ mapMaybe (\pos -> tour n (pos:path) $ Set.delete pos remaining) next
         next = nextMoves remaining $ head path
