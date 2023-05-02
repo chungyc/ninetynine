@@ -10,18 +10,24 @@ import qualified Solutions.P02         as Solution
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 
-properties :: ([Int] -> Int) -> String -> Spec
+properties :: ([Int] -> Maybe Int) -> String -> Spec
 properties myButLast name = describe name $ do
   prop "finds the last but one element in list" $ \xs x y ->
-    myButLast (xs ++ [x,y]) `shouldBe` x
+    myButLast (xs ++ [x,y]) `shouldBe` Just x
+
+  prop "returns nothing for singleton list" $ \x ->
+    myButLast [x] `shouldBe` Nothing
+
+  prop "returns nothing for empty list" $
+    myButLast [] `shouldBe` Nothing
 
 examples :: Spec
 examples = describe "Examples" $ do
   it "myButLast [1,2,3,4]" $ do
-    myButLast [1,2,3,4] `shouldBe` (3 :: Int)
+    myButLast [1,2,3,4] `shouldBe` Just (3 :: Int)
 
   it "myButLast ['a'..'z']" $ do
-    myButLast ['a'..'z'] `shouldBe` 'y'
+    myButLast ['a'..'z'] `shouldBe` Just 'y'
 
  where myButLast = Problem.myButLast
 

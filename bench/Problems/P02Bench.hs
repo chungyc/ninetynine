@@ -16,7 +16,7 @@ group = bgroup "P02"
     [ subgroup "myButLast" Solution.myButLast ]
   ]
 
-subgroup :: String -> ([Int] -> Int) -> Benchmark
+subgroup :: String -> ([Int] -> Maybe Int) -> Benchmark
 subgroup name myButLast = bgroup name
   [ bench "[1..2]"    $ nf myButLast [1..2]
   , bench "[1..10]"   $ nf myButLast [1..10]

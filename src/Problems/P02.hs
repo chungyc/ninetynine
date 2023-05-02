@@ -15,9 +15,12 @@ import qualified Solutions.P02 as Solution
 -- === Examples
 --
 -- >>> myButLast [1,2,3,4]
--- 3
+-- Just 3
 --
 -- >>> myButLast ['a'..'z']
--- 'y'
-myButLast :: [a] -> a
+-- Just 'y'
+--
+-- >>> myButLast ['a']
+-- Nothing
+myButLast :: [a] -> Maybe a
 myButLast = Solution.myButLast
