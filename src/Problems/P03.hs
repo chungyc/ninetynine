@@ -16,9 +16,12 @@ import qualified Solutions.P03 as Solution
 -- === Examples
 --
 -- >>> elementAt [1,2,3] 2
--- 2
+-- Just 2
 --
 -- >>> elementAt "haskell" 5
--- 'e'
-elementAt :: [a] -> Int -> a
+-- Just 'e'
+--
+-- >>> elementAt [1,2] 3
+-- Nothing
+elementAt :: [a] -> Int -> Maybe a
 elementAt = Solution.elementAt

@@ -16,7 +16,7 @@ group = bgroup "P03"
     [ subgroup "elementAt" Solution.elementAt ]
   ]
 
-subgroup :: String -> ([Int] -> Int -> Int) -> Benchmark
+subgroup :: String -> ([Int] -> Int -> Maybe Int) -> Benchmark
 subgroup name elementAt = bgroup name
   [ bgroup "[1]"      [ bench "1"   $ nf (elementAt [1]) 1 ]
   , bgroup "[1..100]" [ bench "1"   $ nf (elementAt [1..100]) 1

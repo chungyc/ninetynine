@@ -10,9 +10,9 @@ module Solutions.P03 (elementAt) where
 
 -- | Find the @k@th element of a list.
 -- The first element in the list is number 1.
-elementAt :: [a] -> Int -> a
-elementAt [] _ = undefined
+elementAt :: [a] -> Int -> Maybe a
+elementAt [] _ = Nothing
 elementAt (x:xs) k
-  | k == 1    = x
+  | k == 1    = Just x
   | k > 1     = elementAt xs (k-1)
-  | otherwise = undefined
+  | otherwise = Nothing
