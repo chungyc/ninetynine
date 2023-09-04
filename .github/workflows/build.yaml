@@ -30,7 +30,7 @@ jobs:
           echo "extra_key_part=-resolver-${{ inputs.resolver }}" >> $GITHUB_ENV
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup
         uses: haskell/actions/setup@v2
