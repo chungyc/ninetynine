@@ -15,7 +15,7 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties
-  :: (String -> Tree Char, Tree Char -> String)
+  :: (String -> Maybe (Tree Char), Tree Char -> String)
   -> (String, String)
   -> Spec
 properties
@@ -23,7 +23,7 @@ properties
   (nameDotstringToTree, nameTreeToDotstring) = do
   describe nameDotstringToTree $ do
     prop "is inverse of treeToDotstring" $ \(CharTree t) ->
-      (dotstringToTree . treeToDotstring) t `shouldBe` t
+      (dotstringToTree . treeToDotstring) t `shouldBe` Just t
 
   describe nameTreeToDotstring $ do
     prop "is dot for empty tree" $
@@ -38,7 +38,7 @@ examples :: Spec
 examples = describe "Examples" $ do
   it "dotstringToTree \"xy..z0...\"" $ do
     dotstringToTree "xy..z0..." `shouldBe`
-      Branch 'x' (Branch 'y' Empty Empty) (Branch 'z' (Branch '0' Empty Empty) Empty)
+      Just (Branch 'x' (Branch 'y' Empty Empty) (Branch 'z' (Branch '0' Empty Empty) Empty))
 
   it "treeToDotstring tree1" $ do
     treeToDotstring tree1 `shouldBe` "abd..e..c.fg..."
