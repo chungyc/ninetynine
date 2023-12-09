@@ -4,6 +4,10 @@
 
 See https://github.com/chungyc/ninetynine.
 
+## v1.2.0
+
+*   No longer require the implementation of partial functions.
+
 ## v1.1.0
 
 *   Improvements in testing.

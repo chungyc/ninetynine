@@ -4,7 +4,7 @@ Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
-This is a list of Ninety-Nine Haskell Problems.
+This is a list of 99 Haskell Problems.
 
 Each problem is provided a skeleton where you can implement your own solutions.
 For example, the "Problems.P11" module provides a skeleton in which you can
