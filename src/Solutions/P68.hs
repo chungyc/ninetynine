@@ -45,13 +45,15 @@ in which case the tree is determined unambiguously.
 ordersToTree :: Eq a
              => [a]  -- ^ In-order sequence
              -> [a]  -- ^ Pre-order sequence
-             -> Tree a  -- ^ Binary tree with the given in-order and pre-order sequences
-ordersToTree [] [] = Empty
-ordersToTree inseq (p:preseq) | p' == p   = Branch p l r
-                              | otherwise = undefined
+             -> Maybe (Tree a)  -- ^ Binary tree with the given in-order and pre-order sequences
+ordersToTree [] [] = Just Empty
+ordersToTree inseq (p:preseq)
+  | p' == p   = do
+      l <- ordersToTree inseqLeft preseqLeft
+      r <- ordersToTree inseqRight preseqRight
+      return $ Branch p l r
+  | otherwise = Nothing
   where (inseqLeft, p':inseqRight) = break (p ==) inseq
         (preseqLeft, preseqRight) = splitAt (length inseqLeft) preseq
-        l = ordersToTree inseqLeft preseqLeft
-        r = ordersToTree inseqRight preseqRight
 -- Failure to match patterns above or below indicate invalid sequences.
-ordersToTree _ _ = undefined
+ordersToTree _ _ = Nothing

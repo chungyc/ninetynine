@@ -31,7 +31,7 @@ toOrderGroup name order = bgroup name
   , bench "10000" $ nf order $ generate (mkStdGen 34734) 10000
   ]
 
-toTreeGroup :: String -> ([Char] -> [Char] -> Tree Char) -> Benchmark
+toTreeGroup :: String -> ([Char] -> [Char] -> Maybe (Tree Char)) -> Benchmark
 toTreeGroup name ordersToTree = bgroup name
   [ bench "100"  $ nf (ordersToTree $ inorder g100)  (preorder g100)
   , bench "1000" $ nf (ordersToTree $ inorder g1000) (preorder g1000)
