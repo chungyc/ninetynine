@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
-
 {- |
 Description: A string representation of binary trees
 Copyright: Copyright (C) 2021 Yoo Chung
@@ -25,20 +23,22 @@ treeToString (Branch c Empty Empty) = [c]
 treeToString (Branch c l r) = [c] ++ "(" ++ treeToString l ++ "," ++ treeToString r ++ ")"
 
 -- | Write a function to construct a tree from the string representation.
-stringToTree :: String -> Tree Char
-stringToTree ""  = Empty
-stringToTree [c] = Branch c Empty Empty
-stringToTree s = t
-  where ("", t) = parseTree s
+stringToTree :: String -> Maybe (Tree Char)
+stringToTree ""  = Just Empty
+stringToTree [c] = Just $ Branch c Empty Empty
+stringToTree s | Just ("", t) <- p = Just t
+               | otherwise = Nothing
+  where p = parseTree s
 
-parseTree :: String -> (String, Tree Char)
-parseTree ""             = ("", Empty)
-parseTree cs@(',':_)     = (cs, Empty)
-parseTree cs@(')':_)     = (cs, Empty)
-parseTree [c]            = ("", Branch c Empty Empty)
-parseTree (c:cs@(',':_)) = (cs, Branch c Empty Empty)
-parseTree (c:cs@(')':_)) = (cs, Branch c Empty Empty)
-parseTree (c:'(':cs)     = (cs'', Branch c l r)
-  where (',':cs',l) = parseTree cs
-        (')':cs'',r) = parseTree cs'
-parseTree _ = undefined
+parseTree :: String -> Maybe (String, Tree Char)
+parseTree ""             = Just ("", Empty)
+parseTree cs@(',':_)     = Just (cs, Empty)
+parseTree cs@(')':_)     = Just (cs, Empty)
+parseTree [c]            = Just ("", Branch c Empty Empty)
+parseTree (c:cs@(',':_)) = Just (cs, Branch c Empty Empty)
+parseTree (c:cs@(')':_)) = Just (cs, Branch c Empty Empty)
+parseTree (c:'(':cs) = do
+  (',':cs',l) <- parseTree cs
+  (')':cs'',r) <- parseTree cs'
+  return (cs'', Branch c l r)
+parseTree _ = Nothing

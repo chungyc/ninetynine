@@ -13,7 +13,7 @@ import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
-properties :: (Tree Char -> String, String -> Tree Char) -> (String, String) -> Spec
+properties :: (Tree Char -> String, String -> Maybe (Tree Char)) -> (String, String) -> Spec
 properties (treeToString, stringToTree) (nameTreeToString, nameStringToTree) = do
   describe nameTreeToString $ do
     prop "is empty string for empty tree" $
@@ -31,7 +31,7 @@ properties (treeToString, stringToTree) (nameTreeToString, nameStringToTree) = d
 
   describe nameStringToTree $ do
     prop "is inverse of treeToString" $ \(CharTree t) ->
-      (stringToTree . treeToString) t `shouldBe` t
+      (stringToTree . treeToString) t `shouldBe` Just t
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -41,7 +41,7 @@ examples = describe "Examples" $ do
 
   it "stringToTree \"x(y,a(,b))\"" $ do
     stringToTree "x(y,a(,b))" `shouldBe`
-      Branch 'x' (Branch 'y' Empty Empty) (Branch 'a' Empty (Branch 'b' Empty Empty))
+      Just (Branch 'x' (Branch 'y' Empty Empty) (Branch 'a' Empty (Branch 'b' Empty Empty)))
 
   where treeToString = Problem.treeToString
         stringToTree = Problem.stringToTree

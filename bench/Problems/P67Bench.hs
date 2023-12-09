@@ -27,7 +27,7 @@ treeToStringGroup name treeToString = bgroup name
   , bench "10000" $ nf treeToString $ generate (mkStdGen 34734) 10000
   ]
 
-stringToTreeGroup :: String -> (String -> Tree Char) -> Benchmark
+stringToTreeGroup :: String -> (String -> Maybe (Tree Char)) -> Benchmark
 stringToTreeGroup name stringToTree = bgroup name
   [ bench "100"   $ nf stringToTree (treeToString $ generate (mkStdGen 8589345) 100)
   , bench "10000" $ nf stringToTree (treeToString $ generate (mkStdGen 34734) 10000)

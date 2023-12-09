@@ -35,7 +35,7 @@ Write a function to construct a tree from the string representation.
 === Examples
 
 >>> stringToTree "x(y,a(,b))"
-Branch 'x' (Branch 'y' Empty Empty) (Branch 'a' Empty (Branch 'b' Empty Empty))
+Just (Branch 'x' (Branch 'y' Empty Empty) (Branch 'a' Empty (Branch 'b' Empty Empty)))
 -}
-stringToTree :: String -> Tree Char
+stringToTree :: String -> Maybe (Tree Char)
 stringToTree = Solution.stringToTree
