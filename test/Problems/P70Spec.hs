@@ -14,7 +14,7 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties
-  :: (String -> MultiwayTree Char, MultiwayTree Char -> String)
+  :: (String -> Maybe (MultiwayTree Char), MultiwayTree Char -> String)
   -> (String, String)
   -> Spec
 properties
@@ -22,7 +22,7 @@ properties
   (nameStringToMultitree, nameMultitreeToString) = do
   describe nameStringToMultitree $ do
     prop "is inverse of multitreeToString" $ \(CharTree t) ->
-      (stringToMultitree . multitreeToString) t `shouldBe` t
+      (stringToMultitree . multitreeToString) t `shouldBe` Just t
 
   describe nameMultitreeToString $ do
     prop "maps to string from singleton tree" $
@@ -35,7 +35,7 @@ properties
 examples :: Spec
 examples = describe "Examples" $ do
   it "stringToMultitree \"afg^^c^bd^e^^^\" == multitree5" $ do
-    stringToMultitree "afg^^c^bd^e^^^" `shouldBe` multitree5
+    stringToMultitree "afg^^c^bd^e^^^" `shouldBe` Just multitree5
 
   it "multitreeToString multitree5" $ do
     multitreeToString multitree5 `shouldBe` "afg^^c^bd^e^^^"

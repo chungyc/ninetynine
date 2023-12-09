@@ -26,9 +26,9 @@ import qualified Solutions.P70          as Solution
 --
 -- === Examples
 --
--- >>> stringToMultitree "afg^^c^bd^e^^^" == multitree5
+-- >>> stringToMultitree "afg^^c^bd^e^^^" == Just multitree5
 -- True
-stringToMultitree :: String -> MultiwayTree Char
+stringToMultitree :: String -> Maybe (MultiwayTree Char)
 stringToMultitree = Solution.stringToMultitree
 
 -- | Construct the node string from a 'MultiwayTree'.

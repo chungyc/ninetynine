@@ -17,18 +17,20 @@ import           Problems.MultiwayTrees
 -- Note that the tree traversal will also backtrack from the root node of the tree.
 --
 -- Write a function to construct the 'MultiwayTree' when the string is given.
-stringToMultitree :: String -> MultiwayTree Char
-stringToMultitree = fst . toNode
+stringToMultitree :: String -> Maybe (MultiwayTree Char)
+stringToMultitree s = fst <$> toNode s
 
-toNode :: String -> (MultiwayTree Char, String)
-toNode (x:xs) = (MultiwayTree x ts, remaining)
-  where (ts, remaining) = toTreeList ([], xs)
-toNode [] = undefined
+toNode :: String -> Maybe (MultiwayTree Char, String)
+toNode (x:xs) = do
+  (ts, remaining) <- toTreeList ([], xs)
+  return (MultiwayTree x ts, remaining)
+toNode [] = Nothing
 
-toTreeList :: ([MultiwayTree Char], String) -> ([MultiwayTree Char], String)
-toTreeList (ts, '^':xs) = (reverse ts, xs)
-toTreeList (ts, s) = toTreeList (node : ts, remaining)
-  where (node, remaining) = toNode s
+toTreeList :: ([MultiwayTree Char], String) -> Maybe ([MultiwayTree Char], String)
+toTreeList (ts, '^':xs) = Just (reverse ts, xs)
+toTreeList (ts, s) = do
+  (node, remaining) <- toNode s
+  toTreeList (node : ts, remaining)
 
 -- | Construct the node string from a 'MultiwayTree'.
 multitreeToString :: MultiwayTree Char -> String
