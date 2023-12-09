@@ -35,6 +35,11 @@ $ git clone https://github.com/chungyc/ninetynine.git
 $ cd ninetynine
 ```
 
+Alternatively, you can try things out in a
+[GitHub Codespace](https://docs.github.com/en/codespaces/overview).
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/chungyc/ninetynine?quickstart=1)
+
 ### Documentation
 
 To generate the documention with [Haddock](https://www.haskell.org/haddock/):
