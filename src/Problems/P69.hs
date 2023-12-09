@@ -24,9 +24,9 @@ Write a function to convert a dotstring representation into its corresponding bi
 === Examples
 
 >>> dotstringToTree "xy..z0..."
-Branch 'x' (Branch 'y' Empty Empty) (Branch 'z' (Branch '0' Empty Empty) Empty)
+Just (Branch 'x' (Branch 'y' Empty Empty) (Branch 'z' (Branch '0' Empty Empty) Empty))
 -}
-dotstringToTree :: String -> Tree Char
+dotstringToTree :: String -> Maybe (Tree Char)
 dotstringToTree = Solution.dotstringToTree
 
 {- |

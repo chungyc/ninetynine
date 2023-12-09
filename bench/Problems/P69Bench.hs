@@ -23,7 +23,7 @@ group = bgroup "P69"
     ]
   ]
 
-dotstringToTreeGroup :: String -> (String -> Tree Char) -> Benchmark
+dotstringToTreeGroup :: String -> (String -> Maybe (Tree Char)) -> Benchmark
 dotstringToTreeGroup name dotstringToTree = bgroup name
   [ bench "100"   $ nf dotstringToTree $ Problem.treeToDotstring $ generate (mkStdGen 8589345) 100
   , bench "10000" $ nf dotstringToTree $ Problem.treeToDotstring $ generate (mkStdGen 34734) 10000
