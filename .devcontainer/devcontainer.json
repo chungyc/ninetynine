@@ -6,21 +6,22 @@
       "packages": "pkg-config"
     },
     "ghcr.io/devcontainers-contrib/features/haskell:2": {
-      "globalPackages": "hlint"
+      "globalPackages": "hlint stylish-haskell"
     }
   },
   "customizations": {
     "vscode": {
       "extensions": [
-        "haskell.haskell",
+        "haskell.haskell"
       ],
       "settings": {
         "editor.formatOnSave": true,
+        "haskell.formattingProvider": "stylish-haskell",
+        "update.showReleaseNotes": false,
         "git.fetchOnPull": true,
         "git.autofetch": "all",
         "git.pruneOnFetch": true,
         "git.autofetchPeriod": 3600,
-        "update.showReleaseNotes": false,
         "githubPullRequests.ignoredPullRequestBranches": [
           "main"
         ]
