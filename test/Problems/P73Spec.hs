@@ -14,7 +14,7 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties
-  :: (MultiwayTree Char -> String, String -> MultiwayTree Char)
+  :: (MultiwayTree Char -> String, String -> Maybe (MultiwayTree Char))
   -> (String, String)
   -> Spec
 properties
@@ -31,7 +31,7 @@ properties
 
   describe nameSexpToTree $ do
     prop "is inverse of treeToSexp" $ \(CharTree t) ->
-      (sexpToTree . treeToSexp) t `shouldBe` t
+      (sexpToTree . treeToSexp) t `shouldBe` Just t
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -51,7 +51,7 @@ examples = describe "Examples" $ do
     treeToSexp multitree5 `shouldBe` "(a (f g) c (b d e))"
 
   it "sexpToTree \"(a (f g) c (b d e))\"" $ do
-    sexpToTree "(a (f g) c (b d e))" `shouldBe` multitree5
+    sexpToTree "(a (f g) c (b d e))" `shouldBe` Just multitree5
 
   where treeToSexp = Problem.treeToSexp
         sexpToTree = Problem.sexpToTree

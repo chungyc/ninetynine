@@ -64,7 +64,7 @@ treeToSexp = Solution.treeToSexp
 --
 -- === Examples
 --
--- >>> sexpToTree "(a (f g) c (b d e))" == multitree5
+-- >>> sexpToTree "(a (f g) c (b d e))" == Just multitree5
 -- True
-sexpToTree :: String -> MultiwayTree Char
+sexpToTree :: String -> Maybe (MultiwayTree Char)
 sexpToTree = Solution.sexpToTree

@@ -29,30 +29,33 @@ treeToSexp (MultiwayTree x ts) = "(" ++ [x] ++ " " ++ unwords (map treeToSexp ts
 
 -- | Write a function which will convert an s-expression, representing
 -- a multiway tree as in 'treeToSexp', into a 'MultiwayTree'.
-sexpToTree :: String -> MultiwayTree Char
+sexpToTree :: String -> Maybe (MultiwayTree Char)
 sexpToTree = tree . parse
-  where tree (t,[])     = t
-        tree (t,' ':xs) = tree (t,xs)
-        tree (_,_)      = undefined
+  where tree Nothing           = Nothing
+        tree (Just (t,[]))     = Just t
+        tree (Just (t,' ':xs)) = tree $ Just (t,xs)
+        tree (Just (_,_))      = Nothing
 
-parse :: String -> (MultiwayTree Char, String)
-parse []       = undefined
-parse (')':_)  = undefined
+parse :: String -> Maybe (MultiwayTree Char, String)
+parse []       = Nothing
+parse (')':_)  = Nothing
 parse (' ':xs) = parse xs
-parse ('(':xs) = (MultiwayTree x ts, xs'')
-  where (x,xs') = parseNode xs
-        (ts,xs'') = parseList ([],xs')
-parse (x:xs) = (MultiwayTree x [],xs)
+parse ('(':xs) = do
+  (x,xs') <- parseNode xs
+  (ts,xs'') <- parseList ([],xs')
+  return (MultiwayTree x ts, xs'')
+parse (x:xs) = Just (MultiwayTree x [],xs)
 
-parseNode :: String -> (Char, String)
-parseNode []       = undefined
-parseNode ('(':_)  = undefined
-parseNode (')':_)  = undefined
+parseNode :: String -> Maybe (Char, String)
+parseNode []       = Nothing
+parseNode ('(':_)  = Nothing
+parseNode (')':_)  = Nothing
 parseNode (' ':xs) = parseNode xs
-parseNode (x:xs)   = (x, xs)
+parseNode (x:xs)   = Just (x, xs)
 
-parseList :: ([MultiwayTree Char], String) -> ([MultiwayTree Char], String)
-parseList (_,[]) = undefined
-parseList (ts,')':xs) = (reverse ts,xs)
-parseList (ts,xs) = parseList (t:ts,xs')
-  where (t,xs') = parse xs
+parseList :: ([MultiwayTree Char], String) -> Maybe ([MultiwayTree Char], String)
+parseList (_,[]) = Nothing
+parseList (ts,')':xs) = Just (reverse ts,xs)
+parseList (ts,xs) = do
+  (t,xs') <- parse xs
+  parseList (t:ts,xs')
