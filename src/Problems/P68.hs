@@ -44,11 +44,11 @@ in which case the tree is determined unambiguously.
 
 === Examples
 
->>> ordersToTree "dbeacgf" "abdecfg" == tree1
+>>> ordersToTree "dbeacgf" "abdecfg" == Just tree1
 True
 -}
 ordersToTree :: Eq a
              => [a]  -- ^ In-order sequence
              -> [a]  -- ^ Pre-order sequence
-             -> Tree a  -- ^ Binary tree with the given in-order and pre-order sequences
+             -> Maybe (Tree a)  -- ^ Binary tree with the given in-order and pre-order sequences
 ordersToTree = Solution.ordersToTree

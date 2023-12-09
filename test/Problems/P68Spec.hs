@@ -16,7 +16,7 @@ import           Test.Hspec.QuickCheck
 import           Test.QuickCheck
 
 properties
-  :: (Tree Int -> [Int], Tree Int -> [Int], [Int] -> [Int] -> Tree Int)
+  :: (Tree Int -> [Int], Tree Int -> [Int], [Int] -> [Int] -> Maybe (Tree Int))
   -> (String, String, String)
   -> Spec
 properties
@@ -38,7 +38,7 @@ properties
 
   describe nameOrdersToTree $ do
     prop "reconstructs binary tree from sequences" $
-      \(DistinctTree t) -> ordersToTree (inorder t) (preorder t) `shouldBe` t
+      \(DistinctTree t) -> ordersToTree (inorder t) (preorder t) `shouldBe` Just t
 
 examples :: Spec
 examples = describe "Examples" $ do
@@ -50,7 +50,7 @@ examples = describe "Examples" $ do
     preorder tree1 `shouldBe` "abdecfg"
 
   it "ordersToTree \"dbeacgf\" \"abdecfg\"" $ do
-    ordersToTree "dbeacgf" "abdecfg" `shouldBe` tree1
+    ordersToTree "dbeacgf" "abdecfg" `shouldBe` Just tree1
 
   where inorder = Problem.inorder
         preorder = Problem.preorder
