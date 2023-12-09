@@ -1,5 +1,5 @@
 name:                ninetynine
-version:             1.1.0
+version:             1.2.0
 github:              "chungyc/ninetynine"
 license:             GPL-3.0-or-later
 license-file:        LICENSE
@@ -27,6 +27,7 @@ description: |
   To try your hand at solving the problems, replace the aliases in the problem modules with your own implementations.
   .
   Based on the Ninety-Nine Haskell problems on [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
+  Unlike the set of problems on HaskellWiki, these are actually 99 Haskell problems.
   For more information, see <https://github.com/chungyc/ninetynine>.
 
 language: GHC2021
