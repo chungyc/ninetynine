@@ -28,7 +28,7 @@
     }
   },
   "updateContentCommand": {
-    "build": "stack build --only-dependencies"
+    "build": "stack build --test --bench --no-run-tests --no-run-benchmarks"
   },
   "hostRequirements": {
     "memory": "16gb",
