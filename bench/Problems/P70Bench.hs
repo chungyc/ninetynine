@@ -20,7 +20,7 @@ group = bgroup "P70"
     ]
   ]
 
-stringToMultitreeGroup :: (String -> MultiwayTree Char) -> String -> Benchmark
+stringToMultitreeGroup :: (String -> Maybe (MultiwayTree Char)) -> String -> Benchmark
 stringToMultitreeGroup stringToMultitree name = bgroup name
   [ bench "string length 500" $ nf stringToMultitree (replicate 100 'a' ++
                                                       replicate 50 '^' ++
