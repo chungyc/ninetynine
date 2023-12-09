@@ -1,0 +1,37 @@
+{
+  "name": "Editor",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+      "packages": "pkg-config"
+    },
+    "ghcr.io/devcontainers-contrib/features/haskell:2": {
+      "globalPackages": "hlint"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "haskell.haskell",
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "git.fetchOnPull": true,
+        "git.autofetch": "all",
+        "git.pruneOnFetch": true,
+        "git.autofetchPeriod": 3600,
+        "update.showReleaseNotes": false,
+        "githubPullRequests.ignoredPullRequestBranches": [
+          "main"
+        ]
+      }
+    }
+  },
+  "updateContentCommand": {
+    "build": "stack build --test --bench --no-run-tests --no-run-benchmarks"
+  },
+  "hostRequirements": {
+    "memory": "16gb",
+    "storage": "32gb"
+  }
+}
