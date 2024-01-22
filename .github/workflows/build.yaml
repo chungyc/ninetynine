@@ -38,14 +38,14 @@ jobs:
           enable-stack: true
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.stack
           key: stack${{ env.extra_key_part }}-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('package.yaml', 'stack.yaml') }}
 
       - name: Cache build artifacts
         if: ${{ !inputs.coverage }}
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .stack-work
           key: stack${{ env.extra_key_part}}-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('app/**', 'bench/**', 'src/**', 'test/**') }}
