@@ -9,6 +9,7 @@ Some solutions to "Problems.P78" of Ninety-Nine Haskell "Problems".
 module Solutions.P78 (collatz) where
 
 import           Control.Monad.Writer
+import           Data.Monoid (Sum(..))
 
 {- | Starting from a positive integer \(n\),
 we can have a sequence of numbers such that at each step,

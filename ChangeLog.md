@@ -4,6 +4,10 @@
 
 See https://github.com/chungyc/ninetynine.
 
+## v1.3.0
+
+*   Update to Haskell Stack LTS 22.23.
+
 ## v1.2.0
 
 *   No longer require the implementation of partial functions.

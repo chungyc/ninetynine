@@ -8,6 +8,7 @@ Some solutions to "Problems.P79" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P79 (calculatePostfix) where
 
+import           Control.Monad (guard, mzero)
 import           Control.Monad.Identity
 import           Control.Monad.State
 import           Control.Monad.Trans.Maybe
