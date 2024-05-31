@@ -153,7 +153,9 @@ findSites g orient = concatMap (evalState find . initial) $ zip [0..] g
                                          , fssChars = []
                                          , fssLocs = []
                                          }
-    step = modify $ \st -> st { fssSpots = tail $ fssSpots st
+    step = modify $ \st -> st { fssSpots = case fssSpots st of
+                                  [] -> error "no more spots"
+                                  (_:xs) -> xs
                               , fssPos = 1 + fssPos st
                               }
 
@@ -289,7 +291,10 @@ guess' :: RandomGen g => Partial -> State g (Maybe Partial)
 guess' p = do
   tiebreakers <- do gen <- state split
                     return (randoms gen :: [Int])
-  let siteIndex = snd $ head $ sortOn count $ zip tiebreakers $ Map.keys $ candidates p
+  let sitePicks = sortOn count $ zip tiebreakers $ Map.keys $ candidates p
+  let siteIndex = snd $ case sitePicks of
+        (x:_) -> x
+        [] -> error "no more sites"
   wordList <- state $ randomPermute $ candidates p ! siteIndex
   state $ tryGuesses p siteIndex wordList
   where

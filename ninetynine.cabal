@@ -21,7 +21,7 @@ homepage:       https://ninetynine.haskell.chungyc.org/
 bug-reports:    https://github.com/chungyc/ninetynine/issues
 author:         Yoo Chung
 maintainer:     dev@chungyc.org
-copyright:      Copyright (C) 2023 Yoo Chung
+copyright:      Copyright (C) 2024 Yoo Chung
 license:        GPL-3.0-or-later
 license-file:   LICENSE
 build-type:     Simple

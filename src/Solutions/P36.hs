@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
+
 {- |
 Description: List of prime factors and their multiplicities
 Copyright: Copyright (C) 2021 Yoo Chung

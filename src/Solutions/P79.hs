@@ -8,7 +8,7 @@ Some solutions to "Problems.P79" of Ninety-Nine Haskell "Problems".
 -}
 module Solutions.P79 (calculatePostfix) where
 
-import           Control.Monad (guard, mzero)
+import           Control.Monad (mzero)
 import           Control.Monad.Identity
 import           Control.Monad.State
 import           Control.Monad.Trans.Maybe
@@ -70,6 +70,8 @@ push x = modify (x:)
 pop :: Calculation Integer
 pop = do
   xs <- get
-  guard $ not $ null xs
-  put $ tail xs
-  return $ head xs
+  case xs of
+    [] -> mzero
+    (x:xs') -> do
+      put xs'
+      return x

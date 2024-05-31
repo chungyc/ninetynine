@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
+
 {- |
 Description: Gaussian primes
 Copyright: Copyright (C) 2022 Yoo Chung

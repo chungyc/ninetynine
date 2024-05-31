@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
+
 {- |
 Description: Cycles with a given vertex
 Copyright: Copyright (C) 2021 Yoo Chung
