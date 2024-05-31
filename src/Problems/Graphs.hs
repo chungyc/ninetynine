@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
+
 {- |
 Description: Supporting definitions for graph problems
 Copyright: Copyright (C) 2023 Yoo Chung

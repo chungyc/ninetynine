@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
+
 {- |
 Description: Modified run-length encoding
 Copyright: Copyright (C) 2021 Yoo Chung

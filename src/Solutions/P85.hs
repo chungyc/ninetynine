@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
+
 {- |
 Description: Graph isomorphism
 Copyright: Copyright (C) 2023 Yoo Chung

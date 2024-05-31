@@ -12,6 +12,7 @@ import           Problems.Crosswords
 import qualified Solutions.P99       as Solution
 
 -- $setup
+-- >>> :set -Wno-x-partial -Wno-unrecognised-warning-flags
 -- >>> import Data.Maybe (fromJust)
 -- >>> import Problems.Crosswords
 

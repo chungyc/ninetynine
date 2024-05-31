@@ -135,7 +135,8 @@ addToSolution g (w,x,y,False)
 -- I.e., we don't like sites that we didn't add ourselves.
 -- Reject grids which have 2x2 blank areas.
 isValid :: [[Maybe Char]] -> Bool
-isValid g = all isValidRows $ zip g $ tail g
+isValid [] = False
+isValid g@(_:gs) = all isValidRows $ zip g gs
   where isValidRows ([], []) = True
         isValidRows (Just _ : Just _ : _,
                      Just _ : Just _ : _) = False
