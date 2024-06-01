@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {-|
 Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
@@ -55,7 +53,9 @@ spec = parallel $ do
 
 getRows :: [[Bool]] -> [[Int]]
 getRows = map lengths
-  where lengths bs = map length $ filter head $ group bs
+  where lengths bs = map length $ filter occupied $ group bs
+        occupied (v:_) = v
+        occupied [] = False
 
 getColumns :: [[Bool]] -> [[Int]]
 getColumns = getRows . transpose
