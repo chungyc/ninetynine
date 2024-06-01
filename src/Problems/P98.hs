@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {- |
 Description: Nonograms
 Copyright: Copyright (C) 2021 Yoo Chung
@@ -127,7 +125,9 @@ printNonogramSolution (Just p) = printNonogram rows columns $ Just $ map (map Ju
 
 getLengths :: [[Bool]] -> [[Int]]
 getLengths []      = []
-getLengths picture = map (map length . filter head . group) picture
+getLengths picture = map (map length . filter isOccupied . group) picture
+  where isOccupied (v:_) = v
+        isOccupied [] = False
 
 -- | Print out a nonogram puzzle or solution.
 printNonogram :: [[Int]] -> [[Int]] -> Maybe [[Maybe Bool]] -> IO ()
