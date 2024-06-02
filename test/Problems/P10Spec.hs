@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {-|
 Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
@@ -18,11 +16,13 @@ properties encode name = describe name $ do
   prop "decodes into original list" $ \l ->
     encode l `shouldSatisfy` (==) l . concatMap (uncurry replicate)
 
-  prop "encodes consecutive duplicates to single encoding" $ \xs x ys (Positive k) ->
-    null xs || last xs /= x ==>
-    null ys || head ys /= x ==>
-    encode (xs ++ replicate k x ++ ys)
-    `shouldBe` encode xs ++ [(k,x)] ++ encode ys
+  prop "encodes consecutive duplicates to single encoding" $ \xs x z y ys (Positive k) ->
+    x /= z && z /= y ==>
+    let xs' = xs ++ [x]
+        ys' = y : ys
+        vs = xs' ++ replicate k z ++ ys'
+    in counterexample (show vs) $
+       encode vs `shouldBe` encode xs' ++ [(k,z)] ++ encode ys'
 
 examples :: Spec
 examples = describe "Examples" $ do
