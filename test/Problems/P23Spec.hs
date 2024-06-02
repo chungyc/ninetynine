@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {-|
 Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
@@ -35,7 +33,7 @@ properties randomSelect name = describe name $ do
     -- Similarly, this also tests that randomSelect returns a new random generator.
     -- If it did not, the use of the same generator would return identical selections.
     let selections = unfoldr (Just . randomSelect [1..100] 10) $ mkStdGen seed
-        isRandom ls = any (uncurry (/=)) $ zip ls $ tail ls
+        isRandom ls = any (uncurry (/=)) $ zip ls $ drop 1 ls
     in conjoin [ selections `shouldSatisfy` any isRandom
                , selections `shouldSatisfy` isRandom
                ]
