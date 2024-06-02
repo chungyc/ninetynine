@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {-|
 Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
@@ -29,7 +27,7 @@ properties randomPermute name = describe name $ do
     -- Similarly, this also tests that randomPermute returns a new random generator.
     -- If it did not, the use of the same generator would return identical selections.
     let permutations = unfoldr (Just . randomPermute [1..100]) $ mkStdGen seed
-        isRandom ls = any (uncurry (/=)) $ zip ls $ tail ls
+        isRandom ls = any (uncurry (/=)) $ zip ls $ drop 1 ls
     in conjoin [ permutations `shouldSatisfy` any isRandom
                , permutations `shouldSatisfy` isRandom
                ]
