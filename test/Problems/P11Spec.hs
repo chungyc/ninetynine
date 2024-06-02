@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {-|
 Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
@@ -23,18 +21,22 @@ properties encodeModified name = describe name $ do
     encodeModified l
     `shouldSatisfy` all (\x -> case x of Multiple n _ -> n > 1; _ -> True)
 
-  prop "encodes single element" $ \xs x ys ->
-    null xs || last xs /= x ==>
-    null ys || head ys /= x ==>
-    encodeModified (xs ++ [x] ++ ys)
-    `shouldBe` encodeModified xs ++ [Single x] ++ encodeModified ys
+  prop "encodes single element" $ \xs x z y ys ->
+    x /= z && z /= y ==>
+    let xs' = xs ++ [x]
+        ys' = y : ys
+        vs = xs' ++ [z] ++ ys'
+    in counterexample (show vs) $
+       encodeModified vs `shouldBe` encodeModified xs' ++ [Single z] ++ encodeModified ys'
 
-  prop "encode consecutive duplicates" $ \xs x ys (Positive k) ->
+  prop "encode consecutive duplicates" $ \xs x z y ys (Positive k) ->
     k > 1 ==>
-    null xs || last xs /= x ==>
-    null ys || head ys /= x ==>
-    encodeModified (xs ++ replicate k x ++ ys)
-    `shouldBe` encodeModified xs ++ [Multiple k x] ++ encodeModified ys
+    x /= z && z /= y ==>
+    let xs' = xs ++ [x]
+        ys' = y : ys
+        vs = xs' ++ replicate k z ++ ys'
+    in counterexample (show vs) $
+       encodeModified vs `shouldBe` encodeModified xs' ++ [Multiple k z] ++ encodeModified ys'
 
 examples :: Spec
 examples = describe "Examples" $ do
