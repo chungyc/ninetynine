@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {- |
 Description: Nonograms
 Copyright: Copyright (C) 2023 Yoo Chung
@@ -88,7 +86,9 @@ isConsistentWithPuzzle :: Bitmap -> [[Int]] -> [[Int]] -> Bool
 isConsistentWithPuzzle picture rows columns = withRows && withColumns
   where withRows = rows == map (lengths . getRow picture) [1..getRowSize picture]
         withColumns = columns == map (lengths . getColumn picture) [1..getColumnSize picture]
-        lengths = map length . filter head . group . map fromJust . Array.elems
+        lengths = map length . filter occupied . group . map fromJust . Array.elems
+        occupied (v:_) = v
+        occupied [] = False
 
 fillRows :: [[Int]] -> [Int] -> Bitmap -> Maybe Bitmap
 fillRows rows remainingRows p = foldlM (\p' i -> fill p' i $ rows !! (i-1)) p remainingRows
@@ -126,11 +126,14 @@ guess' :: RandomGen g => [[Int]] -> [[Int]] -> [Int] -> [Int] -> Bitmap -> State
 guess' rows columns remainingRows remainingColumns picture = do
   tags <- rnds  -- Random numbers used for random tie breaking during sorting.
   value <- rnd  -- Definite value to try first
-  let candidate = fst $ head $ sortOn (countIndefiniteNeighbors picture) $ zip candidates tags
-  picture' <- fill $ picture // [(candidate, Just value)]
-  case picture' of
-    Nothing -> fill $ picture // [(candidate, Just $ not value)]
-    _       -> return picture'
+  let ranked = sortOn (countIndefiniteNeighbors picture) $ zip candidates tags
+  case ranked of
+    [] -> return Nothing
+    ((candidate, _) : _) -> do
+      picture' <- fill $ picture // [(candidate, Just value)]
+      case picture' of
+        Nothing -> fill $ picture // [(candidate, Just $ not value)]
+        _       -> return picture'
   where candidates = filter (\p -> isNothing $ picture ! p) [(r,c) | r <- remainingRows, c <- remainingColumns]
         fill p = state $ fillBitmap rows columns remainingRows remainingColumns p
 
@@ -188,7 +191,9 @@ fillLine xs line
 isConsistent :: [Int] -> [Maybe Bool] -> Bool
 isConsistent [] line = all (Just False ==) line
 isConsistent xs line = xs == xs'
-  where xs' = map length $ filter ((==) (Just True) . head) $ group line
+  where xs' = map length $ filter occupied $ group line
+        occupied (Just v : _) = v
+        occupied _ = False
 
 fillLine' :: Int -> [Int] -> [Maybe Bool] -> [[Maybe Bool]]
 fillLine' _ [] line         = [line]
