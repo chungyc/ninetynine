@@ -23,7 +23,7 @@ properties pack name = describe name $ do
     \xs x z y ys (Positive k) ->
       x /= z && z /= y ==>
       let xs' = xs ++ [x]
-          ys' = [y] ++ ys
+          ys' = y : ys
           vs = xs' ++ replicate k z ++ ys'
       in counterexample (show vs) $
          pack vs `shouldBe` pack xs' ++ [replicate k z] ++ pack ys'
