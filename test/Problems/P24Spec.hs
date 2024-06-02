@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {-|
 Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
@@ -34,7 +32,7 @@ properties randomDraw name = describe name $ do
     -- Similarly, this also tests that randomDraw returns a new random generator.
     -- If it did not, the use of the same generator would return identical draws.
     let draws = unfoldr (Just . randomDraw 10 1000) $ mkStdGen seed
-        isRandom ls = any (uncurry (/=)) $ zip ls $ tail ls
+        isRandom ls = any (uncurry (/=)) $ zip ls $ drop 1 ls
     in conjoin [ draws `shouldSatisfy` any isRandom
                , draws `shouldSatisfy` isRandom
                ]
