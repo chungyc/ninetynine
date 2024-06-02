@@ -1,13 +1,12 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {-|
-Copyright: Copyright (C) 2023 Yoo Chung
+Copyright: Copyright (C) 2024 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 -}
 module Problems.P38Spec (spec) where
 
 import           Data.List             (genericLength)
+import           Data.Maybe            (listToMaybe)
 import           Problems.P35
 import           Problems.P37
 import qualified Problems.P38          as Problem
@@ -19,7 +18,7 @@ import           Test.QuickCheck
 properties :: [Integer] -> String -> Spec
 properties highlyTotientNumbers name = describe name $ do
   prop "includes 1" $ do
-    head highlyTotientNumbers `shouldBe` 1
+    listToMaybe highlyTotientNumbers `shouldBe` Just 1
 
   modifyMaxSize (const 14) $ do
     prop "members have more solutions than lesser totient numbers" $ \(Positive k) ->
@@ -32,7 +31,7 @@ properties highlyTotientNumbers name = describe name $ do
          countSolutions n `shouldSatisfy` (<) (countSolutions m)
 
     prop "does not skip highly totient number" $ \(Positive k) ->
-      let (n,n') = zip highlyTotientNumbers (tail highlyTotientNumbers) !! k
+      let (n,n') = zip highlyTotientNumbers (drop 1 highlyTotientNumbers) !! k
       in forAll (chooseInteger (n+1,n'-1)) $ \m ->
          counterexample ("n=" ++ show n) $
          counterexample ("m=" ++ show m) $
