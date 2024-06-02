@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {-|
 Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
@@ -18,8 +16,10 @@ properties rotate name = describe name $ do
   prop "rotation by zero is identity" $ \(NonEmpty xs) ->
     rotate xs 0 `shouldBe` xs
 
-  prop "rotates by one" $ \(NonEmpty xs) ->
-    rotate xs 1 `shouldBe` tail xs ++ [head xs]
+  prop "rotates by one" $ \x xs ->
+    let xs' = x : xs
+    in counterexample (show xs') $
+       rotate xs' 1 `shouldBe` xs ++ [x]
 
   prop "rotates by negative one" $ \(NonEmpty xs) ->
     rotate xs (-1) `shouldBe` last xs : init xs
