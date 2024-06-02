@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {-|
 Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
@@ -28,19 +26,22 @@ properties compress name = describe name $ do
     compress (xs ++ [x] ++ xs') `shouldSatisfy` elem x
 
   prop "removes consecutive duplicates" $
-    \xs (Positive k) x ys ->
-      null xs || last xs /= x ==>
-      null ys || head ys /= x ==>
-      compress (xs ++ replicate k x ++ ys)
-      `shouldBe` compress xs ++ [x] ++ compress ys
+    \xs x z y ys (Positive k) ->
+      x /= z && z /= y ==>
+      let xs' = xs ++ [x]
+          ys' = y : ys
+          vs = xs' ++ replicate k z ++ ys'
+      in counterexample (show vs) $
+         compress vs `shouldBe` compress xs' ++ [z] ++ compress ys'
 
-  prop "maintains order" $ \xs xs' ->
-    not (null xs) ==>
-    not (null xs') ==>
-    counterexample (show $ xs ++ xs') $
-    case last xs == head xs' of
-      True -> compress (xs ++ xs') `shouldBe` compress xs ++ tail (compress xs')
-      False -> compress (xs ++ xs') `shouldBe` compress xs ++ compress xs'
+  prop "maintains order" $ \xs x y ys ->
+    let xs' = xs ++ [x]
+        ys' = y : ys
+        vs = xs' ++ ys'
+    in counterexample (show vs) $
+       case x == y of
+         True -> compress vs `shouldBe` compress xs' ++ drop 1 (compress ys')
+         False -> compress vs `shouldBe` compress xs' ++ compress ys'
 
 examples :: Spec
 examples = describe "Examples" $ do
