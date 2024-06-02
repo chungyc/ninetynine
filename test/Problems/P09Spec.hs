@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {-|
 Copyright: Copyright (C) 2023 Yoo Chung
 License: GPL-3.0-or-later
@@ -22,11 +20,13 @@ properties pack name = describe name $ do
     pack xs `shouldSatisfy` all (\l -> and [ x == y | x <- l, y <- l])
 
   prop "identical elements do not span consecutive sublists" $
-    \xs (Positive k) x ys ->
-      null xs || last xs /= x ==>
-      null ys || head ys /= x ==>
-      pack (xs ++ replicate k x ++ ys)
-      `shouldBe` pack xs ++ [replicate k x] ++ pack ys
+    \xs x z y ys (Positive k) ->
+      x /= z && z /= y ==>
+      let xs' = xs ++ [x]
+          ys' = [y] ++ ys
+          vs = xs' ++ replicate k z ++ ys'
+      in counterexample (show vs) $
+         pack vs `shouldBe` pack xs' ++ [replicate k z] ++ pack ys'
 
 examples :: Spec
 examples = describe "Examples" $ do
