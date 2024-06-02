@@ -1,5 +1,4 @@
 {-# OPTIONS_GHC -fno-warn-incomplete-uni-patterns #-}
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
 
 {- |
 Description: Graceful tree labeling
@@ -98,8 +97,8 @@ and checks if any are a graceful labeling.
 -}
 gracefulTree' :: G -> Maybe (Map Vertex Int)
 gracefulTree' g
-  | not $ null labelings = Just $ head labelings
-  | otherwise            = Nothing
+  | (v:_) <- labelings = Just v
+  | otherwise          = Nothing
   where vs = Set.toList $ vertexes g
         candidates = map (Map.fromList . flip zip [1..]) $ permutations vs
         labelings = filter (isGracefulLabeling g) candidates
