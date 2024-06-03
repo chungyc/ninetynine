@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {- |
 Description: Huffman codes
 Copyright: Copyright (C) 2021 Yoo Chung
@@ -24,6 +22,7 @@ module Problems.P50
 import           Data.List     (group, sort)
 import           Data.Map.Lazy (Map)
 import qualified Data.Map.Lazy as Map
+import           Data.Maybe    (mapMaybe)
 import qualified Solutions.P50 as Solution
 
 {- |
@@ -65,7 +64,9 @@ huffman = Solution.huffman
 
 -- | Count the number of occurrences of a character in a string.
 countCharacters :: String -> [(Char,Int)]
-countCharacters s = map (\xs -> (head xs, length xs)) $ group $ sort s
+countCharacters s = mapMaybe count $ group $ sort s
+  where count [] = Nothing
+        count xs@(x:_) = Just (x, length xs)
 
 -- | Given an encoding table and a string, encode the string.
 --
