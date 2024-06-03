@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {- |
 Description: Knight's tour
 Copyright: Copyright (C) 2023 Yoo Chung
@@ -66,4 +64,4 @@ printKnightsTour (Just path) = mapM_ (putStrLn . line) [1..n]
         showInt k = replicate (width - length (show k)) ' ' ++ show k
         width = length (show $ n*n)
         l = length path
-        n = head $ takeWhile (\k -> k*k == l) $ dropWhile (\k -> k*k < l) [1..]
+        n = until (\k -> k*k >= l) (+1) 1
