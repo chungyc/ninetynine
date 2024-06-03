@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {- |
 Description: Huffman codes
 Copyright: Copyright (C) 2021 Yoo Chung
