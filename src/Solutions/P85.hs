@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {- |
 Description: Graph isomorphism
 Copyright: Copyright (C) 2023 Yoo Chung
@@ -35,7 +33,10 @@ isomorphic g g'
 
 -- | From the given non-empty set of vertexes, returns the vertex with the largest degree.
 maxDegreeVertex :: G -> Set Vertex -> Vertex
-maxDegreeVertex g vs = head $ sortOn (Down . Set.size . flip neighbors g) $ Set.toList vs
+maxDegreeVertex g vs
+  | (v:_) <- ranked = v
+  | otherwise = undefined
+  where ranked = sortOn (Down . Set.size . flip neighbors g) $ Set.toList vs
 
 expand :: Map Vertex Vertex -> Set Vertex -> (G, Set Vertex) -> (G, Set Vertex) -> Bool
 expand bijection frontier (g, vs) (g', vs')
