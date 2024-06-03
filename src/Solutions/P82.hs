@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {- |
 Description: Cycles with a given vertex
 Copyright: Copyright (C) 2021 Yoo Chung
@@ -24,12 +22,13 @@ start v g = concat $ Set.map (\v' -> spread v g (v', [v], Set.singleton v, Set.e
 
 -- | Build up cycles one vertex at a time.
 spread :: Vertex -> G -> (Vertex, [Vertex], Set Vertex, Set Edge) -> [[Vertex]]
-spread target graph (v, path, visited, passed)
+spread _ _ (_, [], _, _) = []
+spread target graph (v, path@(u:_), visited, passed)
   | Set.member e passed = []
   | v == target = [path]
   | Set.member v visited = []
   | otherwise = concat $ Set.map continue $ neighbors v graph
-  where e = Edge (v, head path)
+  where e = Edge (v, u)
         continue v' = spread target graph (v', path', visited', passed')
         path' = v : path
         visited' = Set.insert v visited
