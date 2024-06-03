@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {- |
 Description: Modified run-length encoding
 Copyright: Copyright (C) 2021 Yoo Chung
@@ -25,5 +23,6 @@ encodeModified xs = encodePacked $ pack xs
 -- | Turn each sublist in a packed list into an 'Encoding'.
 encodePacked :: [[a]] -> [Encoding a]
 encodePacked []       = []
+encodePacked ([]:ls)  = encodePacked ls
 encodePacked ([x]:ls) = Single x : encodePacked ls
-encodePacked (l:ls)   = Multiple (myLength l) (head l) : encodePacked ls
+encodePacked (l@(x:_):ls)   = Multiple (myLength l) x : encodePacked ls
