@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {- |
 Description: List of prime factors and their multiplicities
 Copyright: Copyright (C) 2021 Yoo Chung
@@ -16,4 +14,6 @@ import           Problems.P35
 -- | Determine the prime factors of a given positive integer.
 -- Construct a list containing the prime factors and their multiplicity.
 primeFactorsMultiplicity :: Integral a => a -> [(a, a)]
-primeFactorsMultiplicity = map (\xs -> (head xs, genericLength xs)) . group . primeFactors
+primeFactorsMultiplicity = map (\xs -> (factor xs, genericLength xs)) . group . primeFactors
+  where factor [] = 1
+        factor (x:_) = x
