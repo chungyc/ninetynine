@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {- |
 Description: Gaussian primes
 Copyright: Copyright (C) 2022 Yoo Chung
@@ -30,5 +28,5 @@ isGaussianPrime x = null $ divisors \\ exclusions
 candidates :: Complex Integer -> [Complex Integer]
 candidates (a :+ b) = [ x :+ y  | x <- [0..bound], y <- [0..bound] ]
   where norm = square a + square b
-        bound = head $ dropWhile (\x -> (square . square) x < norm) [1..]
+        bound = until (\x -> (square . square) x >= norm) (+1) 1
         square x = x*x
