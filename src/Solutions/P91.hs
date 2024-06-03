@@ -1,8 +1,6 @@
-{-# OPTIONS_GHC -Wno-x-partial -Wno-unrecognised-warning-flags #-}
-
 {- |
 Description: Knight's tour
-Copyright: Copyright (C) 2023 Yoo Chung
+Copyright: Copyright (C) 2024 Yoo Chung
 License: GPL-3.0-or-later
 Maintainer: dev@chungyc.org
 
@@ -26,15 +24,16 @@ knightsTour n pos
   where legalEnd = isLegalPosition n pos
 
 tour :: Int -> [(Int,Int)] -> Set (Int,Int) -> Maybe [(Int,Int)]
-tour n path remaining
+tour _ [] _ = Nothing
+tour n path@(p:_) remaining
   | Set.null remaining = Just path
   | null next          = Nothing
   | otherwise          = path'
-  where path' | null paths = Nothing
-              | otherwise  = head paths
+  where path' | [] <- paths = Nothing
+              | (ps:_) <- paths  = ps
         paths = map Just $ mapMaybe (\pos -> tour n (pos:path) $ Set.delete pos remaining) next
         -- Apply Warnsdorff's heuristic.
-        next = sortOn (\pos -> availableMoves (Set.delete pos remaining) pos) $ nextMoves remaining $ head path
+        next = sortOn (\pos -> availableMoves (Set.delete pos remaining) pos) $ nextMoves remaining p
 
 nextMoves :: Set (Int,Int) -> (Int,Int) -> [(Int,Int)]
 nextMoves remaining (x,y) = filter (`Set.member` remaining) $
@@ -58,11 +57,12 @@ closedKnightsTour n
   | otherwise = closedTour n [(2,3)] $ Set.fromList [(x,y) | x <- [1..n], y <- [1..n], (x,y) /= (2,3)]
 
 closedTour :: Int -> [(Int,Int)] -> Set (Int,Int) -> Maybe [(Int,Int)]
-closedTour n path remaining
-  | Set.null remaining = if head path == (1,1) then Just path else Nothing
+closedTour _ [] _ = Nothing
+closedTour n path@(p:_) remaining
+  | Set.null remaining = if p == (1,1) then Just path else Nothing
   | null next          = Nothing
   | otherwise          = path'
-  where path' | null paths = Nothing
-              | otherwise  = head paths
+  where path' | [] <- paths = Nothing
+              | (ps:_) <- paths = ps
         paths = map Just $ mapMaybe (\pos -> tour n (pos:path) $ Set.delete pos remaining) next
-        next = nextMoves remaining $ head path
+        next = nextMoves remaining p
