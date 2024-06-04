@@ -195,13 +195,14 @@ boardLocations = [(x,y) | x <- [1..9], y <- [1..9]]
 -- | When pruning no longer works, try guessing through possibilities at a random position.
 guess :: RandomGen g => Board -> Pending -> g -> (Maybe Board, g)
 guess b p g
-  | [] <- sortOn snd candidates = (Nothing, g'')
-  | ((candidate, _) : _) <- sortOn snd candidates = guessWithPosition b' p' candidate g''
+  | ((candidate, _) : _) <- ranked = guessWithPosition b' p' candidate g''
+  | otherwise = (Nothing, g'')
   where
     -- Incorporate possibilities that have become definite into the board itself.
     (b', p') = incorporatePending b p
-    -- Associate each position with a random number as well.  It will serve as a random tiebreaker.
     -- We will pick a position with the smallest number of possibilities to constrain the search space more.
+    ranked = sortOn snd candidates
+    -- Associate each position with a random number as well.  It will serve as a random tiebreaker.
     candidates = zipWith (curry (\((e, s), r) -> ((e, s), (Set.size s, r)))) (Map.toList p') (randoms g' :: [Int])
     (g', g'') = split g
 
