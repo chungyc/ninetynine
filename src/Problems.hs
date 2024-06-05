@@ -21,6 +21,8 @@ see the "Problems.Tutorial" module.
 
 These are based on the Ninety-Nine Haskell Problems on
 the [HaskellWiki](https://wiki.haskell.org/H-99:_Ninety-Nine_Haskell_Problems).
+Unlike the set of problems on the HaskellWiki,
+problems have been added so that there actually are 99 problems.
 The source for this module is available at [GitHub](https://github.com/chungyc/ninetynine).
 -}
 module Problems (
