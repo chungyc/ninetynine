@@ -4,6 +4,10 @@
 
 See https://github.com/chungyc/ninetynine.
 
+## v1.3.1
+
+*   Update to Haskell Stack LTS 24.59.
+
 ## v1.3.0
 
 *   Update to Haskell Stack LTS 22.23.

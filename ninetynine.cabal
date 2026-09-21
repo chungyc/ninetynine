@@ -1,11 +1,11 @@
 cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.36.0.
+-- This file has been generated from package.yaml by hpack version 0.39.6.
 --
 -- see: https://github.com/sol/hpack
 
 name:           ninetynine
-version:        1.3.0
+version:        1.3.1
 synopsis:       Ninety-Nine Haskell Problems
 description:    Ninety-Nine Haskell Problems.
                 These are programming exercises for practice with [Haskell](https://www.haskell.org/).
@@ -297,7 +297,7 @@ library
     , random
     , text
     , transformers
-  default-language: GHC2021
+  default-language: GHC2024
 
 executable generate-support
   main-is: Main.hs
@@ -316,7 +316,7 @@ executable generate-support
     , filepath
     , ninetynine
     , process
-  default-language: GHC2021
+  default-language: GHC2024
 
 test-suite examples-test
   type: exitcode-stdio-1.0
@@ -333,7 +333,7 @@ test-suite examples-test
       base
     , doctest-parallel
     , ninetynine
-  default-language: GHC2021
+  default-language: GHC2024
 
 test-suite ninetynine-test
   type: exitcode-stdio-1.0
@@ -469,7 +469,7 @@ test-suite ninetynine-test
     , parsec
     , process
     , random
-  default-language: GHC2021
+  default-language: GHC2024
 
 benchmark ninetynine-bench
   type: exitcode-stdio-1.0
@@ -584,4 +584,4 @@ benchmark ninetynine-bench
     , deepseq
     , ninetynine
     , random
-  default-language: GHC2021
+  default-language: GHC2024

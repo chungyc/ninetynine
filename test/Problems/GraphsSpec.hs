@@ -22,7 +22,7 @@ spec = parallel $ do
     general "Paths" (toGraph :: C Paths)
     general "G" (toGraph :: C G)
 
-general :: (Graph g, Show g, Eq g) => String -> ((Set Vertex, Set Edge) -> Maybe g) -> Spec
+general :: forall g. (Graph g, Show g, Eq g) => String -> ((Set Vertex, Set Edge) -> Maybe g) -> Spec
 general name toGraph' = do
   context ("with " ++ name) $ do
     prop "sets composed with toGraph is identity" $
@@ -65,7 +65,8 @@ general name toGraph' = do
         in not (Set.null $ Set.filter (vs `doesNotInclude`) es) ==>
            toGraph' (vs, es) `shouldBe` Nothing
 
-  where withGraph f (Sets s) = let g = fromJust $ toGraph' s in f g
+  where withGraph :: (g -> a) -> Sets -> a
+        withGraph f (Sets s) = let g = fromJust $ toGraph' s in f g
         vertexPairs g = [(u,v) | let l = Set.toList $ vertexes g, u <- l, v <- l]
 
 type C g = (Set Vertex, Set Edge) -> Maybe g
